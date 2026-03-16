@@ -1,65 +1,1400 @@
-import Image from "next/image";
+'use client'
 
-export default function Home() {
+import dynamic from 'next/dynamic'
+import { useState, useRef, FormEvent } from 'react'
+
+const HeroCanvas = dynamic(() => import('./components/HeroCanvas'), { ssr: false })
+
+const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '917675822722'
+const whatsappLink = `https://wa.me/${whatsappNumber}?text=Hi%20BISXP%2C%20I%27d%20like%20to%20discuss%20a%20project`
+
+// ─── TYPES ───────────────────────────────────────────────────────────────────
+
+interface FormData {
+  name: string
+  email: string
+  phone: string
+  company: string
+  business_type: string
+  message: string
+}
+
+// ─── PAGE ────────────────────────────────────────────────────────────────────
+
+export default function HomePage() {
+  const [mobileNavOpen, setMobileNavOpen] = useState(false)
+  const [formData, setFormData] = useState<FormData>({
+    name: '',
+    email: '',
+    phone: '',
+    company: '',
+    business_type: '',
+    message: '',
+  })
+  const [formState, setFormState] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
+  const [formError, setFormError] = useState('')
+  const formRef = useRef<HTMLFormElement>(null)
+
+  const updateField = (field: keyof FormData) => (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => setFormData((prev) => ({ ...prev, [field]: e.target.value }))
+
+  async function handleSubmit(e: FormEvent) {
+    e.preventDefault()
+    setFormError('')
+
+    // Client-side validation
+    if (!formData.name.trim()) return setFormError('Name is required.')
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!emailRegex.test(formData.email)) return setFormError('A valid email is required.')
+    if (!formData.message.trim() || formData.message.trim().length < 20)
+      return setFormError('Message must be at least 20 characters.')
+
+    setFormState('loading')
+    try {
+      const res = await fetch('/api/enquiry', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      })
+      const data = await res.json()
+      if (!res.ok) throw new Error(data.error || 'Something went wrong.')
+      setFormState('success')
+    } catch (err: any) {
+      setFormError(err.message || 'Submission failed. Please try again.')
+      setFormState('error')
+    }
+  }
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
+    <>
+      <style>{`
+        /* ── NAVBAR ── */
+        .nav {
+          position: fixed;
+          top: 0; left: 0; right: 0;
+          z-index: 100;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 0 40px;
+          height: 72px;
+          backdrop-filter: blur(16px);
+          -webkit-backdrop-filter: blur(16px);
+          background: rgba(8,8,10,0.85);
+          border-bottom: 1px solid var(--border);
+        }
+        .nav-logo {
+          font-family: 'Cormorant Garamond', serif;
+          font-size: 24px;
+          font-weight: 400;
+          letter-spacing: 4px;
+          color: var(--cream);
+          text-decoration: none;
+        }
+        .nav-logo span { color: var(--amber); }
+        .nav-links {
+          display: flex;
+          gap: 36px;
+          list-style: none;
+        }
+        .nav-links a {
+          font-family: 'Outfit', sans-serif;
+          font-size: 13px;
+          font-weight: 400;
+          letter-spacing: 2px;
+          text-transform: uppercase;
+          color: var(--muted);
+          transition: color 0.2s;
+        }
+        .nav-links a:hover { color: var(--cream); }
+        .nav-cta {
+          font-family: 'Outfit', sans-serif;
+          font-size: 11px;
+          font-weight: 500;
+          letter-spacing: 3px;
+          text-transform: uppercase;
+          padding: 10px 24px;
+          background: var(--amber);
+          color: var(--obsidian);
+          border: none;
+          cursor: pointer;
+          transition: background 0.2s;
+          text-decoration: none;
+          display: inline-block;
+        }
+        .nav-cta:hover { background: var(--amber-bright); }
+        .nav-mobile-toggle {
+          display: none;
+          flex-direction: column;
+          gap: 5px;
+          cursor: pointer;
+          padding: 4px;
+        }
+        .nav-mobile-toggle span {
+          display: block;
+          width: 22px;
+          height: 1.5px;
+          background: var(--cream);
+          transition: all 0.2s;
+        }
+        .mobile-nav-drawer {
+          display: none;
+          position: fixed;
+          top: 72px;
+          left: 0; right: 0;
+          background: var(--charcoal);
+          border-bottom: 1px solid var(--border);
+          padding: 24px 40px;
+          z-index: 99;
+          flex-direction: column;
+          gap: 20px;
+        }
+        .mobile-nav-drawer.open { display: flex; }
+        .mobile-nav-drawer a {
+          font-family: 'Outfit', sans-serif;
+          font-size: 14px;
+          letter-spacing: 2px;
+          text-transform: uppercase;
+          color: var(--muted);
+          padding: 8px 0;
+          border-bottom: 1px solid var(--border);
+        }
+
+        /* ── HERO ── */
+        .hero {
+          position: relative;
+          width: 100%;
+          height: 100vh;
+          min-height: 600px;
+          background: var(--obsidian);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          overflow: hidden;
+        }
+        .hero-content {
+          position: relative;
+          z-index: 10;
+          text-align: center;
+          padding: 0 24px;
+          max-width: 780px;
+        }
+        .hero-eyebrow {
+          font-family: 'Outfit', sans-serif;
+          font-size: 10px;
+          font-weight: 500;
+          letter-spacing: 6px;
+          text-transform: uppercase;
+          color: var(--amber);
+          margin-bottom: 28px;
+          display: block;
+        }
+        .hero-headline {
+          font-family: 'Cormorant Garamond', serif;
+          font-size: 88px;
+          font-weight: 300;
+          line-height: 0.95;
+          color: var(--cream);
+          margin-bottom: 28px;
+        }
+        .hero-headline em {
+          color: var(--amber-bright);
+          font-style: italic;
+        }
+        .hero-sub {
+          font-family: 'Outfit', sans-serif;
+          font-size: 18px;
+          font-weight: 300;
+          color: var(--muted);
+          max-width: 520px;
+          margin: 0 auto 40px;
+          line-height: 1.7;
+        }
+        .hero-ctas {
+          display: flex;
+          gap: 16px;
+          justify-content: center;
+          flex-wrap: wrap;
+        }
+        .btn-amber {
+          font-family: 'Outfit', sans-serif;
+          font-size: 11px;
+          font-weight: 500;
+          letter-spacing: 3px;
+          text-transform: uppercase;
+          padding: 14px 32px;
+          background: var(--amber);
+          color: var(--obsidian);
+          border: none;
+          cursor: pointer;
+          transition: background 0.2s;
+          text-decoration: none;
+          display: inline-block;
+        }
+        .btn-amber:hover { background: var(--amber-bright); }
+        .btn-ghost {
+          font-family: 'Outfit', sans-serif;
+          font-size: 11px;
+          font-weight: 500;
+          letter-spacing: 3px;
+          text-transform: uppercase;
+          padding: 13px 32px;
+          background: transparent;
+          color: var(--amber);
+          border: 1px solid var(--amber);
+          cursor: pointer;
+          transition: all 0.2s;
+          text-decoration: none;
+          display: inline-block;
+        }
+        .btn-ghost:hover { background: var(--amber-dim); }
+        .scroll-indicator {
+          position: absolute;
+          bottom: 36px;
+          left: 50%;
+          transform: translateX(-50%);
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 8px;
+          z-index: 10;
+        }
+        .scroll-indicator span {
+          font-family: 'Outfit', sans-serif;
+          font-size: 9px;
+          letter-spacing: 3px;
+          text-transform: uppercase;
+          color: var(--muted);
+        }
+        .scroll-line {
+          width: 1px;
+          height: 40px;
+          background: linear-gradient(to bottom, var(--amber), transparent);
+          animation: scrollPulse 2s ease-in-out infinite;
+        }
+        @keyframes scrollPulse {
+          0%, 100% { opacity: 0.4; transform: scaleY(1); }
+          50% { opacity: 1; transform: scaleY(1.1); }
+        }
+
+        /* ── SECTION COMMON ── */
+        .section {
+          padding: 100px 40px;
+        }
+        .section-eyebrow {
+          font-family: 'Outfit', sans-serif;
+          font-size: 10px;
+          font-weight: 500;
+          letter-spacing: 5px;
+          text-transform: uppercase;
+          color: var(--amber);
+          margin-bottom: 16px;
+          display: block;
+        }
+        .section-heading {
+          font-family: 'Cormorant Garamond', serif;
+          font-size: 52px;
+          font-weight: 300;
+          color: var(--cream);
+          margin-bottom: 60px;
+          line-height: 1.1;
+        }
+        .container {
+          max-width: 1200px;
+          margin: 0 auto;
+        }
+
+        /* ── STATS BAR ── */
+        .stats-bar {
+          background: var(--charcoal);
+          border-top: 1px solid var(--border);
+          border-bottom: 1px solid var(--border);
+          padding: 48px 40px;
+        }
+        .stats-grid {
+          max-width: 1200px;
+          margin: 0 auto;
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 0;
+        }
+        .stat-item {
+          text-align: center;
+          padding: 20px 24px;
+          position: relative;
+        }
+        .stat-item:not(:last-child)::after {
+          content: '';
+          position: absolute;
+          right: 0;
+          top: 20%;
+          height: 60%;
+          width: 1px;
+          background: var(--border-strong);
+        }
+        .stat-number {
+          font-family: 'Cormorant Garamond', serif;
+          font-size: 52px;
+          font-weight: 300;
+          color: var(--amber);
+          line-height: 1;
+          display: block;
+          margin-bottom: 8px;
+        }
+        .stat-label {
+          font-family: 'Outfit', sans-serif;
+          font-size: 14px;
+          font-weight: 500;
+          color: var(--cream);
+          display: block;
+          margin-bottom: 4px;
+        }
+        .stat-sub {
+          font-family: 'Outfit', sans-serif;
+          font-size: 12px;
+          color: var(--muted);
+          display: block;
+        }
+
+        /* ── ACRONYM ── */
+        .acronym-section {
+          background: var(--obsidian);
+          padding: 100px 40px;
+        }
+        .acronym-grid {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 2px;
+          max-width: 1200px;
+          margin: 0 auto;
+        }
+        .acronym-card {
+          background: var(--charcoal);
+          padding: 52px 48px;
+          position: relative;
+          overflow: hidden;
+          border-left: 3px solid transparent;
+          transition: border-color 0.3s;
+        }
+        .acronym-card:hover { border-left-color: var(--amber); }
+        .acronym-ghost {
+          position: absolute;
+          top: -10px;
+          right: 20px;
+          font-family: 'Cormorant Garamond', serif;
+          font-size: 120px;
+          font-weight: 600;
+          color: var(--amber);
+          opacity: 0.06;
+          line-height: 1;
+          pointer-events: none;
+          user-select: none;
+        }
+        .acronym-letter {
+          font-family: 'Cormorant Garamond', serif;
+          font-size: 13px;
+          font-weight: 600;
+          letter-spacing: 4px;
+          text-transform: uppercase;
+          color: var(--amber);
+          display: block;
+          margin-bottom: 12px;
+        }
+        .acronym-word {
+          font-family: 'Cormorant Garamond', serif;
+          font-size: 32px;
+          font-weight: 300;
+          color: var(--cream);
+          display: block;
+          margin-bottom: 16px;
+        }
+        .acronym-desc {
+          font-family: 'Outfit', sans-serif;
+          font-size: 14px;
+          font-weight: 300;
+          color: var(--muted);
+          line-height: 1.7;
+          position: relative;
+          z-index: 1;
+        }
+
+        /* ── PORTFOLIO ── */
+        .portfolio-section {
+          background: var(--charcoal);
+          padding: 100px 40px;
+        }
+        .portfolio-grid {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 2px;
+          max-width: 1200px;
+          margin: 0 auto 2px;
+        }
+        .portfolio-card {
+          background: var(--steel);
+          padding: 52px 48px;
+          display: flex;
+          flex-direction: column;
+          gap: 20px;
+          transition: background 0.2s;
+        }
+        .portfolio-card:hover { background: #22222C; }
+        .portfolio-eyebrow {
+          font-family: 'Outfit', sans-serif;
+          font-size: 10px;
+          font-weight: 500;
+          letter-spacing: 4px;
+          text-transform: uppercase;
+          color: var(--amber);
+        }
+        .portfolio-title {
+          font-family: 'Cormorant Garamond', serif;
+          font-size: 48px;
+          font-weight: 300;
+          color: var(--cream);
+          line-height: 1;
+        }
+        .portfolio-desc {
+          font-family: 'Outfit', sans-serif;
+          font-size: 15px;
+          font-weight: 300;
+          color: var(--muted);
+          line-height: 1.7;
+        }
+        .portfolio-tags {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 8px;
+        }
+        .portfolio-tag {
+          font-family: 'Outfit', sans-serif;
+          font-size: 11px;
+          font-weight: 400;
+          letter-spacing: 1px;
+          color: var(--amber);
+          border: 1px solid var(--border-strong);
+          padding: 4px 12px;
+        }
+        .portfolio-link {
+          font-family: 'Outfit', sans-serif;
+          font-size: 13px;
+          font-weight: 500;
+          color: var(--amber);
+          letter-spacing: 1px;
+          text-decoration: none;
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          transition: color 0.2s;
+        }
+        .portfolio-link:hover { color: var(--amber-bright); }
+        .portfolio-stat-strip {
+          font-family: 'Outfit', sans-serif;
+          font-size: 11px;
+          font-weight: 400;
+          letter-spacing: 2px;
+          text-transform: uppercase;
+          color: var(--muted);
+          padding-top: 20px;
+          border-top: 1px solid var(--border);
+          margin-top: auto;
+        }
+        .portfolio-callout {
+          max-width: 1200px;
+          margin: 0 auto;
+          background: var(--amber-dim);
+          border: 1px solid var(--border-strong);
+          padding: 52px 48px;
+          text-align: center;
+        }
+        .portfolio-callout p {
+          font-family: 'Cormorant Garamond', serif;
+          font-size: 28px;
+          font-weight: 300;
+          font-style: italic;
+          color: var(--cream);
+          margin-bottom: 28px;
+          line-height: 1.5;
+        }
+
+        /* ── SERVICES ── */
+        .services-section {
+          background: var(--obsidian);
+          padding: 100px 40px;
+        }
+        .services-grid {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 2px;
+          max-width: 1200px;
+          margin: 0 auto;
+        }
+        .service-card {
+          background: var(--charcoal);
+          padding: 48px;
+          border-top: 3px solid transparent;
+          transition: border-color 0.3s;
+        }
+        .service-card:hover { border-top-color: var(--amber); }
+        .service-icon {
+          font-size: 28px;
+          color: var(--amber);
+          display: block;
+          margin-bottom: 20px;
+        }
+        .service-title {
+          font-family: 'Cormorant Garamond', serif;
+          font-size: 26px;
+          font-weight: 300;
+          color: var(--cream);
+          margin-bottom: 8px;
+        }
+        .service-price {
+          font-family: 'Outfit', sans-serif;
+          font-size: 11px;
+          font-weight: 500;
+          letter-spacing: 2px;
+          text-transform: uppercase;
+          color: var(--amber);
+          margin-bottom: 20px;
+          display: block;
+        }
+        .service-desc {
+          font-family: 'Outfit', sans-serif;
+          font-size: 14px;
+          font-weight: 300;
+          color: var(--muted);
+          line-height: 1.7;
+        }
+
+        /* ── PROCESS ── */
+        .process-section {
+          background: var(--charcoal);
+          padding: 100px 40px;
+        }
+        .process-steps {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 0;
+          max-width: 1200px;
+          margin: 0 auto;
+          position: relative;
+        }
+        .process-steps::before {
+          content: '';
+          position: absolute;
+          top: 36px;
+          left: 48px;
+          right: 48px;
+          height: 1px;
+          background: var(--border-strong);
+          z-index: 0;
+        }
+        .process-step {
+          padding: 0 32px;
+          position: relative;
+          z-index: 1;
+        }
+        .process-step:first-child { padding-left: 0; }
+        .process-step:last-child { padding-right: 0; }
+        .process-number {
+          font-family: 'Cormorant Garamond', serif;
+          font-size: 52px;
+          font-weight: 300;
+          color: var(--amber);
+          line-height: 1;
+          display: block;
+          margin-bottom: 20px;
+          background: var(--charcoal);
+          width: fit-content;
+          padding-right: 16px;
+        }
+        .process-title {
+          font-family: 'Outfit', sans-serif;
+          font-size: 14px;
+          font-weight: 600;
+          letter-spacing: 1px;
+          text-transform: uppercase;
+          color: var(--cream);
+          margin-bottom: 12px;
+          display: block;
+        }
+        .process-desc {
+          font-family: 'Outfit', sans-serif;
+          font-size: 13px;
+          font-weight: 300;
+          color: var(--muted);
+          line-height: 1.7;
+        }
+
+        /* ── MARQUEE ── */
+        .marquee-section {
+          background: var(--obsidian);
+          padding: 60px 0;
+          overflow: hidden;
+          border-top: 1px solid var(--border);
+          border-bottom: 1px solid var(--border);
+        }
+        .marquee-label {
+          text-align: center;
+          font-family: 'Outfit', sans-serif;
+          font-size: 10px;
+          font-weight: 500;
+          letter-spacing: 5px;
+          text-transform: uppercase;
+          color: var(--amber);
+          margin-bottom: 32px;
+        }
+        .marquee-track {
+          display: flex;
+          gap: 16px;
+          animation: marqueeScroll 28s linear infinite;
+          width: max-content;
+        }
+        @keyframes marqueeScroll {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+        .marquee-tag {
+          font-family: 'Outfit', sans-serif;
+          font-size: 13px;
+          font-weight: 400;
+          color: var(--cream);
+          border: 1px solid var(--border-strong);
+          background: var(--charcoal);
+          padding: 12px 28px;
+          white-space: nowrap;
+          flex-shrink: 0;
+        }
+
+        /* ── CONTACT ── */
+        .contact-section {
+          background: var(--charcoal);
+          padding: 100px 40px;
+        }
+        .contact-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 80px;
+          max-width: 1200px;
+          margin: 0 auto;
+          align-items: start;
+        }
+        .contact-left h2 {
+          font-family: 'Cormorant Garamond', serif;
+          font-size: 52px;
+          font-weight: 300;
+          color: var(--cream);
+          margin-bottom: 24px;
+          line-height: 1.1;
+        }
+        .contact-left p {
+          font-family: 'Outfit', sans-serif;
+          font-size: 16px;
+          font-weight: 300;
+          color: var(--muted);
+          line-height: 1.7;
+          margin-bottom: 32px;
+        }
+        .whatsapp-link {
+          display: inline-flex;
+          align-items: center;
+          gap: 10px;
+          font-family: 'Outfit', sans-serif;
+          font-size: 14px;
+          font-weight: 500;
+          color: var(--amber);
+          text-decoration: none;
+          padding: 14px 24px;
+          border: 1px solid var(--border-strong);
+          transition: all 0.2s;
+        }
+        .whatsapp-link:hover {
+          background: var(--amber-dim);
+          border-color: var(--amber);
+        }
+        .form-group {
+          display: flex;
+          flex-direction: column;
+          gap: 6px;
+          margin-bottom: 20px;
+        }
+        .form-label {
+          font-family: 'Outfit', sans-serif;
+          font-size: 11px;
+          font-weight: 500;
+          letter-spacing: 2px;
+          text-transform: uppercase;
+          color: var(--muted);
+        }
+        .form-input, .form-select, .form-textarea {
+          background: var(--obsidian);
+          border: 1px solid var(--border);
+          color: var(--cream);
+          font-family: 'Outfit', sans-serif;
+          font-size: 15px;
+          font-weight: 300;
+          padding: 14px 16px;
+          outline: none;
+          transition: border-color 0.2s;
+          width: 100%;
+        }
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+          border-color: var(--amber);
+        }
+        .form-select {
+          appearance: none;
+          cursor: pointer;
+        }
+        .form-select option { background: var(--obsidian); }
+        .form-textarea {
+          resize: vertical;
+          min-height: 140px;
+        }
+        .form-error {
+          font-family: 'Outfit', sans-serif;
+          font-size: 13px;
+          color: #e57373;
+          margin-bottom: 16px;
+          padding: 12px 16px;
+          background: rgba(229, 115, 115, 0.1);
+          border: 1px solid rgba(229, 115, 115, 0.3);
+        }
+        .form-submit {
+          width: 100%;
+          padding: 16px;
+          background: var(--amber);
+          color: var(--obsidian);
+          font-family: 'Outfit', sans-serif;
+          font-size: 12px;
+          font-weight: 600;
+          letter-spacing: 3px;
+          text-transform: uppercase;
+          border: none;
+          cursor: pointer;
+          transition: background 0.2s;
+        }
+        .form-submit:hover:not(:disabled) { background: var(--amber-bright); }
+        .form-submit:disabled { opacity: 0.7; cursor: not-allowed; }
+        .form-success {
+          padding: 52px;
+          text-align: center;
+          border: 1px solid var(--border-strong);
+          background: var(--amber-dim);
+        }
+        .form-success h3 {
+          font-family: 'Cormorant Garamond', serif;
+          font-size: 32px;
+          font-weight: 300;
+          color: var(--cream);
+          margin-bottom: 16px;
+        }
+        .form-success p {
+          font-family: 'Outfit', sans-serif;
+          font-size: 15px;
+          font-weight: 300;
+          color: var(--muted);
+          line-height: 1.7;
+        }
+        .form-success p a { color: var(--amber); }
+
+        /* ── FOOTER ── */
+        .footer {
+          background: var(--obsidian);
+          border-top: 1px solid var(--border);
+          padding: 60px 40px 0;
+        }
+        .footer-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr 1fr;
+          gap: 40px;
+          max-width: 1200px;
+          margin: 0 auto 48px;
+        }
+        .footer-logo {
+          font-family: 'Cormorant Garamond', serif;
+          font-size: 22px;
+          font-weight: 400;
+          letter-spacing: 4px;
+          color: var(--cream);
+          display: block;
+          margin-bottom: 12px;
+        }
+        .footer-logo span { color: var(--amber); }
+        .footer-tagline {
+          font-family: 'Outfit', sans-serif;
+          font-size: 12px;
+          font-weight: 300;
+          letter-spacing: 2px;
+          color: var(--muted);
+        }
+        .footer-links {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 8px 24px;
+          align-items: flex-start;
+        }
+        .footer-links a {
+          font-family: 'Outfit', sans-serif;
+          font-size: 13px;
+          font-weight: 400;
+          letter-spacing: 1px;
+          color: var(--muted);
+          transition: color 0.2s;
+        }
+        .footer-links a:hover { color: var(--amber); }
+        .footer-contact {
+          display: flex;
+          flex-direction: column;
+          gap: 12px;
+          align-items: flex-end;
+        }
+        .footer-contact a {
+          font-family: 'Outfit', sans-serif;
+          font-size: 13px;
+          font-weight: 400;
+          color: var(--muted);
+          text-decoration: none;
+          transition: color 0.2s;
+        }
+        .footer-contact a:hover { color: var(--amber); }
+        .footer-bottom {
+          border-top: 1px solid var(--border);
+          padding: 24px 0;
+          text-align: center;
+          max-width: 1200px;
+          margin: 0 auto;
+        }
+        .footer-bottom p {
+          font-family: 'Outfit', sans-serif;
+          font-size: 12px;
+          font-weight: 300;
+          color: var(--muted);
+          letter-spacing: 1px;
+        }
+
+        /* ── WHATSAPP FAB ── */
+        .wa-fab {
+          position: fixed;
+          bottom: 32px;
+          right: 32px;
+          z-index: 9999;
+          width: 56px;
+          height: 56px;
+          border-radius: 50%;
+          background: var(--amber);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          text-decoration: none;
+          animation: waPulse 2.5s ease-in-out infinite;
+          transition: background 0.2s, transform 0.2s;
+          box-shadow: 0 4px 20px rgba(212,168,67,0.35);
+        }
+        .wa-fab:hover {
+          background: var(--amber-bright);
+          transform: scale(1.08);
+          animation: none;
+        }
+        @keyframes waPulse {
+          0%, 100% { box-shadow: 0 4px 20px rgba(212,168,67,0.35); }
+          50% { box-shadow: 0 4px 32px rgba(212,168,67,0.65), 0 0 0 8px rgba(212,168,67,0.1); }
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 900px) {
+          .nav { padding: 0 24px; }
+          .nav-links { display: none; }
+          .nav-mobile-toggle { display: flex; }
+          .hero-headline { font-size: 52px; }
+          .hero-sub { font-size: 16px; }
+          .stats-grid { grid-template-columns: repeat(2, 1fr); }
+          .stat-item:nth-child(2)::after { display: none; }
+          .acronym-grid { grid-template-columns: 1fr; }
+          .portfolio-grid { grid-template-columns: 1fr; }
+          .services-grid { grid-template-columns: 1fr; }
+          .process-steps {
+            grid-template-columns: 1fr;
+            gap: 40px;
+          }
+          .process-steps::before { display: none; }
+          .process-step { padding: 0; border-left: 2px solid var(--border-strong); padding-left: 24px; }
+          .process-number { background: transparent; }
+          .contact-grid { grid-template-columns: 1fr; gap: 48px; }
+          .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+          .footer-contact { align-items: flex-start; }
+          .section { padding: 72px 24px; }
+          .acronym-section { padding: 72px 24px; }
+          .portfolio-section { padding: 72px 24px; }
+          .services-section { padding: 72px 24px; }
+          .process-section { padding: 72px 24px; }
+          .contact-section { padding: 72px 24px; }
+          .footer { padding: 48px 24px 0; }
+          .stats-bar { padding: 40px 24px; }
+          .portfolio-card { padding: 36px 28px; }
+          .acronym-card { padding: 40px 32px; }
+          .service-card { padding: 36px; }
+          .portfolio-callout { padding: 40px 28px; }
+          .portfolio-callout p { font-size: 22px; }
+        }
+        @media (max-width: 600px) {
+          .hero-headline { font-size: 40px; }
+          .section-heading { font-size: 38px; }
+          .stats-grid { grid-template-columns: repeat(2, 1fr); }
+          .stat-item::after { display: none; }
+          .wa-fab { bottom: 20px; right: 20px; }
+        }
+      `}</style>
+
+      {/* ── NAVBAR ── */}
+      <nav className="nav">
+        <a href="/" className="nav-logo">
+          BISX<span>P</span>
+        </a>
+        <ul className="nav-links">
+          <li><a href="#work">Work</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#process">Process</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+        <a href="#contact" className="nav-cta">Start a Project</a>
+        <div
+          className="nav-mobile-toggle"
+          onClick={() => setMobileNavOpen((o) => !o)}
+          aria-label="Toggle navigation"
+        >
+          <span />
+          <span />
+          <span />
+        </div>
+      </nav>
+      <div className={`mobile-nav-drawer${mobileNavOpen ? ' open' : ''}`}>
+        <a href="#work" onClick={() => setMobileNavOpen(false)}>Work</a>
+        <a href="#services" onClick={() => setMobileNavOpen(false)}>Services</a>
+        <a href="#process" onClick={() => setMobileNavOpen(false)}>Process</a>
+        <a href="#contact" onClick={() => setMobileNavOpen(false)}>Contact</a>
+      </div>
+
+      {/* ── HERO ── */}
+      <section className="hero">
+        <HeroCanvas />
+        <div className="hero-content">
+          <span className="hero-eyebrow">AI-Native Technology Consultancy</span>
+          <h1 className="hero-headline">
+            We don't just advise.<br />
+            <em>We build.</em>
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+          <p className="hero-sub">
+            From marketplace blueprint to production-ready platform — in weeks, not months.
           </p>
+          <div className="hero-ctas">
+            <a href="#contact" className="btn-amber">Start a Project</a>
+            <a href="#work" className="btn-ghost">See Our Work</a>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+        <div className="scroll-indicator">
+          <span>Scroll</span>
+          <div className="scroll-line" />
         </div>
-      </main>
-    </div>
-  );
+      </section>
+
+      {/* ── STATS BAR ── */}
+      <div className="stats-bar">
+        <div className="stats-grid">
+          <div className="stat-item">
+            <span className="stat-number">2</span>
+            <span className="stat-label">Live marketplaces</span>
+            <span className="stat-sub">Built and deployed</span>
+          </div>
+          <div className="stat-item">
+            <span className="stat-number">8 wks</span>
+            <span className="stat-label">Average build time</span>
+            <span className="stat-sub">Idea to production</span>
+          </div>
+          <div className="stat-item">
+            <span className="stat-number">3</span>
+            <span className="stat-label">Countries served</span>
+            <span className="stat-sub">India · USA · Canada</span>
+          </div>
+          <div className="stat-item">
+            <span className="stat-number">100%</span>
+            <span className="stat-label">Hands-on delivery</span>
+            <span className="stat-sub">We stay until it works</span>
+          </div>
+        </div>
+      </div>
+
+      {/* ── ACRONYM ── */}
+      <section className="acronym-section">
+        <div className="container">
+          <span className="section-eyebrow">What BISXP Stands For</span>
+          <div className="acronym-grid">
+            <div className="acronym-card">
+              <span className="acronym-ghost">B</span>
+              <span className="acronym-letter">B —</span>
+              <span className="acronym-word">Blueprint</span>
+              <p className="acronym-desc">
+                Every engagement starts with a clear, actionable plan tailored to your business — not a generic framework.
+              </p>
+            </div>
+            <div className="acronym-card">
+              <span className="acronym-ghost">I</span>
+              <span className="acronym-letter">I —</span>
+              <span className="acronym-word">Ignite</span>
+              <p className="acronym-desc">
+                We spark momentum — aligning your team, activating systems, and getting the right things moving.
+              </p>
+            </div>
+            <div className="acronym-card">
+              <span className="acronym-ghost">S</span>
+              <span className="acronym-letter">S —</span>
+              <span className="acronym-word">Scale</span>
+              <p className="acronym-desc">
+                We design for scale from day one — architecture, systems, and processes that grow with you.
+              </p>
+            </div>
+            <div className="acronym-card">
+              <span className="acronym-ghost">XP</span>
+              <span className="acronym-letter">XP —</span>
+              <span className="acronym-word">Xperience</span>
+              <p className="acronym-desc">
+                Battle-tested expertise. We've built the marketplaces, trained the teams, and launched the brands ourselves.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── PORTFOLIO ── */}
+      <section className="portfolio-section" id="work">
+        <div className="container">
+          <span className="section-eyebrow">Our Work</span>
+          <h2 className="section-heading">Built by BISXP</h2>
+          <div className="portfolio-grid">
+            {/* TABRO */}
+            <div className="portfolio-card">
+              <div>
+                <p className="portfolio-eyebrow">India · Venue Marketplace</p>
+                <h3 className="portfolio-title">TABRO.IN</h3>
+              </div>
+              <p className="portfolio-desc">
+                End-to-end event venue marketplace for Hyderabad. Five open lawns, indoor halls, sports facilities, overnight stays. Owner portals, social feed, enquiry pipeline, tiered subscriptions.
+              </p>
+              <div className="portfolio-tags">
+                {['Next.js', 'Supabase', 'Vercel', 'Stripe', 'Claude AI'].map((t) => (
+                  <span key={t} className="portfolio-tag">{t}</span>
+                ))}
+              </div>
+              <a
+                href="https://tabro.in"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="portfolio-link"
+              >
+                tabro.in →
+              </a>
+              <p className="portfolio-stat-strip">Premium venues · Owner portals · Social feed</p>
+            </div>
+
+            {/* TheUnitedSports */}
+            <div className="portfolio-card">
+              <div>
+                <p className="portfolio-eyebrow">USA + Canada · Sports Marketplace</p>
+                <h3 className="portfolio-title">TheUnitedSports</h3>
+              </div>
+              <p className="portfolio-desc">
+                Cricket-first sports marketplace for the North American diaspora. Academies, coaches, grounds, gear vendors, leagues — all in one platform with social feed and influencer programme.
+              </p>
+              <div className="portfolio-tags">
+                {['Next.js', 'Supabase', 'AWS', 'Stripe', 'Claude AI'].map((t) => (
+                  <span key={t} className="portfolio-tag">{t}</span>
+                ))}
+              </div>
+              <a
+                href="https://theunitedsports.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="portfolio-link"
+              >
+                theunitedsports.com →
+              </a>
+              <p className="portfolio-stat-strip">Cricket · Soccer · Kabaddi · All sports</p>
+            </div>
+          </div>
+
+          {/* Callout strip */}
+          <div className="portfolio-callout">
+            <p>
+              Your marketplace could be next. We've done this twice.<br />
+              We know exactly how to do it again.
+            </p>
+            <a href="#contact" className="btn-amber">Let's Talk</a>
+          </div>
+        </div>
+      </section>
+
+      {/* ── SERVICES ── */}
+      <section className="services-section" id="services">
+        <div className="container">
+          <span className="section-eyebrow">Services</span>
+          <h2 className="section-heading">What We Build</h2>
+          <div className="services-grid">
+            <div className="service-card">
+              <span className="service-icon">◈</span>
+              <h3 className="service-title">Marketplace Starter</h3>
+              <span className="service-price">8 weeks · From $25,000</span>
+              <p className="service-desc">
+                A complete two-sided marketplace — listings, owner portals, enquiry system, payments, and social feed. Built on our proven pattern. Deployed and live.
+              </p>
+            </div>
+            <div className="service-card">
+              <span className="service-icon">⬡</span>
+              <h3 className="service-title">Marketplace Pro</h3>
+              <span className="service-price">12 weeks · From $50,000</span>
+              <p className="service-desc">
+                Everything in Starter plus Claude AI integration — intelligent search, automated matching, AI-powered listing descriptions, and custom features for your vertical.
+              </p>
+            </div>
+            <div className="service-card">
+              <span className="service-icon">◎</span>
+              <h3 className="service-title">SaaS Platform</h3>
+              <span className="service-price">10–16 weeks · Custom</span>
+              <p className="service-desc">
+                Custom SaaS product built with the full BISXP stack. Auth, subscriptions, multi-tenant portals, admin dashboards, API integrations. Production-grade from day one.
+              </p>
+            </div>
+            <div className="service-card">
+              <span className="service-icon">△</span>
+              <h3 className="service-title">Digital Transformation Retainer</h3>
+              <span className="service-price">Ongoing · From $5,000/mo</span>
+              <p className="service-desc">
+                Embedded technical partner for businesses that need continuous delivery — new features, AWS migration, AI integration, performance, and strategic guidance.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── PROCESS ── */}
+      <section className="process-section" id="process">
+        <div className="container">
+          <span className="section-eyebrow">How We Work</span>
+          <h2 className="section-heading">Our Process</h2>
+          <div className="process-steps">
+            <div className="process-step">
+              <span className="process-number">01</span>
+              <span className="process-title">Discovery</span>
+              <p className="process-desc">
+                We learn your business, community, and goals. No templates. No assumptions.
+              </p>
+            </div>
+            <div className="process-step">
+              <span className="process-number">02</span>
+              <span className="process-title">Blueprint</span>
+              <p className="process-desc">
+                A scoped, costed plan. What we build, in what order, and why.
+              </p>
+            </div>
+            <div className="process-step">
+              <span className="process-number">03</span>
+              <span className="process-title">Execution</span>
+              <p className="process-desc">
+                We build alongside you. Weekly demos. Real code. Deployed features.
+              </p>
+            </div>
+            <div className="process-step">
+              <span className="process-number">04</span>
+              <span className="process-title">Handover</span>
+              <p className="process-desc">
+                You own everything. Trained team, documented systems, zero dependency on us.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── WHO WE WORK WITH (MARQUEE) ── */}
+      <div className="marquee-section">
+        <p className="marquee-label">Who We Work With</p>
+        <div style={{ overflow: 'hidden' }}>
+          <div className="marquee-track">
+            {[
+              'Early-stage startups',
+              'Marketplace founders',
+              'Family businesses going digital',
+              'Hospitality & events',
+              'Sports communities',
+              'Diaspora-origin businesses',
+              'SMEs scaling operations',
+              'Brands entering new markets',
+              'VC-backed teams',
+              'Service businesses',
+              // Duplicate for seamless loop
+              'Early-stage startups',
+              'Marketplace founders',
+              'Family businesses going digital',
+              'Hospitality & events',
+              'Sports communities',
+              'Diaspora-origin businesses',
+              'SMEs scaling operations',
+              'Brands entering new markets',
+              'VC-backed teams',
+              'Service businesses',
+            ].map((tag, i) => (
+              <span key={i} className="marquee-tag">{tag}</span>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* ── CONTACT FORM ── */}
+      <section className="contact-section" id="contact">
+        <div className="contact-grid">
+          <div className="contact-left">
+            <h2>Start a Project</h2>
+            <p>
+              Tell us what you're building. We'll respond within 24 hours with honest thoughts on how we'd approach it — no pitch, no pressure.
+            </p>
+            <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="whatsapp-link">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+              </svg>
+              Or message us directly on WhatsApp
+            </a>
+          </div>
+
+          <div className="contact-right">
+            {formState === 'success' ? (
+              <div className="form-success">
+                <h3>Thank you.</h3>
+                <p>
+                  We'll be in touch within 24 hours. In the meantime, explore our work at{' '}
+                  <a href="https://tabro.in" target="_blank" rel="noopener noreferrer">TABRO.IN</a>
+                  {' '}and{' '}
+                  <a href="https://theunitedsports.com" target="_blank" rel="noopener noreferrer">TheUnitedSports.com</a>.
+                </p>
+              </div>
+            ) : (
+              <form ref={formRef} onSubmit={handleSubmit} noValidate>
+                <div className="form-group">
+                  <label className="form-label">Name *</label>
+                  <input
+                    className="form-input"
+                    type="text"
+                    value={formData.name}
+                    onChange={updateField('name')}
+                    placeholder="Your full name"
+                    required
+                  />
+                </div>
+                <div className="form-group">
+                  <label className="form-label">Email *</label>
+                  <input
+                    className="form-input"
+                    type="email"
+                    value={formData.email}
+                    onChange={updateField('email')}
+                    placeholder="you@company.com"
+                    required
+                  />
+                </div>
+                <div className="form-group">
+                  <label className="form-label">Phone</label>
+                  <input
+                    className="form-input"
+                    type="tel"
+                    value={formData.phone}
+                    onChange={updateField('phone')}
+                    placeholder="+1 234 567 8900"
+                  />
+                </div>
+                <div className="form-group">
+                  <label className="form-label">Company / Business Name</label>
+                  <input
+                    className="form-input"
+                    type="text"
+                    value={formData.company}
+                    onChange={updateField('company')}
+                    placeholder="Your company"
+                  />
+                </div>
+                <div className="form-group">
+                  <label className="form-label">Business Type</label>
+                  <select
+                    className="form-select"
+                    value={formData.business_type}
+                    onChange={updateField('business_type')}
+                  >
+                    <option value="">Select one…</option>
+                    <option value="Marketplace">Marketplace</option>
+                    <option value="SaaS Platform">SaaS Platform</option>
+                    <option value="Digital Transformation">Digital Transformation</option>
+                    <option value="Event/Venue">Event / Venue</option>
+                    <option value="Sports/Community">Sports / Community</option>
+                    <option value="E-commerce">E-commerce</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+                <div className="form-group">
+                  <label className="form-label">Message * (min 20 characters)</label>
+                  <textarea
+                    className="form-textarea"
+                    value={formData.message}
+                    onChange={updateField('message')}
+                    placeholder="Tell us what you're building, your timeline, and any key requirements…"
+                    required
+                  />
+                </div>
+                {(formState === 'error' || formError) && (
+                  <div className="form-error">{formError}</div>
+                )}
+                <button
+                  type="submit"
+                  className="form-submit"
+                  disabled={formState === 'loading'}
+                >
+                  {formState === 'loading' ? 'Sending…' : 'Send Enquiry'}
+                </button>
+              </form>
+            )}
+          </div>
+        </div>
+      </section>
+
+      {/* ── FOOTER ── */}
+      <footer className="footer">
+        <div className="footer-grid">
+          <div>
+            <span className="footer-logo">BISX<span>P</span></span>
+            <p className="footer-tagline">Blueprint. Ignite. Scale. Xperience.</p>
+          </div>
+          <div>
+            <div className="footer-links">
+              <a href="#work">Work</a>
+              <a href="#services">Services</a>
+              <a href="#process">Process</a>
+              <a href="#contact">Contact</a>
+              <a href="https://tabro.in" target="_blank" rel="noopener noreferrer">TABRO.IN</a>
+              <a href="https://theunitedsports.com" target="_blank" rel="noopener noreferrer">TheUnitedSports.com</a>
+            </div>
+          </div>
+          <div className="footer-contact">
+            <a href="mailto:hello@bisxp.com">hello@bisxp.com</a>
+            <a href={whatsappLink} target="_blank" rel="noopener noreferrer">WhatsApp</a>
+          </div>
+        </div>
+        <div className="footer-bottom">
+          <p>© 2026 BISXP. All rights reserved.</p>
+        </div>
+      </footer>
+
+      {/* ── WHATSAPP FAB ── */}
+      <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="wa-fab" aria-label="Chat on WhatsApp">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="var(--obsidian)">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+        </svg>
+      </a>
+    </>
+  )
 }
