@@ -829,6 +829,34 @@ async function runFinancial() {
       {l:'FinCEN',v:d2.fincen,cl:d2.fincen==='CLEAR'?'ok':'warn'},
       {l:'Overall',v:d2.overall,cl:d2.overall==='CLEAR'?'ok':d2.overall==='BLOCKED'?'err':'warn'},
     ]);
+
+    // BLOCKED = only one possible action. Disable Clear and EDD, force Block.
+    const isBlocked = d2.overall === 'BLOCKED';
+    const isEDD = d2.overall === 'ENHANCED_DUE_DILIGENCE';
+    const clearBtn = document.querySelector('#hg0-2 .hg-btn.p');
+    const eddBtn = document.querySelector('#hg0-2 .hg-btn:not(.p):not(.d)');
+    const blockBtn = document.querySelector('#hg0-2 .hg-btn.d');
+    if (isBlocked) {
+      // Disable Clear and EDD — cannot override a sanctions match
+      if (clearBtn) { clearBtn.disabled = true; clearBtn.style.opacity = '0.3'; clearBtn.style.cursor = 'not-allowed'; clearBtn.title = 'Cannot clear — sanctions match confirmed'; }
+      if (eddBtn) { eddBtn.disabled = true; eddBtn.style.opacity = '0.3'; eddBtn.style.cursor = 'not-allowed'; eddBtn.title = 'Cannot proceed — sanctions match requires block'; }
+      // Make Block prominent
+      if (blockBtn) { blockBtn.style.background = 'var(--err)'; blockBtn.style.color = 'var(--white)'; blockBtn.style.borderColor = 'var(--err)'; blockBtn.textContent = 'Block Application — Sanctions Match Confirmed'; }
+      // Update gate header
+      document.querySelector('#hg0-2 .hg-t').textContent = 'Sanctions match confirmed — application must be blocked';
+      document.querySelector('#hg0-2 .hg-s').textContent = 'OFAC and/or EU list match detected. Proceeding is not permitted under sanctions compliance regulations.';
+    } else if (isEDD) {
+      // EDD: disable Clear, keep EDD and Block
+      if (clearBtn) { clearBtn.disabled = true; clearBtn.style.opacity = '0.3'; clearBtn.style.cursor = 'not-allowed'; clearBtn.title = 'Potential match detected — cannot auto-clear'; }
+    } else {
+      // CLEAR: re-enable all buttons in case of re-run
+      if (clearBtn) { clearBtn.disabled = false; clearBtn.style.opacity = ''; clearBtn.style.cursor = ''; clearBtn.title = ''; clearBtn.textContent = 'Clear — Proceed to Risk Assessment'; }
+      if (eddBtn) { eddBtn.disabled = false; eddBtn.style.opacity = ''; eddBtn.style.cursor = ''; }
+      if (blockBtn) { blockBtn.style.background = ''; blockBtn.style.color = ''; blockBtn.style.borderColor = ''; blockBtn.textContent = 'Block Application'; }
+      document.querySelector('#hg0-2 .hg-t').textContent = 'Compliance officer sign-off required';
+      document.querySelector('#hg0-2 .hg-s').textContent = 'AI screening complete. Review findings and clear to proceed.';
+    }
+
     document.getElementById('ps0').textContent = '⏸ Awaiting sign-off';
     document.getElementById('ps0').className = 'pw-status ps-wait';
     showHG(2);
@@ -842,8 +870,10 @@ async function runFinancial() {
       if (el) { el.className = 'step err'; el.querySelector('.step-dot').textContent = '✕'; }
       document.getElementById('ps0').textContent = '✕ Blocked';
       document.getElementById('ps0').className = 'pw-status ps-err';
-      document.getElementById('sum0-title').textContent = 'Application Blocked at Sanctions';
-      document.getElementById('sum0-sub').textContent = d2.summary;
+      document.getElementById('sum0-title').textContent = 'Application Blocked — Sanctions Match';
+      document.getElementById('sum0-sub').textContent = d2.analyst_memo || d2.summary;
+      document.getElementById('sum0-steps').textContent = '2/8';
+      document.getElementById('sum0-risk').textContent = 'BLOCKED';
       document.getElementById('sum0').classList.add('vis');
       btn.disabled = false; btn.textContent = '▶ Run Again'; fin0running = false; return;
     }
