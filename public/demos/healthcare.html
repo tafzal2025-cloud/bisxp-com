@@ -203,7 +203,7 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 
 <header class="hdr">
   <a class="logo" href="https://bisxp.com">BIS<span>XP</span></a>
-  <div class="hdr-center">Claude AI Active · Healthcare Suite</div>
+  <div class="hdr-center">AI Engine Active · Healthcare Suite</div>
   <div style="display:flex;align-items:center;gap:12px">
     <span style="font-size:12px;color:var(--muted)">Healthcare & Life Sciences</span>
     <span class="hdr-pill">Enterprise Demo</span>
@@ -294,7 +294,7 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
     </div>
 
     <div class="card">
-      <div class="card-hdr"><span class="card-title">AI Authorization Analysis</span><span class="badge b-ai">Claude AI</span></div>
+      <div class="card-hdr"><span class="card-title">AI Authorization Analysis</span><span class="badge b-ai">AI Analysis</span></div>
       <div class="card-body" id="d1-body">
         <div class="placeholder" id="d1-ph"><div class="placeholder-icon">🏥</div><p style="font-size:13px;line-height:1.6">Submit authorization request<br>to see AI analysis</p></div>
         <div class="loading" id="d1-load">
@@ -370,7 +370,7 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
     </div>
 
     <div class="card">
-      <div class="card-hdr"><span class="card-title">AI Credentialing Report</span><span class="badge b-ai">Claude AI</span></div>
+      <div class="card-hdr"><span class="card-title">AI Credentialing Report</span><span class="badge b-ai">AI Analysis</span></div>
       <div class="card-body" id="d2-body">
         <div class="placeholder" id="d2-ph"><div class="placeholder-icon">👨‍⚕️</div><p style="font-size:13px;line-height:1.6">Submit application to see<br>AI credentialing report</p></div>
         <div class="loading" id="d2-load">
@@ -453,7 +453,7 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
     </div>
 
     <div class="card">
-      <div class="card-hdr"><span class="card-title">AI Compliance Analysis</span><span class="badge b-ai">Claude AI</span></div>
+      <div class="card-hdr"><span class="card-title">AI Compliance Analysis</span><span class="badge b-ai">AI Analysis</span></div>
       <div class="card-body" id="d3-body">
         <div class="placeholder" id="d3-ph"><div class="placeholder-icon">📋</div><p style="font-size:13px;line-height:1.6">Submit regulation to see<br>AI gap analysis</p></div>
         <div class="loading" id="d3-load">
@@ -526,7 +526,7 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
     </div>
 
     <div class="card">
-      <div class="card-hdr"><span class="card-title">AI Trial Matching Report</span><span class="badge b-ai">Claude AI</span></div>
+      <div class="card-hdr"><span class="card-title">AI Trial Matching Report</span><span class="badge b-ai">AI Analysis</span></div>
       <div class="card-body" id="d4-body">
         <div class="placeholder" id="d4-ph"><div class="placeholder-icon">🔬</div><p style="font-size:13px;line-height:1.6">Submit patient profile to see<br>AI trial matching</p></div>
         <div class="loading" id="d4-load">
@@ -606,7 +606,7 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
     </div>
 
     <div class="card">
-      <div class="card-hdr"><span class="card-title">AI Pharmacovigilance Analysis</span><span class="badge b-ai">Claude AI</span></div>
+      <div class="card-hdr"><span class="card-title">AI Pharmacovigilance Analysis</span><span class="badge b-ai">AI Analysis</span></div>
       <div class="card-body" id="d5-body">
         <div class="placeholder" id="d5-ph"><div class="placeholder-icon">💊</div><p style="font-size:13px;line-height:1.6">Submit adverse event to see<br>AI analysis and MedWatch draft</p></div>
         <div class="loading" id="d5-load">
@@ -690,7 +690,7 @@ function buildChecks(checks){
 }
 function buildLetter(title,content,time){
   const paras=content.split('\n\n').filter(p=>p.trim());
-  return `<div class="letter-head">${title}</div>${paras.map(p=>`<p>${p}</p>`).join('')}<div class="letter-sig"><strong style="color:var(--teal)">BISXP Healthcare AI</strong><br><span style="font-size:11px;color:var(--muted)">Generated in ${time}s · Powered by Claude AI · Review before clinical use</span></div>`;
+  return `<div class="letter-head">${title}</div>${paras.map(p=>`<p>${p}</p>`).join('')}<div class="letter-sig"><strong style="color:var(--teal)">BISXP Healthcare AI</strong><br><span style="font-size:11px;color:var(--muted)">Generated in ${time}s · BISXP AI Suite · Review before clinical use</span></div>`;
 }
 async function callClaude(prompt){
   const r=await fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,messages:[{role:'user',content:prompt}]})});

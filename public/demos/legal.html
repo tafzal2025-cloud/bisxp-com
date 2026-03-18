@@ -98,7 +98,7 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 <body>
 <header class="hdr">
   <a class="logo" href="index.html">BIS<span>XP</span></a>
-  <div class="hdr-center">Claude AI Active · Legal Suite</div>
+  <div class="hdr-center">AI Engine Active · Legal Suite</div>
   <div style="display:flex;align-items:center;gap:12px"><span style="font-size:12px;color:var(--muted)">Legal & Compliance</span><span class="hdr-pill">Enterprise Demo</span></div>
 </header>
 <div class="hero">
@@ -160,7 +160,7 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
       </div>
     </div>
     <div class="card">
-      <div class="card-hdr"><span class="card-title">AI Legal Analysis</span><span class="badge b-ai">Claude AI</span></div>
+      <div class="card-hdr"><span class="card-title">AI Legal Analysis</span><span class="badge b-ai">AI Analysis</span></div>
       <div class="card-body" id="d1-body">
         <div class="placeholder" id="d1-ph"><div class="placeholder-icon">📄</div><p style="font-size:13px;line-height:1.6">Submit contract to see<br>AI risk analysis and redlines</p></div>
         <div class="loading" id="d1-load"><div class="spinner"></div><div style="font-size:12px;color:var(--muted);margin-top:10px">Reviewing contract...</div>
@@ -238,7 +238,7 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
       </div>
     </div>
     <div class="card">
-      <div class="card-hdr"><span class="card-title">AI NDA Analysis</span><span class="badge b-ai">Claude AI</span></div>
+      <div class="card-hdr"><span class="card-title">AI NDA Analysis</span><span class="badge b-ai">AI Analysis</span></div>
       <div class="card-body" id="d2-body">
         <div class="placeholder" id="d2-ph"><div class="placeholder-icon">🤝</div><p style="font-size:13px;line-height:1.6">Submit requirements to see<br>AI-generated NDA</p></div>
         <div class="loading" id="d2-load"><div class="spinner"></div><div style="font-size:12px;color:var(--muted);margin-top:10px">Drafting NDA...</div>
@@ -295,7 +295,7 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
       </div>
     </div>
     <div class="card">
-      <div class="card-hdr"><span class="card-title">AI Impact Analysis</span><span class="badge b-ai">Claude AI</span></div>
+      <div class="card-hdr"><span class="card-title">AI Impact Analysis</span><span class="badge b-ai">AI Analysis</span></div>
       <div class="card-body" id="d3-body">
         <div class="placeholder" id="d3-ph"><div class="placeholder-icon">⚖️</div><p style="font-size:13px;line-height:1.6">Submit regulation to see<br>AI contract impact analysis</p></div>
         <div class="loading" id="d3-load"><div class="spinner"></div><div style="font-size:12px;color:var(--muted);margin-top:10px">Analyzing impact...</div>
@@ -357,7 +357,7 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
       </div>
     </div>
     <div class="card">
-      <div class="card-hdr"><span class="card-title">AI Litigation Hold</span><span class="badge b-ai">Claude AI</span></div>
+      <div class="card-hdr"><span class="card-title">AI Litigation Hold</span><span class="badge b-ai">AI Analysis</span></div>
       <div class="card-body" id="d4-body">
         <div class="placeholder" id="d4-ph"><div class="placeholder-icon">🔒</div><p style="font-size:13px;line-height:1.6">Submit matter details to see<br>AI litigation hold notice</p></div>
         <div class="loading" id="d4-load"><div class="spinner"></div><div style="font-size:12px;color:var(--muted);margin-top:10px">Generating hold notice...</div>
@@ -418,7 +418,7 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
       </div>
     </div>
     <div class="card">
-      <div class="card-hdr"><span class="card-title">AI Board Minutes</span><span class="badge b-ai">Claude AI</span></div>
+      <div class="card-hdr"><span class="card-title">AI Board Minutes</span><span class="badge b-ai">AI Analysis</span></div>
       <div class="card-body" id="d5-body">
         <div class="placeholder" id="d5-ph"><div class="placeholder-icon">📋</div><p style="font-size:13px;line-height:1.6">Submit meeting notes to see<br>AI-generated formal minutes</p></div>
         <div class="loading" id="d5-load"><div class="spinner"></div><div style="font-size:12px;color:var(--muted);margin-top:10px">Drafting minutes...</div>
@@ -460,7 +460,7 @@ async function animSteps(p,n,d=580){for(let i=1;i<=n;i++){await new Promise(r=>s
 function showLoad(id){document.getElementById(`${id}-ph`).style.display='none';document.getElementById(`${id}-load`).classList.add('on');document.getElementById(`${id}-result`).classList.remove('on');const l=document.getElementById(`${id}-letter`);if(l)l.classList.remove('on');}
 function showResult(id){document.getElementById(`${id}-load`).classList.remove('on');document.getElementById(`${id}-result`).classList.add('on');}
 function buildChecks(c){return c.map(x=>`<div class="chk ${x.status}"><span class="chk-icon">${x.status==='pass'?'✓':x.status==='warn'?'⚠':'✕'}</span><div class="chk-text"><strong>${x.title}</strong><span>${x.detail}</span></div></div>`).join('');}
-function buildLetter(title,content,time){const p=content.split('\n\n').filter(x=>x.trim());return `<div class="letter-head">${title}</div>${p.map(x=>`<p>${x}</p>`).join('')}<div class="letter-sig"><strong style="color:var(--violet-bright)">BISXP Legal AI</strong><br><span style="font-size:11px;color:var(--muted)">Generated in ${time}s · Powered by Claude AI · Not legal advice — review with qualified counsel</span></div>`;}
+function buildLetter(title,content,time){const p=content.split('\n\n').filter(x=>x.trim());return `<div class="letter-head">${title}</div>${p.map(x=>`<p>${x}</p>`).join('')}<div class="letter-sig"><strong style="color:var(--violet-bright)">BISXP Legal AI</strong><br><span style="font-size:11px;color:var(--muted)">Generated in ${time}s · BISXP AI Suite · Not legal advice — review with qualified counsel</span></div>`;}
 async function callClaude(prompt){const r=await fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,messages:[{role:'user',content:prompt}]})});const d=await r.json();return JSON.parse(d.content[0].text.replace(/```json|```/g,'').trim());}
 async function runG(id,role,...pairs){
   const btn=document.getElementById(`${id}-btn`);const orig=btn.textContent;btn.disabled=true;btn.textContent='Analyzing...';

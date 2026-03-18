@@ -222,7 +222,7 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 <!-- HEADER -->
 <header class="hdr">
   <a class="logo" href="https://bisxp.com">BIS<span>XP</span></a>
-  <div class="hdr-center">Claude AI Active · 5 Live Demos</div>
+  <div class="hdr-center">AI Engine Active · 5 Live Demos</div>
   <div class="hdr-right">
     <span style="font-size:12px;color:var(--muted)">Financial Services Suite</span>
     <span class="hdr-pill">Enterprise Demo</span>
@@ -233,7 +233,7 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 <div class="hero">
   <div class="hero-eye">BISXP Enterprise · Built for Financial Services</div>
   <h1>Five Workflows.<br><em>One Platform.</em> Real AI.</h1>
-  <p class="hero-sub">Every demo below runs live Claude AI. No mocks, no pre-recorded responses. This is exactly what we'd build for your team — in 8 weeks.</p>
+  <p class="hero-sub">Every demo below runs live AI. No mocks, no pre-recorded responses. This is exactly what we'd build for your team — in 8 weeks.</p>
   <div class="hero-tags">
     <span class="htag">Merchant Onboarding</span>
     <span class="htag">Dispute Resolution</span>
@@ -332,7 +332,7 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
     </div>
 
     <div class="card">
-      <div class="card-hdr"><span class="card-title">AI Risk Analysis</span><span class="badge b-ai">Claude AI</span></div>
+      <div class="card-hdr"><span class="card-title">AI Risk Analysis</span><span class="badge b-ai">AI Analysis</span></div>
       <div class="card-body" id="d1-body">
         <div class="placeholder" id="d1-ph"><div class="placeholder-icon">⚡</div><p>Submit application to see<br>real-time AI analysis</p></div>
         <div class="loading" id="d1-load">
@@ -442,7 +442,7 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
     </div>
 
     <div class="card">
-      <div class="card-hdr"><span class="card-title">AI Case Analysis</span><span class="badge b-ai">Claude AI</span></div>
+      <div class="card-hdr"><span class="card-title">AI Case Analysis</span><span class="badge b-ai">AI Analysis</span></div>
       <div class="card-body" id="d2-body">
         <div class="placeholder" id="d2-ph"><div class="placeholder-icon">⚖️</div><p>Submit dispute to see<br>AI case analysis</p></div>
         <div class="loading" id="d2-load">
@@ -521,7 +521,7 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
     </div>
 
     <div class="card">
-      <div class="card-hdr"><span class="card-title">AI Compliance Analysis</span><span class="badge b-ai">Claude AI</span></div>
+      <div class="card-hdr"><span class="card-title">AI Compliance Analysis</span><span class="badge b-ai">AI Analysis</span></div>
       <div class="card-body" id="d3-body">
         <div class="placeholder" id="d3-ph"><div class="placeholder-icon">📋</div><p>Submit regulation to see<br>AI compliance gap analysis</p></div>
         <div class="loading" id="d3-load">
@@ -598,7 +598,7 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
     </div>
 
     <div class="card">
-      <div class="card-hdr"><span class="card-title">AI Investigation Report</span><span class="badge b-ai">Claude AI</span></div>
+      <div class="card-hdr"><span class="card-title">AI Investigation Report</span><span class="badge b-ai">AI Analysis</span></div>
       <div class="card-body" id="d4-body">
         <div class="placeholder" id="d4-ph"><div class="placeholder-icon">🔍</div><p>Submit alert to see<br>AI investigation report</p></div>
         <div class="loading" id="d4-load">
@@ -689,7 +689,7 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
     </div>
 
     <div class="card">
-      <div class="card-hdr"><span class="card-title">AI Due Diligence Report</span><span class="badge b-ai">Claude AI</span></div>
+      <div class="card-hdr"><span class="card-title">AI Due Diligence Report</span><span class="badge b-ai">AI Analysis</span></div>
       <div class="card-body" id="d5-body">
         <div class="placeholder" id="d5-ph"><div class="placeholder-icon">🏦</div><p>Submit application to see<br>AI due diligence report</p></div>
         <div class="loading" id="d5-load">
@@ -798,7 +798,7 @@ function buildChecks(checks) {
 // BUILD LETTER HTML
 function buildLetter(title, content, time) {
   const paras = content.split('\n\n').filter(p=>p.trim());
-  return `<div class="letter-head">${title}</div>${paras.map(p=>`<p>${p}</p>`).join('')}<div class="letter-sig"><strong style="color:var(--amber)">BISXP Enterprise AI</strong><br><span style="font-size:11px;color:var(--muted)">Generated in ${time}s · Powered by Claude AI</span></div>`;
+  return `<div class="letter-head">${title}</div>${paras.map(p=>`<p>${p}</p>`).join('')}<div class="letter-sig"><strong style="color:var(--amber)">BISXP Enterprise AI</strong><br><span style="font-size:11px;color:var(--muted)">Generated in ${time}s · BISXP AI Suite</span></div>`;
 }
 
 // CLAUDE API CALL
