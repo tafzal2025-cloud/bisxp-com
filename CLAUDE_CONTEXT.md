@@ -97,6 +97,7 @@ public/
     legal.html                  ✅ Legal & Compliance — 5 demos
     supply-chain.html           ✅ Supply Chain — 5 demos
     customer-service.html       ✅ Customer Service — 5 demos
+    workflows.html              ✅ 8 end-to-end workflow demos, 70+ steps, anchor nav #wf0-#wf7
 ```
 
 ---

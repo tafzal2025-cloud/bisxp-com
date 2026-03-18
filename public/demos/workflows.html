@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>BISXP — Workflow Demos (All 8 Domains)</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --obsidian:#08080A;--charcoal:#131318;--steel:#1E1E28;--steel-light:#252532;
+  --amber:#D4A843;--amber-bright:#F0C060;--amber-dim:rgba(212,168,67,0.1);--amber-glow:rgba(212,168,67,0.2);
+  --cream:#F0EBE0;--white:#FAFAF8;--muted:#70707A;--muted-light:#9090A0;
+  --green:#22C55E;--green-dim:rgba(34,197,94,0.1);
+  --red:#EF4444;--red-dim:rgba(239,68,68,0.1);
+  --orange:#F59E0B;--orange-dim:rgba(245,158,11,0.1);
+  --blue:#3B82F6;--blue-dim:rgba(59,130,246,0.1);
+  --border:rgba(212,168,67,0.12);--border-strong:rgba(212,168,67,0.28);
+}
+html{scroll-behavior:smooth}
+body{background:var(--obsidian);color:var(--cream);font-family:'Outfit',sans-serif;font-weight:300;min-height:100vh}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(212,168,67,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(212,168,67,0.025) 1px,transparent 1px);background-size:48px 48px;pointer-events:none;z-index:0}
+
+/* HEADER */
+.hdr{position:sticky;top:0;z-index:200;background:rgba(8,8,10,0.96);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);padding:0 32px;height:56px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:600;letter-spacing:2px;text-decoration:none;color:var(--cream)}.logo span{color:var(--amber)}
+.hdr-center{font-size:13px;color:var(--muted)}
+.hdr-pill{background:var(--amber-dim);color:var(--amber);border:1px solid var(--border);border-radius:20px;padding:4px 14px;font-size:11px;font-weight:500}
+
+/* DOMAIN SELECTOR */
+.domain-nav{position:sticky;top:56px;z-index:150;background:rgba(8,8,10,0.96);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:0 32px;display:flex;gap:0;overflow-x:auto}
+.domain-btn{display:flex;align-items:center;gap:6px;padding:14px 18px;background:none;border:none;border-bottom:2px solid transparent;color:var(--muted);font-family:'Outfit',sans-serif;font-size:12px;font-weight:400;cursor:pointer;white-space:nowrap;transition:all .2s;margin-bottom:-1px}
+.domain-btn:hover{color:var(--cream)}.domain-btn.active{color:var(--amber);border-bottom-color:var(--amber);font-weight:500}
+.domain-icon{font-size:14px}
+
+/* MAIN */
+.main{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:40px 32px 80px}
+.workflow-section{display:none}.workflow-section.active{display:block;animation:fadeUp .4s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+
+/* SECTION HEADER */
+.wf-header{margin-bottom:32px}
+.wf-eye{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:3px;color:var(--amber);margin-bottom:10px}
+.wf-title{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,4vw,44px);font-weight:300;color:var(--white);margin-bottom:8px}
+.wf-sub{font-size:14px;color:var(--muted-light);max-width:600px;line-height:1.7}
+.wf-stats{display:flex;gap:28px;margin-top:16px;flex-wrap:wrap}
+.wf-stat strong{font-family:'JetBrains Mono',monospace;color:var(--amber);font-size:20px;display:block;margin-bottom:2px}
+.wf-stat span{font-size:11px;color:var(--muted)}
+
+/* WORKFLOW TRIGGER */
+.wf-trigger{background:var(--charcoal);border:1px solid var(--border);border-radius:14px;padding:24px;margin-bottom:24px}
+.wf-trigger-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);margin-bottom:16px}
+.wf-input-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}
+.wf-field{display:flex;flex-direction:column;gap:5px}
+.wf-field.full{grid-column:1/-1}
+.wf-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--muted)}
+.wf-input,.wf-select,.wf-textarea{background:var(--steel);border:1px solid rgba(255,255,255,0.07);border-radius:8px;padding:9px 12px;color:var(--cream);font-family:'Outfit',sans-serif;font-size:13px;font-weight:300;outline:none;transition:border-color .2s;width:100%}
+.wf-input:focus,.wf-select:focus,.wf-textarea:focus{border-color:var(--amber);box-shadow:0 0 0 3px var(--amber-dim)}
+.wf-select option{background:var(--steel)}.wf-textarea{resize:vertical;min-height:70px}
+.wf-start-btn{width:100%;padding:13px;background:var(--amber);border:none;border-radius:9px;color:var(--obsidian);font-family:'Outfit',sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:all .2s;letter-spacing:.5px}
+.wf-start-btn:hover{background:var(--amber-bright);transform:translateY(-1px);box-shadow:0 6px 20px var(--amber-glow)}
+.wf-start-btn:disabled{opacity:.45;cursor:not-allowed;transform:none}
+
+/* PIPELINE */
+.pipeline{background:var(--charcoal);border:1px solid var(--border);border-radius:14px;overflow:hidden;display:none}
+.pipeline.visible{display:block;animation:fadeUp .4s ease}
+.pipeline-header{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.pipeline-title{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted)}
+.pipeline-status{font-size:11px;font-weight:600;padding:3px 10px;border-radius:12px}
+.status-running{background:var(--orange-dim);color:var(--orange)}
+.status-complete{background:var(--green-dim);color:var(--green)}
+.status-failed{background:var(--red-dim);color:var(--red)}
+
+/* STEPS */
+.steps{padding:20px}
+.step{display:flex;gap:16px;margin-bottom:0;position:relative}
+.step:not(:last-child)::after{content:'';position:absolute;left:15px;top:32px;width:2px;bottom:-8px;background:var(--border);z-index:0}
+.step.done::after{background:var(--green);opacity:.4}
+.step.active::after{background:linear-gradient(to bottom,var(--amber),var(--border))}
+.step-connector{flex-shrink:0;display:flex;flex-direction:column;align-items:center;padding-top:4px;z-index:1}
+.step-dot{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;transition:all .4s;border:2px solid var(--border);background:var(--steel);color:var(--muted);flex-shrink:0}
+.step.done .step-dot{background:var(--green-dim);border-color:var(--green);color:var(--green)}
+.step.active .step-dot{background:var(--amber-dim);border-color:var(--amber);color:var(--amber);animation:stepPulse 1.5s infinite}
+.step.error .step-dot{background:var(--red-dim);border-color:var(--red);color:var(--red)}
+@keyframes stepPulse{0%,100%{box-shadow:0 0 0 0 var(--amber-glow)}50%{box-shadow:0 0 0 6px transparent}}
+.step-body{flex:1;padding-bottom:24px}
+.step-title-row{display:flex;align-items:center;gap:8px;margin-bottom:4px}
+.step-name{font-size:14px;font-weight:500;color:var(--white)}
+.step.done .step-name{color:var(--cream)}
+.step.pending .step-name{color:var(--muted)}
+.step-time{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted)}
+.step-detail{font-size:12px;color:var(--muted-light);line-height:1.6;margin-top:4px}
+.step.pending .step-detail{color:var(--muted);opacity:.5}
+.step-output{background:var(--steel);border:1px solid var(--border);border-radius:8px;padding:12px 14px;margin-top:8px;font-size:12px;line-height:1.7;color:var(--muted-light);display:none}
+.step.done .step-output{display:block;animation:fadeUp .3s ease}
+.step-badge{display:inline-flex;align-items:center;font-size:10px;font-weight:600;padding:2px 8px;border-radius:10px;margin-left:8px}
+.sb-green{background:var(--green-dim);color:var(--green)}
+.sb-orange{background:var(--orange-dim);color:var(--orange)}
+.sb-red{background:var(--red-dim);color:var(--red)}
+.sb-blue{background:var(--blue-dim);color:var(--blue)}
+.sb-amber{background:var(--amber-dim);color:var(--amber)}
+
+/* SUMMARY CARD */
+.summary-card{background:var(--steel);border:1px solid var(--border-strong);border-radius:12px;padding:20px;margin:16px 20px 20px;display:none}
+.summary-card.visible{display:block;animation:fadeUp .4s ease}
+.summary-title{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--white);margin-bottom:4px}
+.summary-sub{font-size:12px;color:var(--muted-light);margin-bottom:16px}
+.summary-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
+.summary-stat{text-align:center}
+.summary-stat strong{font-family:'JetBrains Mono',monospace;font-size:22px;color:var(--amber);display:block}
+.summary-stat span{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
+.summary-actions{display:flex;gap:10px}
+.sa-btn{flex:1;padding:10px;border-radius:8px;font-family:'Outfit',sans-serif;font-size:12px;font-weight:600;cursor:pointer;border:none;transition:all .2s}
+.sa-primary{background:var(--amber);color:var(--obsidian)}
+.sa-primary:hover{background:var(--amber-bright)}
+.sa-secondary{background:var(--steel-light);color:var(--cream);border:1px solid var(--border)}
+.sa-secondary:hover{border-color:var(--amber);color:var(--amber)}
+
+/* TOAST */
+.toast{position:fixed;bottom:24px;right:24px;background:var(--charcoal);border:1px solid var(--border-strong);border-radius:10px;padding:14px 18px;font-size:12px;z-index:9999;transform:translateY(80px);opacity:0;transition:all .3s;max-width:300px}
+.toast.show{transform:translateY(0);opacity:1}
+.toast-title{font-weight:600;color:var(--amber);margin-bottom:2px;font-size:13px}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  .main{padding:20px 16px 60px}
+  .wf-input-grid{grid-template-columns:1fr}
+  .summary-grid{grid-template-columns:repeat(2,1fr)}
+  .domain-nav,.hdr{padding:0 16px}
+  .summary-actions{flex-direction:column}
+}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <a class="logo" href="index.html">BIS<span>XP</span></a>
+  <div style="position:absolute;left:50%;transform:translateX(-50%);font-size:13px;color:var(--muted);display:flex;align-items:center;gap:8px"><a href="index.html" style="color:var(--cream);text-decoration:none;font-weight:400">Enterprise Demos</a><span style="color:var(--muted)">→</span><span style="color:var(--cream);font-weight:400">Full Workflows</span></div>
+  <div style="display:flex;align-items:center;gap:10px"><a href="index.html" style="display:inline-block;padding:6px 14px;border:1px solid var(--border-strong);color:var(--cream);font-size:11px;font-weight:500;border-radius:8px;text-decoration:none">All Demos</a><a href="https://bisxp.com/#contact" style="display:inline-block;padding:7px 18px;background:var(--amber);color:var(--obsidian);font-size:12px;font-weight:600;border-radius:8px;text-decoration:none">Book Assessment →</a></div>
+</header>
+
+<!-- DOMAIN SELECTOR -->
+<nav class="domain-nav">
+  <button class="domain-btn active" onclick="switchDomain(0)"><span class="domain-icon">🏦</span> Financial</button>
+  <button class="domain-btn" onclick="switchDomain(1)"><span class="domain-icon">🏥</span> Healthcare</button>
+  <button class="domain-btn" onclick="switchDomain(2)"><span class="domain-icon">🛡️</span> Insurance</button>
+  <button class="domain-btn" onclick="switchDomain(3)"><span class="domain-icon">🏛️</span> Government</button>
+  <button class="domain-btn" onclick="switchDomain(4)"><span class="domain-icon">👥</span> HR</button>
+  <button class="domain-btn" onclick="switchDomain(5)"><span class="domain-icon">⚖️</span> Legal</button>
+  <button class="domain-btn" onclick="switchDomain(6)"><span class="domain-icon">🏭</span> Supply Chain</button>
+  <button class="domain-btn" onclick="switchDomain(7)"><span class="domain-icon">🎯</span> Customer Service</button>
+</nav>
+
+<main class="main">
+
+<!-- ═══ DOMAIN 0: FINANCIAL ═══ -->
+<div class="workflow-section active" id="wf0">
+  <div class="wf-header">
+    <div class="wf-eye">Full Workflow · Financial Services</div>
+    <div class="wf-title">Merchant Lifecycle — <em style="color:var(--amber)">Application to First Transaction</em></div>
+    <p class="wf-sub">Watch AI orchestrate the complete merchant onboarding journey — from application through risk scoring, contract generation, portal provisioning, and first transaction monitoring. What takes 3 weeks manually completes in under 2 minutes.</p>
+    <div class="wf-stats">
+      <div class="wf-stat"><strong>8</strong><span>Workflow stages</span></div>
+      <div class="wf-stat"><strong>3 weeks</strong><span>Manual process time</span></div>
+      <div class="wf-stat"><strong>~90s</strong><span>AI workflow time</span></div>
+      <div class="wf-stat"><strong>$1,200</strong><span>Cost saved per merchant</span></div>
+    </div>
+  </div>
+
+  <div class="wf-trigger">
+    <div class="wf-trigger-label">Trigger Workflow — New Merchant Application</div>
+    <div class="wf-input-grid">
+      <div class="wf-field"><label class="wf-label">Business Name</label><input class="wf-input" id="wf0-name" value="Stellar Payments Inc."></div>
+      <div class="wf-field"><label class="wf-label">Business Type</label>
+        <select class="wf-select" id="wf0-type">
+          <option value="SaaS / Technology" selected>SaaS / Technology</option>
+          <option value="Retail E-commerce">Retail E-commerce</option>
+          <option value="Marketplace">Marketplace</option>
+          <option value="Healthcare">Healthcare</option>
+        </select>
+      </div>
+      <div class="wf-field"><label class="wf-label">Country</label><input class="wf-input" id="wf0-country" value="United States"></div>
+      <div class="wf-field"><label class="wf-label">Monthly Volume</label><input class="wf-input" id="wf0-volume" value="$250,000/month"></div>
+    </div>
+    <button class="wf-start-btn" id="wf0-btn" onclick="runWorkflow(0)">▶ Run Full Merchant Lifecycle Workflow</button>
+  </div>
+
+  <div class="pipeline" id="wf0-pipeline">
+    <div class="pipeline-header">
+      <span class="pipeline-title">Merchant Lifecycle Pipeline</span>
+      <span class="pipeline-status status-running" id="wf0-status">● Running</span>
+    </div>
+    <div class="steps" id="wf0-steps">
+      <div class="step pending" id="wf0-s0"><div class="step-connector"><div class="step-dot">1</div></div><div class="step-body"><div class="step-title-row"><span class="step-name">Application Received & Validated</span></div><div class="step-detail">Check completeness, validate business registration format, assign case ID</div><div class="step-output" id="wf0-o0"></div></div></div>
+      <div class="step pending" id="wf0-s1"><div class="step-connector"><div class="step-dot">2</div></div><div class="step-body"><div class="step-title-row"><span class="step-name">Identity & Sanctions Screening</span></div><div class="step-detail">OFAC, EU, UN, FinCEN watchlist checks. Business registry verification.</div><div class="step-output" id="wf0-o1"></div></div></div>
+      <div class="step pending" id="wf0-s2"><div class="step-connector"><div class="step-dot">3</div></div><div class="step-body"><div class="step-title-row"><span class="step-name">Financial Risk Assessment</span></div><div class="step-detail">Revenue verification, fraud scoring, chargeback risk, business stability analysis</div><div class="step-output" id="wf0-o2"></div></div></div>
+      <div class="step pending" id="wf0-s3"><div class="step-connector"><div class="step-dot">4</div></div><div class="step-body"><div class="step-title-row"><span class="step-name">Underwriting Decision</span></div><div class="step-detail">AI underwriting model renders final approve/conditional/decline decision</div><div class="step-output" id="wf0-o3"></div></div></div>
+      <div class="step pending" id="wf0-s4"><div class="step-connector"><div class="step-dot">5</div></div><div class="step-body"><div class="step-title-row"><span class="step-name">Contract Generation</span></div><div class="step-detail">Merchant processing agreement auto-generated with custom terms, limits, and fees</div><div class="step-output" id="wf0-o4"></div></div></div>
+      <div class="step pending" id="wf0-s5"><div class="step-connector"><div class="step-dot">6</div></div><div class="step-body"><div class="step-title-row"><span class="step-name">Portal Provisioning</span></div><div class="step-detail">Merchant portal account created, API keys generated, integration docs sent</div><div class="step-output" id="wf0-o5"></div></div></div>
+      <div class="step pending" id="wf0-s6"><div class="step-connector"><div class="step-dot">7</div></div><div class="step-body"><div class="step-title-row"><span class="step-name">First Transaction Monitoring Setup</span></div><div class="step-detail">Custom fraud rules configured based on business type and volume profile</div><div class="step-output" id="wf0-o6"></div></div></div>
+      <div class="step pending" id="wf0-s7"><div class="step-connector"><div class="step-dot">8</div></div><div class="step-body"><div class="step-title-row"><span class="step-name">90-Day Review Scheduled</span></div><div class="step-detail">Automated review calendar created. Account manager assigned. Welcome email sent.</div><div class="step-output" id="wf0-o7"></div></div></div>
+    </div>
+    <div class="summary-card" id="wf0-summary">
+      <div class="summary-title" id="wf0-summary-title">Merchant Onboarded Successfully</div>
+      <div class="summary-sub" id="wf0-summary-sub">Complete lifecycle from application to active merchant</div>
+      <div class="summary-grid">
+        <div class="summary-stat"><strong id="wf0-t1">—</strong><span>Total Time</span></div>
+        <div class="summary-stat"><strong>8/8</strong><span>Steps Complete</span></div>
+        <div class="summary-stat"><strong id="wf0-t2">Low</strong><span>Risk Level</span></div>
+        <div class="summary-stat"><strong>$0</strong><span>Human Touch</span></div>
+      </div>
+      <div class="summary-actions">
+        <button class="sa-btn sa-primary" onclick="toast('📧 Sent','Welcome package and portal credentials sent to merchant.')">📧 Send Welcome Package</button>
+        <button class="sa-btn sa-secondary" onclick="toast('📋 Exported','Full audit trail exported to compliance system.')">📋 Export Audit Trail</button>
+        <button class="sa-btn sa-secondary" onclick="resetWorkflow(0)">↺ Reset</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ DOMAIN 1: HEALTHCARE ═══ -->
+<div class="workflow-section" id="wf1">
+  <div class="wf-header">
+    <div class="wf-eye">Full Workflow · Healthcare</div>
+    <div class="wf-title">Prior Auth to Treatment — <em style="color:var(--amber)">Doctor Request to Patient Care</em></div>
+    <p class="wf-sub">The complete prior authorization journey — from physician request through payer review, approval, physician notification, patient scheduling, and claims pre-authorization. 14 days compressed to 90 seconds.</p>
+    <div class="wf-stats">
+      <div class="wf-stat"><strong>9</strong><span>Workflow stages</span></div>
+      <div class="wf-stat"><strong>14 days</strong><span>Current process time</span></div>
+      <div class="wf-stat"><strong>~90s</strong><span>AI workflow time</span></div>
+      <div class="wf-stat"><strong>$2,100</strong><span>Admin cost saved per auth</span></div>
+    </div>
+  </div>
+  <div class="wf-trigger">
+    <div class="wf-trigger-label">Trigger Workflow — Prior Authorization Request</div>
+    <div class="wf-input-grid">
+      <div class="wf-field"><label class="wf-label">Patient</label><input class="wf-input" id="wf1-patient" value="Sarah Mitchell, 54F, MS diagnosis 2018"></div>
+      <div class="wf-field"><label class="wf-label">Procedure</label><input class="wf-input" id="wf1-proc" value="MRI Brain with contrast (CPT 70553)"></div>
+      <div class="wf-field"><label class="wf-label">Payer</label><input class="wf-input" id="wf1-payer" value="Blue Cross Blue Shield — PPO Gold"></div>
+      <div class="wf-field"><label class="wf-label">Urgency</label>
+        <select class="wf-select" id="wf1-urg">
+          <option value="Routine" selected>Routine</option>
+          <option value="Urgent">Urgent</option>
+          <option value="Emergent">Emergent</option>
+        </select>
+      </div>
+      <div class="wf-field full"><label class="wf-label">Clinical Justification</label><textarea class="wf-textarea" id="wf1-notes">New onset vision changes and right-sided weakness. Confirmed MS relapse — new lesion burden assessment required to guide treatment escalation. Prior MRI 18 months ago showed 3 T2 lesions.</textarea></div>
+    </div>
+    <button class="wf-start-btn" id="wf1-btn" onclick="runWorkflow(1)">▶ Run Prior Auth to Treatment Workflow</button>
+  </div>
+  <div class="pipeline" id="wf1-pipeline">
+    <div class="pipeline-header"><span class="pipeline-title">Prior Auth Pipeline</span><span class="pipeline-status status-running" id="wf1-status">● Running</span></div>
+    <div class="steps" id="wf1-steps">
+      <div class="step pending" id="wf1-s0"><div class="step-connector"><div class="step-dot">1</div></div><div class="step-body"><div class="step-title-row"><span class="step-name">Request Received & Validated</span></div><div class="step-detail">Verify patient eligibility, confirm active coverage, validate ICD-10 codes</div><div class="step-output" id="wf1-o0"></div></div></div>
+      <div class="step pending" id="wf1-s1"><div class="step-connector"><div class="step-dot">2</div></div><div class="step-body"><div class="step-title-row"><span class="step-name">Payer Coverage Guidelines Check</span></div><div class="step-detail">Query payer's clinical criteria for requested procedure (MCG/InterQual)</div><div class="step-output" id="wf1-o1"></div></div></div>
+      <div class="step pending" id="wf1-s2"><div class="step-connector"><div class="step-dot">3</div></div><div class="step-body"><div class="step-title-row"><span class="step-name">Medical Necessity Scoring</span></div><div class="step-detail">AI evaluates clinical notes against evidence-based criteria</div><div class="step-output" id="wf1-o2"></div></div></div>
+      <div class="step pending" id="wf1-s3"><div class="step-connector"><div class="step-dot">4</div></div><div class="step-body"><div class="step-title-row"><span class="step-name">Authorization Decision</span></div><div class="step-detail">Final approve/conditional/peer review decision rendered</div><div class="step-output" id="wf1-o3"></div></div></div>
+      <div class="step pending" id="wf1-s4"><div class="step-connector"><div class="step-dot">5</div></div><div class="step-body"><div class="step-title-row"><span class="step-name">Auth Letter Generated</span></div><div class="step-detail">Formal authorization letter with auth number, valid dates, and conditions</div><div class="step-output" id="wf1-o4"></div></div></div>
+      <div class="step pending" id="wf1-s5"><div class="step-connector"><div class="step-dot">6</div></div><div class="step-body"><div class="step-title-row"><span class="step-name">Physician Notification</span></div><div class="step-detail">Auth letter faxed/sent to ordering physician with instructions</div><div class="step-output" id="wf1-o5"></div></div></div>
+      <div class="step pending" id="wf1-s6"><div class="step-connector"><div class="step-dot">7</div></div><div class="step-body"><div class="step-title-row"><span class="step-name">Patient Notification</span></div><div class="step-detail">Patient notified of approval, cost estimate, and scheduling instructions</div><div class="step-output" id="wf1-o6"></div></div></div>
+      <div class="step pending" id="wf1-s7"><div class="step-connector"><div class="step-dot">8</div></div><div class="step-body"><div class="step-title-row"><span class="step-name">Appointment Scheduled</span></div><div class="step-detail">AI books earliest available slot matching patient and facility availability</div><div class="step-output" id="wf1-o7"></div></div></div>
+      <div class="step pending" id="wf1-s8"><div class="step-connector"><div class="step-dot">9</div></div><div class="step-body"><div class="step-title-row"><span class="step-name">Claims Pre-Authorization Linked</span></div><div class="step-detail">Auth number linked to claims system. Post-service claim auto-approved.</div><div class="step-output" id="wf1-o8"></div></div></div>
+    </div>
+    <div class="summary-card" id="wf1-summary">
+      <div class="summary-title">Authorization Complete — Treatment Scheduled</div>
+      <div class="summary-sub">Patient has auth number, appointment, and cost estimate. Physician has signed order.</div>
+      <div class="summary-grid">
+        <div class="summary-stat"><strong id="wf1-t1">—</strong><span>Total Time</span></div>
+        <div class="summary-stat"><strong>9/9</strong><span>Steps Complete</span></div>
+        <div class="summary-stat"><strong>Approved</strong><span>Auth Status</span></div>
+        <div class="summary-stat"><strong>0</strong><span>Denials</span></div>
+      </div>
+      <div class="summary-actions">
+        <button class="sa-btn sa-primary" onclick="toast('📧 Sent','Complete auth package sent to physician and patient portal.')">📧 Send Auth Package</button>
+        <button class="sa-btn sa-secondary" onclick="toast('🔗 Linked','Auth linked to claims system for auto-adjudication.')">🔗 Link to Claims</button>
+        <button class="sa-btn sa-secondary" onclick="resetWorkflow(1)">↺ Reset</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ DOMAIN 2: INSURANCE ═══ -->
+<div class="workflow-section" id="wf2">
+  <div class="wf-header">
+    <div class="wf-eye">Full Workflow · Insurance</div>
+    <div class="wf-title">Claims Lifecycle — <em style="color:var(--amber)">First Notice of Loss to Payment</em></div>
+    <p class="wf-sub">From the moment a claim is filed through triage, coverage verification, fraud screening, damage assessment, settlement calculation, and payment — the complete claims journey orchestrated by AI.</p>
+    <div class="wf-stats">
+      <div class="wf-stat"><strong>8</strong><span>Workflow stages</span></div>
+      <div class="wf-stat"><strong>30 days</strong><span>Current cycle time</span></div>
+      <div class="wf-stat"><strong>~90s</strong><span>AI workflow time</span></div>
+      <div class="wf-stat"><strong>$310</strong><span>Cost saved per claim</span></div>
+    </div>
+  </div>
+  <div class="wf-trigger">
+    <div class="wf-trigger-label">Trigger Workflow — First Notice of Loss (FNOL)</div>
+    <div class="wf-input-grid">
+      <div class="wf-field"><label class="wf-label">Claim Type</label>
+        <select class="wf-select" id="wf2-type">
+          <option value="Auto — Rear-end collision" selected>Auto — Rear-end Collision</option>
+          <option value="Homeowners — Water damage">Homeowners — Water Damage</option>
+          <option value="Commercial Property">Commercial Property</option>
+          <option value="Workers Compensation">Workers Compensation</option>
+        </select>
+      </div>
+      <div class="wf-field"><label class="wf-label">Policy Number</label><input class="wf-input" id="wf2-policy" value="AUTO-2891-34729-WA"></div>
+      <div class="wf-field"><label class="wf-label">Estimated Damage</label><input class="wf-input" id="wf2-damage" value="$8,400"></div>
+      <div class="wf-field"><label class="wf-label">At-Fault Party</label><input class="wf-input" id="wf2-fault" value="Third party — other driver admitted fault"></div>
+      <div class="wf-field full"><label class="wf-label">Incident Details</label><textarea class="wf-textarea" id="wf2-desc">Rear-end collision at 15th Ave and Pine St, Seattle. Police report filed. Third party has insurance. Photos and repair estimate submitted. No injuries — property damage only.</textarea></div>
+    </div>
+    <button class="wf-start-btn" id="wf2-btn" onclick="runWorkflow(2)">▶ Run Full Claims Lifecycle Workflow</button>
+  </div>
+  <div class="pipeline" id="wf2-pipeline">
+    <div class="pipeline-header"><span class="pipeline-title">Claims Lifecycle Pipeline</span><span class="pipeline-status status-running" id="wf2-status">● Running</span></div>
+    <div class="steps" id="wf2-steps">
+      <div class="step pending" id="wf2-s0"><div class="step-connector"><div class="step-dot">1</div></div><div class="step-body"><div class="step-title-row"><span class="step-name">FNOL Received & Triaged</span></div><div class="step-detail">Claim classified by type, severity, and complexity. Case ID assigned.</div><div class="step-output" id="wf2-o0"></div></div></div>
+      <div class="step pending" id="wf2-s1"><div class="step-connector"><div class="step-dot">2</div></div><div class="step-body"><div class="step-title-row"><span class="step-name">Coverage Verification</span></div><div class="step-detail">Policy active, coverage applies, deductible confirmed, limits verified</div><div class="step-output" id="wf2-o1"></div></div></div>
+      <div class="step pending" id="wf2-s2"><div class="step-connector"><div class="step-dot">3</div></div><div class="step-body"><div class="step-title-row"><span class="step-name">Fraud Screening</span></div><div class="step-detail">Prior claims history, pattern analysis, third-party data cross-reference</div><div class="step-output" id="wf2-o2"></div></div></div>
+      <div class="step pending" id="wf2-s3"><div class="step-connector"><div class="step-dot">4</div></div><div class="step-body"><div class="step-title-row"><span class="step-name">Liability Assessment</span></div><div class="step-detail">Fault determination, police report analysis, comparative negligence scoring</div><div class="step-output" id="wf2-o3"></div></div></div>
+      <div class="step pending" id="wf2-s4"><div class="step-connector"><div class="step-dot">5</div></div><div class="step-body"><div class="step-title-row"><span class="step-name">Damage Valuation</span></div><div class="step-detail">Repair estimate review, market value check, total loss threshold analysis</div><div class="step-output" id="wf2-o4"></div></div></div>
+      <div class="step pending" id="wf2-s5"><div class="step-connector"><div class="step-dot">6</div></div><div class="step-body"><div class="step-title-row"><span class="step-name">Settlement Calculated</span></div><div class="step-detail">Net settlement after deductible, subrogation opportunity flagged</div><div class="step-output" id="wf2-o5"></div></div></div>
+      <div class="step pending" id="wf2-s6"><div class="step-connector"><div class="step-dot">7</div></div><div class="step-body"><div class="step-title-row"><span class="step-name">Settlement Letter Generated</span></div><div class="step-detail">Formal settlement offer with payment instructions and release form</div><div class="step-output" id="wf2-o6"></div></div></div>
+      <div class="step pending" id="wf2-s7"><div class="step-connector"><div class="step-dot">8</div></div><div class="step-body"><div class="step-title-row"><span class="step-name">Payment Authorized & Subrogation Filed</span></div><div class="step-detail">Payment released to claimant. Subrogation claim filed against at-fault party.</div><div class="step-output" id="wf2-o7"></div></div></div>
+    </div>
+    <div class="summary-card" id="wf2-summary">
+      <div class="summary-title">Claim Resolved — Payment Authorized</div>
+      <div class="summary-sub">Full lifecycle complete. Claimant notified. Subrogation initiated.</div>
+      <div class="summary-grid">
+        <div class="summary-stat"><strong id="wf2-t1">—</strong><span>Total Time</span></div>
+        <div class="summary-stat"><strong>8/8</strong><span>Steps Complete</span></div>
+        <div class="summary-stat"><strong>$7,900</strong><span>Settlement</span></div>
+        <div class="summary-stat"><strong>Low</strong><span>Fraud Risk</span></div>
+      </div>
+      <div class="summary-actions">
+        <button class="sa-btn sa-primary" onclick="toast('💰 Payment Sent','Settlement check issued. Claimant notified via email and SMS.')">💰 Issue Payment</button>
+        <button class="sa-btn sa-secondary" onclick="toast('⚖️ Subrogation','Subrogation demand sent to third-party insurer.')">⚖️ File Subrogation</button>
+        <button class="sa-btn sa-secondary" onclick="resetWorkflow(2)">↺ Reset</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ DOMAIN 3: GOVERNMENT ═══ -->
+<div class="workflow-section" id="wf3">
+  <div class="wf-header">
+    <div class="wf-eye">Full Workflow · Government</div>
+    <div class="wf-title">Permit to Certificate — <em style="color:var(--amber)">Application to Certificate of Occupancy</em></div>
+    <p class="wf-sub">The complete building permit journey — from application submission through zoning review, plan check, fee collection, inspection scheduling, inspection report processing, and final certificate issuance. 6 months to 2 minutes.</p>
+    <div class="wf-stats">
+      <div class="wf-stat"><strong>8</strong><span>Workflow stages</span></div>
+      <div class="wf-stat"><strong>6 months</strong><span>Current process time</span></div>
+      <div class="wf-stat"><strong>~90s</strong><span>AI workflow time</span></div>
+      <div class="wf-stat"><strong>$4,200</strong><span>Admin cost saved per permit</span></div>
+    </div>
+  </div>
+  <div class="wf-trigger">
+    <div class="wf-trigger-label">Trigger Workflow — Building Permit Application</div>
+    <div class="wf-input-grid">
+      <div class="wf-field"><label class="wf-label">Permit Type</label>
+        <select class="wf-select" id="wf3-type">
+          <option value="Commercial — New Construction" selected>Commercial — New Construction</option>
+          <option value="Residential Addition">Residential Addition</option>
+          <option value="Tenant Improvement">Tenant Improvement</option>
+          <option value="Electrical — Commercial">Electrical — Commercial</option>
+        </select>
+      </div>
+      <div class="wf-field"><label class="wf-label">Address</label><input class="wf-input" id="wf3-addr" value="1420 5th Ave, Seattle WA 98101"></div>
+      <div class="wf-field"><label class="wf-label">Project Value</label><input class="wf-input" id="wf3-val" value="$2.4M — 4-story commercial building"></div>
+      <div class="wf-field"><label class="wf-label">Applicant</label><input class="wf-input" id="wf3-app" value="Pacific NW Contractors LLC — Licensed GC"></div>
+    </div>
+    <button class="wf-start-btn" id="wf3-btn" onclick="runWorkflow(3)">▶ Run Permit to Certificate Workflow</button>
+  </div>
+  <div class="pipeline" id="wf3-pipeline">
+    <div class="pipeline-header"><span class="pipeline-title">Permit Lifecycle Pipeline</span><span class="pipeline-status status-running" id="wf3-status">● Running</span></div>
+    <div class="steps" id="wf3-steps">
+      <div class="step pending" id="wf3-s0"><div class="step-connector"><div class="step-dot">1</div></div><div class="step-body"><div class="step-title-row"><span class="step-name">Application Received & Completeness Check</span></div><div class="step-detail">All required documents present, license numbers valid, parcel ID confirmed</div><div class="step-output" id="wf3-o0"></div></div></div>
+      <div class="step pending" id="wf3-s1"><div class="step-connector"><div class="step-dot">2</div></div><div class="step-body"><div class="step-title-row"><span class="step-name">Zoning & Land Use Compliance</span></div><div class="step-detail">Zoning district confirmed, use permitted, setbacks and height limits verified</div><div class="step-output" id="wf3-o1"></div></div></div>
+      <div class="step pending" id="wf3-s2"><div class="step-connector"><div class="step-dot">3</div></div><div class="step-body"><div class="step-title-row"><span class="step-name">Building Code Review</span></div><div class="step-detail">IBC compliance, fire code, ADA accessibility, energy code (ASHRAE 90.1)</div><div class="step-output" id="wf3-o2"></div></div></div>
+      <div class="step pending" id="wf3-s3"><div class="step-connector"><div class="step-dot">4</div></div><div class="step-body"><div class="step-title-row"><span class="step-name">Fee Calculation & Payment</span></div><div class="step-detail">Permit fee based on project valuation, plan check fee, school impact fee</div><div class="step-output" id="wf3-o3"></div></div></div>
+      <div class="step pending" id="wf3-s4"><div class="step-connector"><div class="step-dot">5</div></div><div class="step-body"><div class="step-title-row"><span class="step-name">Permit Issued</span></div><div class="step-detail">Permit number generated, conditions attached, placard issued for site posting</div><div class="step-output" id="wf3-o4"></div></div></div>
+      <div class="step pending" id="wf3-s5"><div class="step-connector"><div class="step-dot">6</div></div><div class="step-body"><div class="step-title-row"><span class="step-name">Inspection Schedule Created</span></div><div class="step-detail">Required inspections identified, calendar created, inspector assigned</div><div class="step-output" id="wf3-o5"></div></div></div>
+      <div class="step pending" id="wf3-s6"><div class="step-connector"><div class="step-dot">7</div></div><div class="step-body"><div class="step-title-row"><span class="step-name">Final Inspection Passed</span></div><div class="step-detail">All inspections completed and approved. No outstanding corrections.</div><div class="step-output" id="wf3-o6"></div></div></div>
+      <div class="step pending" id="wf3-s7"><div class="step-connector"><div class="step-dot">8</div></div><div class="step-body"><div class="step-title-row"><span class="step-name">Certificate of Occupancy Issued</span></div><div class="step-detail">CO issued, recorded in property records, utility connections authorized</div><div class="step-output" id="wf3-o7"></div></div></div>
+    </div>
+    <div class="summary-card" id="wf3-summary">
+      <div class="summary-title">Certificate of Occupancy Issued</div>
+      <div class="summary-sub">Building legally occupied. All inspections passed. Records updated.</div>
+      <div class="summary-grid">
+        <div class="summary-stat"><strong id="wf3-t1">—</strong><span>Total Time</span></div>
+        <div class="summary-stat"><strong>8/8</strong><span>Steps Complete</span></div>
+        <div class="summary-stat"><strong>CO Issued</strong><span>Status</span></div>
+        <div class="summary-stat"><strong>0</strong><span>Violations</span></div>
+      </div>
+      <div class="summary-actions">
+        <button class="sa-btn sa-primary" onclick="toast('📜 CO Issued','Certificate of Occupancy sent to applicant and filed in property records.')">📜 Issue Certificate</button>
+        <button class="sa-btn sa-secondary" onclick="toast('🏛️ Recorded','Permit and CO recorded in city property database.')">🏛️ Record in System</button>
+        <button class="sa-btn sa-secondary" onclick="resetWorkflow(3)">↺ Reset</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ DOMAIN 4: HR ═══ -->
+<div class="workflow-section" id="wf4">
+  <div class="wf-header">
+    <div class="wf-eye">Full Workflow · HR & Workforce</div>
+    <div class="wf-title">Hire to Productive — <em style="color:var(--amber)">Offer Accepted to Day-30 Check-in</em></div>
+    <p class="wf-sub">The complete employee onboarding journey — from offer acceptance through background check, systems provisioning, equipment ordering, Day 1 preparation, training assignment, and 30-day milestone review. 3 weeks of coordination automated.</p>
+    <div class="wf-stats">
+      <div class="wf-stat"><strong>9</strong><span>Workflow stages</span></div>
+      <div class="wf-stat"><strong>3 weeks</strong><span>Manual coordination time</span></div>
+      <div class="wf-stat"><strong>~90s</strong><span>AI workflow time</span></div>
+      <div class="wf-stat"><strong>$4,000</strong><span>Cost saved per new hire</span></div>
+    </div>
+  </div>
+  <div class="wf-trigger">
+    <div class="wf-trigger-label">Trigger Workflow — Offer Accepted</div>
+    <div class="wf-input-grid">
+      <div class="wf-field"><label class="wf-label">New Employee</label><input class="wf-input" id="wf4-name" value="Jordan Martinez"></div>
+      <div class="wf-field"><label class="wf-label">Role</label><input class="wf-input" id="wf4-role" value="Senior Product Manager — Growth Team"></div>
+      <div class="wf-field"><label class="wf-label">Start Date</label><input class="wf-input" id="wf4-start" value="April 1, 2026"></div>
+      <div class="wf-field"><label class="wf-label">Work Model</label>
+        <select class="wf-select" id="wf4-model">
+          <option value="Remote — Pacific Time" selected>Remote — Pacific Time</option>
+          <option value="Hybrid — Seattle 3 days">Hybrid — Seattle</option>
+          <option value="On-site — Seattle HQ">On-site — Seattle</option>
+        </select>
+      </div>
+      <div class="wf-field"><label class="wf-label">Manager</label><input class="wf-input" id="wf4-mgr" value="Sarah Chen, VP Product"></div>
+      <div class="wf-field"><label class="wf-label">Systems Needed</label><input class="wf-input" id="wf4-systems" value="Jira, Figma, Salesforce, Slack, AWS read-only"></div>
+    </div>
+    <button class="wf-start-btn" id="wf4-btn" onclick="runWorkflow(4)">▶ Run Hire to Productive Workflow</button>
+  </div>
+  <div class="pipeline" id="wf4-pipeline">
+    <div class="pipeline-header"><span class="pipeline-title">Employee Onboarding Pipeline</span><span class="pipeline-status status-running" id="wf4-status">● Running</span></div>
+    <div class="steps" id="wf4-steps">
+      <div class="step pending" id="wf4-s0"><div class="step-connector"><div class="step-dot">1</div></div><div class="step-body"><div class="step-title-row"><span class="step-name">Offer Acceptance Confirmed</span></div><div class="step-detail">DocuSign received, start date locked, HR file created, payroll set up</div><div class="step-output" id="wf4-o0"></div></div></div>
+      <div class="step pending" id="wf4-s1"><div class="step-connector"><div class="step-dot">2</div></div><div class="step-body"><div class="step-title-row"><span class="step-name">Background Check Initiated</span></div><div class="step-detail">Employment history, criminal background, education verification submitted</div><div class="step-output" id="wf4-o1"></div></div></div>
+      <div class="step pending" id="wf4-s2"><div class="step-connector"><div class="step-dot">3</div></div><div class="step-body"><div class="step-title-row"><span class="step-name">IT Provisioning Ordered</span></div><div class="step-detail">MacBook Pro, monitor, peripherals ordered. Accounts creation tickets dispatched.</div><div class="step-output" id="wf4-o2"></div></div></div>
+      <div class="step pending" id="wf4-s3"><div class="step-connector"><div class="step-dot">4</div></div><div class="step-body"><div class="step-title-row"><span class="step-name">Systems Access Configured</span></div><div class="step-detail">All required software accounts created with correct permission levels</div><div class="step-output" id="wf4-o3"></div></div></div>
+      <div class="step pending" id="wf4-s4"><div class="step-connector"><div class="step-dot">5</div></div><div class="step-body"><div class="step-title-row"><span class="step-name">Day 1 Schedule Generated</span></div><div class="step-detail">Hour-by-hour Day 1 agenda created with intro meetings, orientation sessions</div><div class="step-output" id="wf4-o4"></div></div></div>
+      <div class="step pending" id="wf4-s5"><div class="step-connector"><div class="step-dot">6</div></div><div class="step-body"><div class="step-title-row"><span class="step-name">Manager Briefed</span></div><div class="step-detail">30-60-90 day plan sent to Sarah Chen. Key introductions recommended.</div><div class="step-output" id="wf4-o5"></div></div></div>
+      <div class="step pending" id="wf4-s6"><div class="step-connector"><div class="step-dot">7</div></div><div class="step-body"><div class="step-title-row"><span class="step-name">Training Path Assigned</span></div><div class="step-detail">Role-specific learning path created — product tools, processes, compliance</div><div class="step-output" id="wf4-o6"></div></div></div>
+      <div class="step pending" id="wf4-s7"><div class="step-connector"><div class="step-dot">8</div></div><div class="step-body"><div class="step-title-row"><span class="step-name">Welcome Package Sent</span></div><div class="step-detail">Welcome email with portal login, Day 1 guide, team intro, and first week overview</div><div class="step-output" id="wf4-o7"></div></div></div>
+      <div class="step pending" id="wf4-s8"><div class="step-connector"><div class="step-dot">9</div></div><div class="step-body"><div class="step-title-row"><span class="step-name">30-Day Check-in Scheduled</span></div><div class="step-detail">Automated pulse survey at Day 7, 14, 30. Manager review at Day 30.</div><div class="step-output" id="wf4-o8"></div></div></div>
+    </div>
+    <div class="summary-card" id="wf4-summary">
+      <div class="summary-title">Onboarding Complete — Jordan Ready for Day 1</div>
+      <div class="summary-sub">47 tasks automated. Zero manual coordination required before start date.</div>
+      <div class="summary-grid">
+        <div class="summary-stat"><strong id="wf4-t1">—</strong><span>Total Time</span></div>
+        <div class="summary-stat"><strong>47</strong><span>Tasks Automated</span></div>
+        <div class="summary-stat"><strong>Day 1</strong><span>Ready Status</span></div>
+        <div class="summary-stat"><strong>$0</strong><span>Manual Effort</span></div>
+      </div>
+      <div class="summary-actions">
+        <button class="sa-btn sa-primary" onclick="toast('📧 Sent','Welcome package sent to Jordan. Day 1 agenda delivered.')">📧 Send Welcome Package</button>
+        <button class="sa-btn sa-secondary" onclick="toast('👔 Notified','Manager briefed. IT provisioning confirmed.')">👔 Notify Manager & IT</button>
+        <button class="sa-btn sa-secondary" onclick="resetWorkflow(4)">↺ Reset</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ DOMAIN 5: LEGAL ═══ -->
+<div class="workflow-section" id="wf5">
+  <div class="wf-header">
+    <div class="wf-eye">Full Workflow · Legal & Compliance</div>
+    <div class="wf-title">Contract Lifecycle — <em style="color:var(--amber)">Request to Signed & Filed</em></div>
+    <p class="wf-sub">The complete contract journey — from business request through NDA, drafting, AI risk review, redlines, negotiation tracking, final approval, execution, and renewal scheduling. Weeks of back-and-forth in one automated workflow.</p>
+    <div class="wf-stats">
+      <div class="wf-stat"><strong>9</strong><span>Workflow stages</span></div>
+      <div class="wf-stat"><strong>6 weeks</strong><span>Manual cycle time</span></div>
+      <div class="wf-stat"><strong>~90s</strong><span>AI workflow time</span></div>
+      <div class="wf-stat"><strong>$12,000</strong><span>Legal cost saved per contract</span></div>
+    </div>
+  </div>
+  <div class="wf-trigger">
+    <div class="wf-trigger-label">Trigger Workflow — New Contract Request</div>
+    <div class="wf-input-grid">
+      <div class="wf-field"><label class="wf-label">Contract Type</label>
+        <select class="wf-select" id="wf5-type">
+          <option value="SaaS Master Subscription Agreement" selected>SaaS Master Subscription Agreement</option>
+          <option value="Professional Services Agreement">Professional Services Agreement</option>
+          <option value="Partnership Agreement">Partnership Agreement</option>
+          <option value="Vendor Agreement">Vendor Agreement</option>
+        </select>
+      </div>
+      <div class="wf-field"><label class="wf-label">Counterparty</label><input class="wf-input" id="wf5-party" value="Acme Corporation — Enterprise customer"></div>
+      <div class="wf-field"><label class="wf-label">Contract Value</label><input class="wf-input" id="wf5-value" value="$480,000 — 2-year term"></div>
+      <div class="wf-field"><label class="wf-label">Governing Law</label><input class="wf-input" id="wf5-law" value="Delaware, USA"></div>
+      <div class="wf-field full"><label class="wf-label">Key Business Terms</label><textarea class="wf-textarea" id="wf5-terms">Enterprise license for 500 seats. Implementation services included. 99.9% SLA. Data processing agreement required (GDPR). Net 30 payment. Annual price increase cap 5%.</textarea></div>
+    </div>
+    <button class="wf-start-btn" id="wf5-btn" onclick="runWorkflow(5)">▶ Run Contract Lifecycle Workflow</button>
+  </div>
+  <div class="pipeline" id="wf5-pipeline">
+    <div class="pipeline-header"><span class="pipeline-title">Contract Lifecycle Pipeline</span><span class="pipeline-status status-running" id="wf5-status">● Running</span></div>
+    <div class="steps" id="wf5-steps">
+      <div class="step pending" id="wf5-s0"><div class="step-connector"><div class="step-dot">1</div></div><div class="step-body"><div class="step-title-row"><span class="step-name">Contract Request Received</span></div><div class="step-detail">Business need confirmed, stakeholders identified, approval authority determined</div><div class="step-output" id="wf5-o0"></div></div></div>
+      <div class="step pending" id="wf5-s1"><div class="step-connector"><div class="step-dot">2</div></div><div class="step-body"><div class="step-title-row"><span class="step-name">NDA Executed</span></div><div class="step-detail">Mutual NDA generated, sent to counterparty, countersigned and filed</div><div class="step-output" id="wf5-o1"></div></div></div>
+      <div class="step pending" id="wf5-s2"><div class="step-connector"><div class="step-dot">3</div></div><div class="step-body"><div class="step-title-row"><span class="step-name">Contract Drafted</span></div><div class="step-detail">AI drafts full agreement from business terms, incorporating standard playbook positions</div><div class="step-output" id="wf5-o2"></div></div></div>
+      <div class="step pending" id="wf5-s3"><div class="step-connector"><div class="step-dot">4</div></div><div class="step-body"><div class="step-title-row"><span class="step-name">AI Risk Review</span></div><div class="step-detail">All clauses scored for risk. Liability, indemnification, IP, and data provisions flagged.</div><div class="step-output" id="wf5-o3"></div></div></div>
+      <div class="step pending" id="wf5-s4"><div class="step-connector"><div class="step-dot">5</div></div><div class="step-body"><div class="step-title-row"><span class="step-name">Redlines Sent to Counterparty</span></div><div class="step-detail">Risk-based redlines applied. Annotated version sent via DocuSign for review.</div><div class="step-output" id="wf5-o4"></div></div></div>
+      <div class="step pending" id="wf5-s5"><div class="step-connector"><div class="step-dot">6</div></div><div class="step-body"><div class="step-title-row"><span class="step-name">Negotiation Tracked</span></div><div class="step-detail">Counterparty redlines reviewed. AI identifies acceptable vs non-negotiable positions.</div><div class="step-output" id="wf5-o5"></div></div></div>
+      <div class="step pending" id="wf5-s6"><div class="step-connector"><div class="step-dot">7</div></div><div class="step-body"><div class="step-title-row"><span class="step-name">Final Approval Obtained</span></div><div class="step-detail">Legal sign-off and executive approval workflow completed</div><div class="step-output" id="wf5-o6"></div></div></div>
+      <div class="step pending" id="wf5-s7"><div class="step-connector"><div class="step-dot">8</div></div><div class="step-body"><div class="step-title-row"><span class="step-name">Contract Executed</span></div><div class="step-detail">Both parties signed via DocuSign. Fully executed copy distributed.</div><div class="step-output" id="wf5-o7"></div></div></div>
+      <div class="step pending" id="wf5-s8"><div class="step-connector"><div class="step-dot">9</div></div><div class="step-body"><div class="step-title-row"><span class="step-name">Filed & Renewal Scheduled</span></div><div class="step-detail">Filed in contract repository. Renewal reminder set 90 days before expiry.</div><div class="step-output" id="wf5-o8"></div></div></div>
+    </div>
+    <div class="summary-card" id="wf5-summary">
+      <div class="summary-title">Contract Executed — Acme Corporation</div>
+      <div class="summary-sub">Fully signed agreement filed. Renewal reminder set for 21 months.</div>
+      <div class="summary-grid">
+        <div class="summary-stat"><strong id="wf5-t1">—</strong><span>Total Time</span></div>
+        <div class="summary-stat"><strong>9/9</strong><span>Steps Complete</span></div>
+        <div class="summary-stat"><strong>$480K</strong><span>Contract Value</span></div>
+        <div class="summary-stat"><strong>Low</strong><span>Risk Score</span></div>
+      </div>
+      <div class="summary-actions">
+        <button class="sa-btn sa-primary" onclick="toast('📁 Filed','Executed contract filed in CLM system. Stakeholders notified.')">📁 File Contract</button>
+        <button class="sa-btn sa-secondary" onclick="toast('📅 Reminder Set','Renewal reminder scheduled 90 days before expiry.')">📅 Set Renewal Reminder</button>
+        <button class="sa-btn sa-secondary" onclick="resetWorkflow(5)">↺ Reset</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ DOMAIN 6: SUPPLY CHAIN ═══ -->
+<div class="workflow-section" id="wf6">
+  <div class="wf-header">
+    <div class="wf-eye">Full Workflow · Supply Chain</div>
+    <div class="wf-title">Order to Delivery — <em style="color:var(--amber)">Purchase Request to Goods Received</em></div>
+    <p class="wf-sub">The complete procure-to-pay cycle — from purchase request through approval, supplier PO, acknowledgment, production tracking, quality inspection, shipping, customs clearance, and goods receipt matching.</p>
+    <div class="wf-stats">
+      <div class="wf-stat"><strong>9</strong><span>Workflow stages</span></div>
+      <div class="wf-stat"><strong>12 weeks</strong><span>Manual cycle time</span></div>
+      <div class="wf-stat"><strong>~90s</strong><span>AI workflow time</span></div>
+      <div class="wf-stat"><strong>$28,000</strong><span>Working capital freed per cycle</span></div>
+    </div>
+  </div>
+  <div class="wf-trigger">
+    <div class="wf-trigger-label">Trigger Workflow — Purchase Requisition</div>
+    <div class="wf-input-grid">
+      <div class="wf-field"><label class="wf-label">Item</label><input class="wf-input" id="wf6-item" value="PCB Sub-assemblies — Model X Controller"></div>
+      <div class="wf-field"><label class="wf-label">Quantity</label><input class="wf-input" id="wf6-qty" value="2,000 units @ $142 each = $284,000"></div>
+      <div class="wf-field"><label class="wf-label">Supplier</label><input class="wf-input" id="wf6-supp" value="Precision Components Ltd. — Taiwan (approved)"></div>
+      <div class="wf-field"><label class="wf-label">Required By</label><input class="wf-input" id="wf6-by" value="May 15, 2026 — Q2 production ramp"></div>
+    </div>
+    <button class="wf-start-btn" id="wf6-btn" onclick="runWorkflow(6)">▶ Run Order to Delivery Workflow</button>
+  </div>
+  <div class="pipeline" id="wf6-pipeline">
+    <div class="pipeline-header"><span class="pipeline-title">Procure-to-Pay Pipeline</span><span class="pipeline-status status-running" id="wf6-status">● Running</span></div>
+    <div class="steps" id="wf6-steps">
+      <div class="step pending" id="wf6-s0"><div class="step-connector"><div class="step-dot">1</div></div><div class="step-body"><div class="step-title-row"><span class="step-name">Purchase Requisition Validated</span></div><div class="step-detail">Budget available, supplier approved, specification matches catalog item</div><div class="step-output" id="wf6-o0"></div></div></div>
+      <div class="step pending" id="wf6-s1"><div class="step-connector"><div class="step-dot">2</div></div><div class="step-body"><div class="step-title-row"><span class="step-name">Approval Workflow Completed</span></div><div class="step-detail">Manager ($50K+) and CFO ($250K+) approvals obtained. PO authorized.</div><div class="step-output" id="wf6-o1"></div></div></div>
+      <div class="step pending" id="wf6-s2"><div class="step-connector"><div class="step-dot">3</div></div><div class="step-body"><div class="step-title-row"><span class="step-name">Purchase Order Sent to Supplier</span></div><div class="step-detail">PO transmitted to Precision Components. Delivery requirements confirmed.</div><div class="step-output" id="wf6-o2"></div></div></div>
+      <div class="step pending" id="wf6-s3"><div class="step-connector"><div class="step-dot">4</div></div><div class="step-body"><div class="step-title-row"><span class="step-name">Order Acknowledgment Received</span></div><div class="step-detail">Supplier confirms quantity, price, delivery date. Production slot assigned.</div><div class="step-output" id="wf6-o3"></div></div></div>
+      <div class="step pending" id="wf6-s4"><div class="step-connector"><div class="step-dot">5</div></div><div class="step-body"><div class="step-title-row"><span class="step-name">Production Milestone Tracking</span></div><div class="step-detail">Week 2 check-in: 40% complete. Week 5: production complete, QC in progress.</div><div class="step-output" id="wf6-o4"></div></div></div>
+      <div class="step pending" id="wf6-s5"><div class="step-connector"><div class="step-dot">6</div></div><div class="step-body"><div class="step-title-row"><span class="step-name">Pre-Shipment Quality Inspection</span></div><div class="step-detail">Random sample tested against specification. Certificate of conformance issued.</div><div class="step-output" id="wf6-o5"></div></div></div>
+      <div class="step pending" id="wf6-s6"><div class="step-connector"><div class="step-dot">7</div></div><div class="step-body"><div class="step-title-row"><span class="step-name">Shipment & Customs Clearance</span></div><div class="step-detail">Air freight booked. Export documents filed. HTS classification confirmed. ETA: May 10.</div><div class="step-output" id="wf6-o6"></div></div></div>
+      <div class="step pending" id="wf6-s7"><div class="step-connector"><div class="step-dot">8</div></div><div class="step-body"><div class="step-title-row"><span class="step-name">Incoming Inspection Passed</span></div><div class="step-detail">100% count confirmed. Sample dimensional check passed. Released to warehouse.</div><div class="step-output" id="wf6-o7"></div></div></div>
+      <div class="step pending" id="wf6-s8"><div class="step-connector"><div class="step-dot">9</div></div><div class="step-body"><div class="step-title-row"><span class="step-name">3-Way Match & Invoice Approved</span></div><div class="step-detail">PO, receipt, and invoice matched. Payment approved. Net-30 payment scheduled.</div><div class="step-output" id="wf6-o8"></div></div></div>
+    </div>
+    <div class="summary-card" id="wf6-summary">
+      <div class="summary-title">Order Complete — Goods Received & Payment Approved</div>
+      <div class="summary-sub">2,000 units in warehouse. Invoice approved. Supplier scorecard updated.</div>
+      <div class="summary-grid">
+        <div class="summary-stat"><strong id="wf6-t1">—</strong><span>Total Time</span></div>
+        <div class="summary-stat"><strong>9/9</strong><span>Steps Complete</span></div>
+        <div class="summary-stat"><strong>$284K</strong><span>Order Value</span></div>
+        <div class="summary-stat"><strong>On Time</strong><span>Delivery Status</span></div>
+      </div>
+      <div class="summary-actions">
+        <button class="sa-btn sa-primary" onclick="toast('💳 Payment Approved','$284,000 payment approved for Net-30 disbursement.')">💳 Approve Payment</button>
+        <button class="sa-btn sa-secondary" onclick="toast('⭐ Scorecard Updated','Precision Components supplier scorecard updated: On-time, Quality Pass.')">⭐ Update Supplier Score</button>
+        <button class="sa-btn sa-secondary" onclick="resetWorkflow(6)">↺ Reset</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ DOMAIN 7: CUSTOMER SERVICE ═══ -->
+<div class="workflow-section" id="wf7">
+  <div class="wf-header">
+    <div class="wf-eye">Full Workflow · Customer Service</div>
+    <div class="wf-title">Issue to Resolution — <em style="color:var(--amber)">Contact to Closed & Retained</em></div>
+    <p class="wf-sub">The complete service loop — from first contact through AI classification, history retrieval, solution recommendation, resolution, satisfaction measurement, knowledge capture, and churn risk re-scoring. Every touchpoint automated.</p>
+    <div class="wf-stats">
+      <div class="wf-stat"><strong>9</strong><span>Workflow stages</span></div>
+      <div class="wf-stat"><strong>3 days</strong><span>Average resolution time</span></div>
+      <div class="wf-stat"><strong>~90s</strong><span>AI workflow time</span></div>
+      <div class="wf-stat"><strong>67%</strong><span>Reduction in handle time</span></div>
+    </div>
+  </div>
+  <div class="wf-trigger">
+    <div class="wf-trigger-label">Trigger Workflow — Customer Contact</div>
+    <div class="wf-input-grid">
+      <div class="wf-field"><label class="wf-label">Customer</label><input class="wf-input" id="wf7-cust" value="Acme Corp — Enterprise, $180K ARR, 3.5 years"></div>
+      <div class="wf-field"><label class="wf-label">Contact Channel</label>
+        <select class="wf-select" id="wf7-chan">
+          <option value="Email — urgent subject line" selected>Email — Urgent</option>
+          <option value="Live chat">Live Chat</option>
+          <option value="Phone">Phone</option>
+          <option value="In-app feedback">In-App</option>
+        </select>
+      </div>
+      <div class="wf-field full"><label class="wf-label">Customer Message</label><textarea class="wf-textarea" id="wf7-msg">Our entire team has been unable to access the platform since 9:47am. Getting 503 errors on all API calls. This is blocking our daily reconciliation — we have a regulatory deadline at 2pm. Enterprise SLA — need immediate response.</textarea></div>
+    </div>
+    <button class="wf-start-btn" id="wf7-btn" onclick="runWorkflow(7)">▶ Run Issue to Resolution Workflow</button>
+  </div>
+  <div class="pipeline" id="wf7-pipeline">
+    <div class="pipeline-header"><span class="pipeline-title">Customer Service Pipeline</span><span class="pipeline-status status-running" id="wf7-status">● Running</span></div>
+    <div class="steps" id="wf7-steps">
+      <div class="step pending" id="wf7-s0"><div class="step-connector"><div class="step-dot">1</div></div><div class="step-body"><div class="step-title-row"><span class="step-name">Contact Received & Classified</span></div><div class="step-detail">Issue type, urgency, and sentiment classified. P1/P2/P3 severity assigned.</div><div class="step-output" id="wf7-o0"></div></div></div>
+      <div class="step pending" id="wf7-s1"><div class="step-connector"><div class="step-dot">2</div></div><div class="step-body"><div class="step-title-row"><span class="step-name">Customer History Loaded</span></div><div class="step-detail">Account ARR, prior cases, health score, churn risk, CSM loaded in 2 seconds</div><div class="step-output" id="wf7-o1"></div></div></div>
+      <div class="step pending" id="wf7-s2"><div class="step-connector"><div class="step-dot">3</div></div><div class="step-body"><div class="step-title-row"><span class="step-name">Routed to Right Team</span></div><div class="step-detail">P1 Technical issue → Enterprise Support + On-call Engineer paged simultaneously</div><div class="step-output" id="wf7-o2"></div></div></div>
+      <div class="step pending" id="wf7-s3"><div class="step-connector"><div class="step-dot">4</div></div><div class="step-body"><div class="step-title-row"><span class="step-name">First Response Drafted & Sent</span></div><div class="step-detail">AI drafts empathetic, specific response. Sent within 4 minutes of contact.</div><div class="step-output" id="wf7-o3"></div></div></div>
+      <div class="step pending" id="wf7-s4"><div class="step-connector"><div class="step-dot">5</div></div><div class="step-body"><div class="step-title-row"><span class="step-name">Root Cause Identified</span></div><div class="step-detail">Infrastructure logs analyzed. Database connection pool exhaustion identified.</div><div class="step-output" id="wf7-o4"></div></div></div>
+      <div class="step pending" id="wf7-s5"><div class="step-connector"><div class="step-dot">6</div></div><div class="step-body"><div class="step-title-row"><span class="step-name">Issue Resolved</span></div><div class="step-detail">Connection pool limit increased. Service restored. All systems green.</div><div class="step-output" id="wf7-o5"></div></div></div>
+      <div class="step pending" id="wf7-s6"><div class="step-connector"><div class="step-dot">7</div></div><div class="step-body"><div class="step-title-row"><span class="step-name">Resolution Confirmed & Case Closed</span></div><div class="step-detail">Customer confirms resolution. Incident report and SLA credit calculated.</div><div class="step-output" id="wf7-o6"></div></div></div>
+      <div class="step pending" id="wf7-s7"><div class="step-connector"><div class="step-dot">8</div></div><div class="step-body"><div class="step-title-row"><span class="step-name">CSAT Survey Sent & KB Article Created</span></div><div class="step-detail">Post-resolution survey sent. Incident turned into KB article for future deflection.</div><div class="step-output" id="wf7-o7"></div></div></div>
+      <div class="step pending" id="wf7-s8"><div class="step-connector"><div class="step-dot">9</div></div><div class="step-body"><div class="step-title-row"><span class="step-name">Churn Risk Re-Scored</span></div><div class="step-detail">P1 incident noted. Churn risk elevated. CSM proactive outreach scheduled.</div><div class="step-output" id="wf7-o8"></div></div></div>
+    </div>
+    <div class="summary-card" id="wf7-summary">
+      <div class="summary-title">Issue Resolved — Customer Retained</div>
+      <div class="summary-sub">P1 incident resolved in 47 minutes. SLA credit applied. CSM alerted.</div>
+      <div class="summary-grid">
+        <div class="summary-stat"><strong id="wf7-t1">—</strong><span>Total Time</span></div>
+        <div class="summary-stat"><strong>9/9</strong><span>Steps Complete</span></div>
+        <div class="summary-stat"><strong>P1</strong><span>Severity</span></div>
+        <div class="summary-stat"><strong>Retained</strong><span>Customer Status</span></div>
+      </div>
+      <div class="summary-actions">
+        <button class="sa-btn sa-primary" onclick="toast('✅ Closed','Case closed. Resolution email and SLA credit sent to Acme Corp.')">✅ Close & Notify</button>
+        <button class="sa-btn sa-secondary" onclick="toast('👔 CSM Alerted','CSM notified. Proactive check-in call scheduled for tomorrow.')">👔 Alert CSM</button>
+        <button class="sa-btn sa-secondary" onclick="resetWorkflow(7)">↺ Reset</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+</main><!-- end main -->
+
+<!-- TOAST -->
+<div class="toast" id="toast-el"><div class="toast-title" id="toast-t">Done</div><div id="toast-m">Action completed.</div></div>
+
+<script>
+// ═══ WORKFLOW DEFINITIONS ═══
+// Each workflow: array of steps with {prompt context} for AI
+const WORKFLOWS = [
+  // 0: Financial — Merchant Lifecycle (8 steps)
+  {
+    steps: 8,
+    getContext: () => ({
+      name: document.getElementById('wf0-name').value,
+      type: document.getElementById('wf0-type').value,
+      country: document.getElementById('wf0-country').value,
+      volume: document.getElementById('wf0-volume').value
+    }),
+    stepNames: ['Application Received','Sanctions Screening','Risk Assessment','Underwriting','Contract Generation','Portal Provisioning','Transaction Monitoring Setup','90-Day Review Scheduled'],
+    summaryTitle: (ctx) => `${ctx.name} — Merchant Onboarded`,
+    riskField: 'wf0-t2'
+  },
+  // 1: Healthcare — Prior Auth (9 steps)
+  {
+    steps: 9,
+    getContext: () => ({
+      patient: document.getElementById('wf1-patient').value,
+      proc: document.getElementById('wf1-proc').value,
+      payer: document.getElementById('wf1-payer').value,
+      urgency: document.getElementById('wf1-urg').value,
+      notes: document.getElementById('wf1-notes').value
+    }),
+    stepNames: ['Eligibility Verified','Coverage Guidelines Checked','Medical Necessity Scored','Auth Decision Rendered','Auth Letter Generated','Physician Notified','Patient Notified','Appointment Scheduled','Claims Pre-Auth Linked'],
+    summaryTitle: () => 'Authorization Approved — Treatment Scheduled',
+    riskField: null
+  },
+  // 2: Insurance — Claims (8 steps)
+  {
+    steps: 8,
+    getContext: () => ({
+      type: document.getElementById('wf2-type').value,
+      policy: document.getElementById('wf2-policy').value,
+      damage: document.getElementById('wf2-damage').value,
+      fault: document.getElementById('wf2-fault').value,
+      desc: document.getElementById('wf2-desc').value
+    }),
+    stepNames: ['FNOL Triaged','Coverage Verified','Fraud Screened','Liability Assessed','Damage Valued','Settlement Calculated','Settlement Letter Generated','Payment Authorized'],
+    summaryTitle: () => 'Claim Settled — Payment Authorized',
+    riskField: null
+  },
+  // 3: Government — Permit (8 steps)
+  {
+    steps: 8,
+    getContext: () => ({
+      type: document.getElementById('wf3-type').value,
+      addr: document.getElementById('wf3-addr').value,
+      val: document.getElementById('wf3-val').value,
+      app: document.getElementById('wf3-app').value
+    }),
+    stepNames: ['Completeness Checked','Zoning Verified','Building Code Reviewed','Fees Calculated & Paid','Permit Issued','Inspections Scheduled','Final Inspection Passed','Certificate of Occupancy Issued'],
+    summaryTitle: () => 'Certificate of Occupancy Issued',
+    riskField: null
+  },
+  // 4: HR — Onboarding (9 steps)
+  {
+    steps: 9,
+    getContext: () => ({
+      name: document.getElementById('wf4-name').value,
+      role: document.getElementById('wf4-role').value,
+      start: document.getElementById('wf4-start').value,
+      model: document.getElementById('wf4-model').value,
+      mgr: document.getElementById('wf4-mgr').value,
+      systems: document.getElementById('wf4-systems').value
+    }),
+    stepNames: ['Offer Confirmed','Background Check Initiated','IT Provisioning Ordered','Systems Access Configured','Day 1 Schedule Built','Manager Briefed','Training Path Assigned','Welcome Package Sent','30-Day Check-in Scheduled'],
+    summaryTitle: (ctx) => `${ctx.name} — Ready for Day 1`,
+    riskField: null
+  },
+  // 5: Legal — Contract (9 steps)
+  {
+    steps: 9,
+    getContext: () => ({
+      type: document.getElementById('wf5-type').value,
+      party: document.getElementById('wf5-party').value,
+      value: document.getElementById('wf5-value').value,
+      law: document.getElementById('wf5-law').value,
+      terms: document.getElementById('wf5-terms').value
+    }),
+    stepNames: ['Request Received','NDA Executed','Contract Drafted','AI Risk Review Complete','Redlines Sent','Negotiation Tracked','Final Approval Obtained','Contract Executed','Filed & Renewal Set'],
+    summaryTitle: (ctx) => `Contract Executed — ${ctx.party}`,
+    riskField: null
+  },
+  // 6: Supply Chain — Order to Delivery (9 steps)
+  {
+    steps: 9,
+    getContext: () => ({
+      item: document.getElementById('wf6-item').value,
+      qty: document.getElementById('wf6-qty').value,
+      supp: document.getElementById('wf6-supp').value,
+      by: document.getElementById('wf6-by').value
+    }),
+    stepNames: ['Requisition Validated','Approvals Obtained','PO Sent to Supplier','Order Acknowledged','Production Tracked','Pre-Shipment QC Passed','Shipment & Customs Cleared','Incoming Inspection Passed','3-Way Match & Invoice Approved'],
+    summaryTitle: () => 'Order Complete — Goods Received',
+    riskField: null
+  },
+  // 7: Customer Service (9 steps)
+  {
+    steps: 9,
+    getContext: () => ({
+      cust: document.getElementById('wf7-cust').value,
+      chan: document.getElementById('wf7-chan').value,
+      msg: document.getElementById('wf7-msg').value
+    }),
+    stepNames: ['Contact Classified','Customer History Loaded','Routed to Right Team','First Response Sent','Root Cause Identified','Issue Resolved','Case Closed','CSAT Sent & KB Created','Churn Risk Re-Scored'],
+    summaryTitle: () => 'Issue Resolved — Customer Retained',
+    riskField: null
+  }
+];
+
+// ═══ DOMAIN SWITCHER ═══
+function switchDomain(n) {
+  document.querySelectorAll('.domain-btn').forEach((b,i) => b.classList.toggle('active', i===n));
+  document.querySelectorAll('.workflow-section').forEach((s,i) => s.classList.toggle('active', i===n));
+  window.scrollTo({top: document.querySelector('.domain-nav').offsetTop - 10, behavior: 'smooth'});
+}
+
+// ═══ TOAST ═══
+function toast(t, m) {
+  document.getElementById('toast-t').textContent = t;
+  document.getElementById('toast-m').textContent = m;
+  const el = document.getElementById('toast-el');
+  el.classList.add('show');
+  setTimeout(() => el.classList.remove('show'), 6000);
+}
+
+// ═══ STEP STATE HELPERS ═══
+function setStepActive(wfId, stepIdx) {
+  const el = document.getElementById(`wf${wfId}-s${stepIdx}`);
+  if (!el) return;
+  el.className = 'step active';
+  el.querySelector('.step-dot').textContent = stepIdx + 1;
+}
+function setStepDone(wfId, stepIdx, outputText, badge) {
+  const el = document.getElementById(`wf${wfId}-s${stepIdx}`);
+  if (!el) return;
+  el.className = 'step done';
+  el.querySelector('.step-dot').textContent = '✓';
+  const out = document.getElementById(`wf${wfId}-o${stepIdx}`);
+  if (out && outputText) {
+    out.innerHTML = outputText + (badge ? ` <span class="step-badge ${badge.cls}">${badge.text}</span>` : '');
+    out.style.display = 'block';
+  }
+}
+function setStepError(wfId, stepIdx, msg) {
+  const el = document.getElementById(`wf${wfId}-s${stepIdx}`);
+  if (!el) return;
+  el.className = 'step error';
+  el.querySelector('.step-dot').textContent = '✕';
+  const out = document.getElementById(`wf${wfId}-o${stepIdx}`);
+  if (out) { out.textContent = msg; out.style.display = 'block'; out.style.color = 'var(--red)'; }
+}
+
+// ═══ MAIN WORKFLOW ENGINE ═══
+async function runWorkflow(wfId) {
+  const wf = WORKFLOWS[wfId];
+  const btn = document.getElementById(`wf${wfId}-btn`);
+  btn.disabled = true;
+  btn.textContent = '⏳ Running Workflow...';
+  const t0 = Date.now();
+
+  // Show pipeline
+  const pipeline = document.getElementById(`wf${wfId}-pipeline`);
+  pipeline.classList.add('visible');
+  pipeline.scrollIntoView({behavior: 'smooth', block: 'start'});
+
+  // Reset all steps to pending
+  for (let i = 0; i < wf.steps; i++) {
+    const el = document.getElementById(`wf${wfId}-s${i}`);
+    if (el) {
+      el.className = 'step pending';
+      el.querySelector('.step-dot').textContent = i + 1;
+      const out = document.getElementById(`wf${wfId}-o${i}`);
+      if (out) { out.style.display = 'none'; out.innerHTML = ''; }
+    }
+  }
+
+  const ctx = wf.getContext();
+
+  // Build the master prompt for all steps at once
+  const stepsJson = wf.stepNames.map((name, i) => `"step${i}": {"output": "<2 sentence description of what AI found/did at this step, specific to the input>", "badge": "<OK|WARNING|FLAGGED|APPROVED|GENERATED|COMPLETE>", "time": "<0.X-2.Xs>"}`).join(',\n');
+
+  const prompt = `You are an AI enterprise workflow engine. Process this workflow and return results for each step.
+
+Workflow: ${wf.stepNames.join(' → ')}
+Input: ${JSON.stringify(ctx)}
+
+Respond ONLY with this exact JSON (no other text):
+{
+  ${stepsJson},
+  "summary": "<one sentence overall result>",
+  "riskLevel": "<Low|Medium|High>",
+  "totalSteps": ${wf.steps}
+}
+
+Make each step output specific to the actual input provided. Be concrete and realistic.`;
+
+  try {
+    // Call AI once for all steps
+    const response = await fetch('/api/ai', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ messages: [{ role: 'user', content: prompt }] })
+    });
+    const data = await response.json();
+    const text = data.content[0].text.replace(/```json|```/g, '').trim();
+    const result = JSON.parse(text);
+
+    // Animate steps sequentially
+    for (let i = 0; i < wf.steps; i++) {
+      setStepActive(wfId, i);
+      await new Promise(r => setTimeout(r, 600 + Math.random() * 400));
+
+      const stepData = result[`step${i}`];
+      const badgeMap = {
+        'OK': {cls:'sb-green', text:'✓ OK'},
+        'APPROVED': {cls:'sb-green', text:'✓ Approved'},
+        'COMPLETE': {cls:'sb-green', text:'✓ Complete'},
+        'GENERATED': {cls:'sb-amber', text:'◆ Generated'},
+        'WARNING': {cls:'sb-orange', text:'⚠ Warning'},
+        'FLAGGED': {cls:'sb-red', text:'! Flagged'},
+      };
+      const badge = badgeMap[stepData?.badge] || {cls:'sb-green', text:'✓ Done'};
+      const timeStr = stepData?.time ? `<span class="step-time">${stepData.time}</span>` : '';
+      const output = stepData?.output || wf.stepNames[i] + ' completed.';
+
+      setStepDone(wfId, i, output + timeStr, badge);
+    }
+
+    // Update pipeline status
+    const statusEl = document.getElementById(`wf${wfId}-status`);
+    statusEl.textContent = '✓ Complete';
+    statusEl.className = 'pipeline-status status-complete';
+
+    // Show summary
+    const elapsed = ((Date.now() - t0) / 1000).toFixed(1);
+    const summaryCard = document.getElementById(`wf${wfId}-summary`);
+    const titleEl = document.getElementById(`wf${wfId}-summary-title`);
+    const subEl = document.getElementById(`wf${wfId}-summary-sub`);
+    const t1El = document.getElementById(`wf${wfId}-t1`);
+
+    if (titleEl) titleEl.textContent = typeof wf.summaryTitle === 'function' ? wf.summaryTitle(ctx) : wf.summaryTitle;
+    if (subEl && result.summary) subEl.textContent = result.summary;
+    if (t1El) t1El.textContent = elapsed + 's';
+    if (wf.riskField) {
+      const rEl = document.getElementById(wf.riskField);
+      if (rEl) rEl.textContent = result.riskLevel || 'Low';
+    }
+    summaryCard.classList.add('visible');
+    summaryCard.scrollIntoView({behavior: 'smooth', block: 'nearest'});
+
+  } catch (err) {
+    console.error('Workflow error:', err);
+    // Fallback: animate with placeholder data
+    for (let i = 0; i < wf.steps; i++) {
+      setStepActive(wfId, i);
+      await new Promise(r => setTimeout(r, 500));
+      setStepDone(wfId, i, `${wf.stepNames[i]} completed successfully.`, {cls:'sb-green', text:'✓ OK'});
+    }
+    const statusEl = document.getElementById(`wf${wfId}-status`);
+    if (statusEl) { statusEl.textContent = '✓ Complete'; statusEl.className = 'pipeline-status status-complete'; }
+    const summaryCard = document.getElementById(`wf${wfId}-summary`);
+    if (summaryCard) summaryCard.classList.add('visible');
+  }
+
+  btn.disabled = false;
+  btn.textContent = '▶ Run Again';
+}
+
+// ═══ RESET ═══
+function resetWorkflow(wfId) {
+  const wf = WORKFLOWS[wfId];
+  const pipeline = document.getElementById(`wf${wfId}-pipeline`);
+  const btn = document.getElementById(`wf${wfId}-btn`);
+  // Reset button
+  btn.disabled = false;
+  btn.textContent = btn.textContent.replace('Run Again', `▶ ${['Run Full Merchant Lifecycle Workflow','Run Prior Auth to Treatment Workflow','Run Full Claims Lifecycle Workflow','Run Permit to Certificate Workflow','Run Hire to Productive Workflow','Run Contract Lifecycle Workflow','Run Order to Delivery Workflow','Run Issue to Resolution Workflow'][wfId]}`);
+  // Reset steps
+  for (let i = 0; i < wf.steps; i++) {
+    const el = document.getElementById(`wf${wfId}-s${i}`);
+    if (el) {
+      el.className = 'step pending';
+      el.querySelector('.step-dot').textContent = i + 1;
+      const out = document.getElementById(`wf${wfId}-o${i}`);
+      if (out) { out.style.display = 'none'; out.innerHTML = ''; }
+    }
+  }
+  // Reset pipeline header
+  const statusEl = document.getElementById(`wf${wfId}-status`);
+  if (statusEl) { statusEl.textContent = '● Running'; statusEl.className = 'pipeline-status status-running'; }
+  // Hide pipeline and summary
+  pipeline.classList.remove('visible');
+  document.getElementById(`wf${wfId}-summary`)?.classList.remove('visible');
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+  const hash = window.location.hash;
+  if (hash) {
+    const match = hash.match(/#wf(\d)/);
+    if (match) {
+      const n = parseInt(match[1]);
+      if (n >= 0 && n <= 7) switchDomain(n);
+    }
+  }
+});
+</script>
+</body>
+</html>
