@@ -747,7 +747,7 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 <div class="toast" id="toast-el"><div class="toast-title" id="toast-t">Done</div><div id="toast-m">Action completed.</div></div>
 
 <script>
-const API_URL = 'https://api.anthropic.com/v1/messages';
+const API_URL = '/api/ai';
 
 // TAB SWITCHING
 function switchTab(n) {
@@ -806,7 +806,7 @@ async function callClaude(prompt) {
   const r = await fetch(API_URL, {
     method:'POST',
     headers:{'Content-Type':'application/json'},
-    body: JSON.stringify({model:'claude-sonnet-4-20250514', max_tokens:1000, messages:[{role:'user',content:prompt}]})
+    body: JSON.stringify({messages:[{role:'user',content:prompt}]})
   });
   const d = await r.json();
   return JSON.parse(d.content[0].text.replace(/```json|```/g,'').trim());

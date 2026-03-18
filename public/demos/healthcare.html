@@ -654,7 +654,7 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 <div class="toast" id="toast-el"><div class="toast-title" id="toast-t">Done</div><div id="toast-m">Action completed.</div></div>
 
 <script>
-const API='https://api.anthropic.com/v1/messages';
+const API='/api/ai';
 
 function switchTab(n){
   document.querySelectorAll('.tab-btn').forEach((b,i)=>b.classList.toggle('active',i===n));
@@ -693,7 +693,7 @@ function buildLetter(title,content,time){
   return `<div class="letter-head">${title}</div>${paras.map(p=>`<p>${p}</p>`).join('')}<div class="letter-sig"><strong style="color:var(--teal)">BISXP Healthcare AI</strong><br><span style="font-size:11px;color:var(--muted)">Generated in ${time}s · BISXP AI Suite · Review before clinical use</span></div>`;
 }
 async function callClaude(prompt){
-  const r=await fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,messages:[{role:'user',content:prompt}]})});
+  const r=await fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:[{role:'user',content:prompt}]})});
   const d=await r.json();
   return JSON.parse(d.content[0].text.replace(/```json|```/g,'').trim());
 }

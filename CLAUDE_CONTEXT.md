@@ -36,6 +36,7 @@ Deploy: Vercel (not yet configured)
 | RESEND_FROM_EMAIL | ⚠️ Set to hello@bisxp.com | Must be verified in Resend |
 | ADMIN_EMAIL | ⚠️ FILL IN | Your email for enquiry notifications |
 | NEXT_PUBLIC_WHATSAPP_NUMBER | ⚠️ FILL IN | Full number e.g. 917675822722 |
+| ANTHROPIC_API_KEY | ⚠️ FILL IN | anthropic.com → API Keys (server-side only) |
 
 ---
 
@@ -71,6 +72,7 @@ app/
   api/
     enquiry/route.ts            ✅ POST — save enquiry + send email via Resend
     enquiry/[id]/route.ts       ✅ PATCH — update enquiry status (auth-protected)
+    ai/route.ts                 ✅ POST — AI proxy for demo suite (keeps API key server-side)
 lib/
   supabase.ts                   ✅ Browser client + helpers
 proxy.ts                        ✅ Middleware — protects /admin
@@ -141,3 +143,4 @@ public/
 - proxy.ts is the middleware file (NOT middleware.ts) — this is the BISXP/TABRO convention.
 - Admin users created via Supabase Dashboard only — no public signup.
 - Enquiry email uses Resend. If email fails, enquiry is still saved to DB (graceful degradation).
+- AI proxy: /api/ai proxies Claude requests for demo suite. Requires ANTHROPIC_API_KEY env var in Vercel.

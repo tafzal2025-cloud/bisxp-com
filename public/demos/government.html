@@ -504,7 +504,7 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 <div class="toast" id="toast-el"><div class="toast-title" id="toast-t">Done</div><div id="toast-m">Action completed.</div></div>
 
 <script>
-const API='https://api.anthropic.com/v1/messages';
+const API='/api/ai';
 function switchTab(n){document.querySelectorAll('.tab-btn').forEach((b,i)=>b.classList.toggle('active',i===n));document.querySelectorAll('.demo-section').forEach((s,i)=>s.classList.toggle('active',i===n));window.scrollTo({top:document.querySelector('.tab-nav').offsetTop-10,behavior:'smooth'});}
 function toast(t,m){document.getElementById('toast-t').textContent=t;document.getElementById('toast-m').textContent=m;const el=document.getElementById('toast-el');el.classList.add('show');setTimeout(()=>el.classList.remove('show'),4000);}
 async function animSteps(p,n,d=580){for(let i=1;i<=n;i++){await new Promise(r=>setTimeout(r,d));if(i>1){document.getElementById(`${p}-s${i-1}`).classList.remove('on');document.getElementById(`${p}-s${i-1}`).classList.add('done');}document.getElementById(`${p}-s${i}`).classList.add('on');}}
@@ -512,7 +512,7 @@ function showLoad(id){document.getElementById(`${id}-ph`).style.display='none';d
 function showResult(id){document.getElementById(`${id}-load`).classList.remove('on');document.getElementById(`${id}-result`).classList.add('on');}
 function buildChecks(c){return c.map(x=>`<div class="chk ${x.status}"><span class="chk-icon">${x.status==='pass'?'✓':x.status==='warn'?'⚠':'✕'}</span><div class="chk-text"><strong>${x.title}</strong><span>${x.detail}</span></div></div>`).join('');}
 function buildLetter(title,content,time){const p=content.split('\n\n').filter(x=>x.trim());return `<div class="letter-head">${title}</div>${p.map(x=>`<p>${x}</p>`).join('')}<div class="letter-sig"><strong style="color:var(--slate)">BISXP Government AI</strong><br><span style="font-size:11px;color:var(--muted)">Generated in ${time}s · BISXP AI Suite</span></div>`;}
-async function callClaude(prompt){const r=await fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,messages:[{role:'user',content:prompt}]})});const d=await r.json();return JSON.parse(d.content[0].text.replace(/```json|```/g,'').trim());}
+async function callClaude(prompt){const r=await fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:[{role:'user',content:prompt}]})});const d=await r.json();return JSON.parse(d.content[0].text.replace(/```json|```/g,'').trim());}
 
 async function runGeneric(id,role,...pairs){
   const btn=document.getElementById(`${id}-btn`);const origText=btn.textContent;btn.disabled=true;btn.textContent='Analyzing...';
