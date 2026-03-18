@@ -1,57 +1,60 @@
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 
 export const maxDuration = 60
 
-const rateLimit = new Map<string, number[]>()
-
-export async function POST(request: Request) {
+export async function POST(req: NextRequest) {
   try {
-    const body = await request.json()
+    const body = await req.json()
 
-    if (!body.messages || !Array.isArray(body.messages)) {
-      return NextResponse.json({ error: 'Invalid request' }, { status: 400 })
-    }
-    const promptLength = JSON.stringify(body.messages).length
-    if (promptLength > 50000) {
-      return NextResponse.json({ error: 'Request too large' }, { status: 400 })
-    }
+    // Accept either {messages} or full Anthropic payload shape
+    // New demo suite sends: {model, max_tokens, system, messages}
+    const {
+      model = 'claude-sonnet-4-20250514',
+      max_tokens = 1000,
+      system,
+      messages,
+    } = body
 
-    const ip = request.headers.get('x-forwarded-for') ||
-               request.headers.get('x-real-ip') ||
-               'unknown'
-
-    const now = Date.now()
-    const windowMs = 60 * 60 * 1000
-    if (!rateLimit.has(ip)) rateLimit.set(ip, [])
-    const requests = rateLimit.get(ip)!.filter(t => now - t < windowMs)
-    if (requests.length >= 50) {
+    if (!messages || !Array.isArray(messages)) {
       return NextResponse.json(
-        { error: 'Rate limit exceeded. Please try again later.' },
-        { status: 429 }
+        { error: 'messages array required' },
+        { status: 400 }
       )
     }
-    requests.push(now)
-    rateLimit.set(ip, requests)
+
+    const apiKey = process.env.ANTHROPIC_API_KEY
+    if (!apiKey) {
+      return NextResponse.json(
+        { error: 'ANTHROPIC_API_KEY not configured' },
+        { status: 500 }
+      )
+    }
+
+    // Build Anthropic request — only include system if provided
+    const anthropicBody: Record<string, unknown> = {
+      model,
+      max_tokens,
+      messages,
+    }
+    if (system) {
+      anthropicBody.system = system
+    }
 
     const response = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'x-api-key': process.env.ANTHROPIC_API_KEY!,
+        'x-api-key': apiKey,
         'anthropic-version': '2023-06-01',
       },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 1000,
-        messages: body.messages,
-      }),
+      body: JSON.stringify(anthropicBody),
     })
 
     if (!response.ok) {
-      const error = await response.text()
-      console.error('Anthropic API error:', error)
+      const errText = await response.text()
+      console.error('Anthropic API error:', response.status, errText)
       return NextResponse.json(
-        { error: 'AI service error' },
+        { error: `Anthropic API error: ${response.status}` },
         { status: response.status }
       )
     }
@@ -60,7 +63,7 @@ export async function POST(request: Request) {
     return NextResponse.json(data)
 
   } catch (err) {
-    console.error('AI proxy error:', err)
+    console.error('AI route error:', err)
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }
