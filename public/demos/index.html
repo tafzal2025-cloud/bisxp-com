@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>BISXP Enterprise · AI Demo Library</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--obsidian:#08080A;--charcoal:#131318;--steel:#1E1E28;--amber:#D4A843;--amber-bright:#F0C060;--amber-dim:rgba(212,168,67,0.1);--amber-glow:rgba(212,168,67,0.2);--cream:#F0EBE0;--white:#FAFAF8;--muted:#70707A;--muted-light:#9090A0;--border:rgba(212,168,67,0.1);--border-strong:rgba(212,168,67,0.25);}
+html{scroll-behavior:smooth}
+body{background:var(--obsidian);color:var(--cream);font-family:'Outfit',sans-serif;font-weight:300;min-height:100vh;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(212,168,67,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(212,168,67,0.025) 1px,transparent 1px);background-size:48px 48px;pointer-events:none;z-index:0}
+.hdr{position:sticky;top:0;z-index:200;background:rgba(8,8,10,0.95);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);padding:0 40px;height:60px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;letter-spacing:2px;text-decoration:none;color:var(--cream)}.logo span{color:var(--amber)}
+.hdr-right{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted)}
+.hdr-right::before{content:'';width:6px;height:6px;border-radius:50%;background:#22C55E;box-shadow:0 0 8px #22C55E;animation:blink 2s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.main{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:60px 40px 80px}
+.hero{text-align:center;margin-bottom:60px}
+.hero-eye{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:4px;color:var(--amber);margin-bottom:18px}
+.hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(42px,5vw,64px);font-weight:300;color:var(--white);line-height:1.08;margin-bottom:16px}
+.hero h1 em{font-style:italic;color:var(--amber)}
+.hero-sub{font-size:16px;color:var(--muted-light);max-width:580px;margin:0 auto 32px;line-height:1.75}
+.hero-meta{display:flex;justify-content:center;gap:32px;flex-wrap:wrap}
+.hero-stat strong{font-family:'JetBrains Mono',monospace;font-size:28px;color:var(--amber);display:block;margin-bottom:3px}
+.hero-stat span{font-size:12px;color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:48px}
+.demo-card{background:var(--charcoal);border:1px solid var(--border);border-radius:16px;padding:28px 24px;text-decoration:none;transition:all .25s;position:relative;overflow:hidden;display:block}
+.demo-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,transparent,rgba(212,168,67,0.03));opacity:0;transition:opacity .25s}
+.demo-card:hover{border-color:var(--border-strong);transform:translateY(-3px);box-shadow:0 12px 32px rgba(0,0,0,0.3)}
+.demo-card:hover::before{opacity:1}
+.demo-num{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);margin-bottom:12px;letter-spacing:1px}
+.demo-icon{font-size:32px;margin-bottom:12px;display:block}
+.demo-title{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:400;color:var(--white);margin-bottom:6px;line-height:1.2}
+.demo-sub{font-size:12px;color:var(--muted-light);line-height:1.6;margin-bottom:16px}
+.demo-tag{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:600;padding:3px 10px;border-radius:20px;text-transform:uppercase;letter-spacing:.5px}
+.demo-beats{font-size:11px;color:var(--muted);margin-top:8px}
+.demo-beats strong{color:var(--amber)}
+.demo-arrow{position:absolute;top:24px;right:20px;font-size:16px;color:var(--muted);transition:all .25s}
+.demo-card:hover .demo-arrow{color:var(--amber);transform:translateX(4px)}
+.section-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:3px;color:var(--muted);margin-bottom:20px}
+.banner{background:linear-gradient(135deg,var(--charcoal),var(--steel));border:1px solid var(--border-strong);border-radius:16px;padding:48px;text-align:center;position:relative;overflow:hidden}
+.banner::before{content:'';position:absolute;top:-40%;left:50%;transform:translateX(-50%);width:320px;height:320px;background:radial-gradient(circle,var(--amber-glow),transparent 70%);pointer-events:none}
+.banner h2{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:300;color:var(--white);margin-bottom:12px;position:relative}
+.banner p{color:var(--muted-light);font-size:15px;max-width:520px;margin:0 auto 28px;line-height:1.75;position:relative}
+.cta{display:inline-block;padding:14px 40px;background:var(--amber);color:var(--obsidian);font-family:'Outfit',sans-serif;font-size:14px;font-weight:600;border-radius:10px;text-decoration:none;transition:all .2s;letter-spacing:.5px;position:relative}
+.cta:hover{background:var(--amber-bright);transform:translateY(-2px);box-shadow:0 8px 24px var(--amber-glow)}
+@media(max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}.main{padding:40px 20px 60px}.hero h1{font-size:38px}.hdr{padding:0 20px}}
+@media(max-width:500px){.grid{grid-template-columns:1fr}.hero-meta{gap:20px}}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <a class="logo" href="https://bisxp.com">BIS<span>XP</span></a>
+  <div class="hdr-right">8 Live AI Demos · Enterprise Suite</div>
+</header>
+<main class="main">
+  <div class="hero">
+    <div class="hero-eye">BISXP Enterprise · AI Demo Library</div>
+    <h1>Eight Industries.<br><em>One AI Platform.</em></h1>
+    <p class="hero-sub">Every demo below runs live Claude AI. Real inputs, real outputs, real intelligence. This is what we build — in 8 weeks, for a fraction of what you're paying Appian, Pega, ServiceNow, or Salesforce.</p>
+    <div class="hero-meta">
+      <div class="hero-stat"><strong>8</strong><span>Industry verticals</span></div>
+      <div class="hero-stat"><strong>40</strong><span>Live AI demos</span></div>
+      <div class="hero-stat"><strong>8 wks</strong><span>To production</span></div>
+      <div class="hero-stat"><strong>$0</strong><span>Vendor lock-in</span></div>
+    </div>
+  </div>
+
+  <div class="section-label">Select Your Industry</div>
+
+  <div class="grid">
+    <a class="demo-card" href="financial.html">
+      <span class="demo-num">01</span>
+      <span class="demo-icon">🏦</span>
+      <div class="demo-title">Financial Services</div>
+      <p class="demo-sub">Merchant onboarding, dispute resolution, compliance, fraud investigation, partner bank onboarding.</p>
+      <span class="demo-tag" style="background:rgba(212,168,67,0.12);color:#D4A843;border:1px solid rgba(212,168,67,0.2)">5 Demos</span>
+      <div class="demo-beats">Beats: <strong>Appian · Pega · Salesforce</strong></div>
+      <span class="demo-arrow">→</span>
+    </a>
+    <a class="demo-card" href="healthcare.html">
+      <span class="demo-num">02</span>
+      <span class="demo-icon">🏥</span>
+      <div class="demo-title">Healthcare</div>
+      <p class="demo-sub">Prior auth, provider credentialing, HIPAA compliance, clinical trial enrollment, adverse event reporting.</p>
+      <span class="demo-tag" style="background:rgba(14,165,160,0.1);color:#0EA5A0;border:1px solid rgba(14,165,160,0.2)">5 Demos</span>
+      <div class="demo-beats">Beats: <strong>Appian · ServiceNow</strong></div>
+      <span class="demo-arrow">→</span>
+    </a>
+    <a class="demo-card" href="insurance.html">
+      <span class="demo-num">03</span>
+      <span class="demo-icon">🛡️</span>
+      <div class="demo-title">Insurance</div>
+      <p class="demo-sub">Claims processing, underwriting, fraud detection, policy renewal, regulatory filing.</p>
+      <span class="demo-tag" style="background:rgba(99,102,241,0.1);color:#818CF8;border:1px solid rgba(99,102,241,0.2)">5 Demos</span>
+      <div class="demo-beats">Beats: <strong>Pega · Guidewire</strong></div>
+      <span class="demo-arrow">→</span>
+    </a>
+    <a class="demo-card" href="government.html">
+      <span class="demo-num">04</span>
+      <span class="demo-icon">🏛️</span>
+      <div class="demo-title">Government</div>
+      <p class="demo-sub">Permit processing, grant management, vendor procurement, FOIA requests, citizen services.</p>
+      <span class="demo-tag" style="background:rgba(45,212,191,0.1);color:#2DD4BF;border:1px solid rgba(45,212,191,0.2)">5 Demos</span>
+      <div class="demo-beats">Beats: <strong>ServiceNow · Appian Gov</strong></div>
+      <span class="demo-arrow">→</span>
+    </a>
+    <a class="demo-card" href="hr.html">
+      <span class="demo-num">05</span>
+      <span class="demo-icon">👥</span>
+      <div class="demo-title">HR & Workforce</div>
+      <p class="demo-sub">Employee onboarding, performance reviews, job descriptions, offboarding, policy Q&A.</p>
+      <span class="demo-tag" style="background:rgba(249,115,22,0.1);color:#F97316;border:1px solid rgba(249,115,22,0.2)">5 Demos</span>
+      <div class="demo-beats">Beats: <strong>ServiceNow · Workday</strong></div>
+      <span class="demo-arrow">→</span>
+    </a>
+    <a class="demo-card" href="#legal" onclick="toast('🚀 Coming Soon','Legal suite launching next week. Contact us for early access.')">
+      <span class="demo-num">06</span>
+      <span class="demo-icon">⚖️</span>
+      <div class="demo-title">Legal & Compliance</div>
+      <p class="demo-sub">Contract review, NDA generation, regulatory monitoring, litigation holds, corporate governance.</p>
+      <span class="demo-tag" style="background:rgba(168,85,247,0.1);color:#A855F7;border:1px solid rgba(168,85,247,0.2)">Coming Soon</span>
+      <div class="demo-beats">Beats: <strong>ServiceNow GRC · Salesforce</strong></div>
+      <span class="demo-arrow">→</span>
+    </a>
+    <a class="demo-card" href="#supply" onclick="toast('🚀 Coming Soon','Supply chain suite launching next week. Contact us for early access.')">
+      <span class="demo-num">07</span>
+      <span class="demo-icon">🏭</span>
+      <div class="demo-title">Supply Chain</div>
+      <p class="demo-sub">Supplier onboarding, purchase order intelligence, quality incidents, demand forecasting, trade compliance.</p>
+      <span class="demo-tag" style="background:rgba(234,179,8,0.1);color:#EAB308;border:1px solid rgba(234,179,8,0.2)">Coming Soon</span>
+      <div class="demo-beats">Beats: <strong>SAP · ServiceNow</strong></div>
+      <span class="demo-arrow">→</span>
+    </a>
+    <a class="demo-card" href="#cx" onclick="toast('🚀 Coming Soon','Customer service suite launching next week. Contact us for early access.')">
+      <span class="demo-num">08</span>
+      <span class="demo-icon">🎯</span>
+      <div class="demo-title">Customer Service</div>
+      <p class="demo-sub">Intelligent case routing, customer 360 AI, escalation prediction, knowledge base generation, VoC analysis.</p>
+      <span class="demo-tag" style="background:rgba(236,72,153,0.1);color:#EC4899;border:1px solid rgba(236,72,153,0.2)">Coming Soon</span>
+      <div class="demo-beats">Beats: <strong>Salesforce · ServiceNow CSM</strong></div>
+      <span class="demo-arrow">→</span>
+    </a>
+  </div>
+
+  <div class="banner">
+    <h2>See Your Workflow Automated</h2>
+    <p>Every demo above took us hours to build. Your Appian implementation took 18 months and $2M. We rebuild it AI-native in 8 weeks — you own the code, no vendor lock-in, Claude AI built in from day one.</p>
+    <a class="cta" href="https://bisxp.com/#contact">Book a Free 30-Minute Assessment →</a>
+  </div>
+</main>
+
+<div id="toast-el" style="position:fixed;bottom:24px;right:24px;background:var(--charcoal);border:1px solid var(--border-strong);border-radius:10px;padding:14px 18px;font-size:12px;z-index:9999;transform:translateY(80px);opacity:0;transition:all .3s;max-width:300px">
+  <div style="font-weight:600;color:var(--amber);margin-bottom:2px;font-size:13px" id="toast-t">Note</div>
+  <div id="toast-m"></div>
+</div>
+<script>
+function toast(t,m){document.getElementById('toast-t').textContent=t;document.getElementById('toast-m').textContent=m;const el=document.getElementById('toast-el');el.classList.add('show');el.style.transform='translateY(0)';el.style.opacity='1';setTimeout(()=>{el.style.transform='translateY(80px)';el.style.opacity='0';},4000);}
+</script>
+</body>
+</html>
