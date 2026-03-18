@@ -42,7 +42,7 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 .htag{background:var(--steel);border:1px solid var(--border);border-radius:20px;padding:5px 14px;font-size:11px;color:var(--muted-light);font-weight:500}
 
 /* TAB NAV */
-.tab-nav{position:sticky;top:56px;z-index:150;background:rgba(6,8,10,0.95);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:0 32px;display:flex;overflow-x:auto}
+.tab-nav{position:sticky;top:56px;z-index:150;background:rgba(6,8,10,0.95);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:0 32px;display:flex;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}.tab-nav::-webkit-scrollbar{display:none}
 .tab-btn{display:flex;align-items:center;gap:8px;padding:16px 24px;background:none;border:none;border-bottom:2px solid transparent;color:var(--muted);font-family:'Outfit',sans-serif;font-size:13px;font-weight:400;cursor:pointer;white-space:nowrap;transition:all .2s;margin-bottom:-1px}
 .tab-btn:hover{color:var(--cream)}
 .tab-btn.active{color:var(--teal);border-bottom-color:var(--teal);font-weight:500}
@@ -312,9 +312,9 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
           <div class="rec-box"><div class="rec-lbl">AI Authorization Decision</div><div class="rec-txt" id="d1-rec">✅ Approve — Medically Necessary</div></div>
           <div class="checks" id="d1-checks"></div>
           <div class="act-btns">
-            <button class="act-btn ab-green" onclick="toast('✅ Authorized','Prior auth approved. Auth number generated. Physician notified.')">✅ Authorize</button>
-            <button class="act-btn ab-orange" onclick="toast('📋 Peer Review','Sent to medical director for peer review.')">👨‍⚕️ Peer Review</button>
-            <button class="act-btn ab-red" onclick="toast('✕ Denied','Denial with reason code sent. Appeal instructions included.')">✕ Deny</button>
+            <button class="act-btn ab-green" onclick="handleAction(this,'✅ Authorized','Prior auth approved. Auth number generated. Physician notified.')">✅ Authorize</button>
+            <button class="act-btn ab-orange" onclick="handleAction(this,'📋 Peer Review','Sent to medical director for peer review.')">👨‍⚕️ Peer Review</button>
+            <button class="act-btn ab-red" onclick="handleAction(this,'✕ Denied','Denial with reason code sent. Appeal instructions included.')">✕ Deny</button>
           </div>
         </div>
       </div>
@@ -322,7 +322,7 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
   </div>
 
   <div class="letter" id="d1-letter">
-    <div class="card-hdr"><span class="card-title">AI-Generated Authorization Letter</span><span class="badge b-ai" id="d1-ltime">Generated instantly</span></div>
+    <div class="card-hdr"><span class="card-title">AI-Generated Authorization Letter</span><span class="badge b-ai" id="d1-ltime">—</span></div>
     <div class="letter-body" id="d1-lbody"></div>
   </div>
 </div>
@@ -400,9 +400,9 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
           <div class="checks" id="d2-checks"></div>
           <div class="rec-box"><div class="rec-lbl">AI Decision</div><div class="rec-txt" id="d2-rec">✅ Grant Full Clinical Privileges</div></div>
           <div class="act-btns">
-            <button class="act-btn ab-green" onclick="toast('✅ Credentialed','Privileges granted. Provider notified. EMR access initiated.')">✅ Grant Privileges</button>
-            <button class="act-btn ab-teal" onclick="toast('📋 Committee','Sent to credentialing committee for formal vote.')">📋 Committee Vote</button>
-            <button class="act-btn ab-orange" onclick="toast('⚠️ Provisional','Provisional privileges granted pending peer references.')">⚠️ Provisional</button>
+            <button class="act-btn ab-green" onclick="handleAction(this,'✅ Credentialed','Privileges granted. Provider notified. EMR access initiated.')">✅ Grant Privileges</button>
+            <button class="act-btn ab-teal" onclick="handleAction(this,'📋 Committee','Sent to credentialing committee for formal vote.')">📋 Committee Vote</button>
+            <button class="act-btn ab-orange" onclick="handleAction(this,'⚠️ Provisional','Provisional privileges granted pending peer references.')">⚠️ Provisional</button>
           </div>
         </div>
       </div>
@@ -410,7 +410,7 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
   </div>
 
   <div class="letter" id="d2-letter">
-    <div class="card-hdr"><span class="card-title">AI-Generated Privileges Letter</span><span class="badge b-ai">Generated instantly</span></div>
+    <div class="card-hdr"><span class="card-title">AI-Generated Privileges Letter</span><span class="badge b-ai" id="d2-letter-time">—</span></div>
     <div class="letter-body" id="d2-lbody"></div>
   </div>
 </div>
@@ -471,9 +471,9 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
           <div class="rec-box"><div class="rec-lbl">Compliance Status</div><div class="rec-txt" id="d3-status">⚠️ Partial Gap — Action Required</div></div>
           <div class="checks" id="d3-checks"></div>
           <div class="act-btns">
-            <button class="act-btn ab-teal" onclick="toast('✓ Assigned','Remediation tasks assigned to compliance and IT teams.')">✓ Assign Team</button>
-            <button class="act-btn ab-blue" onclick="toast('📊 Exported','Full gap report exported to compliance tracking system.')">📊 Export Report</button>
-            <button class="act-btn ab-orange" onclick="toast('📅 Scheduled','Board compliance briefing scheduled.')">📅 Board Briefing</button>
+            <button class="act-btn ab-teal" onclick="handleAction(this,'✓ Assigned','Remediation tasks assigned to compliance and IT teams.')">✓ Assign Team</button>
+            <button class="act-btn ab-blue" onclick="handleAction(this,'📊 Exported','Full gap report exported to compliance tracking system.')">📊 Export Report</button>
+            <button class="act-btn ab-orange" onclick="handleAction(this,'📅 Scheduled','Board compliance briefing scheduled.')">📅 Board Briefing</button>
           </div>
         </div>
       </div>
@@ -481,7 +481,7 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
   </div>
 
   <div class="letter" id="d3-letter">
-    <div class="card-hdr"><span class="card-title">AI-Generated Remediation Plan</span><span class="badge b-ai">Generated instantly</span></div>
+    <div class="card-hdr"><span class="card-title">AI-Generated Remediation Plan</span><span class="badge b-ai" id="d3-letter-time">—</span></div>
     <div class="letter-body" id="d3-lbody"></div>
   </div>
 </div>
@@ -544,9 +544,9 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
           <div class="rec-box"><div class="rec-lbl">AI Matching Result</div><div class="rec-txt" id="d4-rec">✅ 3 Eligible Trials Found — Rank 1 Recommended</div></div>
           <div class="checks" id="d4-checks"></div>
           <div class="act-btns">
-            <button class="act-btn ab-green" onclick="toast('✅ Referred','Patient referred to trial coordinator. Consent process initiated.')">✅ Refer to Trial</button>
-            <button class="act-btn ab-teal" onclick="toast('📋 Consent Sent','Informed consent document sent to patient portal.')">📋 Send Consent</button>
-            <button class="act-btn ab-blue" onclick="toast('📞 Coordinator','Trial coordinator notified. Will contact patient within 24hrs.')">📞 Notify Coordinator</button>
+            <button class="act-btn ab-green" onclick="handleAction(this,'✅ Referred','Patient referred to trial coordinator. Consent process initiated.')">✅ Refer to Trial</button>
+            <button class="act-btn ab-teal" onclick="handleAction(this,'📋 Consent Sent','Informed consent document sent to patient portal.')">📋 Send Consent</button>
+            <button class="act-btn ab-blue" onclick="handleAction(this,'📞 Coordinator','Trial coordinator notified. Will contact patient within 24hrs.')">📞 Notify Coordinator</button>
           </div>
         </div>
       </div>
@@ -554,7 +554,7 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
   </div>
 
   <div class="letter" id="d4-letter">
-    <div class="card-hdr"><span class="card-title">AI-Generated Trial Referral Summary</span><span class="badge b-ai">Generated instantly</span></div>
+    <div class="card-hdr"><span class="card-title">AI-Generated Trial Referral Summary</span><span class="badge b-ai" id="d4-letter-time">—</span></div>
     <div class="letter-body" id="d4-lbody"></div>
   </div>
 </div>
@@ -627,9 +627,9 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
           </div>
           <div class="checks" id="d5-checks"></div>
           <div class="act-btns">
-            <button class="act-btn ab-red" onclick="toast('📋 Submitted','MedWatch 3500A submitted to FDA. Reference # generated.')">📋 Submit to FDA</button>
-            <button class="act-btn ab-orange" onclick="toast('👁️ Review','Sent to pharmacovigilance physician for sign-off.')">👁️ Medical Review</button>
-            <button class="act-btn ab-blue" onclick="toast('💊 Manufacturer','Report forwarded to Pfizer pharmacovigilance.')">💊 Notify Manufacturer</button>
+            <button class="act-btn ab-red" onclick="handleAction(this,'📋 Submitted','MedWatch 3500A submitted to FDA. Reference # generated.')">📋 Submit to FDA</button>
+            <button class="act-btn ab-orange" onclick="handleAction(this,'👁️ Review','Sent to pharmacovigilance physician for sign-off.')">👁️ Medical Review</button>
+            <button class="act-btn ab-blue" onclick="handleAction(this,'💊 Manufacturer','Report forwarded to Pfizer pharmacovigilance.')">💊 Notify Manufacturer</button>
           </div>
         </div>
       </div>
@@ -666,7 +666,7 @@ function toast(t,m){
   document.getElementById('toast-m').textContent=m;
   const el=document.getElementById('toast-el');
   el.classList.add('show');
-  setTimeout(()=>el.classList.remove('show'),4000);
+  setTimeout(()=>el.classList.remove('show'),6000);
 }
 async function animSteps(p,n,d=580){
   for(let i=1;i<=n;i++){
@@ -714,7 +714,7 @@ JSON: {"decision":"<Approve|Conditional Approval|Peer Review Required|Deny>","de
     document.getElementById('d1-rec').textContent=`${icon} ${r.decision} — ${r.decisionDetail}`;
     document.getElementById('d1-checks').innerHTML=buildChecks(r.checks);
     document.getElementById('d1-lbody').innerHTML=buildLetter(`Authorization Decision — ${proc}`,r.letter,elapsed);
-    document.getElementById('d1-letter').classList.add('on');
+    document.getElementById('d1-letter').classList.add('on');{const lb=document.getElementById('d1-ltime');if(lb)lb.textContent='Generated in '+elapsed+'s';}
     document.getElementById('d1-time').textContent=elapsed+'s';
     document.getElementById('d1-cnt').textContent=parseInt(document.getElementById('d1-cnt').textContent)+1;
     showResult('d1');
@@ -743,7 +743,7 @@ JSON: {"score":<0-100>,"decision":"<Full Privileges|Provisional Privileges|Commi
     const icon=r.decision.includes('Full')?'✅':r.decision.includes('Prov')?'⚠️':r.decision.includes('Committee')?'🔍':'❌';
     document.getElementById('d2-rec').textContent=`${icon} ${r.decision}`;
     document.getElementById('d2-lbody').innerHTML=buildLetter(`Credentialing Decision — ${name}`,r.letter,elapsed);
-    document.getElementById('d2-letter').classList.add('on');showResult('d2');
+    document.getElementById('d2-letter').classList.add('on');{const lb=document.getElementById('d2-letter-time');if(lb)lb.textContent='Generated in '+elapsed+'s';}showResult('d2');
   }catch(e){await sp;showResult('d2');}
   btn.disabled=false;btn.textContent='⚡ Run Credentialing Check';
 }
@@ -764,7 +764,7 @@ JSON: {"status":"<Compliant|Partial Gap|Critical Gap>","statusDetail":"<one sent
     document.getElementById('d3-status').textContent=`${icon} ${r.status} — ${r.statusDetail}`;
     document.getElementById('d3-checks').innerHTML=buildChecks(r.checks);
     document.getElementById('d3-lbody').innerHTML=buildLetter(`HIPAA Compliance Remediation Plan — ${name}`,r.plan,elapsed);
-    document.getElementById('d3-letter').classList.add('on');showResult('d3');
+    document.getElementById('d3-letter').classList.add('on');{const lb=document.getElementById('d3-letter-time');if(lb)lb.textContent='Generated in '+elapsed+'s';}showResult('d3');
   }catch(e){await sp;showResult('d3');}
   btn.disabled=false;btn.textContent='⚡ Analyze Compliance Gap';
 }
@@ -784,7 +784,7 @@ JSON: {"matchResult":"<X Eligible Trials Found — Rank 1 Recommended>","matchDe
     document.getElementById('d4-rec').textContent=`✅ ${r.matchResult}`;
     document.getElementById('d4-checks').innerHTML=buildChecks(r.checks);
     document.getElementById('d4-lbody').innerHTML=buildLetter(`Trial Referral Summary — ${dx}`,r.referral,elapsed);
-    document.getElementById('d4-letter').classList.add('on');showResult('d4');
+    document.getElementById('d4-letter').classList.add('on');{const lb=document.getElementById('d4-letter-time');if(lb)lb.textContent='Generated in '+elapsed+'s';}showResult('d4');
   }catch(e){await sp;showResult('d4');}
   btn.disabled=false;btn.textContent='⚡ Match to Open Trials';
 }
@@ -805,9 +805,28 @@ JSON: {"reportingRequirement":"<Mandatory 15-day|Mandatory 7-day|Voluntary|Exped
     document.getElementById('d5-rec').textContent=`${icon} ${r.reportingRequirement} — ${r.requirementDetail}`;
     document.getElementById('d5-checks').innerHTML=buildChecks(r.checks);
     document.getElementById('d5-lbody').innerHTML=buildLetter(`MedWatch 3500A — ${drug}`,r.medwatch,elapsed);
-    document.getElementById('d5-letter').classList.add('on');showResult('d5');
+    document.getElementById('d5-letter').classList.add('on');{const lb=document.getElementById('d5-letter-time');if(lb)lb.textContent='Generated in '+elapsed+'s';}showResult('d5');
   }catch(e){await sp;showResult('d5');}
   btn.disabled=false;btn.textContent='⚡ Generate MedWatch Report';
+}
+
+function handleAction(btn,title,msg){
+  toast(title,msg);
+  btn.closest('.act-btns').querySelectorAll('.act-btn').forEach(b=>{b.disabled=true;b.style.opacity='0.4';b.style.cursor='not-allowed';});
+  const ab=btn.closest('.act-btns');
+  if(ab&&!ab.nextElementSibling?.classList?.contains('action-conf')){
+    const d=document.createElement('div');d.className='action-conf';
+    d.style.cssText='font-size:11px;color:var(--muted);text-align:center;margin-top:8px;padding-top:8px;border-top:1px solid var(--border)';
+    d.innerHTML='Action recorded \u00b7 '+new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'})+
+      '<br><button onclick="resetDemo(this)" style="margin-top:8px;width:100%;padding:8px;background:transparent;border:1px solid var(--border);border-radius:7px;color:var(--muted);font-family:Outfit,sans-serif;font-size:11px;cursor:pointer;transition:all .2s">\u21ba Reset Demo</button>';
+    ab.after(d);
+  }
+}
+function resetDemo(el){
+  const sec=el.closest('[id$="-section"]')||el.closest('.demo-section')||el.closest('.main');
+  if(!sec)return;
+  sec.querySelectorAll('.act-btn').forEach(b=>{b.disabled=false;b.style.opacity='';b.style.cursor='';});
+  sec.querySelectorAll('.action-conf').forEach(e=>e.remove());
 }
 </script>
 </body>
