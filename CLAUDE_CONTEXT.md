@@ -81,6 +81,20 @@ supabase/
 .claude/
   CLAUDE.md                     ✅ Standing instructions
 CLAUDE_CONTEXT.md               ✅ This file
+  demos/
+    page.tsx                    ✅ Redirect /demos → /demos/index.html
+    layout.tsx                  ✅ Metadata (noindex) for demos route
+public/
+  demos/
+    index.html                  ✅ 8-domain AI demo index (static, noindex)
+    financial.html              ✅ Financial Services — 5 demos
+    healthcare.html             ✅ Healthcare — 5 demos
+    insurance.html              ✅ Insurance — 5 demos
+    government.html             ✅ Government — 5 demos
+    hr.html                     ✅ HR & Workforce — 5 demos
+    legal.html                  ✅ Legal & Compliance — 5 demos
+    supply-chain.html           ✅ Supply Chain — 5 demos
+    customer-service.html       ✅ Customer Service — 5 demos
 ```
 
 ---
