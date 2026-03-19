@@ -3,196 +3,206 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="robots" content="noindex, nofollow">
-<title>BISXP Enterprise · AI Demo Library</title>
+<meta name="robots" content="noindex,nofollow">
+<title>BISXP — AI Demo Library</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{--obsidian:#08080A;--charcoal:#131318;--steel:#1E1E28;--amber:#D4A843;--amber-bright:#F0C060;--amber-dim:rgba(212,168,67,0.1);--amber-glow:rgba(212,168,67,0.2);--cream:#F0EBE0;--white:#FAFAF8;--muted:#70707A;--muted-light:#9090A0;--border:rgba(212,168,67,0.1);--border-strong:rgba(212,168,67,0.25);}
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--obs:#08080A;--ch:#131318;--st:#1E1E28;--cr:#F0EBE0;--wh:#FAFAF8;--mu:#70707A;--mu2:#9090A0;--am:#D4A843;--bd:rgba(255,255,255,0.08);--bds:rgba(255,255,255,0.15);}
 html{scroll-behavior:smooth}
-body{background:var(--obsidian);color:var(--cream);font-family:'Outfit',sans-serif;font-weight:300;min-height:100vh;overflow-x:hidden}
-body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(212,168,67,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(212,168,67,0.025) 1px,transparent 1px);background-size:48px 48px;pointer-events:none;z-index:0}
-.hdr{position:sticky;top:0;z-index:200;background:rgba(8,8,10,0.95);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);padding:0 40px;height:60px;display:flex;align-items:center;justify-content:space-between}
-.logo{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;letter-spacing:2px;text-decoration:none;color:var(--cream)}.logo span{color:var(--amber)}
-.hdr-right{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted)}
-.hdr-right::before{content:'';width:6px;height:6px;border-radius:50%;background:#22C55E;box-shadow:0 0 8px #22C55E;animation:blink 2s infinite}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
-.main{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:60px 40px 80px}
-.hero{text-align:center;margin-bottom:60px}
-.hero-eye{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:4px;color:var(--amber);margin-bottom:18px}
-.hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(42px,5vw,64px);font-weight:300;color:var(--white);line-height:1.08;margin-bottom:16px}
-.hero h1 em{font-style:italic;color:var(--amber)}
-.hero-sub{font-size:16px;color:var(--muted-light);max-width:580px;margin:0 auto 32px;line-height:1.75}
-.hero-meta{display:flex;justify-content:center;gap:32px;flex-wrap:wrap}
-.hero-stat strong{font-family:'JetBrains Mono',monospace;font-size:28px;color:var(--amber);display:block;margin-bottom:3px}
-.hero-stat span{font-size:12px;color:var(--muted)}
-.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:48px}
-.demo-card{background:var(--charcoal);border:1px solid var(--border);border-radius:16px;padding:28px 24px;text-decoration:none;transition:all .25s;position:relative;overflow:hidden;display:block}
-.demo-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,transparent,rgba(212,168,67,0.03));opacity:0;transition:opacity .25s}
-.demo-card:hover{border-color:var(--border-strong);transform:translateY(-3px);box-shadow:0 12px 32px rgba(0,0,0,0.3)}
-.demo-card:hover::before{opacity:1}
-.demo-num{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);margin-bottom:12px;letter-spacing:1px}
-.demo-icon{font-size:32px;margin-bottom:12px;display:block}
-.demo-title{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:400;color:var(--white);margin-bottom:6px;line-height:1.2}
-.demo-sub{font-size:12px;color:var(--muted-light);line-height:1.6;margin-bottom:16px}
-.demo-tag{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:600;padding:3px 10px;border-radius:20px;text-transform:uppercase;letter-spacing:.5px}
-.demo-beats{font-size:11px;color:var(--muted);margin-top:8px}
-.demo-beats strong{color:var(--amber)}
-.demo-arrow{position:absolute;top:24px;right:20px;font-size:16px;color:var(--muted);transition:all .25s}
-.demo-card:hover .demo-arrow{color:var(--amber);transform:translateX(4px)}
-.section-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:3px;color:var(--muted);margin-bottom:20px}
-.banner{background:linear-gradient(135deg,var(--charcoal),var(--steel));border:1px solid var(--border-strong);border-radius:16px;padding:48px;text-align:center;position:relative;overflow:hidden}
-.banner::before{content:'';position:absolute;top:-40%;left:50%;transform:translateX(-50%);width:320px;height:320px;background:radial-gradient(circle,var(--amber-glow),transparent 70%);pointer-events:none}
-.banner h2{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:300;color:var(--white);margin-bottom:12px;position:relative}
-.banner p{color:var(--muted-light);font-size:15px;max-width:520px;margin:0 auto 28px;line-height:1.75;position:relative}
-.cta{display:inline-block;padding:14px 40px;background:var(--amber);color:var(--obsidian);font-family:'Outfit',sans-serif;font-size:14px;font-weight:600;border-radius:10px;text-decoration:none;transition:all .2s;letter-spacing:.5px;position:relative}
-.cta:hover{background:var(--amber-bright);transform:translateY(-2px);box-shadow:0 8px 24px var(--amber-glow)}
-@media(max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}.main{padding:40px 20px 60px}.hero h1{font-size:38px}.hdr{padding:0 20px}}
-@media(max-width:500px){.grid{grid-template-columns:1fr}.hero-meta{gap:20px}}
+body{background:var(--obs);color:var(--cr);font-family:"Outfit",sans-serif;font-weight:300;min-height:100vh}
+body::before{content:"";position:fixed;inset:0;background-image:linear-gradient(rgba(212,168,67,0.015) 1px,transparent 1px),linear-gradient(90deg,rgba(212,168,67,0.015) 1px,transparent 1px);background-size:56px 56px;pointer-events:none;z-index:0}
+.hdr{position:sticky;top:0;z-index:200;background:rgba(8,8,10,0.96);backdrop-filter:blur(24px);border-bottom:1px solid var(--bd);padding:0 32px;height:56px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-family:"Cormorant Garamond",serif;font-size:20px;font-weight:600;letter-spacing:2px;text-decoration:none;color:var(--wh)}.logo span{color:var(--am)}
+.hdr-cta{background:var(--am);color:var(--obs);border:none;border-radius:6px;font-size:12px;font-weight:600;padding:7px 18px;cursor:pointer;font-family:"Outfit",sans-serif;text-decoration:none;display:inline-block}
+main{position:relative;z-index:1;max-width:1000px;margin:0 auto;padding:0 28px 80px}
+.hero{padding:72px 0 48px;border-bottom:1px solid var(--bd);margin-bottom:48px}
+.hero-eye{font-size:9px;font-weight:500;text-transform:uppercase;letter-spacing:.22em;color:var(--am);margin-bottom:12px;font-family:"JetBrains Mono",monospace}
+.hero h1{font-family:"Cormorant Garamond",serif;font-size:clamp(40px,6vw,68px);font-weight:300;color:var(--wh);line-height:1.02;margin-bottom:16px}
+.hero h1 em{color:var(--am);font-style:italic}
+.hero-sub{font-size:14px;color:var(--mu2);max-width:560px;line-height:1.8;margin-bottom:32px}
+.stats{display:flex;gap:32px;flex-wrap:wrap}
+.stat strong{font-family:"JetBrains Mono",monospace;font-size:28px;color:var(--am);display:block;line-height:1}
+.stat span{font-size:10px;color:var(--mu);text-transform:uppercase;letter-spacing:.08em;margin-top:4px;display:block}
+.section-eye{font-size:9px;font-weight:500;text-transform:uppercase;letter-spacing:.2em;color:var(--am);margin-bottom:16px;font-family:"JetBrains Mono",monospace}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-bottom:56px}
+@media(max-width:600px){.grid{grid-template-columns:1fr}}
+.card{background:var(--ch);border:1px solid var(--bd);border-radius:14px;padding:26px 24px;text-decoration:none;transition:all .22s;position:relative;overflow:hidden;display:block}
+.card::before{content:"";position:absolute;inset:0;opacity:0;transition:opacity .22s}
+.card:hover{border-color:var(--bds);transform:translateY(-3px);box-shadow:0 14px 36px rgba(0,0,0,0.32)}.card:hover::before{opacity:1}
+.card-num{font-family:"JetBrains Mono",monospace;font-size:10px;color:var(--mu);margin-bottom:10px;letter-spacing:.06em}
+.card-icon{font-size:30px;margin-bottom:10px;display:block}
+.card-title{font-family:"Cormorant Garamond",serif;font-size:21px;font-weight:400;color:var(--wh);margin-bottom:7px;line-height:1.2}
+.card-sub{font-size:11px;color:var(--mu2);line-height:1.65;margin-bottom:14px}
+.card-tag{display:inline-flex;align-items:center;font-size:10px;font-weight:600;padding:3px 10px;border-radius:20px;text-transform:uppercase;letter-spacing:.04em;margin-bottom:8px}
+.card-beats{font-size:10px;color:var(--mu)}
+.card-beats strong{color:var(--am)}
+.card-arrow{position:absolute;top:22px;right:20px;font-size:15px;color:var(--mu);transition:all .2s}
+.card:hover .card-arrow{transform:translateX(4px)}
+.featured{background:var(--ch);border:1px solid var(--bd);border-radius:14px;padding:28px 28px 24px;margin-bottom:56px}
+.feat-eye{font-size:9px;font-weight:500;text-transform:uppercase;letter-spacing:.2em;color:var(--am);margin-bottom:12px;font-family:"JetBrains Mono",monospace}
+.feat-title{font-family:"Cormorant Garamond",serif;font-size:clamp(20px,3vw,28px);font-weight:300;color:var(--wh);margin-bottom:6px}
+.feat-sub{font-size:12px;color:var(--mu2);line-height:1.7;margin-bottom:20px;max-width:580px}
+.feat-stats{display:flex;gap:24px;flex-wrap:wrap;margin-bottom:20px}
+.fs{text-align:center}
+.fs strong{font-family:"JetBrains Mono",monospace;font-size:18px;color:var(--am);display:block}
+.fs span{font-size:9px;color:var(--mu);text-transform:uppercase;letter-spacing:.05em}
+.flows{display:flex;flex-direction:column;gap:6px}
+.flow{background:var(--st);border:1px solid var(--bd);border-radius:7px;padding:9px 13px;display:flex;align-items:center;gap:10px;font-size:11px;color:var(--cr)}
+.flow-icon{font-size:14px;flex-shrink:0;width:22px;text-align:center}
+.flow-arrow{color:var(--am);font-weight:600;font-size:13px;flex-shrink:0}
+.flow-text{flex:1;line-height:1.4}
+.flow-tag{font-size:9px;font-family:"JetBrains Mono",monospace;color:var(--mu);flex-shrink:0}
+.banner{background:var(--st);border:1px solid var(--bd);border-radius:14px;padding:36px 36px;text-align:center;margin-top:8px}
+.banner h2{font-family:"Cormorant Garamond",serif;font-size:clamp(22px,3.5vw,32px);font-weight:300;color:var(--wh);margin-bottom:10px}
+.banner p{font-size:13px;color:var(--mu2);max-width:560px;margin:0 auto 24px;line-height:1.75}
+.cta{display:inline-block;background:var(--am);color:var(--obs);border-radius:8px;padding:12px 30px;font-size:13px;font-weight:600;text-decoration:none;font-family:"Outfit",sans-serif}
 </style>
 </head>
 <body>
-<header class="hdr" style="gap:12px">
-  <a class="logo" href="https://bisxp.com">BIS<span>XP</span></a>
-  <div class="hdr-breadcrumb" style="position:absolute;left:50%;transform:translateX(-50%);font-size:13px;color:var(--cream);font-weight:400;letter-spacing:0.5px">Enterprise Demo Library</div>
-  <div style="display:flex;align-items:center;gap:10px">
-    <a href="https://bisxp.com/#contact" style="display:inline-block;padding:7px 18px;background:var(--amber);color:var(--obsidian);font-size:12px;font-weight:600;border-radius:8px;text-decoration:none;letter-spacing:0.3px;transition:all .2s">Book Assessment →</a>
-  </div>
+<header class="hdr">
+  <a class="logo" href="/">BIS<span>XP</span></a>
+  <a class="hdr-cta" href="https://bisxp.com/#contact">Book Assessment &rarr;</a>
 </header>
-<main class="main">
+<main>
   <div class="hero">
-    <div class="hero-eye">BISXP Enterprise · AI Demo Library</div>
-    <h1>Eight Industries.<br><em>One AI Platform.</em></h1>
-    <p class="hero-sub">Every demo below runs live AI. Real inputs, real outputs, real intelligence. This is what we build — in 8 weeks, for a fraction of what you're paying Appian, Pega, ServiceNow, or Salesforce.</p>
-    <div class="hero-meta">
-      <div class="hero-stat"><strong>8</strong><span>Industry verticals</span></div>
-      <div class="hero-stat"><strong>40</strong><span>Live AI demos</span></div>
-      <div class="hero-stat"><strong>8 wks</strong><span>To production</span></div>
-      <div class="hero-stat"><strong>$0</strong><span>Vendor lock-in</span></div>
+    <div class="hero-eye">BISXP Enterprise &middot; AI Demo Library</div>
+    <h1>Five Industries.<br><em>One AI Platform.</em></h1>
+    <p class="hero-sub">Every demo below runs live Claude AI. Real inputs, real outputs, real intelligence. This is what we build &mdash; in 8 weeks, for a fraction of what you&apos;re paying Appian, Pega, ServiceNow, or Salesforce.</p>
+    <div class="stats">
+      <div class="stat"><strong>5</strong><span>Industry verticals</span></div>
+      <div class="stat"><strong>13</strong><span>Live AI workflows</span></div>
+      <div class="stat"><strong>8 wks</strong><span>To production</span></div>
+      <div class="stat"><strong>$0</strong><span>Vendor lock-in</span></div>
     </div>
   </div>
 
-  <div style="margin-bottom:32px">
-    <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:3px;color:var(--amber);margin-bottom:16px">✦ Featured — End-to-End Workflows</div>
-    <a href="workflows.html" style="display:block;background:linear-gradient(135deg,var(--charcoal),var(--steel));border:1px solid var(--border-strong);border-radius:16px;padding:32px;text-decoration:none;transition:all .25s;position:relative;overflow:hidden">
-      <div style="position:absolute;top:-30%;right:-10%;width:300px;height:300px;background:radial-gradient(circle,rgba(212,168,67,0.08),transparent 70%);pointer-events:none"></div>
-      <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:20px;position:relative">
-        <div style="flex:1;min-width:280px">
-          <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:2px;color:var(--amber);margin-bottom:10px">8 Domains · 70+ Workflow Steps · Live AI</div>
-          <div style="font-family:'Cormorant Garamond',serif;font-size:clamp(24px,3vw,36px);font-weight:300;color:var(--white);margin-bottom:8px;line-height:1.1">End-to-End Enterprise Workflows</div>
-          <p style="font-size:14px;color:var(--muted-light);max-width:520px;line-height:1.7;margin-bottom:20px">Watch AI orchestrate complete multi-step business processes — from first input to final resolution. Every stage animated live. Merchant onboarding, claims lifecycle, contract execution, and more.</p>
-          <div style="display:flex;gap:28px;flex-wrap:wrap">
-            <div><strong style="font-family:'JetBrains Mono',monospace;font-size:24px;color:var(--amber);display:block">8</strong><span style="font-size:11px;color:var(--muted)">Industry workflows</span></div>
-            <div><strong style="font-family:'JetBrains Mono',monospace;font-size:24px;color:var(--amber);display:block">70+</strong><span style="font-size:11px;color:var(--muted)">Automated steps</span></div>
-            <div><strong style="font-family:'JetBrains Mono',monospace;font-size:24px;color:var(--amber);display:block">~90s</strong><span style="font-size:11px;color:var(--muted)">vs weeks manually</span></div>
-            <div><strong style="font-family:'JetBrains Mono',monospace;font-size:24px;color:var(--amber);display:block">$0</strong><span style="font-size:11px;color:var(--muted)">Human touch needed</span></div>
-          </div>
-        </div>
-        <div style="display:flex;flex-direction:column;gap:7px">
-          <span style="font-size:12px;color:var(--muted-light)">🏦 Merchant Application → Active Merchant</span>
-          <span style="font-size:12px;color:var(--muted-light)">🏥 Prior Auth Request → Treatment Scheduled</span>
-          <span style="font-size:12px;color:var(--muted-light)">🛡️ FNOL Filed → Payment Sent</span>
-          <span style="font-size:12px;color:var(--muted-light)">🏛️ Permit Application → Certificate of Occupancy</span>
-          <span style="font-size:12px;color:var(--muted-light)">👥 Offer Accepted → Day-30 Check-in</span>
-          <span style="font-size:12px;color:var(--muted-light)">⚖️ Contract Request → Signed & Filed</span>
-          <span style="font-size:12px;color:var(--muted-light)">🏭 Purchase Request → Goods Received</span>
-          <span style="font-size:12px;color:var(--muted-light)">🎯 Customer Contact → Resolved & Retained</span>
-        </div>
-      </div>
-      <div style="position:absolute;top:24px;right:24px;font-size:22px;color:var(--amber)">→</div>
-    </a>
+  <!-- FEATURED WORKFLOWS -->
+  <div class="featured">
+    <div class="feat-eye">&#10022; Featured &mdash; End-to-End Workflows</div>
+    <div class="feat-title">Watch AI orchestrate complete multi-step processes &mdash; from first input to final resolution.</div>
+    <p class="feat-sub">Every stage runs live Claude AI. Pipeline pauses at human-judgment steps &mdash; compliance sign-off, underwriting, clinical decisions &mdash; then resumes. This is what production looks like.</p>
+    <div class="feat-stats">
+      <div class="fs"><strong>5</strong><span>Verticals</span></div>
+      <div class="fs"><strong>13</strong><span>Workflows</span></div>
+      <div class="fs"><strong>70+</strong><span>Pipeline steps</span></div>
+      <div class="fs"><strong>~5 min</strong><span>vs weeks manually</span></div>
+    </div>
+    <div class="flows">
+      <a class="flow" href="bisxp-mastercard-demo.html">
+        <span class="flow-icon">🏦</span>
+        <span class="flow-text">Merchant Application <span class="flow-arrow">&rarr;</span> Active &amp; Processing</span>
+        <span class="flow-tag">Financial</span>
+      </a>
+      <a class="flow" href="bisxp-mastercard-demo.html">
+        <span class="flow-icon">⚖️</span>
+        <span class="flow-text">Chargeback Filed <span class="flow-arrow">&rarr;</span> Rebuttal Submitted</span>
+        <span class="flow-tag">Financial</span>
+      </a>
+      <a class="flow" href="bisxp-mastercard-demo.html">
+        <span class="flow-icon">📋</span>
+        <span class="flow-text">Regulatory Change <span class="flow-arrow">&rarr;</span> Remediation Plan Active</span>
+        <span class="flow-tag">Financial</span>
+      </a>
+      <a class="flow" href="bisxp-healthcare-demo.html">
+        <span class="flow-icon">🏥</span>
+        <span class="flow-text">Prior Auth Request <span class="flow-arrow">&rarr;</span> Treatment Scheduled</span>
+        <span class="flow-tag">Healthcare</span>
+      </a>
+      <a class="flow" href="bisxp-healthcare-demo.html">
+        <span class="flow-icon">🩺</span>
+        <span class="flow-text">Provider Application <span class="flow-arrow">&rarr;</span> Privileges Granted</span>
+        <span class="flow-tag">Healthcare</span>
+      </a>
+      <a class="flow" href="bisxp-insurance-demo.html">
+        <span class="flow-icon">🛡️</span>
+        <span class="flow-text">FNOL Filed <span class="flow-arrow">&rarr;</span> Settlement Authorized</span>
+        <span class="flow-tag">Insurance</span>
+      </a>
+      <a class="flow" href="bisxp-government-demo.html">
+        <span class="flow-icon">🏛️</span>
+        <span class="flow-text">Permit Application <span class="flow-arrow">&rarr;</span> Certificate of Occupancy</span>
+        <span class="flow-tag">Government</span>
+      </a>
+      <a class="flow" href="bisxp-customer-service-demo.html">
+        <span class="flow-icon">🎯</span>
+        <span class="flow-text">P1 Incident Contact <span class="flow-arrow">&rarr;</span> Resolved &amp; Retained</span>
+        <span class="flow-tag">Customer Service</span>
+      </a>
+      <a class="flow" href="bisxp-customer-service-demo.html">
+        <span class="flow-icon">📉</span>
+        <span class="flow-text">Churn Signal Detected <span class="flow-arrow">&rarr;</span> CSM Save Play Active</span>
+        <span class="flow-tag">Customer Service</span>
+      </a>
+      <a class="flow" href="bisxp-customer-service-demo.html">
+        <span class="flow-icon">📚</span>
+        <span class="flow-text">Ticket Cluster Identified <span class="flow-arrow">&rarr;</span> KB Article Live</span>
+        <span class="flow-tag">Customer Service</span>
+      </a>
+    </div>
   </div>
 
-  <div class="section-label">Select Your Industry</div>
-
+  <!-- VERTICAL CARDS -->
+  <div class="section-eye">Select Your Industry</div>
   <div class="grid">
-    <a class="demo-card" href="financial.html">
-      <span class="demo-num">01</span>
-      <span class="demo-icon">🏦</span>
-      <div class="demo-title">Financial Services</div>
-      <p class="demo-sub">Merchant onboarding, dispute resolution, compliance, fraud investigation, partner bank onboarding.</p>
-      <span class="demo-tag" style="background:rgba(212,168,67,0.12);color:#D4A843;border:1px solid rgba(212,168,67,0.2)">5 Demos</span>
-      <div class="demo-beats">Beats: <strong>Appian · Pega · Salesforce</strong></div>
-      <span class="demo-arrow">→</span>
+
+    <a class="card" href="bisxp-mastercard-demo.html" style="--hover-c:rgba(212,168,67,0.04)">
+      <span class="card-num">01</span>
+      <span class="card-icon">🏦</span>
+      <div class="card-title">Financial Services</div>
+      <p class="card-sub">Merchant onboarding with sanctions screening, chargeback dispute resolution, regulatory compliance monitoring. Three human gates on the most compliance-critical workflow.</p>
+      <span class="card-tag" style="background:rgba(212,168,67,0.12);color:#D4A843;border:1px solid rgba(212,168,67,0.2)">3 Workflows</span>
+      <div class="card-beats">Beats: <strong>Appian &middot; Pega &middot; Salesforce</strong></div>
+      <span class="card-arrow">→</span>
     </a>
-    <a class="demo-card" href="healthcare.html">
-      <span class="demo-num">02</span>
-      <span class="demo-icon">🏥</span>
-      <div class="demo-title">Healthcare</div>
-      <p class="demo-sub">Prior auth, provider credentialing, HIPAA compliance, clinical trial enrollment, adverse event reporting.</p>
-      <span class="demo-tag" style="background:rgba(14,165,160,0.1);color:#0EA5A0;border:1px solid rgba(14,165,160,0.2)">5 Demos</span>
-      <div class="demo-beats">Beats: <strong>Appian · ServiceNow</strong></div>
-      <span class="demo-arrow">→</span>
+
+    <a class="card" href="bisxp-healthcare-demo.html">
+      <span class="card-num">02</span>
+      <span class="card-icon">🏥</span>
+      <div class="card-title">Healthcare</div>
+      <p class="card-sub">Prior auth, provider credentialing, HIPAA compliance, clinical trial enrollment, adverse event reporting. Every clinical decision gate preserved for regulatory compliance.</p>
+      <span class="card-tag" style="background:rgba(14,165,160,0.1);color:#0EA5A0;border:1px solid rgba(14,165,160,0.2)">5 Workflows</span>
+      <div class="card-beats">Beats: <strong>Appian &middot; ServiceNow &middot; Epic</strong></div>
+      <span class="card-arrow">→</span>
     </a>
-    <a class="demo-card" href="insurance.html">
-      <span class="demo-num">03</span>
-      <span class="demo-icon">🛡️</span>
-      <div class="demo-title">Insurance</div>
-      <p class="demo-sub">Claims processing, underwriting, fraud detection, policy renewal, regulatory filing.</p>
-      <span class="demo-tag" style="background:rgba(99,102,241,0.1);color:#818CF8;border:1px solid rgba(99,102,241,0.2)">5 Demos</span>
-      <div class="demo-beats">Beats: <strong>Pega · Guidewire</strong></div>
-      <span class="demo-arrow">→</span>
+
+    <a class="card" href="bisxp-insurance-demo.html">
+      <span class="card-num">03</span>
+      <span class="card-icon">🛡️</span>
+      <div class="card-title">Insurance</div>
+      <p class="card-sub">Full claims lifecycle from first notice of loss to payment authorized. Fraud investigator clears before liability assessment. Adjuster approves final settlement amount.</p>
+      <span class="card-tag" style="background:rgba(129,140,248,0.1);color:#818CF8;border:1px solid rgba(129,140,248,0.2)">1 Workflow</span>
+      <div class="card-beats">Beats: <strong>Pega &middot; Guidewire &middot; Salesforce</strong></div>
+      <span class="card-arrow">→</span>
     </a>
-    <a class="demo-card" href="government.html">
-      <span class="demo-num">04</span>
-      <span class="demo-icon">🏛️</span>
-      <div class="demo-title">Government</div>
-      <p class="demo-sub">Permit processing, grant management, vendor procurement, FOIA requests, citizen services.</p>
-      <span class="demo-tag" style="background:rgba(45,212,191,0.1);color:#2DD4BF;border:1px solid rgba(45,212,191,0.2)">5 Demos</span>
-      <div class="demo-beats">Beats: <strong>ServiceNow · Appian Gov</strong></div>
-      <span class="demo-arrow">→</span>
+
+    <a class="card" href="bisxp-government-demo.html">
+      <span class="card-num">04</span>
+      <span class="card-icon">🏛️</span>
+      <div class="card-title">Government</div>
+      <p class="card-sub">Building permit application to Certificate of Occupancy. AI handles completeness, zoning, and code review. Licensed plan checker and inspector sign-off preserved as legal requirements.</p>
+      <span class="card-tag" style="background:rgba(45,212,191,0.1);color:#2DD4BF;border:1px solid rgba(45,212,191,0.2)">1 Workflow</span>
+      <div class="card-beats">Beats: <strong>ServiceNow &middot; Appian Gov &middot; Tyler</strong></div>
+      <span class="card-arrow">→</span>
     </a>
-    <a class="demo-card" href="hr.html">
-      <span class="demo-num">05</span>
-      <span class="demo-icon">👥</span>
-      <div class="demo-title">HR & Workforce</div>
-      <p class="demo-sub">Employee onboarding, performance reviews, job descriptions, offboarding, policy Q&A.</p>
-      <span class="demo-tag" style="background:rgba(249,115,22,0.1);color:#F97316;border:1px solid rgba(249,115,22,0.2)">5 Demos</span>
-      <div class="demo-beats">Beats: <strong>ServiceNow · Workday</strong></div>
-      <span class="demo-arrow">→</span>
+
+    <a class="card" href="bisxp-customer-service-demo.html">
+      <span class="card-num">05</span>
+      <span class="card-icon">🎯</span>
+      <div class="card-title">Customer Service</div>
+      <p class="card-sub">P1 incident resolution with postmortem and SLA credits. Churn prediction with CSM save plays. Knowledge base generation with SME review gate before publishing.</p>
+      <span class="card-tag" style="background:rgba(236,72,153,0.1);color:#EC4899;border:1px solid rgba(236,72,153,0.2)">3 Workflows</span>
+      <div class="card-beats">Beats: <strong>Zendesk &middot; Salesforce &middot; Intercom</strong></div>
+      <span class="card-arrow">→</span>
     </a>
-    <a class="demo-card" href="legal.html">
-      <span class="demo-num">06</span>
-      <span class="demo-icon">⚖️</span>
-      <div class="demo-title">Legal & Compliance</div>
-      <p class="demo-sub">Contract review, NDA generation, regulatory monitoring, litigation holds, corporate governance.</p>
-      <span class="demo-tag" style="background:rgba(168,85,247,0.1);color:#A855F7;border:1px solid rgba(168,85,247,0.2)">5 Demos</span>
-      <div class="demo-beats">Beats: <strong>ServiceNow GRC · Salesforce</strong></div>
-      <span class="demo-arrow">→</span>
-    </a>
-    <a class="demo-card" href="supply-chain.html">
-      <span class="demo-num">07</span>
-      <span class="demo-icon">🏭</span>
-      <div class="demo-title">Supply Chain</div>
-      <p class="demo-sub">Supplier onboarding, purchase order intelligence, quality incidents, demand forecasting, trade compliance.</p>
-      <span class="demo-tag" style="background:rgba(234,179,8,0.1);color:#EAB308;border:1px solid rgba(234,179,8,0.2)">5 Demos</span>
-      <div class="demo-beats">Beats: <strong>SAP · ServiceNow</strong></div>
-      <span class="demo-arrow">→</span>
-    </a>
-    <a class="demo-card" href="customer-service.html">
-      <span class="demo-num">08</span>
-      <span class="demo-icon">🎯</span>
-      <div class="demo-title">Customer Service</div>
-      <p class="demo-sub">Intelligent case routing, customer 360 AI, escalation prediction, knowledge base generation, VoC analysis.</p>
-      <span class="demo-tag" style="background:rgba(236,72,153,0.1);color:#EC4899;border:1px solid rgba(236,72,153,0.2)">5 Demos</span>
-      <div class="demo-beats">Beats: <strong>Salesforce · ServiceNow CSM</strong></div>
-      <span class="demo-arrow">→</span>
-    </a>
+
   </div>
 
   <div class="banner">
     <h2>See Your Workflow Automated</h2>
-    <p>Every demo above took us hours to build. Your Appian implementation took 18 months and $2M. We rebuild it AI-native in 8 weeks — you own the code, no vendor lock-in, AI built in from day one.</p>
-    <a class="cta" href="https://bisxp.com/#contact">Book a Free 30-Minute Assessment →</a>
+    <p>Every demo above took us hours to build. Your Appian, Pega, or ServiceNow implementation took months and cost millions. We rebuild it AI-native in 8 weeks &mdash; you own the code, no vendor lock-in, Claude AI built in from day one.</p>
+    <a class="cta" href="https://bisxp.com/#contact">Book a Free 30-Minute Assessment &rarr;</a>
   </div>
 </main>
-
-<div id="toast-el" style="position:fixed;bottom:24px;right:24px;background:var(--charcoal);border:1px solid var(--border-strong);border-radius:10px;padding:14px 18px;font-size:12px;z-index:9999;transform:translateY(80px);opacity:0;transition:all .3s;max-width:300px">
-  <div style="font-weight:600;color:var(--amber);margin-bottom:2px;font-size:13px" id="toast-t">Note</div>
-  <div id="toast-m"></div>
-</div>
-<script>
-function toast(t,m){document.getElementById('toast-t').textContent=t;document.getElementById('toast-m').textContent=m;const el=document.getElementById('toast-el');el.classList.add('show');el.style.transform='translateY(0)';el.style.opacity='1';setTimeout(()=>{el.style.transform='translateY(80px)';el.style.opacity='0';},6000);}
-</script>
 </body>
 </html>
