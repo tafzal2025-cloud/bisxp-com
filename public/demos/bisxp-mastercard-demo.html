@@ -738,7 +738,7 @@ async function run2(){
         chips('hg2-4-chips',[{l:'Risk Level',v:rl,cl:rl==='HIGH'?'er':rl==='MEDIUM'?'wn':'ok'},{l:'Gaps Found',v:gc},{l:'Issuer',v:body.split(' ')[0]},{l:'Effective',v:date.split('-')[0].trim()}]);
         ps(2,'ps-wait','Awaiting CCO sign-off');stepW(2,4);showHG('hg2-4');
         const c4=await waitH('2-4');ps(2,'ps-run','Running');
-        artDec(2,'CCO','Compliance plan: '+(c4==='approve'?'Approved - work begins':c4==='more'?'More analysis requested':'Escalated to legal'));
+        artDec(2,'Chief Compliance Officer','Compliance plan: '+(c4==='approve'?'Approved - work begins':c4==='more'?'More analysis requested':'Escalated to legal'));
         document.getElementById('s2-4').className='step done';document.getElementById('s2-4').querySelector('.step-d').textContent='✓';
       }
     }
@@ -980,10 +980,10 @@ body{font-family:'Outfit',sans-serif;font-weight:300;color:#1a1a1a;background:#f
 .ps{margin-bottom:22px;padding-bottom:22px;border-bottom:1px solid #eee}
 .ps:last-of-type{border-bottom:none}
 .ph{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.18em;color:#D4A843;margin-bottom:12px;font-family:'JetBrains Mono',monospace}
-.pg{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.pg{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
 .pkv{background:#f8f7f4;border:1px solid #e8e4d8;border-radius:4px;padding:9px 11px}
 .pk{font-size:8px;text-transform:uppercase;letter-spacing:.08em;color:#888;margin-bottom:3px;font-family:'JetBrains Mono',monospace}
-.pv{font-size:12px;color:#1a1a1a;font-weight:400}
+.pv{font-size:12px;color:#1a1a1a;font-weight:400;word-break:break-word;white-space:normal}
 .pd-list{display:flex;flex-direction:column;gap:7px}
 .pd{display:flex;align-items:flex-start;gap:12px;background:#f8f7f4;border:1px solid #e8e4d8;border-left:3px solid #D4A843;border-radius:4px;padding:9px 11px}
 .pd-who{font-size:9px;font-weight:600;color:#D4A843;font-family:'JetBrains Mono',monospace;min-width:120px;flex-shrink:0;padding-top:1px}

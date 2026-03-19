@@ -4,24 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex,nofollow">
-<title>Healthcare — BISXP AI Demos</title>
+<title>Financial Services — BISXP AI Demos</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-:root{
-  --obs:#08080A;--ch:#131318;--st:#1E1E28;--st2:#252532;
-  --ac:#0EA5A0;--acd:rgba(14,165,160,0.12);--acg:rgba(14,165,160,0.22);
-  --cr:#F0EBE0;--wh:#FAFAF8;--mu:#70707A;--mu2:#9090A0;
-  --ok:#22C55E;--okd:rgba(34,197,94,0.10);
-  --wn:#F59E0B;--wnd:rgba(245,158,11,0.10);
-  --er:#EF4444;--erd:rgba(239,68,68,0.10);
-  --in:#3B82F6;--ind:rgba(59,130,246,0.10);
-  --bd:rgba(255,255,255,0.08);--bds:rgba(255,255,255,0.15);
-  --bda:rgba(14,165,160,0.12);--bdas:rgba(14,165,160,0.28);
-}
+:root{--obs:#08080A;--ch:#131318;--st:#1E1E28;--st2:#252532;--ac:#D4A843;--acd:rgba(212,168,67,0.12);--acg:rgba(212,168,67,0.22);--cr:#F0EBE0;--wh:#FAFAF8;--mu:#70707A;--mu2:#9090A0;--ok:#22C55E;--okd:rgba(34,197,94,0.10);--wn:#F59E0B;--wnd:rgba(245,158,11,0.10);--er:#EF4444;--erd:rgba(239,68,68,0.10);--in:#3B82F6;--ind:rgba(59,130,246,0.10);--bd:rgba(255,255,255,0.08);--bds:rgba(255,255,255,0.15);--bda:rgba(212,168,67,0.12);--bdas:rgba(212,168,67,0.28);}
 html{scroll-behavior:smooth}
 body{background:var(--obs);color:var(--cr);font-family:'Outfit',sans-serif;font-weight:300;min-height:100vh}
-body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(14,165,160,0.018) 1px,transparent 1px),linear-gradient(90deg,rgba(14,165,160,0.018) 1px,transparent 1px);background-size:52px 52px;pointer-events:none;z-index:0}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(212,168,67,0.018) 1px,transparent 1px),linear-gradient(90deg,rgba(212,168,67,0.018) 1px,transparent 1px);background-size:52px 52px;pointer-events:none;z-index:0}
 .hdr{position:sticky;top:0;z-index:200;background:rgba(8,8,10,0.96);backdrop-filter:blur(24px);border-bottom:1px solid var(--bd);padding:0 28px;height:52px;display:flex;align-items:center;gap:16px}
 .logo{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;letter-spacing:2px;text-decoration:none;color:var(--wh)}.logo span{color:var(--ac)}
 .hdr-c{font-size:11px;color:var(--mu);flex:1}
@@ -37,8 +27,7 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 .hero-h{font-family:'Cormorant Garamond',serif;font-size:clamp(32px,5vw,52px);font-weight:300;color:var(--wh);margin-bottom:10px;line-height:1.05}
 .hero-h em{color:var(--ac);font-style:italic}
 .hero-s{font-size:13px;color:var(--mu2);max-width:520px;line-height:1.75;margin-bottom:16px}
-.beats{font-size:11px;color:var(--mu);font-family:'JetBrains Mono',monospace}
-.beats span{color:var(--ac)}
+.beats{font-size:11px;color:var(--mu);font-family:'JetBrains Mono',monospace}.beats span{color:var(--ac)}
 .main{position:relative;z-index:1;max-width:920px;margin:0 auto;padding:20px 24px 80px}
 .wf-section{display:none}.wf-section.active{display:block;animation:fu .3s ease}
 @keyframes fu{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
@@ -60,6 +49,10 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 .fi,.fs,.fta{background:var(--st);border:1px solid var(--bd);border-radius:7px;color:var(--cr);font-family:'Outfit',sans-serif;font-size:13px;font-weight:300;padding:8px 11px;outline:none;transition:border-color .2s;width:100%;-webkit-appearance:none}
 .fi:focus,.fs:focus,.fta:focus{border-color:var(--ac)}
 .fs option{background:var(--st)}.fta{resize:vertical;min-height:64px}
+.fa{display:flex;background:var(--st);border:1px solid var(--bd);border-radius:7px;overflow:hidden;transition:border-color .2s}
+.fa:focus-within{border-color:var(--ac)}
+.fa-p{padding:8px 9px;color:var(--ac);font-family:'JetBrains Mono',monospace;font-size:12px;border-right:1px solid var(--bd);flex-shrink:0}
+.fa input{border:none;border-radius:0;background:transparent;flex:1;color:var(--cr);font-family:'Outfit',sans-serif;font-size:13px;padding:8px 11px;outline:none}
 .rr{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
 .rb{background:var(--ac);color:var(--obs);border:none;border-radius:7px;padding:10px 22px;font-family:'Outfit',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:background .15s,transform .1s}
 .rb:hover{filter:brightness(1.1)}.rb:active{transform:scale(.98)}.rb:disabled{background:var(--mu);cursor:not-allowed;transform:none}
@@ -98,8 +91,7 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 .hg-top{display:flex;align-items:flex-start;gap:8px;margin-bottom:9px}
 .hg-ico{width:24px;height:24px;border-radius:50%;background:var(--acd);border:1px solid var(--bdas);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
 .hg-ico svg{width:11px;height:11px}
-.hg-t{font-size:12px;font-weight:500;color:var(--wh)}
-.hg-s{font-size:10px;color:var(--mu);margin-top:1px}
+.hg-t{font-size:12px;font-weight:500;color:var(--wh)}.hg-s{font-size:10px;color:var(--mu);margin-top:1px}
 .hg-memo{background:var(--ch);border:1px solid var(--bd);border-radius:6px;padding:9px 11px;font-size:11px;color:var(--cr);line-height:1.7;margin-bottom:9px}
 .hg-chips{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:5px;margin-bottom:9px}
 .hgc{background:var(--ch);border:1px solid var(--bd);border-radius:5px;padding:6px 8px}
@@ -114,8 +106,16 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 .hgb.d.forced{background:var(--er);color:var(--wh);border-color:var(--er);font-weight:600}
 .hg-note{font-size:9px;color:var(--mu);margin-top:8px;font-style:italic}
 .doc-blk{background:var(--st2);border:1px solid var(--bd);border-left:3px solid var(--ac);border-radius:7px;padding:11px 13px;margin-top:8px;font-family:'JetBrains Mono',monospace;font-size:11px;line-height:1.82;white-space:pre-wrap;word-break:break-word;color:var(--cr);display:none}
+.esign-doc{background:var(--ch);border:1px solid var(--bdas);border-radius:9px;margin-top:9px;overflow:hidden;display:none}
+.esign-hdr{background:var(--st);padding:9px 13px;border-bottom:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between}
+.esign-hdr-t{font-size:9px;font-weight:500;color:var(--wh);font-family:'JetBrains Mono',monospace;letter-spacing:.06em}
+.esign-badge{font-size:9px;font-family:'JetBrains Mono',monospace;padding:2px 7px;border-radius:3px;background:var(--ind);color:var(--in);border:1px solid rgba(59,130,246,0.2)}
+.esign-body{padding:11px 13px;font-size:11px;color:var(--cr);line-height:1.75;white-space:pre-wrap;border-bottom:1px solid var(--bd)}
+.esign-foot{padding:9px 13px;display:flex;align-items:center;gap:9px}
+.esign-btn{background:var(--in);color:var(--wh);border:none;border-radius:6px;padding:7px 18px;font-family:'Outfit',sans-serif;font-size:11px;font-weight:600;cursor:pointer}
+.esign-btn.sent{background:var(--ok);cursor:default}
 .email-compose{background:var(--ch);border:1px solid var(--bdas);border-radius:9px;margin-top:9px;overflow:hidden;display:none}
-.email-hdr{background:var(--st);padding:9px 13px;border-bottom:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between}
+.email-hdr{background:var(--st);padding:9px 13px;border-bottom:1px solid var(--bd)}
 .email-hdr-t{font-size:9px;font-weight:500;color:var(--wh);font-family:'JetBrains Mono',monospace;letter-spacing:.06em}
 .email-meta{padding:8px 13px;border-bottom:1px solid var(--bd)}
 .em-row{display:flex;gap:8px;align-items:center;font-size:11px;margin-bottom:4px}
@@ -142,7 +142,7 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 .art-v{font-size:11px;color:var(--cr)}.art-v.ac{color:var(--ac)}.art-v.ok{color:var(--ok)}.art-v.er{color:var(--er)}
 .art-decisions{display:flex;flex-direction:column;gap:4px}
 .art-dec{background:var(--st);border:1px solid var(--bd);border-radius:5px;padding:7px 9px;display:flex;gap:9px;align-items:flex-start}
-.art-dec-who{font-size:8px;color:var(--ac);font-family:'JetBrains Mono',monospace;flex-shrink:0;margin-top:1px;min-width:100px}
+.art-dec-who{font-size:8px;color:var(--ac);font-family:'JetBrains Mono',monospace;flex-shrink:0;margin-top:1px;min-width:110px}
 .art-dec-what{font-size:10px;color:var(--cr);line-height:1.5;flex:1}
 .art-dec-time{font-size:8px;color:var(--mu);font-family:'JetBrains Mono',monospace;flex-shrink:0}
 .art-dl{display:flex;gap:7px;margin-top:11px;flex-wrap:wrap}
@@ -154,8 +154,7 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 .sum-s{font-size:11px;color:var(--mu2);margin-bottom:12px;line-height:1.6}
 .sum-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px}
 @media(max-width:520px){.sum-grid{grid-template-columns:repeat(2,1fr)}}
-.sg{text-align:center}
-.sg strong{font-family:'JetBrains Mono',monospace;font-size:16px;color:var(--ac);display:block}
+.sg{text-align:center}.sg strong{font-family:'JetBrains Mono',monospace;font-size:16px;color:var(--ac);display:block}
 .sg span{font-size:9px;color:var(--mu);text-transform:uppercase;letter-spacing:.05em}
 .sum-acts{display:flex;gap:7px}
 .sa{flex:1;padding:7px;border-radius:6px;font-family:'Outfit',sans-serif;font-size:11px;font-weight:600;cursor:pointer;border:none;text-align:center}
@@ -175,8 +174,8 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 .bva-title{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;color:var(--wh);margin-bottom:5px}
 .bva-sub{font-size:11px;color:var(--mu2);line-height:1.65}
 .bva-hitl{background:var(--st);border:1px solid var(--bd);border-radius:8px;padding:12px 14px;margin-bottom:14px}
-.bva-grid{display:grid;grid-template-columns:repeat(9,1fr);gap:4px}
-@media(max-width:600px){.bva-grid{grid-template-columns:repeat(3,1fr)}}
+.bva-grid{display:grid;grid-template-columns:repeat(8,1fr);gap:4px}
+@media(max-width:600px){.bva-grid{grid-template-columns:repeat(4,1fr)}}
 .bva-cell{border-radius:5px;padding:5px 3px;text-align:center;font-size:9px;line-height:1.4;font-family:'JetBrains Mono',monospace}
 .bva-ai{background:var(--ind);border:1px solid rgba(59,130,246,0.2);color:var(--in)}
 .bva-h{background:var(--acd);border:1px solid var(--bdas);color:var(--ac)}
@@ -195,44 +194,35 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 </style>
 </head>
 <body>
-
 <header class="hdr">
   <a class="logo" href="index.html">BIS<span>XP</span></a>
-  <div class="hdr-c">Enterprise Demos → Healthcare</div>
-  <div class="hdr-r">
-    <a class="hdr-a" href="index.html">All Demos</a>
-    <button class="hdr-cta">Book Assessment →</button>
-  </div>
+  <div class="hdr-c">Enterprise Demos &rarr; Financial Services</div>
+  <div class="hdr-r"><a class="hdr-a" href="index.html">All Demos</a><button class="hdr-cta">Book Assessment &rarr;</button></div>
 </header>
-
 <nav class="dnav">
-  <button class="db active" onclick="sw(0)">Prior Authorization</button>
-  <button class="db" onclick="sw(1)">Provider Credentialing</button>
-  <button class="db" onclick="sw(2)">HIPAA Compliance</button>
-  <button class="db" onclick="sw(3)">Clinical Trial Enrollment</button>
-  <button class="db" onclick="sw(4)">Adverse Event Reporting</button>
+  <button class="db active" onclick="sw(0)">Merchant Onboarding</button>
+  <button class="db" onclick="sw(1)">Dispute Resolution</button>
+  <button class="db" onclick="sw(2)">Compliance Monitoring</button>
 </nav>
-
 <div class="hero">
-  <div class="hero-eye">BISXP Enterprise · Healthcare &amp; Life Sciences</div>
-  <h1 class="hero-h">Healthcare Admin.<br><em>Rebuilt AI-Native.</em></h1>
-  <p class="hero-s">Prior auth, credentialing, HIPAA compliance, clinical trials, adverse events. Every workflow below runs real Claude AI — human clinical judgment preserved at every critical decision point.</p>
-  <div class="beats">Replaces: <span>Appian · ServiceNow · Epic</span></div>
+  <div class="hero-eye">BISXP Enterprise &middot; Financial Services</div>
+  <h1 class="hero-h">Payments &amp; Banking.<br><em>Rebuilt AI-Native.</em></h1>
+  <p class="hero-s">Merchant onboarding, dispute resolution, compliance monitoring. Every workflow runs real Claude AI &mdash; human judgment preserved at every compliance-critical decision point.</p>
+  <div class="beats">Replaces: <span>Appian &middot; Pega &middot; Salesforce Financial Services Cloud</span></div>
 </div>
-
 <main class="main">
 
-<!-- ══ WF 0: PRIOR AUTHORIZATION ══ -->
+<!-- WF0: MERCHANT ONBOARDING -->
 <div class="wf-section active" id="wf0">
   <div class="wf-hdr">
-    <div class="wf-eye">Prior Authorization · Healthcare</div>
-    <div class="wf-title">Request to <em>Approved Care</em></div>
-    <p class="wf-sub">14 days of payer back-and-forth compressed to minutes. Medical director reviews borderline cases — AI does the criteria matching, the clinician makes the call.</p>
+    <div class="wf-eye">Merchant Onboarding &middot; Financial Services</div>
+    <div class="wf-title">Application to <em>First Transaction</em></div>
+    <p class="wf-sub">3 weeks of manual review compressed to minutes. Three human gates preserve compliance integrity &mdash; no AI bypasses sanctions sign-off, underwriting authority, or contract approval.</p>
     <div class="wf-stats">
-      <div class="ws"><strong class="r">14 days</strong><span>Without AI</span></div>
-      <div class="ws"><strong class="g">~5 min</strong><span>With AI + gates</span></div>
-      <div class="ws"><strong>2</strong><span>Human gates</span></div>
-      <div class="ws"><strong>9</strong><span>Pipeline steps</span></div>
+      <div class="ws"><strong class="r">3 weeks</strong><span>Without AI</span></div>
+      <div class="ws"><strong class="g">~8 min</strong><span>With AI + gates</span></div>
+      <div class="ws"><strong>3</strong><span>Human gates</span></div>
+      <div class="ws"><strong>8</strong><span>Pipeline steps</span></div>
     </div>
   </div>
 
@@ -241,24 +231,23 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
     <div class="bva-head">
       <div class="bva-label">Before vs After</div>
       <div class="bva-title">What changes &mdash; and what doesn&apos;t</div>
-      <div class="bva-sub">AI eliminates 96% of calendar time. The two decisions that require human clinical judgment are preserved &mdash; and made faster by better AI-prepared context.</div>
+      <div class="bva-sub">AI eliminates 97% of calendar time. The three decisions that require human judgment are preserved &mdash; and made faster by better AI-prepared context.</div>
     </div>
     <div class="bva-hitl">
       <div style="font-size:10px;color:var(--mu);margin-bottom:8px;letter-spacing:.04em">Each step &mdash; who owns it</div>
       <div class="bva-grid">
-        <div class="bva-cell bva-ai">01<br>Eligibility</div>
-        <div class="bva-cell bva-ai">02<br>Coverage<br>guidelines</div>
-        <div class="bva-cell bva-ai">03<br>Necessity<br>scoring</div>
-        <div class="bva-cell bva-h">04<br>Auth<br>decision</div>
-        <div class="bva-cell bva-ai">05<br>Auth<br>letter</div>
-        <div class="bva-cell bva-ai">06<br>Physician<br>notify</div>
-        <div class="bva-cell bva-h">07<br>Appt<br>confirm</div>
-        <div class="bva-cell bva-ai">08<br>Patient<br>notify</div>
-        <div class="bva-cell bva-ai">09<br>Claims<br>link</div>
+        <div class="bva-cell bva-ai">01<br>Intake</div>
+        <div class="bva-cell bva-h">02<br>Sanctions<br>sign-off</div>
+        <div class="bva-cell bva-ai">03<br>Risk<br>score</div>
+        <div class="bva-cell bva-h">04<br>Underwriting<br>decision</div>
+        <div class="bva-cell bva-h">05<br>Contract<br>review</div>
+        <div class="bva-cell bva-ai">06<br>Portal<br>provision</div>
+        <div class="bva-cell bva-ai">07<br>Fraud<br>rules</div>
+        <div class="bva-cell bva-ai">08<br>Account<br>setup</div>
       </div>
       <div style="display:flex;gap:14px;margin-top:7px;font-size:10px">
-        <span style="color:var(--in)">&#9632; AI automated (7 steps)</span>
-        <span style="color:var(--ac)">&#9632; Human decision required (2 steps)</span>
+        <span style="color:var(--in)">&#9632; AI automated (5 steps)</span>
+        <span style="color:var(--ac)">&#9632; Human decision required (3 steps)</span>
       </div>
     </div>
     <div class="bva-toggle">
@@ -271,71 +260,83 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
     <div class="bva-total" id="bva-total"></div>
   </div>
   <div class="fc">
-    <div class="fc-lbl">Prior Authorization Request</div>
+    <div class="fc-lbl">New Merchant Application</div>
     <div class="fg">
-      <div class="ff"><span class="fl">Patient</span><input class="fi" id="p0-patient" value="Sarah Mitchell, 54F, MS diagnosis 2018"></div>
-      <div class="ff"><span class="fl">Procedure</span><input class="fi" id="p0-proc" value="MRI Brain with contrast (CPT 70553)"></div>
-      <div class="ff"><span class="fl">Payer</span><select class="fs" id="p0-payer"><option>Blue Cross Blue Shield — PPO Gold</option><option>Aetna — HMO</option><option>United Healthcare — PPO</option><option>Medicare Part B</option><option>Medicaid</option></select></div>
-      <div class="ff"><span class="fl">Urgency</span><select class="fs" id="p0-urg"><option>Routine</option><option>Urgent</option><option>Emergent</option></select></div>
-      <div class="ff ff-w"><span class="fl">Clinical Justification</span><textarea class="fta" id="p0-notes">New onset vision changes and right-sided weakness. Confirmed MS relapse — new lesion burden assessment required to guide treatment escalation. Prior MRI 18 months ago showed 3 T2 lesions.</textarea></div>
+      <div class="ff"><span class="fl">Business Name</span><input class="fi" id="f0-name" value="Stellar Payments Inc."></div>
+      <div class="ff"><span class="fl">Business Type</span><select class="fs" id="f0-type"><option>SaaS / Technology</option><option>Retail E-commerce</option><option>Marketplace</option><option>Healthcare</option><option>Hospitality / F&amp;B</option><option>Financial Services</option><option>Gambling / Gaming</option><option>Cannabis / CBD</option><option>Firearms / Ammunition</option></select></div>
+      <div class="ff"><span class="fl">Country</span><select class="fs" id="f0-country"><option>United States</option><option>United Kingdom</option><option>Canada</option><option>Australia</option><option>Germany</option><option>Singapore</option><option>Nigeria</option><option>Iran</option><option>Russia</option></select></div>
+      <div class="ff"><span class="fl">Monthly Volume</span><div class="fa"><span class="fa-p">$</span><input type="number" id="f0-vol" value="250000" min="1000"></div></div>
+      <div class="ff ff-w"><span class="fl">Products / Services</span><input class="fi" id="f0-desc" value="B2B SaaS payment infrastructure &mdash; subscription billing, usage-based pricing, global payouts."></div>
     </div>
-    <div class="rr"><button class="rb" id="btn0" onclick="run(0)">▶ Run Prior Auth Workflow</button><span class="mt">claude-sonnet-4-20250514 · real inference · /api/ai</span></div>
+    <div class="rr"><button class="rb" id="btn0" onclick="run0()">&#9654; Run Onboarding Pipeline</button><span class="mt">claude-sonnet-4-20250514 &middot; real inference &middot; /api/ai</span></div>
   </div>
   <div class="pw" id="pw0">
-    <div class="pw-hdr"><span class="pw-t">Prior Auth Pipeline</span><span class="pw-s ps-run" id="ps0">● Running</span></div>
+    <div class="pw-hdr"><span class="pw-t">Merchant Onboarding Pipeline</span><span class="pw-s ps-run" id="ps0">&#9679; Running</span></div>
     <div class="steps">
-      <div class="step pending" id="s0-1"><div class="step-sp"><div class="step-d">1</div></div><div class="step-b"><div class="step-tr"><span class="step-n">Eligibility &amp; Coverage Verified</span><span class="op op-ai">AI</span></div><div class="step-det">Active coverage · ICD-10 validation · deductible status · network check</div><div class="step-out" id="o0-1"></div></div></div>
-      <div class="step pending" id="s0-2"><div class="step-sp"><div class="step-d">2</div></div><div class="step-b"><div class="step-tr"><span class="step-n">Payer Coverage Guidelines</span><span class="op op-ai">AI</span></div><div class="step-det">MCG/InterQual criteria lookup · medical necessity thresholds · prior auth requirements</div><div class="step-out" id="o0-2"></div></div></div>
-      <div class="step pending" id="s0-3"><div class="step-sp"><div class="step-d">3</div></div><div class="step-b"><div class="step-tr"><span class="step-n">Medical Necessity Scoring</span><span class="op op-ai">AI</span></div><div class="step-det">Clinical notes evaluated against evidence-based approval criteria · score generated</div><div class="step-out" id="o0-3"></div></div></div>
-      <div class="step pending" id="s0-4"><div class="step-sp"><div class="step-d">4</div></div><div class="step-b"><div class="step-tr"><span class="step-n">Authorization Decision</span><span class="op op-h">Human gate</span></div><div class="step-det">Medical director reviews AI scoring · final auth decision · borderline cases escalated</div><div class="step-out" id="o0-4"></div>
+      <div class="step pending" id="s0-1"><div class="step-sp"><div class="step-d">1</div></div><div class="step-b"><div class="step-tr"><span class="step-n">Application Intake &amp; Validation</span><span class="op op-ai">AI</span></div><div class="step-det">Completeness &middot; MCC classification &middot; case ID &middot; initial risk tier</div><div class="step-out" id="o0-1"></div></div></div>
+      <div class="step pending" id="s0-2"><div class="step-sp"><div class="step-d">2</div></div><div class="step-b"><div class="step-tr"><span class="step-n">Identity &amp; Sanctions Screening</span><span class="op op-h">Human gate</span></div><div class="step-det">OFAC &middot; EU &middot; UN &middot; FinCEN &middot; PEP &middot; business registry</div><div class="step-out" id="o0-2"></div>
+        <div class="hg" id="hg0-2">
+          <div class="hg-top"><div class="hg-ico"><svg viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="4" r="2" stroke="var(--ac)" stroke-width="1.2"/><path d="M2 12c0-2.5 2-4.5 4.5-4.5S11 9.5 11 12" stroke="var(--ac)" stroke-width="1.2" stroke-linecap="round"/></svg></div><div><div class="hg-t" id="hg0-2-t">Compliance officer sign-off required</div><div class="hg-s" id="hg0-2-s">AI screening complete. Review findings and clear to proceed.</div></div></div>
+          <div class="hg-memo" id="hg0-2-memo" style="display:none"></div>
+          <div class="hg-chips" id="hg0-2-chips"></div>
+          <div class="hg-acts">
+            <button class="hgb p" id="hg0-2-clear" onclick="hd(0,2,'clear')">Clear &mdash; Proceed to Risk Assessment</button>
+            <button class="hgb" id="hg0-2-edd" onclick="hd(0,2,'edd')">Flag for Enhanced Due Diligence</button>
+            <button class="hgb d" id="hg0-2-block" onclick="hd(0,2,'block')">Block Application</button>
+          </div>
+          <div class="hg-note">Decision is timestamped and logged to the audit trail.</div>
+        </div>
+      </div></div>
+      <div class="step pending" id="s0-3"><div class="step-sp"><div class="step-d">3</div></div><div class="step-b"><div class="step-tr"><span class="step-n">Financial Risk Assessment</span><span class="op op-ai">AI</span></div><div class="step-det">MCC scoring &middot; chargeback exposure &middot; volume credibility &middot; fraud benchmarks</div><div class="step-out" id="o0-3"></div></div></div>
+      <div class="step pending" id="s0-4"><div class="step-sp"><div class="step-d">4</div></div><div class="step-b"><div class="step-tr"><span class="step-n">Underwriting Decision</span><span class="op op-h">Human gate</span></div><div class="step-det">AI drafts recommendation memo &middot; human underwrites final &middot; one-click approval</div><div class="step-out" id="o0-4"></div>
         <div class="hg" id="hg0-4">
-          <div class="hg-top"><div class="hg-ico"><svg viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="4" r="2" stroke="var(--ac)" stroke-width="1.2"/><path d="M2 12c0-2.5 2-4.5 4.5-4.5S11 9.5 11 12" stroke="var(--ac)" stroke-width="1.2" stroke-linecap="round"/></svg></div><div><div class="hg-t">Medical director review required</div><div class="hg-s">AI has scored medical necessity. Clinical judgment required for final decision.</div></div></div>
+          <div class="hg-top"><div class="hg-ico"><svg viewBox="0 0 13 13" fill="none"><rect x="2" y="2" width="9" height="9" rx="2" stroke="var(--ac)" stroke-width="1.2"/><path d="M4.5 6.5l1.5 1.5L8.5 5" stroke="var(--ac)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><div class="hg-t">Underwriter decision required</div><div class="hg-s">AI recommendation above. You hold final underwriting authority.</div></div></div>
           <div class="hg-chips" id="hg0-4-chips"></div>
-          <div class="hg-acts"><button class="hgb p" onclick="hd(0,4,'approve')">Approve Authorization</button><button class="hgb" onclick="hd(0,4,'pending')">Request Additional Documentation</button><button class="hgb d" onclick="hd(0,4,'deny')">Deny — Criteria Not Met</button></div>
-          <div class="hg-note">Decision becomes part of the auth letter and regulatory record.</div>
+          <div class="hg-acts"><button class="hgb p" onclick="hd(0,4,'approve')">Approve &mdash; AI Recommended Terms</button><button class="hgb" onclick="hd(0,4,'conditional')">Approve with Modified Terms</button><button class="hgb d" onclick="hd(0,4,'decline')">Decline Application</button></div>
+          <div class="hg-note">Decision attributed to your account and stored in the audit log.</div>
         </div>
       </div></div>
-      <div class="step pending" id="s0-5"><div class="step-sp"><div class="step-d">5</div></div><div class="step-b"><div class="step-tr"><span class="step-n">Authorization Letter Generated</span><span class="op op-ai">AI</span></div><div class="step-det">Auth number · valid dates · facility requirements · cost estimate · conditions</div><div class="step-out" id="o0-5"></div><div class="doc-blk" id="doc0-5"></div></div></div>
-      <div class="step pending" id="s0-6"><div class="step-sp"><div class="step-d">6</div></div><div class="step-b"><div class="step-tr"><span class="step-n">Ordering Physician Notified</span><span class="op op-ai">AI</span></div><div class="step-det">Auth letter · auth number · conditions sent to ordering physician</div><div class="step-out" id="o0-6"></div></div></div>
-      <div class="step pending" id="s0-7"><div class="step-sp"><div class="step-d">7</div></div><div class="step-b"><div class="step-tr"><span class="step-n">Appointment Scheduling</span><span class="op op-h">Human gate</span></div><div class="step-det">Earliest available slot matched · physician must confirm before booking finalised</div><div class="step-out" id="o0-7"></div>
-        <div class="hg" id="hg0-7">
-          <div class="hg-top"><div class="hg-ico"><svg viewBox="0 0 13 13" fill="none"><rect x="2" y="2" width="9" height="9" rx="2" stroke="var(--ac)" stroke-width="1.2"/><path d="M4.5 6.5l1.5 1.5L8.5 5" stroke="var(--ac)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><div class="hg-t">Physician confirmation required</div><div class="hg-s">AI has identified earliest available slot. Physician must confirm before booking is finalised.</div></div></div>
-          <div class="hg-chips" id="hg0-7-chips"></div>
-          <div class="hg-acts"><button class="hgb p" onclick="hd(0,7,'confirm')">Confirm Appointment Slot</button><button class="hgb" onclick="hd(0,7,'reschedule')">Request Alternative Date</button></div>
-          <div class="hg-note">Confirmation triggers patient notification and claims pre-auth linkage.</div>
+      <div class="step pending" id="s0-5"><div class="step-sp"><div class="step-d">5</div></div><div class="step-b"><div class="step-tr"><span class="step-n">Contract Generation &amp; Review</span><span class="op op-h">Human gate</span></div><div class="step-det">AI drafts full agreement &middot; human reviews &middot; sends for merchant e-signature</div><div class="step-out" id="o0-5"></div>
+        <div class="esign-doc" id="esign0-5"><div class="esign-hdr"><span class="esign-hdr-t">MERCHANT PROCESSING AGREEMENT &mdash; DRAFT</span><span class="esign-badge">Awaiting signature</span></div><div class="esign-body" id="esign0-5-body"></div><div class="esign-foot"><button class="esign-btn" id="esign0-5-btn" onclick="sendEsign('esign0-5')">Send via DocuSign</button><span class="send-note">Dispatches to merchant registered email</span></div></div>
+        <div class="hg" id="hg0-5">
+          <div class="hg-top"><div class="hg-ico"><svg viewBox="0 0 13 13" fill="none"><path d="M3 2h5.5l3 3v6.5a1 1 0 01-1 1H3a1 1 0 01-1-1V3a1 1 0 011-1z" stroke="var(--ac)" stroke-width="1.2"/><path d="M8.5 2v3H11.5M4.5 7.5h4M4.5 9.5h2" stroke="var(--ac)" stroke-width="1.2" stroke-linecap="round"/></svg></div><div><div class="hg-t">Review contract before sending to merchant</div><div class="hg-s">Read the AI-generated agreement above. Approve or request redline.</div></div></div>
+          <div class="hg-acts"><button class="hgb p" onclick="hd(0,5,'send')">Approve &amp; Send for E-Signature</button><button class="hgb" onclick="hd(0,5,'redline')">Redline &mdash; Request Revisions</button></div>
+          <div class="hg-note">Approval triggers DocuSign dispatch. Your name appears as authorising signatory.</div>
         </div>
       </div></div>
-      <div class="step pending" id="s0-8"><div class="step-sp"><div class="step-d">8</div></div><div class="step-b"><div class="step-tr"><span class="step-n">Patient Notification Sent</span><span class="op op-ai">AI</span></div><div class="step-det">Approval details · cost estimate · appointment logistics · prep instructions</div><div class="step-out" id="o0-8"></div>
-        <div class="email-compose" id="email0-8"><div class="email-hdr"><span class="email-hdr-t">PATIENT NOTIFICATION — READY TO SEND</span></div><div class="email-meta"><div class="em-row"><span class="em-lbl">To:</span><span class="em-val" id="email0-8-to"></span></div><div class="em-row"><span class="em-lbl">Re:</span><span class="em-val" id="email0-8-subj"></span></div></div><div class="email-body" id="email0-8-body"></div><div class="email-foot"><button class="send-btn" id="email0-8-btn" onclick="sendEmail('email0-8')">Send via Resend</button><span class="send-note">Uses RESEND_API_KEY</span></div></div>
+      <div class="step pending" id="s0-6"><div class="step-sp"><div class="step-d">6</div></div><div class="step-b"><div class="step-tr"><span class="step-n">Portal Provisioning</span><span class="op op-ai">AI</span></div><div class="step-det">MID assignment &middot; API keys &middot; dashboard access &middot; credentials dispatch</div><div class="step-out" id="o0-6"></div><div class="doc-blk" id="doc0-6"></div></div></div>
+      <div class="step pending" id="s0-7"><div class="step-sp"><div class="step-d">7</div></div><div class="step-b"><div class="step-tr"><span class="step-n">Fraud Rules &amp; Monitoring Setup</span><span class="op op-ai">AI</span></div><div class="step-det">Custom velocity rules &middot; 3DS thresholds &middot; chargeback alerts &middot; risk-specific controls</div><div class="step-out" id="o0-7"></div><div class="doc-blk" id="doc0-7"></div></div></div>
+      <div class="step pending" id="s0-8"><div class="step-sp"><div class="step-d">8</div></div><div class="step-b"><div class="step-tr"><span class="step-n">Account Setup &amp; Welcome Email</span><span class="op op-ai">AI</span></div><div class="step-det">30/60/90-day review schedule &middot; account manager assigned &middot; welcome email drafted</div><div class="step-out" id="o0-8"></div>
+        <div class="email-compose" id="email0-8"><div class="email-hdr"><span class="email-hdr-t">WELCOME EMAIL &mdash; READY TO SEND</span></div><div class="email-meta"><div class="em-row"><span class="em-lbl">To:</span><span class="em-val" id="email0-8-to"></span></div><div class="em-row"><span class="em-lbl">Re:</span><span class="em-val" id="email0-8-subj"></span></div></div><div class="email-body" id="email0-8-body"></div><div class="email-foot"><button class="send-btn" id="email0-8-btn" onclick="sendEmail('email0-8')">Send via Resend</button><span class="send-note">Uses RESEND_API_KEY</span></div></div>
       </div></div>
-      <div class="step pending" id="s0-9"><div class="step-sp"><div class="step-d">9</div></div><div class="step-b"><div class="step-tr"><span class="step-n">Claims Pre-Auth Linked</span><span class="op op-ai">AI</span></div><div class="step-det">Auth number linked to claims system · auto-adjudication enabled post-service</div><div class="step-out" id="o0-9"></div></div></div>
     </div>
     <div class="artifact" id="art0">
-      <div class="art-hdr"><span class="art-hdr-t">AUTHORIZATION CASE FILE</span><span class="art-ts" id="art0-ts"></span></div>
+      <div class="art-hdr"><span class="art-hdr-t">CASE FILE &mdash; MERCHANT ONBOARDING RECORD</span><span class="art-ts" id="art0-ts"></span></div>
       <div class="art-body">
-        <div class="art-section"><div class="art-section-t">Patient &amp; Procedure</div><div class="art-grid" id="art0-patient"></div></div>
-        <div class="art-section"><div class="art-section-t">Authorization Result</div><div class="art-grid" id="art0-result"></div></div>
+        <div class="art-section"><div class="art-section-t">Merchant Details</div><div class="art-grid" id="art0-merchant"></div></div>
+        <div class="art-section"><div class="art-section-t">Risk &amp; Compliance</div><div class="art-grid" id="art0-risk"></div></div>
+        <div class="art-section"><div class="art-section-t">Approved Terms</div><div class="art-grid" id="art0-terms"></div></div>
         <div class="art-section"><div class="art-section-t">Human Decisions (Audit Trail)</div><div class="art-decisions" id="art0-decisions"></div></div>
-        <div class="art-dl"><button class="art-dl-btn p" onclick="printCaseFile('art0', 'Prior Authorization — Case File')">↓ Download Auth Letter PDF</button><button class="art-dl-btn" onclick="toast('Copied','Auth reference copied.')">Copy Auth Reference</button></div>
+        <div class="art-dl"><button class="art-dl-btn p" onclick="printCaseFile('art0', 'Merchant Onboarding — Case File')">&#8595; Download Case File PDF</button><button class="art-dl-btn" onclick="toast('Copied','Case reference copied.')">Copy Reference ID</button></div>
       </div>
     </div>
     <div class="sum" id="sum0">
-      <div class="sum-t" id="sum0-t">Authorization Complete</div>
+      <div class="sum-t" id="sum0-t">Merchant Live</div>
       <div class="sum-s" id="sum0-s"></div>
-      <div class="sum-grid"><div class="sg"><strong id="sum0-time">—</strong><span>Wall clock</span></div><div class="sg"><strong id="sum0-r1">—</strong><span>Auth decision</span></div><div class="sg"><strong id="sum0-r2">—</strong><span>Urgency</span></div><div class="sg"><strong>2</strong><span>Human decisions</span></div></div>
-      <div class="sum-acts"><button class="sa sa-s" onclick="rwf(0)">↺ Reset</button></div>
+      <div class="sum-grid"><div class="sg"><strong id="sum0-time">&mdash;</strong><span>Wall clock</span></div><div class="sg"><strong>8/8</strong><span>Steps</span></div><div class="sg"><strong id="sum0-risk">&mdash;</strong><span>Risk rating</span></div><div class="sg"><strong>3</strong><span>Human decisions</span></div></div>
+      <div class="sum-acts"><button class="sa sa-s" onclick="rwf(0)">&#8635; Reset</button></div>
     </div>
   </div>
 </div>
 
-<!-- ══ WF 1: PROVIDER CREDENTIALING ══ -->
+<!-- WF1: DISPUTE RESOLUTION -->
 <div class="wf-section" id="wf1">
   <div class="wf-hdr">
-    <div class="wf-eye">Provider Credentialing · Healthcare</div>
-    <div class="wf-title">Application to <em>Privileges Granted</em></div>
-    <p class="wf-sub">90-day credentialing process compressed to minutes. AI verifies licenses, sanctions, and malpractice history — credentials committee makes the final privilege decision.</p>
+    <div class="wf-eye">Dispute Resolution &middot; Financial Services</div>
+    <div class="wf-title">Chargeback Filed to <em>Case Closed</em></div>
+    <p class="wf-sub">45-day dispute cycles compressed to minutes. AI gathers evidence and analyses network rules &mdash; adjudicator makes the final ruling on whether to dispute or accept.</p>
     <div class="wf-stats">
-      <div class="ws"><strong class="r">90 days</strong><span>Without AI</span></div>
+      <div class="ws"><strong class="r">45 days</strong><span>Without AI</span></div>
       <div class="ws"><strong class="g">~4 min</strong><span>With AI + gate</span></div>
       <div class="ws"><strong>1</strong><span>Human gate</span></div>
       <div class="ws"><strong>6</strong><span>Pipeline steps</span></div>
@@ -347,11 +348,11 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
     <div class="bva-head">
       <div class="bva-label">Before vs After</div>
       <div class="bva-title">What changes &mdash; and what doesn&apos;t</div>
-      <div class="bva-sub">AI eliminates 98% of calendar time. The credentials committee vote is preserved — all verification is automated.</div>
+      <div class="bva-sub">AI eliminates 98% of calendar time. The adjudicator ruling is preserved — made faster by AI-prepared evidence.</div>
     </div>
     <div class="bva-hitl">
       <div style="font-size:10px;color:var(--mu);margin-bottom:8px;letter-spacing:.04em">Each step &mdash; who owns it</div>
-      <div class="bva-grid" style="grid-template-columns:repeat(6,1fr)"><div class="bva-cell bva-ai">01<br>Licenses</div><div class="bva-cell bva-ai">02<br>Malpractice</div><div class="bva-cell bva-ai">03<br>Sanctions</div><div class="bva-cell bva-h">04<br>Committee<br>vote</div><div class="bva-cell bva-ai">05<br>Privilege<br>letter</div><div class="bva-cell bva-ai">06<br>Payer<br>enroll</div></div>
+      <div class="bva-grid" style="grid-template-columns:repeat(6,1fr)"><div class="bva-cell bva-ai">01<br>Classify</div><div class="bva-cell bva-ai">02<br>Evidence</div><div class="bva-cell bva-ai">03<br>Analysis</div><div class="bva-cell bva-h">04<br>Adjudicator<br>ruling</div><div class="bva-cell bva-ai">05<br>Rebuttal</div><div class="bva-cell bva-ai">06<br>Filing</div></div>
       <div style="display:flex;gap:14px;margin-top:7px;font-size:10px">
         <span style="color:var(--in)">&#9632; AI automated (5 steps)</span>
         <span style="color:var(--ac)">&#9632; Human decision required (1 step)</span>
@@ -367,55 +368,55 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
     <div class="bva-total" id="bva-total-1"></div>
   </div>
   <div class="fc">
-    <div class="fc-lbl">Provider Credentialing Application</div>
+    <div class="fc-lbl">Chargeback / Dispute Case</div>
     <div class="fg">
-      <div class="ff"><span class="fl">Provider Name</span><input class="fi" id="p1-name" value="Dr. Priya Sharma, MD"></div>
-      <div class="ff"><span class="fl">Specialty</span><input class="fi" id="p1-spec" value="Neurology — Board Certified 2016"></div>
-      <div class="ff"><span class="fl">License State</span><select class="fs" id="p1-state"><option>Washington</option><option>California</option><option>New York</option><option>Texas</option><option>Florida</option></select></div>
-      <div class="ff"><span class="fl">Privilege Type</span><select class="fs" id="p1-priv"><option>Full Clinical Privileges</option><option>Courtesy Privileges</option><option>Telemedicine Only</option><option>Supervised Privileges</option></select></div>
-      <div class="ff ff-w"><span class="fl">Additional Context</span><input class="fi" id="p1-notes" value="New hire joining Neurology dept. Fellowship at UCSF. No prior malpractice claims. 8 years practice experience."></div>
+      <div class="ff"><span class="fl">Transaction ID</span><input class="fi" id="f1-txn" value="TXN-2024-8847291"></div>
+      <div class="ff"><span class="fl">Amount</span><div class="fa"><span class="fa-p">$</span><input type="text" id="f1-amt" value="1,247.00"></div></div>
+      <div class="ff"><span class="fl">Reason Code</span><select class="fs" id="f1-reason"><option>4853 &mdash; Item not as described</option><option>4837 &mdash; Unauthorized transaction</option><option>4855 &mdash; Non-receipt of goods</option><option>4863 &mdash; Cardholder does not recognise</option><option>4834 &mdash; Duplicate processing</option></select></div>
+      <div class="ff"><span class="fl">Merchant</span><input class="fi" id="f1-merchant" value="Stellar Payments Inc."></div>
+      <div class="ff ff-w"><span class="fl">Dispute Details</span><textarea class="fta" id="f1-details">Cardholder claims item received was not as described. Transaction was for annual software subscription. Cardholder used the service for 8 months before disputing. Merchant has usage logs and signed terms of service on file.</textarea></div>
     </div>
-    <div class="rr"><button class="rb" id="btn1" onclick="run(1)">▶ Run Credentialing Workflow</button><span class="mt">real Claude inference per step</span></div>
+    <div class="rr"><button class="rb" id="btn1" onclick="run1()">&#9654; Run Dispute Workflow</button><span class="mt">real Claude inference per step</span></div>
   </div>
   <div class="pw" id="pw1">
-    <div class="pw-hdr"><span class="pw-t">Credentialing Pipeline</span><span class="pw-s ps-run" id="ps1">● Running</span></div>
+    <div class="pw-hdr"><span class="pw-t">Dispute Resolution Pipeline</span><span class="pw-s ps-run" id="ps1">&#9679; Running</span></div>
     <div class="steps">
-      <div class="step pending" id="s1-1"><div class="step-sp"><div class="step-d">1</div></div><div class="step-b"><div class="step-tr"><span class="step-n">License &amp; Certification Verification</span><span class="op op-ai">AI</span></div><div class="step-det">State medical license · DEA · board certifications · NPI · expiration dates</div><div class="step-out" id="o1-1"></div></div></div>
-      <div class="step pending" id="s1-2"><div class="step-sp"><div class="step-d">2</div></div><div class="step-b"><div class="step-tr"><span class="step-n">Malpractice &amp; Claims History</span><span class="op op-ai">AI</span></div><div class="step-det">NPDB query · malpractice insurance verification · claims history · settlement review</div><div class="step-out" id="o1-2"></div></div></div>
-      <div class="step pending" id="s1-3"><div class="step-sp"><div class="step-d">3</div></div><div class="step-b"><div class="step-tr"><span class="step-n">Sanctions &amp; Exclusion Screening</span><span class="op op-ai">AI</span></div><div class="step-det">OIG exclusion list · SAM.gov · state Medicaid exclusions · DEA sanctions</div><div class="step-out" id="o1-3"></div></div></div>
-      <div class="step pending" id="s1-4"><div class="step-sp"><div class="step-d">4</div></div><div class="step-b"><div class="step-tr"><span class="step-n">Credentials Committee Decision</span><span class="op op-h">Human gate</span></div><div class="step-det">Committee reviews AI-compiled dossier · votes on privileges</div><div class="step-out" id="o1-4"></div>
+      <div class="step pending" id="s1-1"><div class="step-sp"><div class="step-d">1</div></div><div class="step-b"><div class="step-tr"><span class="step-n">Dispute Received &amp; Classified</span><span class="op op-ai">AI</span></div><div class="step-det">Reason code &middot; transaction lookup &middot; dispute type &middot; initial triage score</div><div class="step-out" id="o1-1"></div></div></div>
+      <div class="step pending" id="s1-2"><div class="step-sp"><div class="step-d">2</div></div><div class="step-b"><div class="step-tr"><span class="step-n">Evidence Gathering</span><span class="op op-ai">AI</span></div><div class="step-det">Transaction records &middot; merchant data &middot; delivery confirmation &middot; usage logs</div><div class="step-out" id="o1-2"></div></div></div>
+      <div class="step pending" id="s1-3"><div class="step-sp"><div class="step-d">3</div></div><div class="step-b"><div class="step-tr"><span class="step-n">Chargeback Analysis</span><span class="op op-ai">AI</span></div><div class="step-det">Network rules applied &middot; liability assessment &middot; win probability scored &middot; precedent cases</div><div class="step-out" id="o1-3"></div></div></div>
+      <div class="step pending" id="s1-4"><div class="step-sp"><div class="step-d">4</div></div><div class="step-b"><div class="step-tr"><span class="step-n">Adjudicator Ruling</span><span class="op op-h">Human gate</span></div><div class="step-det">AI analysis reviewed &middot; adjudicator makes final ruling</div><div class="step-out" id="o1-4"></div>
         <div class="hg" id="hg1-4">
-          <div class="hg-top"><div class="hg-ico"><svg viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="4" r="2" stroke="var(--ac)" stroke-width="1.2"/><path d="M2 12c0-2.5 2-4.5 4.5-4.5S11 9.5 11 12" stroke="var(--ac)" stroke-width="1.2" stroke-linecap="round"/></svg></div><div><div class="hg-t">Credentials committee decision required</div><div class="hg-s">AI has compiled the full credentialing dossier. Committee must vote on privileges.</div></div></div>
+          <div class="hg-top"><div class="hg-ico"><svg viewBox="0 0 13 13" fill="none"><rect x="2" y="2" width="9" height="9" rx="2" stroke="var(--ac)" stroke-width="1.2"/><path d="M4.5 6.5l1.5 1.5L8.5 5" stroke="var(--ac)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><div class="hg-t">Adjudicator ruling required</div><div class="hg-s">AI analysis and win probability above. Adjudicator holds final ruling authority.</div></div></div>
           <div class="hg-chips" id="hg1-4-chips"></div>
-          <div class="hg-acts"><button class="hgb p" onclick="hd(1,4,'full')">Grant Full Privileges</button><button class="hgb" onclick="hd(1,4,'limited')">Grant Limited Privileges</button><button class="hgb d" onclick="hd(1,4,'defer')">Defer — Request More Info</button></div>
-          <div class="hg-note">Committee vote is the legally required step before any clinical privileges are active.</div>
+          <div class="hg-acts"><button class="hgb p" onclick="hd(1,4,'dispute')">Dispute &mdash; File Rebuttal</button><button class="hgb" onclick="hd(1,4,'arbitration')">Escalate to Arbitration</button><button class="hgb d" onclick="hd(1,4,'accept')">Accept Chargeback &mdash; Issue Refund</button></div>
+          <div class="hg-note">Ruling is final and triggers network filing or refund processing.</div>
         </div>
       </div></div>
-      <div class="step pending" id="s1-5"><div class="step-sp"><div class="step-d">5</div></div><div class="step-b"><div class="step-tr"><span class="step-n">Privilege Letter Generated</span><span class="op op-ai">AI</span></div><div class="step-det">Specific privileges granted · conditions · effective date · reappointment calendar</div><div class="step-out" id="o1-5"></div><div class="doc-blk" id="doc1-5"></div></div></div>
-      <div class="step pending" id="s1-6"><div class="step-sp"><div class="step-d">6</div></div><div class="step-b"><div class="step-tr"><span class="step-n">Payer Enrollment</span><span class="op op-ai">AI</span></div><div class="step-det">CAQH submission · payer credentialing packets · tracking dashboard updated</div><div class="step-out" id="o1-6"></div></div></div>
+      <div class="step pending" id="s1-5"><div class="step-sp"><div class="step-d">5</div></div><div class="step-b"><div class="step-tr"><span class="step-n">Rebuttal Package Generated</span><span class="op op-ai">AI</span></div><div class="step-det">Evidence packet &middot; compelling argument &middot; network-specific format &middot; deadline confirmed</div><div class="step-out" id="o1-5"></div><div class="doc-blk" id="doc1-5"></div></div></div>
+      <div class="step pending" id="s1-6"><div class="step-sp"><div class="step-d">6</div></div><div class="step-b"><div class="step-tr"><span class="step-n">Network Filing &amp; Tracking</span><span class="op op-ai">AI</span></div><div class="step-det">Submitted to Visa/Mastercard &middot; response deadline set &middot; case tracker updated</div><div class="step-out" id="o1-6"></div></div></div>
     </div>
     <div class="artifact" id="art1">
-      <div class="art-hdr"><span class="art-hdr-t">CREDENTIALING CASE FILE</span><span class="art-ts" id="art1-ts"></span></div>
+      <div class="art-hdr"><span class="art-hdr-t">DISPUTE CASE FILE</span><span class="art-ts" id="art1-ts"></span></div>
       <div class="art-body">
-        <div class="art-section"><div class="art-section-t">Provider Details</div><div class="art-grid" id="art1-provider"></div></div>
-        <div class="art-section"><div class="art-section-t">Credentialing Result</div><div class="art-grid" id="art1-result"></div></div>
+        <div class="art-section"><div class="art-section-t">Dispute Details</div><div class="art-grid" id="art1-dispute"></div></div>
+        <div class="art-section"><div class="art-section-t">Ruling &amp; Outcome</div><div class="art-grid" id="art1-ruling"></div></div>
         <div class="art-section"><div class="art-section-t">Human Decisions</div><div class="art-decisions" id="art1-decisions"></div></div>
-        <div class="art-dl"><button class="art-dl-btn p" onclick="printCaseFile('art1', 'Provider Credentialing — Privilege Letter')">↓ Download Privilege Letter PDF</button></div>
+        <div class="art-dl"><button class="art-dl-btn p" onclick="printCaseFile('art1', 'Dispute Resolution — Rebuttal Package')">&#8595; Download Rebuttal Package PDF</button></div>
       </div>
     </div>
-    <div class="sum" id="sum1"><div class="sum-t" id="sum1-t">Credentialing Complete</div><div class="sum-s" id="sum1-s"></div><div class="sum-grid"><div class="sg"><strong id="sum1-time">—</strong><span>Total time</span></div><div class="sg"><strong id="sum1-r1">—</strong><span>Privileges</span></div><div class="sg"><strong id="sum1-r2">—</strong><span>Sanctions</span></div><div class="sg"><strong>1</strong><span>Human decision</span></div></div><div class="sum-acts"><button class="sa sa-s" onclick="rwf(1)">↺ Reset</button></div></div>
+    <div class="sum" id="sum1"><div class="sum-t" id="sum1-t">Dispute Filed</div><div class="sum-s" id="sum1-s"></div><div class="sum-grid"><div class="sg"><strong id="sum1-time">&mdash;</strong><span>Total time</span></div><div class="sg"><strong id="sum1-r1">&mdash;</strong><span>Ruling</span></div><div class="sg"><strong id="sum1-r2">&mdash;</strong><span>Win probability</span></div><div class="sg"><strong>1</strong><span>Human decision</span></div></div><div class="sum-acts"><button class="sa sa-s" onclick="rwf(1)">&#8635; Reset</button></div></div>
   </div>
 </div>
 
-<!-- ══ WF 2: HIPAA COMPLIANCE ══ -->
+<!-- WF2: COMPLIANCE MONITORING -->
 <div class="wf-section" id="wf2">
   <div class="wf-hdr">
-    <div class="wf-eye">HIPAA Compliance · Healthcare</div>
-    <div class="wf-title">Risk Assessment to <em>Remediated</em></div>
-    <p class="wf-sub">8 weeks of compliance review compressed to minutes. AI maps PHI exposure and identifies gaps — Privacy Officer approves the remediation plan before work begins.</p>
+    <div class="wf-eye">Compliance Monitoring &middot; Financial Services</div>
+    <div class="wf-title">Regulatory Change to <em>Remediated</em></div>
+    <p class="wf-sub">6 weeks of compliance gap analysis compressed to minutes. AI maps the impact across all workflows and generates a prioritised remediation plan &mdash; CCO approves before work begins.</p>
     <div class="wf-stats">
-      <div class="ws"><strong class="r">8 weeks</strong><span>Without AI</span></div>
-      <div class="ws"><strong class="g">~4 min</strong><span>With AI + gate</span></div>
+      <div class="ws"><strong class="r">6 weeks</strong><span>Without AI</span></div>
+      <div class="ws"><strong class="g">~3 min</strong><span>With AI + gate</span></div>
       <div class="ws"><strong>1</strong><span>Human gate</span></div>
       <div class="ws"><strong>6</strong><span>Pipeline steps</span></div>
     </div>
@@ -426,11 +427,11 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
     <div class="bva-head">
       <div class="bva-label">Before vs After</div>
       <div class="bva-title">What changes &mdash; and what doesn&apos;t</div>
-      <div class="bva-sub">AI eliminates 97% of calendar time. The Privacy Officer approval is preserved — all gap analysis automated.</div>
+      <div class="bva-sub">AI eliminates 97% of calendar time. The CCO sign-off is preserved — AI prepares the full gap analysis.</div>
     </div>
     <div class="bva-hitl">
       <div style="font-size:10px;color:var(--mu);margin-bottom:8px;letter-spacing:.04em">Each step &mdash; who owns it</div>
-      <div class="bva-grid" style="grid-template-columns:repeat(6,1fr)"><div class="bva-cell bva-ai">01<br>Risk assess</div><div class="bva-cell bva-ai">02<br>Gap analysis</div><div class="bva-cell bva-ai">03<br>PHI audit</div><div class="bva-cell bva-h">04<br>Privacy<br>Officer</div><div class="bva-cell bva-ai">05<br>Remediation</div><div class="bva-cell bva-ai">06<br>Training</div></div>
+      <div class="bva-grid" style="grid-template-columns:repeat(6,1fr)"><div class="bva-cell bva-ai">01<br>Parse reg</div><div class="bva-cell bva-ai">02<br>Impact</div><div class="bva-cell bva-ai">03<br>Gap analysis</div><div class="bva-cell bva-h">04<br>CCO<br>sign-off</div><div class="bva-cell bva-ai">05<br>Remediation</div><div class="bva-cell bva-ai">06<br>Tickets</div></div>
       <div style="display:flex;gap:14px;margin-top:7px;font-size:10px">
         <span style="color:var(--in)">&#9632; AI automated (5 steps)</span>
         <span style="color:var(--ac)">&#9632; Human decision required (1 step)</span>
@@ -446,570 +447,324 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
     <div class="bva-total" id="bva-total-2"></div>
   </div>
   <div class="fc">
-    <div class="fc-lbl">HIPAA Compliance Review</div>
+    <div class="fc-lbl">Regulatory Change &mdash; Compliance Review</div>
     <div class="fg">
-      <div class="ff"><span class="fl">Organization</span><input class="fi" id="p2-org" value="Pacific Northwest Medical Group — 12 locations"></div>
-      <div class="ff"><span class="fl">Review Trigger</span><select class="fs" id="p2-trigger"><option>Annual Risk Assessment</option><option>Breach Investigation</option><option>OCR Audit Preparation</option><option>New System Implementation</option><option>Merger / Acquisition</option></select></div>
-      <div class="ff"><span class="fl">PHI Systems</span><input class="fi" id="p2-systems" value="Epic EHR, Practice Fusion, cloud backup, mobile devices, email"></div>
-      <div class="ff"><span class="fl">Last Assessment</span><input class="fi" id="p2-last" value="18 months ago — no major findings"></div>
+      <div class="ff"><span class="fl">Regulation / Update</span><input class="fi" id="f2-reg" value="PCI DSS v4.0 &mdash; Multi-factor authentication for all CDE access"></div>
+      <div class="ff"><span class="fl">Effective Date</span><input class="fi" id="f2-date" value="March 31, 2025 &mdash; immediate compliance required"></div>
+      <div class="ff"><span class="fl">Issuing Body</span><select class="fs" id="f2-body"><option>PCI Security Standards Council</option><option>FinCEN</option><option>Federal Reserve</option><option>OCC</option><option>CFPB</option><option>GDPR / EU</option><option>FCA (UK)</option></select></div>
+      <div class="ff"><span class="fl">Affected Systems</span><input class="fi" id="f2-systems" value="Payment gateway, admin portal, reporting dashboard, API access"></div>
     </div>
-    <div class="rr"><button class="rb" id="btn2" onclick="run(2)">▶ Run HIPAA Review</button><span class="mt">real Claude inference per step</span></div>
+    <div class="rr"><button class="rb" id="btn2" onclick="run2()">&#9654; Run Compliance Workflow</button><span class="mt">real Claude inference per step</span></div>
   </div>
   <div class="pw" id="pw2">
-    <div class="pw-hdr"><span class="pw-t">HIPAA Compliance Pipeline</span><span class="pw-s ps-run" id="ps2">● Running</span></div>
+    <div class="pw-hdr"><span class="pw-t">Compliance Monitoring Pipeline</span><span class="pw-s ps-run" id="ps2">&#9679; Running</span></div>
     <div class="steps">
-      <div class="step pending" id="s2-1"><div class="step-sp"><div class="step-d">1</div></div><div class="step-b"><div class="step-tr"><span class="step-n">Risk Assessment Initiated</span><span class="op op-ai">AI</span></div><div class="step-det">PHI inventory · access controls · encryption status · workforce training audit</div><div class="step-out" id="o2-1"></div></div></div>
-      <div class="step pending" id="s2-2"><div class="step-sp"><div class="step-d">2</div></div><div class="step-b"><div class="step-tr"><span class="step-n">Gap Analysis</span><span class="op op-ai">AI</span></div><div class="step-det">Current state vs HIPAA Security Rule requirements · gap severity scoring</div><div class="step-out" id="o2-2"></div></div></div>
-      <div class="step pending" id="s2-3"><div class="step-sp"><div class="step-d">3</div></div><div class="step-b"><div class="step-tr"><span class="step-n">PHI Exposure Audit</span><span class="op op-ai">AI</span></div><div class="step-det">Data flows mapped · unauthorized access risks · BAA compliance · breach probability</div><div class="step-out" id="o2-3"></div></div></div>
-      <div class="step pending" id="s2-4"><div class="step-sp"><div class="step-d">4</div></div><div class="step-b"><div class="step-tr"><span class="step-n">Privacy Officer Review</span><span class="op op-h">Human gate</span></div><div class="step-det">Privacy officer assesses findings · approves remediation plan</div><div class="step-out" id="o2-4"></div>
+      <div class="step pending" id="s2-1"><div class="step-sp"><div class="step-d">1</div></div><div class="step-b"><div class="step-tr"><span class="step-n">Regulatory Change Parsed</span><span class="op op-ai">AI</span></div><div class="step-det">Full regulation text parsed &middot; key requirements extracted &middot; effective date confirmed</div><div class="step-out" id="o2-1"></div></div></div>
+      <div class="step pending" id="s2-2"><div class="step-sp"><div class="step-d">2</div></div><div class="step-b"><div class="step-tr"><span class="step-n">Impact Assessment</span><span class="op op-ai">AI</span></div><div class="step-det">Workflows affected &middot; severity scoring &middot; systems inventory cross-referenced</div><div class="step-out" id="o2-2"></div></div></div>
+      <div class="step pending" id="s2-3"><div class="step-sp"><div class="step-d">3</div></div><div class="step-b"><div class="step-tr"><span class="step-n">Gap Analysis</span><span class="op op-ai">AI</span></div><div class="step-det">Current state vs required state &middot; gap severity matrix &middot; regulatory risk scored</div><div class="step-out" id="o2-3"></div></div></div>
+      <div class="step pending" id="s2-4"><div class="step-sp"><div class="step-d">4</div></div><div class="step-b"><div class="step-tr"><span class="step-n">CCO Review &amp; Sign-off</span><span class="op op-h">Human gate</span></div><div class="step-det">Chief Compliance Officer reviews AI findings and approves remediation plan</div><div class="step-out" id="o2-4"></div>
         <div class="hg" id="hg2-4">
-          <div class="hg-top"><div class="hg-ico"><svg viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="4" r="2" stroke="var(--ac)" stroke-width="1.2"/><path d="M2 12c0-2.5 2-4.5 4.5-4.5S11 9.5 11 12" stroke="var(--ac)" stroke-width="1.2" stroke-linecap="round"/></svg></div><div><div class="hg-t">Privacy officer approval required</div><div class="hg-s">AI has identified compliance gaps. Privacy officer must approve remediation plan before work begins.</div></div></div>
+          <div class="hg-top"><div class="hg-ico"><svg viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="4" r="2" stroke="var(--ac)" stroke-width="1.2"/><path d="M2 12c0-2.5 2-4.5 4.5-4.5S11 9.5 11 12" stroke="var(--ac)" stroke-width="1.2" stroke-linecap="round"/></svg></div><div><div class="hg-t">CCO review &amp; sign-off required</div><div class="hg-s">AI has mapped all compliance gaps. CCO must approve before remediation work begins.</div></div></div>
           <div class="hg-chips" id="hg2-4-chips"></div>
-          <div class="hg-acts"><button class="hgb p" onclick="hd(2,4,'approve')">Approve Plan — Begin Remediation</button><button class="hgb" onclick="hd(2,4,'more')">Request Deeper Analysis</button><button class="hgb d" onclick="hd(2,4,'escalate')">Escalate to Legal Counsel</button></div>
-          <div class="hg-note">Approval authorises remediation spend and timeline commitments.</div>
+          <div class="hg-acts"><button class="hgb p" onclick="hd(2,4,'approve')">Approve Plan &mdash; Begin Remediation</button><button class="hgb" onclick="hd(2,4,'more')">Request Additional Analysis</button><button class="hgb d" onclick="hd(2,4,'escalate')">Escalate to Legal Counsel</button></div>
+          <div class="hg-note">CCO approval authorises remediation spend and timeline commitments.</div>
         </div>
       </div></div>
-      <div class="step pending" id="s2-5"><div class="step-sp"><div class="step-d">5</div></div><div class="step-b"><div class="step-tr"><span class="step-n">Remediation Plan Generated</span><span class="op op-ai">AI</span></div><div class="step-det">Prioritised findings · owners · timelines · BAA updates needed · budget estimate</div><div class="step-out" id="o2-5"></div><div class="doc-blk" id="doc2-5"></div></div></div>
-      <div class="step pending" id="s2-6"><div class="step-sp"><div class="step-d">6</div></div><div class="step-b"><div class="step-tr"><span class="step-n">Policy Updates &amp; Training</span><span class="op op-ai">AI</span></div><div class="step-det">Updated policies drafted · training plan · attestation tracking configured</div><div class="step-out" id="o2-6"></div></div></div>
+      <div class="step pending" id="s2-5"><div class="step-sp"><div class="step-d">5</div></div><div class="step-b"><div class="step-tr"><span class="step-n">Remediation Plan Generated</span><span class="op op-ai">AI</span></div><div class="step-det">Prioritised action items &middot; owners &middot; deadlines &middot; budget estimate &middot; risk reduction</div><div class="step-out" id="o2-5"></div><div class="doc-blk" id="doc2-5"></div></div></div>
+      <div class="step pending" id="s2-6"><div class="step-sp"><div class="step-d">6</div></div><div class="step-b"><div class="step-tr"><span class="step-n">Tickets &amp; Tracking Created</span><span class="op op-ai">AI</span></div><div class="step-det">Jira tickets &middot; owners notified &middot; 30-day compliance review scheduled</div><div class="step-out" id="o2-6"></div></div></div>
     </div>
     <div class="artifact" id="art2">
-      <div class="art-hdr"><span class="art-hdr-t">HIPAA COMPLIANCE CASE FILE</span><span class="art-ts" id="art2-ts"></span></div>
+      <div class="art-hdr"><span class="art-hdr-t">COMPLIANCE CASE FILE</span><span class="art-ts" id="art2-ts"></span></div>
       <div class="art-body">
-        <div class="art-section"><div class="art-section-t">Assessment Details</div><div class="art-grid" id="art2-org"></div></div>
-        <div class="art-section"><div class="art-section-t">Findings</div><div class="art-grid" id="art2-findings"></div></div>
+        <div class="art-section"><div class="art-section-t">Regulation Details</div><div class="art-grid" id="art2-reg"></div></div>
+        <div class="art-section"><div class="art-section-t">Gap Summary</div><div class="art-grid" id="art2-gaps"></div></div>
         <div class="art-section"><div class="art-section-t">Human Decisions</div><div class="art-decisions" id="art2-decisions"></div></div>
-        <div class="art-dl"><button class="art-dl-btn p" onclick="printCaseFile('art2', 'HIPAA Compliance — Remediation Plan')">↓ Download Remediation Plan PDF</button></div>
+        <div class="art-dl"><button class="art-dl-btn p" onclick="printCaseFile('art2', 'Compliance Monitoring — Remediation Plan')">&#8595; Download Remediation Plan PDF</button></div>
       </div>
     </div>
-    <div class="sum" id="sum2"><div class="sum-t" id="sum2-t">HIPAA Review Complete</div><div class="sum-s" id="sum2-s"></div><div class="sum-grid"><div class="sg"><strong id="sum2-time">—</strong><span>Total time</span></div><div class="sg"><strong id="sum2-r1">—</strong><span>Gaps found</span></div><div class="sg"><strong id="sum2-r2">—</strong><span>Risk level</span></div><div class="sg"><strong>1</strong><span>Human decision</span></div></div><div class="sum-acts"><button class="sa sa-s" onclick="rwf(2)">↺ Reset</button></div></div>
-  </div>
-</div>
-
-<!-- ══ WF 3: CLINICAL TRIAL ENROLLMENT ══ -->
-<div class="wf-section" id="wf3">
-  <div class="wf-hdr">
-    <div class="wf-eye">Clinical Trial Enrollment · Healthcare</div>
-    <div class="wf-title">Patient Identified to <em>Enrolled</em></div>
-    <p class="wf-sub">3 weeks of eligibility screening and consent compressed to minutes. Principal investigator reviews AI suitability assessment — patient consent preserved as the final human gate.</p>
-    <div class="wf-stats">
-      <div class="ws"><strong class="r">3 weeks</strong><span>Without AI</span></div>
-      <div class="ws"><strong class="g">~4 min</strong><span>With AI + gates</span></div>
-      <div class="ws"><strong>2</strong><span>Human gates</span></div>
-      <div class="ws"><strong>6</strong><span>Pipeline steps</span></div>
-    </div>
-  </div>
-  
-  <!-- BEFORE / AFTER COMPARISON CHART -->
-  <div class="bva-card">
-    <div class="bva-head">
-      <div class="bva-label">Before vs After</div>
-      <div class="bva-title">What changes &mdash; and what doesn&apos;t</div>
-      <div class="bva-sub">AI eliminates 96% of calendar time. PI review and patient consent are preserved — eligibility screening automated.</div>
-    </div>
-    <div class="bva-hitl">
-      <div style="font-size:10px;color:var(--mu);margin-bottom:8px;letter-spacing:.04em">Each step &mdash; who owns it</div>
-      <div class="bva-grid" style="grid-template-columns:repeat(6,1fr)"><div class="bva-cell bva-ai">01<br>Eligibility</div><div class="bva-cell bva-ai">02<br>Protocol</div><div class="bva-cell bva-h">03<br>PI<br>review</div><div class="bva-cell bva-ai">04<br>ICF draft</div><div class="bva-cell bva-h">05<br>Patient<br>consent</div><div class="bva-cell bva-ai">06<br>Randomize</div></div>
-      <div style="display:flex;gap:14px;margin-top:7px;font-size:10px">
-        <span style="color:var(--in)">&#9632; AI automated (4 steps)</span>
-        <span style="color:var(--ac)">&#9632; Human decision required (2 steps)</span>
-      </div>
-    </div>
-    <div class="bva-toggle">
-      <button class="bva-btn bva-on" onclick="setChartW3('before')" id="cb3-before">Without AI</button>
-      <button class="bva-btn" onclick="setChartW3('after')" id="cb3-after">With AI</button>
-      <button class="bva-btn" onclick="setChartW3('compare')" id="cb3-compare">Side by side</button>
-    </div>
-    <div class="bva-legend" id="bva-legend-3"></div>
-    <div id="bva-bars-3"></div>
-    <div class="bva-total" id="bva-total-3"></div>
-  </div>
-  <div class="fc">
-    <div class="fc-lbl">Clinical Trial Enrollment Request</div>
-    <div class="fg">
-      <div class="ff"><span class="fl">Patient</span><input class="fi" id="p3-patient" value="James O'Brien, 61M, Type 2 Diabetes, HbA1c 8.4%"></div>
-      <div class="ff"><span class="fl">Trial</span><input class="fi" id="p3-trial" value="NCT04821349 — Novel GLP-1 agonist Phase III"></div>
-      <div class="ff"><span class="fl">Referring Physician</span><input class="fi" id="p3-pi" value="Dr. Maria Santos, Endocrinology"></div>
-      <div class="ff"><span class="fl">Trial Site</span><input class="fi" id="p3-site" value="Seattle Cancer Care Alliance — Research Center"></div>
-      <div class="ff ff-w"><span class="fl">Patient Clinical Summary</span><textarea class="fta" id="p3-notes">T2DM diagnosed 2014. Currently on metformin + SGLT-2 inhibitor. No prior trial participation. EGFR 72, no cardiovascular disease. Willing and motivated to participate.</textarea></div>
-    </div>
-    <div class="rr"><button class="rb" id="btn3" onclick="run(3)">▶ Run Enrollment Workflow</button><span class="mt">real Claude inference per step</span></div>
-  </div>
-  <div class="pw" id="pw3">
-    <div class="pw-hdr"><span class="pw-t">Clinical Trial Enrollment Pipeline</span><span class="pw-s ps-run" id="ps3">● Running</span></div>
-    <div class="steps">
-      <div class="step pending" id="s3-1"><div class="step-sp"><div class="step-d">1</div></div><div class="step-b"><div class="step-tr"><span class="step-n">Eligibility Screening</span><span class="op op-ai">AI</span></div><div class="step-det">Inclusion/exclusion criteria checked · contraindications · lab value thresholds</div><div class="step-out" id="o3-1"></div></div></div>
-      <div class="step pending" id="s3-2"><div class="step-sp"><div class="step-d">2</div></div><div class="step-b"><div class="step-tr"><span class="step-n">Protocol Matching</span><span class="op op-ai">AI</span></div><div class="step-det">Best-fit arm identified · site capacity confirmed · visit schedule generated</div><div class="step-out" id="o3-2"></div></div></div>
-      <div class="step pending" id="s3-3"><div class="step-sp"><div class="step-d">3</div></div><div class="step-b"><div class="step-tr"><span class="step-n">Principal Investigator Review</span><span class="op op-h">Human gate</span></div><div class="step-det">PI assesses clinical suitability before consent proceeds</div><div class="step-out" id="o3-3"></div>
-        <div class="hg" id="hg3-3">
-          <div class="hg-top"><div class="hg-ico"><svg viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="4" r="2" stroke="var(--ac)" stroke-width="1.2"/><path d="M2 12c0-2.5 2-4.5 4.5-4.5S11 9.5 11 12" stroke="var(--ac)" stroke-width="1.2" stroke-linecap="round"/></svg></div><div><div class="hg-t">Principal investigator review required</div><div class="hg-s">AI has screened eligibility. PI must assess clinical suitability before consent is initiated.</div></div></div>
-          <div class="hg-chips" id="hg3-3-chips"></div>
-          <div class="hg-acts"><button class="hgb p" onclick="hd(3,3,'approve')">Approve — Proceed to Consent</button><button class="hgb" onclick="hd(3,3,'eval')">Request Clinical Evaluation First</button><button class="hgb d" onclick="hd(3,3,'exclude')">Exclude — Not Clinically Suitable</button></div>
-          <div class="hg-note">PI approval is required under ICH GCP guidelines before initiating informed consent.</div>
-        </div>
-      </div></div>
-      <div class="step pending" id="s3-4"><div class="step-sp"><div class="step-d">4</div></div><div class="step-b"><div class="step-tr"><span class="step-n">Informed Consent Generated</span><span class="op op-ai">AI</span></div><div class="step-det">Trial-specific ICF · patient-friendly language · risks disclosed · questions anticipated</div><div class="step-out" id="o3-4"></div><div class="doc-blk" id="doc3-4"></div></div></div>
-      <div class="step pending" id="s3-5"><div class="step-sp"><div class="step-d">5</div></div><div class="step-b"><div class="step-tr"><span class="step-n">Patient Consent</span><span class="op op-h">Human gate</span></div><div class="step-det">Patient reviews consent document · signs before randomization proceeds</div><div class="step-out" id="o3-5"></div>
-        <div class="hg" id="hg3-5">
-          <div class="hg-top"><div class="hg-ico"><svg viewBox="0 0 13 13" fill="none"><rect x="2" y="2" width="9" height="9" rx="2" stroke="var(--ac)" stroke-width="1.2"/><path d="M4.5 6.5l1.5 1.5L8.5 5" stroke="var(--ac)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><div class="hg-t">Patient consent required</div><div class="hg-s">Informed consent document generated above. Patient must sign before randomization proceeds.</div></div></div>
-          <div class="hg-chips" id="hg3-5-chips"></div>
-          <div class="hg-acts"><button class="hgb p" onclick="hd(3,5,'consented')">Patient Consented — Proceed</button><button class="hgb d" onclick="hd(3,5,'declined')">Patient Declined Participation</button></div>
-          <div class="hg-note">Patient consent is an absolute legal and ethical requirement. Cannot be bypassed.</div>
-        </div>
-      </div></div>
-      <div class="step pending" id="s3-6"><div class="step-sp"><div class="step-d">6</div></div><div class="step-b"><div class="step-tr"><span class="step-n">Randomization &amp; Enrollment</span><span class="op op-ai">AI</span></div><div class="step-det">Patient assigned to arm · site notified · first visit scheduled · CTMS updated</div><div class="step-out" id="o3-6"></div></div></div>
-    </div>
-    <div class="artifact" id="art3">
-      <div class="art-hdr"><span class="art-hdr-t">TRIAL ENROLLMENT CASE FILE</span><span class="art-ts" id="art3-ts"></span></div>
-      <div class="art-body">
-        <div class="art-section"><div class="art-section-t">Patient &amp; Trial</div><div class="art-grid" id="art3-patient"></div></div>
-        <div class="art-section"><div class="art-section-t">Enrollment Result</div><div class="art-grid" id="art3-result"></div></div>
-        <div class="art-section"><div class="art-section-t">Human Decisions</div><div class="art-decisions" id="art3-decisions"></div></div>
-        <div class="art-dl"><button class="art-dl-btn p" onclick="printCaseFile('art3', 'Clinical Trial Enrollment — Case File')">↓ Download ICF &amp; Enrollment Record PDF</button></div>
-      </div>
-    </div>
-    <div class="sum" id="sum3"><div class="sum-t" id="sum3-t">Enrollment Complete</div><div class="sum-s" id="sum3-s"></div><div class="sum-grid"><div class="sg"><strong id="sum3-time">—</strong><span>Total time</span></div><div class="sg"><strong id="sum3-r1">—</strong><span>Status</span></div><div class="sg"><strong id="sum3-r2">—</strong><span>Trial arm</span></div><div class="sg"><strong>2</strong><span>Human decisions</span></div></div><div class="sum-acts"><button class="sa sa-s" onclick="rwf(3)">↺ Reset</button></div></div>
-  </div>
-</div>
-
-<!-- ══ WF 4: ADVERSE EVENT REPORTING ══ -->
-<div class="wf-section" id="wf4">
-  <div class="wf-hdr">
-    <div class="wf-eye">Adverse Event Reporting · Healthcare</div>
-    <div class="wf-title">Event Detected to <em>Filed with FDA</em></div>
-    <p class="wf-sub">5-day SAE reporting cycle compressed to minutes. AI classifies, assesses causality, and drafts the MedWatch report — Medical Officer certifies before regulatory submission.</p>
-    <div class="wf-stats">
-      <div class="ws"><strong class="r">5 days</strong><span>Without AI</span></div>
-      <div class="ws"><strong class="g">~3 min</strong><span>With AI + gate</span></div>
-      <div class="ws"><strong>1</strong><span>Human gate</span></div>
-      <div class="ws"><strong>6</strong><span>Pipeline steps</span></div>
-    </div>
-  </div>
-  
-  <!-- BEFORE / AFTER COMPARISON CHART -->
-  <div class="bva-card">
-    <div class="bva-head">
-      <div class="bva-label">Before vs After</div>
-      <div class="bva-title">What changes &mdash; and what doesn&apos;t</div>
-      <div class="bva-sub">AI eliminates 97% of calendar time. The Medical Officer certification is preserved — report drafting fully automated.</div>
-    </div>
-    <div class="bva-hitl">
-      <div style="font-size:10px;color:var(--mu);margin-bottom:8px;letter-spacing:.04em">Each step &mdash; who owns it</div>
-      <div class="bva-grid" style="grid-template-columns:repeat(6,1fr)"><div class="bva-cell bva-ai">01<br>Classify</div><div class="bva-cell bva-ai">02<br>Causality</div><div class="bva-cell bva-ai">03<br>Draft</div><div class="bva-cell bva-h">04<br>Medical<br>Officer</div><div class="bva-cell bva-ai">05<br>File FDA</div><div class="bva-cell bva-ai">06<br>Follow-up</div></div>
-      <div style="display:flex;gap:14px;margin-top:7px;font-size:10px">
-        <span style="color:var(--in)">&#9632; AI automated (5 steps)</span>
-        <span style="color:var(--ac)">&#9632; Human decision required (1 step)</span>
-      </div>
-    </div>
-    <div class="bva-toggle">
-      <button class="bva-btn bva-on" onclick="setChartW4('before')" id="cb4-before">Without AI</button>
-      <button class="bva-btn" onclick="setChartW4('after')" id="cb4-after">With AI</button>
-      <button class="bva-btn" onclick="setChartW4('compare')" id="cb4-compare">Side by side</button>
-    </div>
-    <div class="bva-legend" id="bva-legend-4"></div>
-    <div id="bva-bars-4"></div>
-    <div class="bva-total" id="bva-total-4"></div>
-  </div>
-  <div class="fc">
-    <div class="fc-lbl">Adverse Event Report</div>
-    <div class="fg">
-      <div class="ff"><span class="fl">Patient / Subject ID</span><input class="fi" id="p4-patient" value="Subject 014-003 — Trial NCT04821349"></div>
-      <div class="ff"><span class="fl">Event Description</span><input class="fi" id="p4-event" value="Severe nausea, vomiting, dehydration — Day 14 post-dose"></div>
-      <div class="ff"><span class="fl">Suspect Drug</span><input class="fi" id="p4-drug" value="IND-4821 (study drug, 10mg QD)"></div>
-      <div class="ff"><span class="fl">Reporter</span><input class="fi" id="p4-reporter" value="Dr. Maria Santos — Site Investigator"></div>
-      <div class="ff ff-w"><span class="fl">Clinical Details</span><textarea class="fta" id="p4-notes">Patient presented to ED on Day 14. Hospitalized overnight for IV fluids. GI symptoms resolved within 48hrs. Study drug held. No permanent injury. Event considered possibly related to study drug.</textarea></div>
-    </div>
-    <div class="rr"><button class="rb" id="btn4" onclick="run(4)">▶ Run AE Reporting Workflow</button><span class="mt">real Claude inference per step</span></div>
-  </div>
-  <div class="pw" id="pw4">
-    <div class="pw-hdr"><span class="pw-t">Adverse Event Reporting Pipeline</span><span class="pw-s ps-run" id="ps4">● Running</span></div>
-    <div class="steps">
-      <div class="step pending" id="s4-1"><div class="step-sp"><div class="step-d">1</div></div><div class="step-b"><div class="step-tr"><span class="step-n">Event Classification</span><span class="op op-ai">AI</span></div><div class="step-det">SAE vs AE · expectedness · CTCAE severity grade · MedDRA coding</div><div class="step-out" id="o4-1"></div></div></div>
-      <div class="step pending" id="s4-2"><div class="step-sp"><div class="step-d">2</div></div><div class="step-b"><div class="step-tr"><span class="step-n">Causality Assessment</span><span class="op op-ai">AI</span></div><div class="step-det">Relatedness to study drug · alternative causes · WHO causality criteria applied</div><div class="step-out" id="o4-2"></div></div></div>
-      <div class="step pending" id="s4-3"><div class="step-sp"><div class="step-d">3</div></div><div class="step-b"><div class="step-tr"><span class="step-n">Report Draft Generated</span><span class="op op-ai">AI</span></div><div class="step-det">FDA MedWatch 3500A / CIOMS I form · narrative · supporting data package</div><div class="step-out" id="o4-3"></div><div class="doc-blk" id="doc4-3"></div></div></div>
-      <div class="step pending" id="s4-4"><div class="step-sp"><div class="step-d">4</div></div><div class="step-b"><div class="step-tr"><span class="step-n">Medical Officer Sign-off</span><span class="op op-h">Human gate</span></div><div class="step-det">Medical officer reviews and certifies report before regulatory submission</div><div class="step-out" id="o4-4"></div>
-        <div class="hg" id="hg4-4">
-          <div class="hg-top"><div class="hg-ico"><svg viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="4" r="2" stroke="var(--ac)" stroke-width="1.2"/><path d="M2 12c0-2.5 2-4.5 4.5-4.5S11 9.5 11 12" stroke="var(--ac)" stroke-width="1.2" stroke-linecap="round"/></svg></div><div><div class="hg-t">Medical officer sign-off required</div><div class="hg-s">AI has drafted the adverse event report. Medical officer must certify before filing with FDA/IRB.</div></div></div>
-          <div class="hg-chips" id="hg4-4-chips"></div>
-          <div class="hg-acts"><button class="hgb p" onclick="hd(4,4,'approve')">Certify &amp; Submit to FDA/IRB</button><button class="hgb" onclick="hd(4,4,'revise')">Revise Causality Assessment</button></div>
-          <div class="hg-note">Medical officer certification is legally required under 21 CFR Part 312 for IND safety reports.</div>
-        </div>
-      </div></div>
-      <div class="step pending" id="s4-5"><div class="step-sp"><div class="step-d">5</div></div><div class="step-b"><div class="step-tr"><span class="step-n">Regulatory Filing</span><span class="op op-ai">AI</span></div><div class="step-det">Submitted to FDA · IRB notified · sponsor safety team informed · 15-day deadline met</div><div class="step-out" id="o4-5"></div></div></div>
-      <div class="step pending" id="s4-6"><div class="step-sp"><div class="step-d">6</div></div><div class="step-b"><div class="step-tr"><span class="step-n">Follow-up &amp; Monitoring</span><span class="op op-ai">AI</span></div><div class="step-det">Patient monitoring plan · 15-day follow-up scheduled · case closure criteria set</div><div class="step-out" id="o4-6"></div></div></div>
-    </div>
-    <div class="artifact" id="art4">
-      <div class="art-hdr"><span class="art-hdr-t">ADVERSE EVENT CASE FILE</span><span class="art-ts" id="art4-ts"></span></div>
-      <div class="art-body">
-        <div class="art-section"><div class="art-section-t">Event Details</div><div class="art-grid" id="art4-event"></div></div>
-        <div class="art-section"><div class="art-section-t">Regulatory Filing</div><div class="art-grid" id="art4-filing"></div></div>
-        <div class="art-section"><div class="art-section-t">Human Decisions</div><div class="art-decisions" id="art4-decisions"></div></div>
-        <div class="art-dl"><button class="art-dl-btn p" onclick="printCaseFile('art4', 'Adverse Event Report — MedWatch Filing')">↓ Download MedWatch Report PDF</button></div>
-      </div>
-    </div>
-    <div class="sum" id="sum4"><div class="sum-t" id="sum4-t">AE Report Filed</div><div class="sum-s" id="sum4-s"></div><div class="sum-grid"><div class="sg"><strong id="sum4-time">—</strong><span>Total time</span></div><div class="sg"><strong id="sum4-r1">—</strong><span>Event grade</span></div><div class="sg"><strong id="sum4-r2">—</strong><span>Causality</span></div><div class="sg"><strong>1</strong><span>Human decision</span></div></div><div class="sum-acts"><button class="sa sa-s" onclick="rwf(4)">↺ Reset</button></div></div>
+    <div class="sum" id="sum2"><div class="sum-t" id="sum2-t">Compliance Plan Active</div><div class="sum-s" id="sum2-s"></div><div class="sum-grid"><div class="sg"><strong id="sum2-time">&mdash;</strong><span>Total time</span></div><div class="sg"><strong id="sum2-r1">&mdash;</strong><span>Gaps found</span></div><div class="sg"><strong id="sum2-r2">&mdash;</strong><span>Risk level</span></div><div class="sg"><strong>1</strong><span>Human decision</span></div></div><div class="sum-acts"><button class="sa sa-s" onclick="rwf(2)">&#8635; Reset</button></div></div>
   </div>
 </div>
 
 </main>
-
 <footer class="footer">
-  <p class="footer-s">Every workflow above took us hours to build. Your Appian or ServiceNow healthcare implementation took months and cost millions.<br>We rebuild it AI-native in 8 weeks — you own the code.</p>
-  <a class="footer-cta" href="https://bisxp.com/#contact">Book a Free Assessment →</a>
+  <p class="footer-s">Every workflow above took us hours to build. Your Appian or Pega implementation took months and cost millions.<br>We rebuild it AI-native in 8 weeks &mdash; you own the code.</p>
+  <a class="footer-cta" href="https://bisxp.com/#contact">Book a Free Assessment &rarr;</a>
 </footer>
-
 <div class="toast" id="toast-el"><div class="toast-t" id="toast-t"></div><div id="toast-m"></div></div>
-
 <script>
-const API='/api/ai', MODEL='claude-sonnet-4-20250514';
-let running={}, hRes={}, decisions={}, t0={};
-
+const API='/api/ai',MODEL='claude-sonnet-4-20250514';
+let running={},hRes={},t0={};
 function toast(t,m){document.getElementById('toast-t').textContent=t;document.getElementById('toast-m').textContent=m;const el=document.getElementById('toast-el');el.classList.add('show');setTimeout(()=>el.classList.remove('show'),5000);}
 function sw(n){document.querySelectorAll('.db').forEach((b,i)=>b.classList.toggle('active',i===n));document.querySelectorAll('.wf-section').forEach((s,i)=>s.classList.toggle('active',i===n));window.scrollTo({top:document.querySelector('.dnav').offsetTop-10,behavior:'smooth'});}
 function now(){return new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit',second:'2-digit'});}
 function ms(t){return((Date.now()-t)/1000).toFixed(1)+'s';}
-function sendEmail(id){const btn=document.getElementById(id+'-btn');if(btn){btn.textContent='Sent ✓';btn.classList.add('sent');toast('Email sent','Patient notification dispatched via Resend.');}}
-
-async function ai(sys,usr){
-  const r=await fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:MODEL,max_tokens:900,system:sys,messages:[{role:'user',content:usr}]})});
-  if(!r.ok)throw new Error('API '+r.status);
-  const d=await r.json();
-  return(d.content?.find(b=>b.type==='text')?.text||'').trim();
-}
+function sendEsign(id){const btn=document.getElementById(id+'-btn');if(btn){btn.textContent='Sent via DocuSign';btn.classList.add('sent');toast('DocuSign','Agreement dispatched for e-signature.');}}
+function sendEmail(id){const btn=document.getElementById(id+'-btn');if(btn){btn.textContent='Sent';btn.classList.add('sent');toast('Sent','Welcome email dispatched via Resend.');}}
+async function ai(sys,usr){const r=await fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:MODEL,max_tokens:900,system:sys,messages:[{role:'user',content:usr}]})});if(!r.ok)throw new Error('API '+r.status);const d=await r.json();return(d.content?.find(b=>b.type==='text')?.text||'').trim();}
 function pj(t){try{return JSON.parse(t.replace(/```json\n?/g,'').replace(/```\n?/g,'').trim());}catch{return null;}}
-
-function stepA(w,n){const el=document.getElementById(`s${w}-${n}`);if(!el)return;el.className='step active';el.querySelector('.step-d').innerHTML='<div class="spin"></div>';}
+function stepA(w,n){const el=document.getElementById('s'+w+'-'+n);if(!el)return;el.className='step active';el.querySelector('.step-d').innerHTML='<div class="spin"></div>';}
 function stepD(w,n,txt,badge,t){
-  const el=document.getElementById(`s${w}-${n}`);if(!el)return;
-  el.className='step done';el.querySelector('.step-d').textContent='✓';
-  const out=document.getElementById(`o${w}-${n}`);if(!out)return;
-  const bc={OK:'sb-ok',APPROVED:'sb-ok',COMPLETE:'sb-ok',CLEAR:'sb-ok',GENERATED:'sb-ac',WARNING:'sb-wn',FLAGGED:'sb-er',EDD:'sb-wn'};
-  const bt={OK:'✓ OK',APPROVED:'✓ Approved',COMPLETE:'✓ Complete',CLEAR:'✓ Clear',GENERATED:'◆ Generated',WARNING:'⚠ Warning',FLAGGED:'! Flagged'}[badge]||'✓ Done';
-  out.innerHTML=txt+`<span class="sbadge ${bc[badge]||'sb-ok'}">${bt}</span>`+(t?`<span class="step-ti">${t}</span>`:'');
+  const el=document.getElementById('s'+w+'-'+n);if(!el)return;
+  el.className='step done';el.querySelector('.step-d').textContent='&#10003;';
+  const out=document.getElementById('o'+w+'-'+n);if(!out)return;
+  const bc={OK:'sb-ok',APPROVED:'sb-ok',COMPLETE:'sb-ok',CLEAR:'sb-ok',GENERATED:'sb-ac',WARNING:'sb-wn',FLAGGED:'sb-er',EDD:'sb-wn',BLOCKED:'sb-er'};
+  const bt={OK:'OK',APPROVED:'Approved',COMPLETE:'Complete',CLEAR:'Clear',GENERATED:'Generated',WARNING:'Warning',FLAGGED:'Flagged',EDD:'EDD',BLOCKED:'Blocked'}[badge]||'Done';
+  out.innerHTML=txt+'<span class="sbadge '+(bc[badge]||'sb-ok')+'">'+bt+'</span>'+(t?'<span class="step-ti">'+t+'</span>':'');
   out.style.display='block';
 }
-function stepW(w,n){const el=document.getElementById(`s${w}-${n}`);if(el)el.className='step wait';}
-function stepE(w,n){const el=document.getElementById(`s${w}-${n}`);if(el){el.className='step err';el.querySelector('.step-d').textContent='✕';}}
-function ps(w,cls,txt){const el=document.getElementById(`ps${w}`);if(el){el.className=`pw-s ${cls}`;el.textContent=txt;}}
-function showHG(id){document.getElementById(id)?.classList.add('show');}
-function chips(id,arr){const el=document.getElementById(id);if(!el)return;el.innerHTML=arr.map(c=>`<div class="hgc"><div class="hgc-l">${c.l}</div><div class="hgc-v ${c.cl||''}">${c.v}</div></div>`).join('');}
-function artKV(id,arr){const el=document.getElementById(id);if(!el)return;el.innerHTML=arr.map(c=>`<div class="art-kv"><div class="art-k">${c.k}</div><div class="art-v ${c.cl||''}">${c.v}</div></div>`).join('');}
-function artDec(w,who,what){const el=document.getElementById(`art${w}-decisions`);if(!el)return;el.innerHTML+=`<div class="art-dec"><span class="art-dec-who">${who}</span><span class="art-dec-what">${what}</span><span class="art-dec-time">${now()}</span></div>`;}
+function stepW(w,n){const el=document.getElementById('s'+w+'-'+n);if(el)el.className='step wait';}
+function stepE(w,n){const el=document.getElementById('s'+w+'-'+n);if(el){el.className='step err';el.querySelector('.step-d').textContent='X';}}
+function ps(w,cls,txt){const el=document.getElementById('ps'+w);if(el){el.className='pw-s '+cls;el.textContent=txt;}}
+function showHG(id){document.getElementById(id)&&document.getElementById(id).classList.add('show');}
+function chips(id,arr){const el=document.getElementById(id);if(!el)return;el.innerHTML=arr.map(c=>'<div class="hgc"><div class="hgc-l">'+c.l+'</div><div class="hgc-v '+(c.cl||'')+'">'+c.v+'</div></div>').join('');}
+function artKV(id,arr){const el=document.getElementById(id);if(!el)return;el.innerHTML=arr.map(c=>'<div class="art-kv"><div class="art-k">'+c.k+'</div><div class="art-v '+(c.cl||'')+'">'+c.v+'</div></div>').join('');}
+function artDec(w,who,what){const el=document.getElementById('art'+w+'-decisions');if(!el)return;el.innerHTML+='<div class="art-dec"><span class="art-dec-who">'+who+'</span><span class="art-dec-what">'+what+'</span><span class="art-dec-time">'+now()+'</span></div>';}
 function waitH(key){return new Promise(res=>{hRes[key]=res;});}
-function hd(w,n,val){
-  document.getElementById(`hg${w}-${n}`)?.classList.remove('show');
-  const el=document.getElementById(`s${w}-${n}`);
-  if(el&&val!=='deny'&&val!=='exclude'&&val!=='declined')el.className='step done';
-  if(el&&(val==='deny'||val==='exclude'||val==='declined'))el.className='step err';
-  el?.querySelector('.step-d') && (el.querySelector('.step-d').textContent = (val==='deny'||val==='exclude'||val==='declined')?'✕':'✓');
-  if(hRes[`${w}-${n}`]){hRes[`${w}-${n}`](val);delete hRes[`${w}-${n}`];}
-}
+function hd(w,n,val){document.getElementById('hg'+w+'-'+n)&&document.getElementById('hg'+w+'-'+n).classList.remove('show');if(hRes[w+'-'+n]){hRes[w+'-'+n](val);delete hRes[w+'-'+n];}}
 function rwf(w){
-  running[w]=false;decisions[w]=[];
-  document.getElementById(`pw${w}`)?.classList.remove('vis');
-  document.getElementById(`sum${w}`)?.classList.remove('vis');
-  document.getElementById(`art${w}`)?.classList.remove('show');
-  const btn=document.getElementById(`btn${w}`);if(btn){btn.disabled=false;btn.textContent='▶ Run Workflow';}
+  running[w]=false;
+  ['pw','sum','art'].forEach(p=>{const el=document.getElementById(p+w);if(el){el.classList.remove('vis');el.classList.remove('show');}});
+  const btn=document.getElementById('btn'+w);if(btn){btn.disabled=false;btn.textContent='Run Workflow';}
   for(let n=1;n<=9;n++){
-    const s=document.getElementById(`s${w}-${n}`);if(!s)continue;
-    s.className='step pending';s.querySelector('.step-d').textContent=n;
-    const o=document.getElementById(`o${w}-${n}`);if(o){o.textContent='';o.style.display='none';}
-    const d=document.getElementById(`doc${w}-${n}`);if(d){d.textContent='';d.style.display='none';}
-    document.getElementById(`hg${w}-${n}`)?.classList.remove('show');
+    const s=document.getElementById('s'+w+'-'+n);if(!s)continue;
+    s.className='step pending';const d=s.querySelector('.step-d');if(d)d.textContent=n;
+    const o=document.getElementById('o'+w+'-'+n);if(o){o.textContent='';o.style.display='none';}
+    const doc=document.getElementById('doc'+w+'-'+n);if(doc){doc.textContent='';doc.style.display='none';}
+    const hg=document.getElementById('hg'+w+'-'+n);if(hg)hg.classList.remove('show');
   }
-  const em=document.getElementById(`email${w}-8`);if(em)em.style.display='none';
-  ['art-patient','art-result','art-decisions','art-provider','art-org','art-findings','art-event','art-filing'].forEach(s=>{const el=document.getElementById(`art${w}-${s.replace('art-','')}`);if(el)el.innerHTML='';});
+  const es=document.getElementById('esign'+w+'-5');if(es)es.style.display='none';
+  const em=document.getElementById('email'+w+'-8');if(em)em.style.display='none';
+  ['merchant','risk','terms','decisions','dispute','ruling','reg','gaps'].forEach(s=>{const el=document.getElementById('art'+w+'-'+s);if(el)el.innerHTML='';});
 }
 
-// ── WF 0: Prior Authorization ────────────────────────────────────────
 async function run0(){
-  if(running[0])return;running[0]=true;decisions[0]=[];t0[0]=Date.now();
-  const btn=document.getElementById('btn0');btn.disabled=true;btn.textContent='Running…';
-  rwf(0);document.getElementById('pw0').classList.add('vis');ps(0,'ps-run','● Running');
+  if(running[0])return;running[0]=true;t0[0]=Date.now();
+  const btn=document.getElementById('btn0');btn.disabled=true;btn.textContent='Running...';
+  rwf(0);document.getElementById('pw0').classList.add('vis');ps(0,'ps-run','Running');
   document.getElementById('pw0').scrollIntoView({behavior:'smooth',block:'start'});
-  const patient=document.getElementById('p0-patient').value;
-  const proc=document.getElementById('p0-proc').value;
-  const payer=document.getElementById('p0-payer').value;
-  const urg=document.getElementById('p0-urg').value;
-  const notes=document.getElementById('p0-notes').value;
-  const ctx=`Patient: ${patient} | Procedure: ${proc} | Payer: ${payer} | Urgency: ${urg} | Clinical: ${notes}`;
-  const SYS=`You are a healthcare prior authorization AI. Respond ONLY valid JSON no fences. Schema: {"output":"2-3 sentence specific result","badge":"OK|APPROVED|COMPLETE|CLEAR|GENERATED|WARNING|FLAGGED","detail":"key specifics: auth numbers, criteria, dates, costs, guidelines cited"}`;
+  const name=document.getElementById('f0-name').value||'Unknown Corp';
+  const type=document.getElementById('f0-type').value;
+  const country=document.getElementById('f0-country').value;
+  const vol=parseInt(document.getElementById('f0-vol').value)||100000;
+  const desc=document.getElementById('f0-desc').value;
+  const fv=new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',maximumFractionDigits:0}).format(vol);
+  const ctx='Business: '+name+' | Type: '+type+' | Country: '+country+' | Volume: '+fv+'/mo | Desc: '+desc;
   try{
-    let prev='';
-    for(let n=1;n<=9;n++){
-      if(n===4||n===7)continue;
-      stepA(0,n);const t=Date.now();
-      const prompts={
-        1:`Verify eligibility and coverage. ${ctx}. Prior: ${prev}`,
-        2:`Look up payer coverage guidelines for this procedure. ${ctx}. Prior: ${prev}`,
-        3:`Score medical necessity against evidence-based criteria. ${ctx}. Prior: ${prev}`,
-        5:`Generate authorization letter with auth number PA-${Date.now().toString().slice(-6)}-SM. ${ctx}. Decision: approved. Prior: ${prev}`,
-        6:`Notify ordering physician of approved authorization. ${ctx}. Prior: ${prev}`,
-        8:`Generate patient notification email. Return JSON with fields: output, badge, detail, email_to, email_subject, email_body. ${ctx}. Prior: ${prev}`,
-        9:`Link pre-authorization to claims system for auto-adjudication. ${ctx}. Prior: ${prev}`,
-      };
-      const raw=await ai(SYS,prompts[n]);
-      const d=pj(raw)||{output:raw,badge:'OK',detail:''};
-      prev=d.output+(d.detail?' '+d.detail:'');
-      if(n===8&&d.email_body){
-        document.getElementById('email0-8-to').textContent=patient.split(',')[0];
-        document.getElementById('email0-8-subj').textContent=d.email_subject||'Your Prior Authorization — Approved';
-        document.getElementById('email0-8-body').textContent=d.email_body;
-        document.getElementById('email0-8').style.display='block';
-      }
-      if(n===5&&d.detail){const el=document.getElementById('doc0-5');if(el){el.textContent=d.detail;el.style.display='block';}}
-      stepD(0,n,d.output||raw,d.badge||'OK',ms(t));
-      if(n===3){
-        // Human gate 4
-        chips('hg0-4-chips',[
-          {l:'Medical Necessity',v:d.badge==='WARNING'?'Borderline':d.badge==='FLAGGED'?'Not Met':'Met',cl:d.badge==='FLAGGED'?'er':d.badge==='WARNING'?'wn':'ok'},
-          {l:'Urgency',v:urg},{l:'Payer',v:payer.split('—')[0].trim()},{l:'Procedure',v:proc.split('(')[0].trim()}
-        ]);
-        ps(0,'ps-wait','⏸ Awaiting medical director');stepW(0,4);showHG('hg0-4');
-        const c4=await waitH('0-4');ps(0,'ps-run','● Running');
-        artDec(0,'Medical Director',`Auth decision: ${c4.toUpperCase()} for ${proc} — ${patient.split(',')[0]}`);
-        if(c4==='deny'){stepE(0,4);ps(0,'ps-err','✕ Auth Denied');document.getElementById('sum0-t').textContent='Authorization Denied';document.getElementById('sum0-s').textContent='Medical necessity criteria not met for '+proc;document.getElementById('sum0').classList.add('vis');document.getElementById('art0-ts').textContent=now();document.getElementById('art0').classList.add('show');artKV('art0-patient',[{k:'Patient',v:patient.split(',')[0],cl:'ac'},{k:'Procedure',v:proc},{k:'Payer',v:payer},{k:'Urgency',v:urg}]);artKV('art0-result',[{k:'Auth Decision',v:'DENIED',cl:'er'},{k:'Reason',v:'Medical criteria not met'}]);btn.disabled=false;btn.textContent='▶ Run Again';running[0]=false;return;}
-      }
-      if(n===6){
-        // Human gate 7
-        chips('hg0-7-chips',[
-          {l:'Proposed Slot',v:'Next available'},
-          {l:'Facility',v:'In-network imaging center'},
-          {l:'Auth Valid',v:'90 days'},{l:'Est. Cost',v:'$180–$400 patient responsibility'}
-        ]);
-        ps(0,'ps-wait','⏸ Awaiting physician confirmation');stepW(0,7);showHG('hg0-7');
-        const c7=await waitH('0-7');ps(0,'ps-run','● Running');
-        artDec(0,'Ordering Physician',`Appointment ${c7==='confirm'?'confirmed':'rescheduled'} for ${patient.split(',')[0]}`);
-        document.getElementById(`s0-7`).className='step done';document.getElementById(`s0-7`).querySelector('.step-d').textContent='✓';
-      }
+    stepA(0,1);const t1=Date.now();
+    const r1=await ai('You are a payments intake analyst. Respond ONLY valid JSON no fences. Schema: {"output":"2-3 sentence result","badge":"OK|WARNING|FLAGGED","detail":"Case: CASE-XXXXXX | MCC: XXXX description | Completeness: XX% | Tier: LOW/MEDIUM/HIGH","case_id":"CASE-XXXXXX","mcc":"4-digit","tier":"LOW|MEDIUM|HIGH|VERY_HIGH"}','Intake: '+ctx);
+    const d1=pj(r1)||{output:r1,badge:'OK',detail:'',case_id:'CASE-'+Math.random().toString(36).slice(2,8).toUpperCase(),mcc:'7372',tier:'MEDIUM'};
+    stepD(0,1,d1.output||r1,d1.badge||'OK',ms(t1));
+
+    stepA(0,2);const t2=Date.now();
+    const r2=await ai('You are a compliance AML/sanctions analyst. Iran/Russia/North Korea/Syria = BLOCKED. Gambling/Cannabis/Firearms = ENHANCED_DUE_DILIGENCE. Respond ONLY valid JSON no fences. Schema: {"output":"2 sentence summary","badge":"CLEAR|EDD|BLOCKED","ofac":"CLEAR|POTENTIAL_MATCH|MATCH","eu":"CLEAR|POTENTIAL_MATCH|MATCH","fincen":"CLEAR|FLAGGED","overall":"CLEAR|ENHANCED_DUE_DILIGENCE|BLOCKED","analyst_memo":"3-4 sentences for compliance officer"}','Screen: '+ctx+' Intake:'+JSON.stringify(d1));
+    const d2=pj(r2)||{output:r2,badge:'CLEAR',ofac:'CLEAR',eu:'CLEAR',fincen:'CLEAR',overall:'CLEAR',analyst_memo:r2};
+    const ob=d2.overall==='BLOCKED'?'BLOCKED':d2.overall==='ENHANCED_DUE_DILIGENCE'?'EDD':'CLEAR';
+    stepD(0,2,d2.output||r2,ob,ms(t2));
+    const memo=document.getElementById('hg0-2-memo');if(memo){memo.textContent=d2.analyst_memo||d2.output;memo.style.display='block';}
+    chips('hg0-2-chips',[{l:'OFAC SDN',v:d2.ofac,cl:d2.ofac==='CLEAR'?'ok':'er'},{l:'EU List',v:d2.eu,cl:d2.eu==='CLEAR'?'ok':'er'},{l:'FinCEN',v:d2.fincen,cl:d2.fincen==='CLEAR'?'ok':'wn'},{l:'Overall',v:d2.overall,cl:d2.overall==='CLEAR'?'ok':d2.overall==='BLOCKED'?'er':'wn'}]);
+    const isB=d2.overall==='BLOCKED',isE=d2.overall==='ENHANCED_DUE_DILIGENCE';
+    const cb=document.getElementById('hg0-2-clear'),eb=document.getElementById('hg0-2-edd'),bb=document.getElementById('hg0-2-block');
+    if(isB){
+      if(cb){cb.disabled=true;cb.style.opacity='.3';cb.style.cursor='not-allowed';}
+      if(eb){eb.disabled=true;eb.style.opacity='.3';eb.style.cursor='not-allowed';}
+      if(bb){bb.classList.add('forced');bb.textContent='Block - Sanctions Match Confirmed';}
+      document.getElementById('hg0-2-t').textContent='Sanctions match confirmed - application must be blocked';
+      document.getElementById('hg0-2-s').textContent='OFAC and/or EU list match detected. Proceeding is not permitted.';
+    } else if(isE){
+      if(cb){cb.disabled=true;cb.style.opacity='.3';cb.style.cursor='not-allowed';}
+      document.getElementById('hg0-2-t').textContent='Potential match - Enhanced Due Diligence required';
     }
-    // Artifact + summary
-    artKV('art0-patient',[{k:'Patient',v:patient.split(',')[0],cl:'ac'},{k:'Procedure',v:proc},{k:'Payer',v:payer},{k:'Urgency',v:urg}]);
-    artKV('art0-result',[{k:'Auth Decision',v:'Approved',cl:'ok'},{k:'Medical Necessity',v:'Met per clinical criteria'},{k:'Auth Valid',v:'90 days from approval'},{k:'Claims Linked',v:'Auto-adjudication enabled'}]);
+    ps(0,'ps-wait','Awaiting compliance sign-off');stepW(0,2);showHG('hg0-2');
+    const c2=await waitH('0-2');ps(0,'ps-run','Running');
+    artDec(0,'Compliance Officer','Sanctions: '+d2.overall+' - Decision: '+c2.toUpperCase());
+    if(c2==='block'){
+      stepE(0,2);ps(0,'ps-err','Blocked');
+      artKV('art0-merchant',[{k:'Business',v:name,cl:'ac'},{k:'Country',v:country},{k:'Type',v:type}]);
+      artKV('art0-risk',[{k:'OFAC',v:d2.ofac,cl:'er'},{k:'EU List',v:d2.eu,cl:'er'},{k:'Overall',v:'BLOCKED',cl:'er'}]);
+      document.getElementById('sum0-t').textContent='Application Blocked - Sanctions Match';
+      document.getElementById('sum0-s').textContent=d2.analyst_memo||d2.output;
+      document.getElementById('art0-ts').textContent=now();document.getElementById('art0').classList.add('show');
+      document.getElementById('sum0').classList.add('vis');
+      btn.disabled=false;btn.textContent='Run Again';running[0]=false;return;
+    }
+    document.getElementById('s0-2').className='step done';document.getElementById('s0-2').querySelector('.step-d').textContent='✓';
+
+    stepA(0,3);const t3=Date.now();
+    const r3=await ai('You are a financial risk analyst. Higher risk for Iran/Russia/gambling/cannabis/firearms. Respond ONLY valid JSON no fences. Schema: {"output":"2-3 sentence narrative","badge":"OK|WARNING|FLAGGED","score":number_0_100,"rating":"LOW|MEDIUM|HIGH|VERY_HIGH","fraud_rate":"like 0.14%","reserve_pct":number_0_10}',ctx+' Sanctions:'+JSON.stringify(d2));
+    const d3=pj(r3)||{output:r3,badge:'OK',score:45,rating:'MEDIUM',fraud_rate:'0.18%',reserve_pct:2};
+    stepD(0,3,d3.output||r3,d3.rating==='LOW'?'OK':d3.rating==='MEDIUM'?'WARNING':'FLAGGED',ms(t3));
+    artKV('art0-risk',[{k:'Risk Score',v:(d3.score||'-')+'/100',cl:d3.score>70?'er':d3.score>40?'wn':'ok'},{k:'Rating',v:d3.rating},{k:'Fraud Rate',v:d3.fraud_rate||'-'},{k:'Reserve',v:(d3.reserve_pct||'-')+'%',cl:'ac'}]);
+
+    stepA(0,4);const t4=Date.now();
+    const r4=await ai('You are an AI underwriting system. Respond ONLY valid JSON no fences. Schema: {"output":"2-3 sentence recommendation","badge":"OK|WARNING|FLAGGED","recommendation":"APPROVE|CONDITIONAL|DECLINE","monthly_limit":number_usd,"reserve_pct":number,"fee_rate":number,"tx_cents":number}',ctx+' Risk:'+JSON.stringify(d3));
+    const d4=pj(r4)||{output:r4,badge:'OK',recommendation:'CONDITIONAL',monthly_limit:vol,reserve_pct:3,fee_rate:2.9,tx_cents:30};
+    const lim=new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',maximumFractionDigits:0}).format(d4.monthly_limit||vol);
+    stepD(0,4,d4.output||r4,d4.recommendation==='APPROVE'?'OK':d4.recommendation==='CONDITIONAL'?'WARNING':'FLAGGED',ms(t4));
+    chips('hg0-4-chips',[{l:'AI Rec.',v:d4.recommendation,cl:d4.recommendation==='APPROVE'?'ok':d4.recommendation==='CONDITIONAL'?'wn':'er'},{l:'Limit',v:lim,cl:'ac'},{l:'Reserve',v:(d4.reserve_pct||'-')+'%'},{l:'Rate',v:(d4.fee_rate||'-')+'% + '+(d4.tx_cents||'-')+'c'},{l:'Risk Score',v:(d3.score||'-')+'/100',cl:d3.score>70?'er':d3.score>40?'wn':'ok'},{l:'Rating',v:d3.rating}]);
+    ps(0,'ps-wait','Awaiting underwriting decision');stepW(0,4);showHG('hg0-4');
+    const c4=await waitH('0-4');ps(0,'ps-run','Running');
+    artDec(0,'Underwriter','Decision: '+c4.toUpperCase()+' - Limit: '+lim+', Reserve: '+d4.reserve_pct+'%, Rate: '+d4.fee_rate+'%');
+    artKV('art0-terms',[{k:'Decision',v:c4==='approve'?'APPROVED':'CONDITIONAL',cl:c4==='approve'?'ok':'ac'},{k:'Monthly Limit',v:lim,cl:'ac'},{k:'Reserve',v:(d4.reserve_pct||'-')+'%'},{k:'Fee Rate',v:(d4.fee_rate||'-')+'% + '+(d4.tx_cents||'-')+'c'}]);
+    if(c4==='decline'){
+      stepE(0,4);ps(0,'ps-err','Declined');
+      document.getElementById('sum0-t').textContent='Application Declined - Underwriting';
+      document.getElementById('sum0-s').textContent=d4.output;
+      document.getElementById('art0-ts').textContent=now();document.getElementById('art0').classList.add('show');
+      document.getElementById('sum0').classList.add('vis');
+      btn.disabled=false;btn.textContent='Run Again';running[0]=false;return;
+    }
+    document.getElementById('s0-4').className='step done';document.getElementById('s0-4').querySelector('.step-d').textContent='✓';
+
+    stepA(0,5);const t5=Date.now();
+    const r5=await ai('You are a legal contract generation system. Write a real merchant processing agreement. Respond ONLY valid JSON no fences. Schema: {"output":"1 sentence","badge":"GENERATED","contract_text":"Full 200-word merchant processing agreement with all values filled in: parties, limit, fees, reserve, settlement, governing law"}','Contract for: '+ctx+' Terms: limit '+lim+', reserve '+d4.reserve_pct+'%, rate '+d4.fee_rate+'%, date '+(new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'}))+' Case: '+(d1.case_id||'CASE-XXX'));
+    const d5=pj(r5)||{output:r5,badge:'GENERATED',contract_text:r5};
+    stepD(0,5,d5.output||'Contract drafted',d5.badge||'GENERATED',ms(t5));
+    const esEl=document.getElementById('esign0-5');const esBody=document.getElementById('esign0-5-body');
+    if(esEl&&esBody){esBody.textContent=d5.contract_text||r5;esEl.style.display='block';}
+    ps(0,'ps-wait','Awaiting contract review');stepW(0,5);showHG('hg0-5');
+    const c5=await waitH('0-5');ps(0,'ps-run','Running');
+    artDec(0,'Legal / Ops','Contract: '+(c5==='send'?'Approved and dispatched for e-signature':'Flagged for redline'));
+    document.getElementById('s0-5').className='step done';document.getElementById('s0-5').querySelector('.step-d').textContent='✓';
+
+    stepA(0,6);const t6=Date.now();
+    const r6=await ai('You are a portal provisioning system. Generate realistic fictional credentials. Respond ONLY valid JSON no fences. Schema: {"output":"1 sentence","badge":"COMPLETE","manifest":"Provisioning manifest: Merchant ID (MID_...), Live Public Key (pk_live_...), Secret Key (sk_live_first8****), Webhook URL, Dashboard URL, Settlement account ref"}','Provision for: '+ctx+' Case: '+(d1.case_id||'CASE-XXX')+' Limit: '+lim);
+    const d6=pj(r6)||{output:r6,badge:'COMPLETE',manifest:r6};
+    stepD(0,6,d6.output||r6,'COMPLETE',ms(t6));
+    const doc6=document.getElementById('doc0-6');if(doc6){doc6.textContent=d6.manifest||r6;doc6.style.display='block';}
+
+    stepA(0,7);const t7=Date.now();
+    const r7=await ai('You are a fraud prevention engine. Set business-type-specific rules. Respond ONLY valid JSON no fences. Schema: {"output":"1 sentence","badge":"COMPLETE","rule_config":"Fraud rule config: single tx limit, hourly velocity cap, daily cap, 3DS threshold, card-not-present policy, chargeback alert - all specific to this merchant type and risk"}',ctx+' Risk:'+JSON.stringify(d3)+' Limit:'+lim);
+    const d7=pj(r7)||{output:r7,badge:'COMPLETE',rule_config:r7};
+    stepD(0,7,d7.output||r7,'COMPLETE',ms(t7));
+    const doc7=document.getElementById('doc0-7');if(doc7){doc7.textContent=d7.rule_config||r7;doc7.style.display='block';}
+
+    stepA(0,8);const t8=Date.now();
+    const r8=await ai('You are an account setup system. Respond ONLY valid JSON no fences. Schema: {"output":"1 sentence","badge":"COMPLETE","email_subject":"Welcome subject","email_body":"200-word personalised welcome email for this specific merchant with case ID, account manager name, and next steps"}',ctx+' Case:'+(d1.case_id||'CASE-XXX')+' Limit:'+lim+' Decision:'+c4);
+    const d8=pj(r8)||{output:r8,badge:'COMPLETE',email_subject:'Welcome - Your Account is Live',email_body:r8};
+    stepD(0,8,d8.output||r8,'COMPLETE',ms(t8));
+    const emEl=document.getElementById('email0-8');
+    if(emEl){document.getElementById('email0-8-to').textContent=name.toLowerCase().replace(/\s+/g,'.')+'@merchant.com';document.getElementById('email0-8-subj').textContent=d8.email_subject||'Welcome';document.getElementById('email0-8-body').textContent=d8.email_body||r8;emEl.style.display='block';}
+
+    artKV('art0-merchant',[{k:'Business',v:name,cl:'ac'},{k:'Type',v:type},{k:'Country',v:country},{k:'Volume',v:fv+'/mo'},{k:'Case ID',v:d1.case_id||'-',cl:'ac'},{k:'MCC',v:d1.mcc||'7372'}]);
     document.getElementById('art0-ts').textContent='Completed '+now();document.getElementById('art0').classList.add('show');
-    ps(0,'ps-ok','✓ Complete');
-    const el=document.getElementById('s0-4');if(el){el.className='step done';el.querySelector('.step-d').textContent='✓';}
-    document.getElementById('sum0-t').textContent=patient.split(',')[0]+' — Authorization Approved';
-    document.getElementById('sum0-s').textContent=`${proc} approved · ${payer} · Claims linked for auto-adjudication`;
-    document.getElementById('sum0-time').textContent=ms(t0[0]);
-    document.getElementById('sum0-r1').textContent='Approved';document.getElementById('sum0-r2').textContent=urg;
-    document.getElementById('sum0').classList.add('vis');
-    document.getElementById('sum0').scrollIntoView({behavior:'smooth',block:'nearest'});
-  }catch(err){ps(0,'ps-err','✕ Error');toast('Error',err.message);}
-  btn.disabled=false;btn.textContent='▶ Run Again';running[0]=false;
+    ps(0,'ps-ok','Complete');
+    document.getElementById('sum0-t').textContent=name+' - Merchant Live';
+    document.getElementById('sum0-s').textContent=(c4==='approve'?'Approved':'Conditionally approved')+' - Limit '+lim+' - Contract '+(c5==='send'?'sent for e-signature':'flagged')+' - Portal live';
+    document.getElementById('sum0-time').textContent=ms(t0[0]);document.getElementById('sum0-risk').textContent=d3.rating||'-';
+    document.getElementById('sum0').classList.add('vis');document.getElementById('sum0').scrollIntoView({behavior:'smooth',block:'nearest'});
+  }catch(err){ps(0,'ps-err','Error');toast('Error',err.message);}
+  btn.disabled=false;btn.textContent='Run Again';running[0]=false;
 }
 
-// ── WF 1: Provider Credentialing ─────────────────────────────────────
 async function run1(){
   if(running[1])return;running[1]=true;t0[1]=Date.now();
-  const btn=document.getElementById('btn1');btn.disabled=true;btn.textContent='Running…';
-  rwf(1);document.getElementById('pw1').classList.add('vis');ps(1,'ps-run','● Running');
+  const btn=document.getElementById('btn1');btn.disabled=true;btn.textContent='Running...';
+  rwf(1);document.getElementById('pw1').classList.add('vis');ps(1,'ps-run','Running');
   document.getElementById('pw1').scrollIntoView({behavior:'smooth',block:'start'});
-  const name=document.getElementById('p1-name').value;
-  const spec=document.getElementById('p1-spec').value;
-  const state=document.getElementById('p1-state').value;
-  const priv=document.getElementById('p1-priv').value;
-  const notes=document.getElementById('p1-notes').value;
-  const ctx=`Provider: ${name} | Specialty: ${spec} | State: ${state} | Privilege type: ${priv} | Notes: ${notes}`;
-  const SYS=`You are a healthcare credentialing AI. Respond ONLY valid JSON no fences. Schema: {"output":"2-3 sentence result","badge":"OK|COMPLETE|WARNING|FLAGGED|GENERATED","detail":"specifics: license numbers, NPDB result, OIG status, privilege type"}`;
+  const txn=document.getElementById('f1-txn').value;
+  const amt=document.getElementById('f1-amt').value;
+  const reason=document.getElementById('f1-reason').value;
+  const merchant=document.getElementById('f1-merchant').value;
+  const details=document.getElementById('f1-details').value;
+  const ctx='TXN: '+txn+' | Amount: $'+amt+' | Reason: '+reason+' | Merchant: '+merchant+' | Details: '+details;
+  const SYS='You are a payments dispute resolution AI. Respond ONLY valid JSON no fences. Schema: {"output":"2-3 sentence result specific to this dispute","badge":"OK|COMPLETE|WARNING|FLAGGED|GENERATED","detail":"specifics: reason code analysis, network rules, win probability %, evidence quality, filing reference"}';
   try{
     let prev='';
     for(let n=1;n<=6;n++){
       if(n===4)continue;
       stepA(1,n);const t=Date.now();
-      const raw=await ai(SYS,`Step ${n} of credentialing. ${ctx}. Prior: ${prev}`);
+      const prompts={1:'Classify and triage this dispute. '+ctx+' Prior: '+prev,2:'Gather and assess all available evidence. '+ctx+' Prior: '+prev,3:'Analyse under network rules, score win probability. '+ctx+' Prior: '+prev,5:'Draft a compelling rebuttal package. '+ctx+' Prior: '+prev,6:'Confirm network filing and tracking. '+ctx+' Prior: '+prev};
+      const raw=await ai(SYS,prompts[n]);
       const d=pj(raw)||{output:raw,badge:'OK',detail:''};
       prev=d.output+(d.detail?' '+d.detail:'');
       if(n===5&&d.detail){const el=document.getElementById('doc1-5');if(el){el.textContent=d.detail;el.style.display='block';}}
       stepD(1,n,d.output||raw,d.badge||'OK',ms(t));
       if(n===3){
-        chips('hg1-4-chips',[
-          {l:'License',v:'Verified',cl:'ok'},{l:'NPDB',v:d.badge==='FLAGGED'?'Adverse Reports':'Clear',cl:d.badge==='FLAGGED'?'er':'ok'},
-          {l:'OIG / SAM',v:'Clear',cl:'ok'},{l:'Malpractice',v:'Insurance Active',cl:'ok'}
-        ]);
-        ps(1,'ps-wait','⏸ Awaiting committee vote');stepW(1,4);showHG('hg1-4');
-        const c4=await waitH('1-4');ps(1,'ps-run','● Running');
-        artDec(1,'Credentials Committee',`Privileges: ${c4==='full'?'Full clinical privileges granted':c4==='limited'?'Limited privileges granted':'Deferred — additional info required'} for ${name}`);
-        document.getElementById('s1-4').className=c4==='defer'?'step err':'step done';document.getElementById('s1-4').querySelector('.step-d').textContent=c4==='defer'?'✕':'✓';
-        if(c4==='defer'){ps(1,'ps-err','✕ Deferred');document.getElementById('sum1-t').textContent='Credentialing Deferred';document.getElementById('sum1-s').textContent='Committee requested additional information for '+name;document.getElementById('sum1').classList.add('vis');document.getElementById('art1-ts').textContent=now();document.getElementById('art1').classList.add('show');artKV('art1-provider',[{k:'Provider',v:name,cl:'ac'},{k:'Specialty',v:spec},{k:'State',v:state}]);artKV('art1-result',[{k:'Status',v:'Deferred',cl:'wn'},{k:'Reason',v:'Additional info required'}]);btn.disabled=false;btn.textContent='▶ Run Again';running[1]=false;return;}
+        const wp=d.detail&&d.detail.match(/\d+%/)?d.detail.match(/\d+%/)[0]:'65%';
+        chips('hg1-4-chips',[{l:'Win Probability',v:wp,cl:parseInt(wp)>60?'ok':'wn'},{l:'Amount',v:'$'+amt},{l:'Reason',v:reason.split('-')[0].trim()},{l:'Evidence',v:d.badge==='FLAGGED'?'Weak':'Strong',cl:d.badge==='FLAGGED'?'er':'ok'}]);
+        ps(1,'ps-wait','Awaiting adjudicator ruling');stepW(1,4);showHG('hg1-4');
+        const c4=await waitH('1-4');ps(1,'ps-run','Running');
+        artDec(1,'Adjudicator','Ruling: '+(c4==='dispute'?'Dispute filed':c4==='arbitration'?'Escalated to arbitration':'Chargeback accepted')+' on TXN '+txn);
+        document.getElementById('s1-4').className='step done';document.getElementById('s1-4').querySelector('.step-d').textContent='✓';
+        if(c4==='accept'){
+          ps(1,'ps-err','Chargeback Accepted');
+          artKV('art1-dispute',[{k:'TXN',v:txn},{k:'Amount',v:'$'+amt},{k:'Reason',v:reason.split('-')[0].trim()},{k:'Merchant',v:merchant}]);
+          artKV('art1-ruling',[{k:'Ruling',v:'Accepted',cl:'er'},{k:'Outcome',v:'Refund issued'},{k:'Amount',v:'$'+amt,cl:'er'}]);
+          document.getElementById('sum1-t').textContent='Chargeback Accepted';document.getElementById('sum1-s').textContent='Refund of $'+amt+' issued. TXN '+txn;
+          document.getElementById('art1-ts').textContent=now();document.getElementById('art1').classList.add('show');
+          document.getElementById('sum1-r1').textContent='Accepted';document.getElementById('sum1-r2').textContent=wp;
+          document.getElementById('sum1-time').textContent=ms(t0[1]);document.getElementById('sum1').classList.add('vis');
+          btn.disabled=false;btn.textContent='Run Again';running[1]=false;return;
+        }
       }
     }
-    artKV('art1-provider',[{k:'Provider',v:name,cl:'ac'},{k:'Specialty',v:spec},{k:'State',v:state},{k:'Privilege Type',v:priv}]);
-    artKV('art1-result',[{k:'Credentials',v:'Verified',cl:'ok'},{k:'NPDB',v:'Clear',cl:'ok'},{k:'OIG/SAM',v:'Clear',cl:'ok'},{k:'Privileges',v:'Granted',cl:'ok'}]);
+    artKV('art1-dispute',[{k:'TXN',v:txn},{k:'Amount',v:'$'+amt},{k:'Reason',v:reason.split('-')[0].trim()},{k:'Merchant',v:merchant}]);
+    artKV('art1-ruling',[{k:'Ruling',v:'Disputed',cl:'ok'},{k:'Status',v:'Rebuttal filed',cl:'ok'},{k:'Network',v:'Visa/MC'},{k:'Response Due',v:'45 days'}]);
     document.getElementById('art1-ts').textContent='Completed '+now();document.getElementById('art1').classList.add('show');
-    ps(1,'ps-ok','✓ Complete');
-    document.getElementById('sum1-t').textContent=name+' — Credentialed';
-    document.getElementById('sum1-s').textContent=`${priv} granted · ${spec} · Payer enrollment initiated`;
-    document.getElementById('sum1-time').textContent=ms(t0[1]);document.getElementById('sum1-r1').textContent='Full';document.getElementById('sum1-r2').textContent='Clear';
+    ps(1,'ps-ok','Complete');
+    document.getElementById('sum1-t').textContent='Dispute Filed - Rebuttal Submitted';document.getElementById('sum1-s').textContent='TXN '+txn+' - $'+amt+' - Rebuttal submitted to network';
+    document.getElementById('sum1-time').textContent=ms(t0[1]);document.getElementById('sum1-r1').textContent='Disputed';document.getElementById('sum1-r2').textContent='65%+';
     document.getElementById('sum1').classList.add('vis');
-  }catch(err){ps(1,'ps-err','✕ Error');toast('Error',err.message);}
-  btn.disabled=false;btn.textContent='▶ Run Again';running[1]=false;
+  }catch(err){ps(1,'ps-err','Error');toast('Error',err.message);}
+  btn.disabled=false;btn.textContent='Run Again';running[1]=false;
 }
 
-// ── WF 2: HIPAA Compliance ───────────────────────────────────────────
 async function run2(){
   if(running[2])return;running[2]=true;t0[2]=Date.now();
-  const btn=document.getElementById('btn2');btn.disabled=true;btn.textContent='Running…';
-  rwf(2);document.getElementById('pw2').classList.add('vis');ps(2,'ps-run','● Running');
+  const btn=document.getElementById('btn2');btn.disabled=true;btn.textContent='Running...';
+  rwf(2);document.getElementById('pw2').classList.add('vis');ps(2,'ps-run','Running');
   document.getElementById('pw2').scrollIntoView({behavior:'smooth',block:'start'});
-  const org=document.getElementById('p2-org').value;
-  const trigger=document.getElementById('p2-trigger').value;
-  const systems=document.getElementById('p2-systems').value;
-  const last=document.getElementById('p2-last').value;
-  const ctx=`Org: ${org} | Trigger: ${trigger} | Systems: ${systems} | Last assessment: ${last}`;
-  const SYS=`You are a HIPAA compliance AI. Respond ONLY valid JSON no fences. Schema: {"output":"2-3 sentence result","badge":"OK|COMPLETE|WARNING|FLAGGED|GENERATED","detail":"specifics: gap count, risk level, PHI exposure areas, controls status, deadlines"}`;
+  const reg=document.getElementById('f2-reg').value;
+  const date=document.getElementById('f2-date').value;
+  const body=document.getElementById('f2-body').value;
+  const systems=document.getElementById('f2-systems').value;
+  const ctx='Regulation: '+reg+' | Effective: '+date+' | Issuer: '+body+' | Systems: '+systems;
+  const SYS='You are a regulatory compliance AI for a payments company. Respond ONLY valid JSON no fences. Schema: {"output":"2-3 sentence result","badge":"OK|COMPLETE|WARNING|FLAGGED|GENERATED","detail":"specifics: gap count, risk level HIGH/MEDIUM/LOW, affected systems, deadlines, compliance risk score"}';
   try{
     let prev='';
     for(let n=1;n<=6;n++){
       if(n===4)continue;
       stepA(2,n);const t=Date.now();
-      const raw=await ai(SYS,`Step ${n} of HIPAA compliance review. ${ctx}. Prior: ${prev}`);
+      const prompts={1:'Parse this regulation and extract all requirements. '+ctx+' Prior: '+prev,2:'Assess impact on our payments workflows and systems. '+ctx+' Prior: '+prev,3:'Gap analysis: current state vs required state. '+ctx+' Prior: '+prev,5:'Generate prioritised remediation plan with owners, timelines, budget. '+ctx+' Prior: '+prev,6:'Create tracking tickets and schedule 30-day review. '+ctx+' Prior: '+prev};
+      const raw=await ai(SYS,prompts[n]);
       const d=pj(raw)||{output:raw,badge:'OK',detail:''};
       prev=d.output+(d.detail?' '+d.detail:'');
       if(n===5&&d.detail){const el=document.getElementById('doc2-5');if(el){el.textContent=d.detail;el.style.display='block';}}
       stepD(2,n,d.output||raw,d.badge||'OK',ms(t));
       if(n===3){
-        const gapCount=d.detail?.match(/\d+\s*gap/i)?.[0]||'Gaps identified';
-        chips('hg2-4-chips',[
-          {l:'Risk Level',v:d.badge==='FLAGGED'?'High':d.badge==='WARNING'?'Medium':'Low',cl:d.badge==='FLAGGED'?'er':d.badge==='WARNING'?'wn':'ok'},
-          {l:'PHI Exposure',v:d.badge==='FLAGGED'?'Elevated':'Controlled',cl:d.badge==='FLAGGED'?'er':'ok'},
-          {l:'Gap Count',v:gapCount},{l:'Trigger',v:trigger.split(' ')[0]}
-        ]);
-        ps(2,'ps-wait','⏸ Awaiting Privacy Officer');stepW(2,4);showHG('hg2-4');
-        const c4=await waitH('2-4');ps(2,'ps-run','● Running');
-        artDec(2,'Privacy Officer',`HIPAA remediation plan: ${c4==='approve'?'Approved — work begins':c4==='more'?'Additional analysis requested':'Escalated to legal counsel'}`);
+        const rl=d.detail&&d.detail.match(/HIGH|MEDIUM|LOW/i)?d.detail.match(/HIGH|MEDIUM|LOW/i)[0]:'MEDIUM';
+        const gc=d.detail&&d.detail.match(/\d+\s*gap/i)?d.detail.match(/\d+\s*gap/i)[0]:'gaps found';
+        chips('hg2-4-chips',[{l:'Risk Level',v:rl,cl:rl==='HIGH'?'er':rl==='MEDIUM'?'wn':'ok'},{l:'Gaps Found',v:gc},{l:'Issuer',v:body.split(' ')[0]},{l:'Effective',v:date.split('-')[0].trim()}]);
+        ps(2,'ps-wait','Awaiting CCO sign-off');stepW(2,4);showHG('hg2-4');
+        const c4=await waitH('2-4');ps(2,'ps-run','Running');
+        artDec(2,'Chief Compliance Officer','Compliance plan: '+(c4==='approve'?'Approved - work begins':c4==='more'?'More analysis requested':'Escalated to legal'));
         document.getElementById('s2-4').className='step done';document.getElementById('s2-4').querySelector('.step-d').textContent='✓';
       }
     }
-    artKV('art2-org',[{k:'Organization',v:org.split('—')[0].trim(),cl:'ac'},{k:'Trigger',v:trigger},{k:'Systems',v:systems.split(',').length+' systems reviewed'}]);
-    artKV('art2-findings',[{k:'Risk Level',v:'Assessed',cl:'ac'},{k:'Remediation',v:'Plan approved',cl:'ok'},{k:'Policies',v:'Updated',cl:'ok'},{k:'Training',v:'Scheduled',cl:'ok'}]);
+    artKV('art2-reg',[{k:'Regulation',v:reg.split('-')[0].trim(),cl:'ac'},{k:'Effective',v:date.split('-')[0].trim()},{k:'Issuer',v:body},{k:'Systems',v:systems.split(',').length+' systems'}]);
+    artKV('art2-gaps',[{k:'Assessment',v:'Complete',cl:'ok'},{k:'Plan',v:'CCO Approved',cl:'ok'},{k:'Tickets',v:'Created',cl:'ok'},{k:'Review',v:'30-day scheduled',cl:'ac'}]);
     document.getElementById('art2-ts').textContent='Completed '+now();document.getElementById('art2').classList.add('show');
-    ps(2,'ps-ok','✓ Complete');
-    document.getElementById('sum2-t').textContent='HIPAA Review Complete';
-    document.getElementById('sum2-s').textContent=`${org.split('—')[0].trim()} · Remediation plan approved · Policies updated`;
+    ps(2,'ps-ok','Complete');
+    document.getElementById('sum2-t').textContent='Compliance Plan Active';document.getElementById('sum2-s').textContent=reg.split('-')[0].trim()+' - Plan approved - Tickets created';
     document.getElementById('sum2-time').textContent=ms(t0[2]);document.getElementById('sum2-r1').textContent='See report';document.getElementById('sum2-r2').textContent='Assessed';
     document.getElementById('sum2').classList.add('vis');
-  }catch(err){ps(2,'ps-err','✕ Error');toast('Error',err.message);}
-  btn.disabled=false;btn.textContent='▶ Run Again';running[2]=false;
+  }catch(err){ps(2,'ps-err','Error');toast('Error',err.message);}
+  btn.disabled=false;btn.textContent='Run Again';running[2]=false;
 }
 
-// ── WF 3: Clinical Trial Enrollment ─────────────────────────────────
-async function run3(){
-  if(running[3])return;running[3]=true;t0[3]=Date.now();
-  const btn=document.getElementById('btn3');btn.disabled=true;btn.textContent='Running…';
-  rwf(3);document.getElementById('pw3').classList.add('vis');ps(3,'ps-run','● Running');
-  document.getElementById('pw3').scrollIntoView({behavior:'smooth',block:'start'});
-  const patient=document.getElementById('p3-patient').value;
-  const trial=document.getElementById('p3-trial').value;
-  const pi=document.getElementById('p3-pi').value;
-  const site=document.getElementById('p3-site').value;
-  const notes=document.getElementById('p3-notes').value;
-  const ctx=`Patient: ${patient} | Trial: ${trial} | PI: ${pi} | Site: ${site} | Clinical: ${notes}`;
-  const SYS=`You are a clinical trial enrollment AI. Respond ONLY valid JSON no fences. Schema: {"output":"2-3 sentence result","badge":"OK|APPROVED|COMPLETE|WARNING|FLAGGED|GENERATED","detail":"specifics: trial ID, eligibility criteria met/not met, arm assignment, consent status"}`;
-  try{
-    let prev='';
-    for(let n=1;n<=6;n++){
-      if(n===3||n===5)continue;
-      stepA(3,n);const t=Date.now();
-      const raw=await ai(SYS,`Step ${n} of trial enrollment. ${ctx}. Prior: ${prev}`);
-      const d=pj(raw)||{output:raw,badge:'OK',detail:''};
-      prev=d.output+(d.detail?' '+d.detail:'');
-      if(n===4&&d.detail){const el=document.getElementById('doc3-4');if(el){el.textContent=d.detail;el.style.display='block';}}
-      stepD(3,n,d.output||raw,d.badge||'OK',ms(t));
-      if(n===2){
-        chips('hg3-3-chips',[
-          {l:'Eligibility',v:d.badge==='FLAGGED'?'Exclusion Found':'All criteria met',cl:d.badge==='FLAGGED'?'er':'ok'},
-          {l:'Trial',v:trial.split('—')[0].trim()},{l:'Site Capacity',v:'Available'}
-        ]);
-        ps(3,'ps-wait','⏸ Awaiting PI review');stepW(3,3);showHG('hg3-3');
-        const c3=await waitH('3-3');ps(3,'ps-run','● Running');
-        artDec(3,'Principal Investigator',`${c3==='approve'?'Approved for consent':'Excluded — not clinically suitable'} — ${patient.split(',')[0]}`);
-        document.getElementById('s3-3').className=c3==='exclude'?'step err':'step done';document.getElementById('s3-3').querySelector('.step-d').textContent=c3==='exclude'?'✕':'✓';
-        if(c3==='exclude'){ps(3,'ps-err','✕ Excluded');document.getElementById('sum3-t').textContent='Patient Excluded';document.getElementById('sum3-s').textContent='PI determined patient not suitable for '+trial.split(' ')[0];document.getElementById('sum3').classList.add('vis');document.getElementById('art3-ts').textContent=now();document.getElementById('art3').classList.add('show');artKV('art3-patient',[{k:'Patient',v:patient.split(',')[0],cl:'ac'},{k:'Trial',v:trial.split('—')[0].trim()}]);artKV('art3-result',[{k:'Status',v:'Excluded',cl:'er'},{k:'Reason',v:'PI clinical assessment'}]);btn.disabled=false;btn.textContent='▶ Run Again';running[3]=false;return;}
-      }
-      if(n===4){
-        chips('hg3-5-chips',[
-          {l:'ICF Document',v:'Generated'},{l:'Patient',v:patient.split(',')[0]},{l:'Trial',v:trial.split('—')[0].trim()},{l:'PI',v:pi.split(',')[0]}
-        ]);
-        ps(3,'ps-wait','⏸ Awaiting patient consent');stepW(3,5);showHG('hg3-5');
-        const c5=await waitH('3-5');ps(3,'ps-run','● Running');
-        artDec(3,'Patient',`${c5==='consented'?'Consented to participate in':'Declined participation in'} ${trial.split('—')[0].trim()}`);
-        document.getElementById('s3-5').className=c5==='declined'?'step err':'step done';document.getElementById('s3-5').querySelector('.step-d').textContent=c5==='declined'?'✕':'✓';
-        if(c5==='declined'){ps(3,'ps-err','✕ Declined');document.getElementById('sum3-t').textContent='Patient Declined';document.getElementById('sum3-s').textContent=patient.split(',')[0]+' declined to participate';document.getElementById('sum3').classList.add('vis');document.getElementById('art3-ts').textContent=now();document.getElementById('art3').classList.add('show');artKV('art3-patient',[{k:'Patient',v:patient.split(',')[0],cl:'ac'},{k:'Trial',v:trial.split('—')[0].trim()}]);artKV('art3-result',[{k:'Status',v:'Declined',cl:'er'},{k:'Reason',v:'Patient withdrawal of consent'}]);btn.disabled=false;btn.textContent='▶ Run Again';running[3]=false;return;}
-      }
-    }
-    artKV('art3-patient',[{k:'Patient',v:patient.split(',')[0],cl:'ac'},{k:'Trial',v:trial.split('—')[0].trim()},{k:'Site',v:site.split('—')[0].trim()},{k:'PI',v:pi.split(',')[0]}]);
-    artKV('art3-result',[{k:'Status',v:'Enrolled',cl:'ok'},{k:'Consent',v:'Obtained',cl:'ok'},{k:'Arm',v:'Assigned',cl:'ac'},{k:'First Visit',v:'Scheduled',cl:'ok'}]);
-    document.getElementById('art3-ts').textContent='Completed '+now();document.getElementById('art3').classList.add('show');
-    ps(3,'ps-ok','✓ Complete');
-    document.getElementById('sum3-t').textContent=patient.split(',')[0]+' — Enrolled';
-    document.getElementById('sum3-s').textContent=`${trial.split('—')[0].trim()} · Consent obtained · Randomization complete`;
-    document.getElementById('sum3-time').textContent=ms(t0[3]);document.getElementById('sum3-r1').textContent='Enrolled';document.getElementById('sum3-r2').textContent='Assigned';
-    document.getElementById('sum3').classList.add('vis');
-  }catch(err){ps(3,'ps-err','✕ Error');toast('Error',err.message);}
-  btn.disabled=false;btn.textContent='▶ Run Again';running[3]=false;
-}
-
-// ── WF 4: Adverse Event Reporting ────────────────────────────────────
-async function run4(){
-  if(running[4])return;running[4]=true;t0[4]=Date.now();
-  const btn=document.getElementById('btn4');btn.disabled=true;btn.textContent='Running…';
-  rwf(4);document.getElementById('pw4').classList.add('vis');ps(4,'ps-run','● Running');
-  document.getElementById('pw4').scrollIntoView({behavior:'smooth',block:'start'});
-  const patient=document.getElementById('p4-patient').value;
-  const event=document.getElementById('p4-event').value;
-  const drug=document.getElementById('p4-drug').value;
-  const reporter=document.getElementById('p4-reporter').value;
-  const notes=document.getElementById('p4-notes').value;
-  const ctx=`Subject: ${patient} | Event: ${event} | Drug: ${drug} | Reporter: ${reporter} | Details: ${notes}`;
-  const SYS=`You are a pharmacovigilance AI. Respond ONLY valid JSON no fences. Schema: {"output":"2-3 sentence result","badge":"OK|COMPLETE|WARNING|FLAGGED|GENERATED","detail":"specifics: CTCAE grade, MedDRA code, causality rating, SAE/AE, regulatory deadline, filing reference"}`;
-  try{
-    let prev='';
-    for(let n=1;n<=6;n++){
-      if(n===4)continue;
-      stepA(4,n);const t=Date.now();
-      const raw=await ai(SYS,`Step ${n} of AE reporting. ${ctx}. Prior: ${prev}`);
-      const d=pj(raw)||{output:raw,badge:'OK',detail:''};
-      prev=d.output+(d.detail?' '+d.detail:'');
-      if(n===3&&d.detail){const el=document.getElementById('doc4-3');if(el){el.textContent=d.detail;el.style.display='block';}}
-      stepD(4,n,d.output||raw,d.badge||'OK',ms(t));
-      if(n===3){
-        const grade=d.detail?.match(/grade\s*\d/i)?.[0]||'Grade 2';
-        chips('hg4-4-chips',[
-          {l:'Event Grade',v:grade,cl:'wn'},{l:'Causality',v:'Possibly related',cl:'wn'},
-          {l:'Expectedness',v:'Unexpected',cl:'er'},{l:'Regulatory Deadline',v:'15 days',cl:'er'}
-        ]);
-        ps(4,'ps-wait','⏸ Awaiting Medical Officer');stepW(4,4);showHG('hg4-4');
-        const c4=await waitH('4-4');ps(4,'ps-run','● Running');
-        artDec(4,'Medical Officer',`AE report ${c4==='approve'?'certified and submitted to FDA/IRB':'returned for causality revision'}`);
-        document.getElementById('s4-4').className='step done';document.getElementById('s4-4').querySelector('.step-d').textContent='✓';
-      }
-    }
-    artKV('art4-event',[{k:'Subject',v:patient.split('—')[0].trim(),cl:'ac'},{k:'Event',v:event},{k:'Drug',v:drug.split('(')[0].trim()},{k:'Reporter',v:reporter.split(',')[0]}]);
-    artKV('art4-filing',[{k:'Report Type',v:'SAE — 15-day',cl:'ac'},{k:'Submitted',v:'FDA + IRB',cl:'ok'},{k:'Causality',v:'Possibly Related'},{k:'Follow-up',v:'15-day scheduled',cl:'ok'}]);
-    document.getElementById('art4-ts').textContent='Completed '+now();document.getElementById('art4').classList.add('show');
-    ps(4,'ps-ok','✓ Complete');
-    document.getElementById('sum4-t').textContent='AE Report Filed with FDA';
-    document.getElementById('sum4-s').textContent=`${event} · Filed within 15-day deadline · Follow-up monitoring active`;
-    document.getElementById('sum4-time').textContent=ms(t0[4]);document.getElementById('sum4-r1').textContent='SAE';document.getElementById('sum4-r2').textContent='Possibly related';
-    document.getElementById('sum4').classList.add('vis');
-  }catch(err){ps(4,'ps-err','✕ Error');toast('Error',err.message);}
-  btn.disabled=false;btn.textContent='▶ Run Again';running[4]=false;
-}
-
-// Route run() to correct workflow
 
 
 // BVA Chart
 const BVA_STEPS=[
-  {l:'Eligibility check',    before:2880, ai:8,  human:0},
-  {l:'Coverage guidelines',  before:1440, ai:10, human:0},
-  {l:'Necessity scoring',    before:2880, ai:12, human:0},
-  {l:'Auth decision',        before:4320, ai:15, human:600},
-  {l:'Auth letter',          before:1440, ai:10, human:0},
-  {l:'Physician notify',     before:1440, ai:5,  human:0},
-  {l:'Appt scheduling',      before:2880, ai:8,  human:900},
-  {l:'Patient notify',       before:1440, ai:8,  human:0},
-  {l:'Claims link',          before:2880, ai:5,  human:0},
+  {l:'Application intake',  before:2880,ai:8,  human:0},
+  {l:'Sanctions screening', before:1440,ai:12, human:600},
+  {l:'Risk scoring',        before:4320,ai:10, human:0},
+  {l:'Underwriting',        before:7200,ai:20, human:1200},
+  {l:'Contract generation', before:2880,ai:15, human:900},
+  {l:'Portal provisioning', before:1440,ai:20, human:0},
+  {l:'Fraud rules',         before:1440,ai:10, human:0},
+  {l:'Account setup',       before:240, ai:5,  human:0},
 ];
 const BVA_MAX=BVA_STEPS.reduce((a,s)=>a+s.before,0);
 let bvaMode='before';
@@ -1049,13 +804,13 @@ function renderBVA(){
       const t2=(s.ai/60+s.human/60),tP=(t2/BVA_MAX*100).toFixed(3),aiW=t2>0?((s.ai/60)/t2*100).toFixed(1)+'%':'100%',red=Math.round((1-t2/s.before)*100);
       return '<div class="bva-group"><div class="bva-row"><div class="bva-before-lbl">Before</div><div class="bva-track"><div style="height:10px;width:'+(s.before/BVA_MAX*100).toFixed(1)+'%;background:#c0392b;border-radius:4px"></div></div><div class="bva-val-t" style="color:#c0392b">'+bvaFmt(s.before)+'</div></div><div class="bva-row"><div class="bva-row-lbl">'+s.l+'</div><div class="bva-track"><div style="display:flex;height:10px;width:'+tP+'%"><div style="background:var(--in);width:'+aiW+';height:100%;border-radius:4px 0 0 4px"></div>'+(s.human>0?'<div style="background:var(--ac);flex:1;height:100%;border-radius:0 4px 4px 0"></div>':'')+'</div></div><div class="bva-val-t" style="color:var(--ok)">'+red+'% faster</div></div></div>';
     }).join('');
-    tot.innerHTML='<div class="bva-row"><div class="bva-before-lbl" style="font-size:10px">Before</div><div class="bva-track"><div style="height:10px;width:100%;background:#c0392b;border-radius:4px"></div></div><div class="bva-val-t" style="color:#c0392b;font-weight:600">'+bvaFmt(totalB)+'</div></div><div class="bva-row"><div class="bva-row-lbl" style="color:var(--cr);font-weight:500">With AI</div><div class="bva-track"><div style="display:flex;height:10px;width:'+(totalAfter/BVA_MAX*100).toFixed(2)+'%"><div style="background:var(--in);width:'+(totalAI/totalAfter*100).toFixed(1)+'%;height:100%;border-radius:4px 0 0 4px"></div><div style="background:var(--ac);flex:1;height:100%;border-radius:0 4px 4px 0"></div></div></div><div class="bva-val-t" style="color:var(--ok);font-weight:600">96% reduction</div></div>';
+    tot.innerHTML='<div class="bva-row"><div class="bva-before-lbl" style="font-size:10px">Before</div><div class="bva-track"><div style="height:10px;width:100%;background:#c0392b;border-radius:4px"></div></div><div class="bva-val-t" style="color:#c0392b;font-weight:600">'+bvaFmt(totalB)+'</div></div><div class="bva-row"><div class="bva-row-lbl" style="color:var(--cr);font-weight:500">With AI</div><div class="bva-track"><div style="display:flex;height:10px;width:'+(totalAfter/BVA_MAX*100).toFixed(2)+'%"><div style="background:var(--in);width:'+(totalAI/totalAfter*100).toFixed(1)+'%;height:100%;border-radius:4px 0 0 4px"></div><div style="background:var(--ac);flex:1;height:100%;border-radius:0 4px 4px 0"></div></div></div><div class="bva-val-t" style="color:var(--ok);font-weight:600">97% reduction</div></div>';
   }
 }
 window.addEventListener('load',()=>renderBVA());
 
 
-const BVA1=[{l:'License verify',before:86400,ai:8,human:0},{l:'Malpractice check',before:43200,ai:10,human:0},{l:'Sanctions screen',before:43200,ai:8,human:0},{l:'Committee decision',before:86400,ai:15,human:2700},{l:'Privilege letter',before:43200,ai:10,human:0},{l:'Payer enrollment',before:86400,ai:20,human:0}];
+const BVA1=[{l:'Dispute classify',before:64800,ai:5,human:0},{l:'Evidence gathering',before:43200,ai:8,human:0},{l:'Chargeback analysis',before:86400,ai:10,human:0},{l:'Adjudicator ruling',before:43200,ai:12,human:900},{l:'Rebuttal package',before:86400,ai:15,human:0},{l:'Network filing',before:43200,ai:8,human:0}];
 const BVA1MAX=BVA1.reduce((a,s)=>a+s.before,0);
 let bvaMode1='before';
 function setChartW1(m){bvaMode1=m;['before','after','compare'].forEach(b=>{const el=document.getElementById('cb1-'+b);if(el)el.className='bva-btn'+(b===m?' bva-on':'');});renderBVA1();}
@@ -1086,7 +841,7 @@ function renderBVA1(){
 window.addEventListener('load',()=>renderBVA1());
 
 
-const BVA2=[{l:'Risk assessment',before:40320,ai:10,human:0},{l:'Gap analysis',before:40320,ai:12,human:0},{l:'PHI audit',before:80640,ai:15,human:0},{l:'Privacy Officer',before:40320,ai:12,human:1800},{l:'Remediation plan',before:40320,ai:18,human:0},{l:'Policy & training',before:40320,ai:10,human:0}];
+const BVA2=[{l:'Reg parsing',before:10080,ai:8,human:0},{l:'Impact assessment',before:20160,ai:10,human:0},{l:'Gap analysis',before:40320,ai:15,human:0},{l:'CCO review',before:10080,ai:12,human:1800},{l:'Remediation plan',before:20160,ai:20,human:0},{l:'Ticket creation',before:10080,ai:10,human:0}];
 const BVA2MAX=BVA2.reduce((a,s)=>a+s.before,0);
 let bvaMode2='before';
 function setChartW2(m){bvaMode2=m;['before','after','compare'].forEach(b=>{const el=document.getElementById('cb2-'+b);if(el)el.className='bva-btn'+(b===m?' bva-on':'');});renderBVA2();}
@@ -1115,68 +870,6 @@ function renderBVA2(){
   }
 }
 window.addEventListener('load',()=>renderBVA2());
-
-
-const BVA3=[{l:'Eligibility screen',before:20160,ai:8,human:0},{l:'Protocol matching',before:20160,ai:8,human:0},{l:'PI review',before:20160,ai:10,human:900},{l:'ICF generation',before:20160,ai:12,human:0},{l:'Patient consent',before:20160,ai:5,human:2700},{l:'Randomization',before:20160,ai:8,human:0}];
-const BVA3MAX=BVA3.reduce((a,s)=>a+s.before,0);
-let bvaMode3='before';
-function setChartW3(m){bvaMode3=m;['before','after','compare'].forEach(b=>{const el=document.getElementById('cb3-'+b);if(el)el.className='bva-btn'+(b===m?' bva-on':'');});renderBVA3();}
-function renderBVA3(){
-  const bars=document.getElementById('bva-bars-3');
-  const leg=document.getElementById('bva-legend-3');
-  const tot=document.getElementById('bva-total-3');
-  if(!bars||!leg||!tot)return;
-  const tB=BVA3.reduce((a,s)=>a+s.before,0);
-  const tAI=BVA3.reduce((a,s)=>a+s.ai/60,0);
-  const tH=BVA3.reduce((a,s)=>a+s.human/60,0);
-  const tAfter=tAI+tH;
-  if(bvaMode3==='before'){
-    leg.innerHTML='<span><span style="display:inline-block;width:8px;height:8px;border-radius:2px;background:#c0392b;margin-right:4px;vertical-align:middle"></span>Manual process today</span>';
-    bars.innerHTML=BVA3.map(s=>'<div class="bva-row"><div class="bva-row-lbl">'+s.l+'</div><div class="bva-track"><div style="height:10px;width:'+(s.before/BVA3MAX*100).toFixed(1)+'%;background:#c0392b;border-radius:4px"></div></div><div class="bva-val-t" style="color:#c0392b">'+bvaFmt(s.before)+'</div></div>').join('');
-    tot.innerHTML='<div class="bva-row"><div class="bva-row-lbl" style="color:var(--cr);font-weight:500">Overall</div><div class="bva-track"><div style="height:10px;width:100%;background:#c0392b;border-radius:4px"></div></div><div class="bva-val-t" style="color:#c0392b;font-weight:600">'+bvaFmt(tB)+'</div></div>';
-  } else if(bvaMode3==='after'){
-    leg.innerHTML='<span><span style="display:inline-block;width:8px;height:8px;border-radius:2px;background:var(--in);margin-right:4px;vertical-align:middle"></span>AI automated</span><span><span style="display:inline-block;width:8px;height:8px;border-radius:2px;background:var(--ac);margin-right:4px;vertical-align:middle"></span>Human review (preserved)</span>';
-    bars.innerHTML=BVA3.map(s=>{const aiM=s.ai/60,hM=s.human/60,t2=aiM+hM,pct=(t2/BVA3MAX*100).toFixed(3),aiW=t2>0?(aiM/t2*100).toFixed(1)+'%':'100%';const lbl=s.human>0?'<span style="color:var(--in)">'+bvaFmtS(s.ai)+' AI</span> + <span style="color:var(--ac)">'+bvaFmt(s.human/60)+' human</span>':'<span style="color:var(--in)">'+bvaFmtS(s.ai)+'</span>';return '<div class="bva-row"><div class="bva-row-lbl">'+s.l+'</div><div class="bva-track"><div style="display:flex;height:10px;width:'+pct+'%"><div style="background:var(--in);width:'+aiW+';height:100%;border-radius:4px 0 0 4px"></div>'+(s.human>0?'<div style="background:var(--ac);flex:1;height:100%;border-radius:0 4px 4px 0"></div>':'')+'</div></div><div class="bva-val-t" style="font-size:9px">'+lbl+'</div></div>';}).join('');
-    const aiW2=(tAI/tAfter*100).toFixed(1)+'%';
-    tot.innerHTML='<div class="bva-row"><div class="bva-row-lbl" style="color:var(--cr);font-weight:500">Overall</div><div class="bva-track"><div style="display:flex;height:10px;width:'+(tAfter/BVA3MAX*100).toFixed(2)+'%"><div style="background:var(--in);width:'+aiW2+';height:100%;border-radius:4px 0 0 4px"></div><div style="background:var(--ac);flex:1;height:100%;border-radius:0 4px 4px 0"></div></div></div><div class="bva-val-t" style="color:var(--ok);font-weight:600">~'+Math.round(tAfter)+'m</div></div>';
-  } else {
-    leg.innerHTML='<span><span style="display:inline-block;width:8px;height:8px;border-radius:2px;background:#c0392b;margin-right:4px;vertical-align:middle"></span>Without AI</span><span><span style="display:inline-block;width:8px;height:8px;border-radius:2px;background:var(--in);margin-right:4px;vertical-align:middle"></span>AI steps</span><span><span style="display:inline-block;width:8px;height:8px;border-radius:2px;background:var(--ac);margin-right:4px;vertical-align:middle"></span>Human review</span>';
-    bars.innerHTML=BVA3.map(s=>{const t2=(s.ai/60+s.human/60),tP=(t2/BVA3MAX*100).toFixed(3),aiW=t2>0?((s.ai/60)/t2*100).toFixed(1)+'%':'100%',red=Math.round((1-t2/s.before)*100);return '<div class="bva-group"><div class="bva-row"><div class="bva-before-lbl">Before</div><div class="bva-track"><div style="height:10px;width:'+(s.before/BVA3MAX*100).toFixed(1)+'%;background:#c0392b;border-radius:4px"></div></div><div class="bva-val-t" style="color:#c0392b">'+bvaFmt(s.before)+'</div></div><div class="bva-row"><div class="bva-row-lbl">'+s.l+'</div><div class="bva-track"><div style="display:flex;height:10px;width:'+tP+'%"><div style="background:var(--in);width:'+aiW+';height:100%;border-radius:4px 0 0 4px"></div>'+(s.human>0?'<div style="background:var(--ac);flex:1;height:100%;border-radius:0 4px 4px 0"></div>':'')+'</div></div><div class="bva-val-t" style="color:var(--ok)">'+red+'% faster</div></div></div>';}).join('');
-    tot.innerHTML='<div class="bva-row"><div class="bva-before-lbl" style="font-size:10px">Before</div><div class="bva-track"><div style="height:10px;width:100%;background:#c0392b;border-radius:4px"></div></div><div class="bva-val-t" style="color:#c0392b;font-weight:600">'+bvaFmt(tB)+'</div></div><div class="bva-row"><div class="bva-row-lbl" style="color:var(--cr);font-weight:500">With AI</div><div class="bva-track"><div style="display:flex;height:10px;width:'+(tAfter/BVA3MAX*100).toFixed(2)+'%"><div style="background:var(--in);width:'+(tAI/tAfter*100).toFixed(1)+'%;height:100%;border-radius:4px 0 0 4px"></div><div style="background:var(--ac);flex:1;height:100%;border-radius:0 4px 4px 0"></div></div></div><div class="bva-val-t" style="color:var(--ok);font-weight:600">96% reduction</div></div>';
-  }
-}
-window.addEventListener('load',()=>renderBVA3());
-
-
-const BVA4=[{l:'Event classify',before:7200,ai:5,human:0},{l:'Causality assess',before:7200,ai:8,human:0},{l:'Report draft',before:7200,ai:12,human:0},{l:'Medical Officer',before:7200,ai:10,human:1800},{l:'Regulatory filing',before:7200,ai:8,human:0},{l:'Follow-up plan',before:7200,ai:5,human:0}];
-const BVA4MAX=BVA4.reduce((a,s)=>a+s.before,0);
-let bvaMode4='before';
-function setChartW4(m){bvaMode4=m;['before','after','compare'].forEach(b=>{const el=document.getElementById('cb4-'+b);if(el)el.className='bva-btn'+(b===m?' bva-on':'');});renderBVA4();}
-function renderBVA4(){
-  const bars=document.getElementById('bva-bars-4');
-  const leg=document.getElementById('bva-legend-4');
-  const tot=document.getElementById('bva-total-4');
-  if(!bars||!leg||!tot)return;
-  const tB=BVA4.reduce((a,s)=>a+s.before,0);
-  const tAI=BVA4.reduce((a,s)=>a+s.ai/60,0);
-  const tH=BVA4.reduce((a,s)=>a+s.human/60,0);
-  const tAfter=tAI+tH;
-  if(bvaMode4==='before'){
-    leg.innerHTML='<span><span style="display:inline-block;width:8px;height:8px;border-radius:2px;background:#c0392b;margin-right:4px;vertical-align:middle"></span>Manual process today</span>';
-    bars.innerHTML=BVA4.map(s=>'<div class="bva-row"><div class="bva-row-lbl">'+s.l+'</div><div class="bva-track"><div style="height:10px;width:'+(s.before/BVA4MAX*100).toFixed(1)+'%;background:#c0392b;border-radius:4px"></div></div><div class="bva-val-t" style="color:#c0392b">'+bvaFmt(s.before)+'</div></div>').join('');
-    tot.innerHTML='<div class="bva-row"><div class="bva-row-lbl" style="color:var(--cr);font-weight:500">Overall</div><div class="bva-track"><div style="height:10px;width:100%;background:#c0392b;border-radius:4px"></div></div><div class="bva-val-t" style="color:#c0392b;font-weight:600">'+bvaFmt(tB)+'</div></div>';
-  } else if(bvaMode4==='after'){
-    leg.innerHTML='<span><span style="display:inline-block;width:8px;height:8px;border-radius:2px;background:var(--in);margin-right:4px;vertical-align:middle"></span>AI automated</span><span><span style="display:inline-block;width:8px;height:8px;border-radius:2px;background:var(--ac);margin-right:4px;vertical-align:middle"></span>Human review (preserved)</span>';
-    bars.innerHTML=BVA4.map(s=>{const aiM=s.ai/60,hM=s.human/60,t2=aiM+hM,pct=(t2/BVA4MAX*100).toFixed(3),aiW=t2>0?(aiM/t2*100).toFixed(1)+'%':'100%';const lbl=s.human>0?'<span style="color:var(--in)">'+bvaFmtS(s.ai)+' AI</span> + <span style="color:var(--ac)">'+bvaFmt(s.human/60)+' human</span>':'<span style="color:var(--in)">'+bvaFmtS(s.ai)+'</span>';return '<div class="bva-row"><div class="bva-row-lbl">'+s.l+'</div><div class="bva-track"><div style="display:flex;height:10px;width:'+pct+'%"><div style="background:var(--in);width:'+aiW+';height:100%;border-radius:4px 0 0 4px"></div>'+(s.human>0?'<div style="background:var(--ac);flex:1;height:100%;border-radius:0 4px 4px 0"></div>':'')+'</div></div><div class="bva-val-t" style="font-size:9px">'+lbl+'</div></div>';}).join('');
-    const aiW2=(tAI/tAfter*100).toFixed(1)+'%';
-    tot.innerHTML='<div class="bva-row"><div class="bva-row-lbl" style="color:var(--cr);font-weight:500">Overall</div><div class="bva-track"><div style="display:flex;height:10px;width:'+(tAfter/BVA4MAX*100).toFixed(2)+'%"><div style="background:var(--in);width:'+aiW2+';height:100%;border-radius:4px 0 0 4px"></div><div style="background:var(--ac);flex:1;height:100%;border-radius:0 4px 4px 0"></div></div></div><div class="bva-val-t" style="color:var(--ok);font-weight:600">~'+Math.round(tAfter)+'m</div></div>';
-  } else {
-    leg.innerHTML='<span><span style="display:inline-block;width:8px;height:8px;border-radius:2px;background:#c0392b;margin-right:4px;vertical-align:middle"></span>Without AI</span><span><span style="display:inline-block;width:8px;height:8px;border-radius:2px;background:var(--in);margin-right:4px;vertical-align:middle"></span>AI steps</span><span><span style="display:inline-block;width:8px;height:8px;border-radius:2px;background:var(--ac);margin-right:4px;vertical-align:middle"></span>Human review</span>';
-    bars.innerHTML=BVA4.map(s=>{const t2=(s.ai/60+s.human/60),tP=(t2/BVA4MAX*100).toFixed(3),aiW=t2>0?((s.ai/60)/t2*100).toFixed(1)+'%':'100%',red=Math.round((1-t2/s.before)*100);return '<div class="bva-group"><div class="bva-row"><div class="bva-before-lbl">Before</div><div class="bva-track"><div style="height:10px;width:'+(s.before/BVA4MAX*100).toFixed(1)+'%;background:#c0392b;border-radius:4px"></div></div><div class="bva-val-t" style="color:#c0392b">'+bvaFmt(s.before)+'</div></div><div class="bva-row"><div class="bva-row-lbl">'+s.l+'</div><div class="bva-track"><div style="display:flex;height:10px;width:'+tP+'%"><div style="background:var(--in);width:'+aiW+';height:100%;border-radius:4px 0 0 4px"></div>'+(s.human>0?'<div style="background:var(--ac);flex:1;height:100%;border-radius:0 4px 4px 0"></div>':'')+'</div></div><div class="bva-val-t" style="color:var(--ok)">'+red+'% faster</div></div></div>';}).join('');
-    tot.innerHTML='<div class="bva-row"><div class="bva-before-lbl" style="font-size:10px">Before</div><div class="bva-track"><div style="height:10px;width:100%;background:#c0392b;border-radius:4px"></div></div><div class="bva-val-t" style="color:#c0392b;font-weight:600">'+bvaFmt(tB)+'</div></div><div class="bva-row"><div class="bva-row-lbl" style="color:var(--cr);font-weight:500">With AI</div><div class="bva-track"><div style="display:flex;height:10px;width:'+(tAfter/BVA4MAX*100).toFixed(2)+'%"><div style="background:var(--in);width:'+(tAI/tAfter*100).toFixed(1)+'%;height:100%;border-radius:4px 0 0 4px"></div><div style="background:var(--ac);flex:1;height:100%;border-radius:0 4px 4px 0"></div></div></div><div class="bva-val-t" style="color:var(--ok);font-weight:600">97% reduction</div></div>';
-  }
-}
-window.addEventListener('load',()=>renderBVA4());
 
 function printCaseFile(artId, title) {
   const art = document.getElementById(artId);
@@ -1287,10 +980,10 @@ body{font-family:'Outfit',sans-serif;font-weight:300;color:#1a1a1a;background:#f
 .ps{margin-bottom:22px;padding-bottom:22px;border-bottom:1px solid #eee}
 .ps:last-of-type{border-bottom:none}
 .ph{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.18em;color:#D4A843;margin-bottom:12px;font-family:'JetBrains Mono',monospace}
-.pg{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.pg{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
 .pkv{background:#f8f7f4;border:1px solid #e8e4d8;border-radius:4px;padding:9px 11px}
 .pk{font-size:8px;text-transform:uppercase;letter-spacing:.08em;color:#888;margin-bottom:3px;font-family:'JetBrains Mono',monospace}
-.pv{font-size:12px;color:#1a1a1a;font-weight:400}
+.pv{font-size:12px;color:#1a1a1a;font-weight:400;word-break:break-word;white-space:normal}
 .pd-list{display:flex;flex-direction:column;gap:7px}
 .pd{display:flex;align-items:flex-start;gap:12px;background:#f8f7f4;border:1px solid #e8e4d8;border-left:3px solid #D4A843;border-radius:4px;padding:9px 11px}
 .pd-who{font-size:9px;font-weight:600;color:#D4A843;font-family:'JetBrains Mono',monospace;min-width:120px;flex-shrink:0;padding-top:1px}
@@ -1332,7 +1025,7 @@ ${contractHtml}
   win.onload = () => setTimeout(() => win.print(), 500);
 }
 
-function run(n){[run0,run1,run2,run3,run4][n]();}
+function run(n){[run0,run1,run2][n]();}
 </script>
 </body>
 </html>
