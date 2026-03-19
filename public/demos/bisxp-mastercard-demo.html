@@ -167,6 +167,30 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 .toast{position:fixed;bottom:20px;right:20px;background:var(--ch);border:1px solid var(--bdas);border-radius:8px;padding:10px 14px;font-size:11px;z-index:9999;transform:translateY(60px);opacity:0;transition:all .3s;max-width:260px}
 .toast.show{transform:translateY(0);opacity:1}
 .toast-t{font-weight:600;color:var(--ac);margin-bottom:2px;font-size:11px}
+
+.bva-card{background:var(--ch);border:1px solid var(--bd);border-radius:12px;padding:20px 24px;margin-bottom:20px}
+.bva-head{margin-bottom:16px}
+.bva-label{font-size:9px;font-weight:500;text-transform:uppercase;letter-spacing:.2em;color:var(--ac);margin-bottom:6px;font-family:'JetBrains Mono',monospace}
+.bva-title{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;color:var(--wh);margin-bottom:5px}
+.bva-sub{font-size:11px;color:var(--mu2);line-height:1.65}
+.bva-hitl{background:var(--st);border:1px solid var(--bd);border-radius:8px;padding:12px 14px;margin-bottom:14px}
+.bva-grid{display:grid;grid-template-columns:repeat(8,1fr);gap:4px}
+@media(max-width:600px){.bva-grid{grid-template-columns:repeat(4,1fr)}}
+.bva-cell{border-radius:5px;padding:5px 3px;text-align:center;font-size:9px;line-height:1.4;font-family:'JetBrains Mono',monospace}
+.bva-ai{background:var(--ind);border:1px solid rgba(59,130,246,0.2);color:var(--in)}
+.bva-h{background:var(--acd);border:1px solid var(--bdas);color:var(--ac)}
+.bva-toggle{display:flex;gap:6px;margin-bottom:12px}
+.bva-btn{padding:5px 14px;border-radius:6px;border:1px solid var(--bds);background:transparent;color:var(--mu);font-size:11px;cursor:pointer;transition:all .15s;font-family:'Outfit',sans-serif}
+.bva-btn:hover{color:var(--cr)}.bva-on{background:var(--st2);border-color:var(--bds);color:var(--cr)}
+.bva-legend{display:flex;gap:14px;margin-bottom:12px;flex-wrap:wrap;font-size:10px;color:var(--mu2)}
+.bva-row{display:grid;grid-template-columns:150px 1fr 90px;align-items:center;gap:8px;margin-bottom:5px}
+@media(max-width:560px){.bva-row{grid-template-columns:100px 1fr 60px}}
+.bva-row-lbl{font-size:10px;color:var(--mu2);text-align:right}
+.bva-before-lbl{font-size:9px;color:var(--mu);text-align:right}
+.bva-track{height:10px;background:var(--st);border-radius:4px;overflow:hidden}
+.bva-val{font-size:10px;font-family:'JetBrains Mono',monospace;padding-left:4px}
+.bva-group{margin-bottom:10px}
+.bva-total{margin-top:10px;padding-top:10px;border-top:1px solid var(--bd)}
 </style>
 </head>
 <body>
@@ -200,6 +224,40 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
       <div class="ws"><strong>3</strong><span>Human gates</span></div>
       <div class="ws"><strong>8</strong><span>Pipeline steps</span></div>
     </div>
+  </div>
+
+  <!-- BEFORE / AFTER COMPARISON CHART -->
+  <div class="bva-card">
+    <div class="bva-head">
+      <div class="bva-label">Before vs After</div>
+      <div class="bva-title">What changes &mdash; and what doesn&apos;t</div>
+      <div class="bva-sub">AI eliminates 97% of calendar time. The three decisions that require human judgment are preserved &mdash; and made faster by better AI-prepared context.</div>
+    </div>
+    <div class="bva-hitl">
+      <div style="font-size:10px;color:var(--mu);margin-bottom:8px;letter-spacing:.04em">Each step &mdash; who owns it</div>
+      <div class="bva-grid">
+        <div class="bva-cell bva-ai">01<br>Intake</div>
+        <div class="bva-cell bva-h">02<br>Sanctions<br>sign-off</div>
+        <div class="bva-cell bva-ai">03<br>Risk<br>score</div>
+        <div class="bva-cell bva-h">04<br>Underwriting<br>decision</div>
+        <div class="bva-cell bva-h">05<br>Contract<br>review</div>
+        <div class="bva-cell bva-ai">06<br>Portal<br>provision</div>
+        <div class="bva-cell bva-ai">07<br>Fraud<br>rules</div>
+        <div class="bva-cell bva-ai">08<br>Account<br>setup</div>
+      </div>
+      <div style="display:flex;gap:14px;margin-top:7px;font-size:10px">
+        <span style="color:var(--in)">&#9632; AI automated (5 steps)</span>
+        <span style="color:var(--ac)">&#9632; Human decision required (3 steps)</span>
+      </div>
+    </div>
+    <div class="bva-toggle">
+      <button class="bva-btn bva-on" onclick="setChart('before')" id="cb-before">Without AI</button>
+      <button class="bva-btn" onclick="setChart('after')" id="cb-after">With AI</button>
+      <button class="bva-btn" onclick="setChart('compare')" id="cb-compare">Side by side</button>
+    </div>
+    <div class="bva-legend" id="bva-legend"></div>
+    <div id="bva-bars"></div>
+    <div class="bva-total" id="bva-total"></div>
   </div>
   <div class="fc">
     <div class="fc-lbl">New Merchant Application</div>
