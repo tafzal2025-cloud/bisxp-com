@@ -188,7 +188,7 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 .bva-row-lbl{font-size:10px;color:var(--mu2);text-align:right}
 .bva-before-lbl{font-size:9px;color:var(--mu);text-align:right}
 .bva-track{height:10px;background:var(--st);border-radius:4px;overflow:hidden}
-.bva-val{font-size:10px;font-family:'JetBrains Mono',monospace;padding-left:4px}
+.bva-val-t{font-size:10px;font-family:'JetBrains Mono',monospace;padding-left:4px}
 .bva-group{margin-bottom:10px}
 .bva-total{margin-top:10px;padding-top:10px;border-top:1px solid var(--bd)}
 </style>
@@ -703,6 +703,61 @@ async function run2(){
   btn.disabled=false;btn.textContent='Run Again';running[2]=false;
 }
 
+
+
+// BVA Chart
+const BVA_STEPS=[
+  {l:'Application intake',  before:2880,ai:8,  human:0},
+  {l:'Sanctions screening', before:1440,ai:12, human:600},
+  {l:'Risk scoring',        before:4320,ai:10, human:0},
+  {l:'Underwriting',        before:7200,ai:20, human:1200},
+  {l:'Contract generation', before:2880,ai:15, human:900},
+  {l:'Portal provisioning', before:1440,ai:20, human:0},
+  {l:'Fraud rules',         before:1440,ai:10, human:0},
+  {l:'Account setup',       before:240, ai:5,  human:0},
+];
+const BVA_MAX=BVA_STEPS.reduce((a,s)=>a+s.before,0);
+let bvaMode='before';
+function bvaFmt(m){if(m<1)return'<1m';if(m<60)return Math.round(m)+'m';if(m<1440)return(m/60).toFixed(1)+'h';return(m/1440).toFixed(1)+'d';}
+function bvaFmtS(s){return s<60?s+'s':Math.round(s/60)+'m';}
+function setChart(m){
+  bvaMode=m;
+  ['before','after','compare'].forEach(b=>{const el=document.getElementById('cb-'+b);if(el)el.className='bva-btn'+(b===m?' bva-on':'');});
+  renderBVA();
+}
+function renderBVA(){
+  const bars=document.getElementById('bva-bars');
+  const leg=document.getElementById('bva-legend');
+  const tot=document.getElementById('bva-total');
+  if(!bars||!leg||!tot)return;
+  const totalB=BVA_STEPS.reduce((a,s)=>a+s.before,0);
+  const totalAI=BVA_STEPS.reduce((a,s)=>a+s.ai/60,0);
+  const totalH=BVA_STEPS.reduce((a,s)=>a+s.human/60,0);
+  const totalAfter=totalAI+totalH;
+  if(bvaMode==='before'){
+    leg.innerHTML='<span><span style="display:inline-block;width:8px;height:8px;border-radius:2px;background:#c0392b;margin-right:4px;vertical-align:middle"></span>Manual process today</span>';
+    bars.innerHTML=BVA_STEPS.map(s=>'<div class="bva-row"><div class="bva-row-lbl">'+s.l+'</div><div class="bva-track"><div style="height:10px;width:'+(s.before/BVA_MAX*100).toFixed(1)+'%;background:#c0392b;border-radius:4px"></div></div><div class="bva-val-t" style="color:#c0392b">'+bvaFmt(s.before)+'</div></div>').join('');
+    tot.innerHTML='<div class="bva-row"><div class="bva-row-lbl" style="color:var(--cr);font-weight:500">Overall</div><div class="bva-track"><div style="height:10px;width:100%;background:#c0392b;border-radius:4px"></div></div><div class="bva-val-t" style="color:#c0392b;font-weight:600">'+bvaFmt(totalB)+'</div></div>';
+  } else if(bvaMode==='after'){
+    leg.innerHTML='<span><span style="display:inline-block;width:8px;height:8px;border-radius:2px;background:var(--in);margin-right:4px;vertical-align:middle"></span>AI automated</span><span><span style="display:inline-block;width:8px;height:8px;border-radius:2px;background:var(--ac);margin-right:4px;vertical-align:middle"></span>Human review (preserved)</span>';
+    bars.innerHTML=BVA_STEPS.map(s=>{
+      const aiM=s.ai/60,hM=s.human/60,t2=aiM+hM,pct=(t2/BVA_MAX*100).toFixed(3);
+      const aiW=t2>0?(aiM/t2*100).toFixed(1)+'%':'100%';
+      const lbl=s.human>0?'<span style="color:var(--in)">'+bvaFmtS(s.ai)+' AI</span> + <span style="color:var(--ac)">'+bvaFmt(s.human/60)+' human</span>':'<span style="color:var(--in)">'+bvaFmtS(s.ai)+'</span>';
+      return '<div class="bva-row"><div class="bva-row-lbl">'+s.l+'</div><div class="bva-track"><div style="display:flex;height:10px;width:'+pct+'%"><div style="background:var(--in);width:'+aiW+';height:100%;border-radius:4px 0 0 4px"></div>'+(s.human>0?'<div style="background:var(--ac);flex:1;height:100%;border-radius:0 4px 4px 0"></div>':'')+'</div></div><div class="bva-val-t" style="font-size:9px">'+lbl+'</div></div>';
+    }).join('');
+    const aiW2=(totalAI/totalAfter*100).toFixed(1)+'%';
+    tot.innerHTML='<div class="bva-row"><div class="bva-row-lbl" style="color:var(--cr);font-weight:500">Overall</div><div class="bva-track"><div style="display:flex;height:10px;width:'+(totalAfter/BVA_MAX*100).toFixed(2)+'%"><div style="background:var(--in);width:'+aiW2+';height:100%;border-radius:4px 0 0 4px"></div><div style="background:var(--ac);flex:1;height:100%;border-radius:0 4px 4px 0"></div></div></div><div class="bva-val-t" style="color:var(--ok);font-weight:600">~'+Math.round(totalAfter)+'m</div></div>';
+  } else {
+    leg.innerHTML='<span><span style="display:inline-block;width:8px;height:8px;border-radius:2px;background:#c0392b;margin-right:4px;vertical-align:middle"></span>Without AI</span><span><span style="display:inline-block;width:8px;height:8px;border-radius:2px;background:var(--in);margin-right:4px;vertical-align:middle"></span>AI steps</span><span><span style="display:inline-block;width:8px;height:8px;border-radius:2px;background:var(--ac);margin-right:4px;vertical-align:middle"></span>Human review</span>';
+    bars.innerHTML=BVA_STEPS.map(s=>{
+      const t2=(s.ai/60+s.human/60),tP=(t2/BVA_MAX*100).toFixed(3),aiW=t2>0?((s.ai/60)/t2*100).toFixed(1)+'%':'100%',red=Math.round((1-t2/s.before)*100);
+      return '<div class="bva-group"><div class="bva-row"><div class="bva-before-lbl">Before</div><div class="bva-track"><div style="height:10px;width:'+(s.before/BVA_MAX*100).toFixed(1)+'%;background:#c0392b;border-radius:4px"></div></div><div class="bva-val-t" style="color:#c0392b">'+bvaFmt(s.before)+'</div></div><div class="bva-row"><div class="bva-row-lbl">'+s.l+'</div><div class="bva-track"><div style="display:flex;height:10px;width:'+tP+'%"><div style="background:var(--in);width:'+aiW+';height:100%;border-radius:4px 0 0 4px"></div>'+(s.human>0?'<div style="background:var(--ac);flex:1;height:100%;border-radius:0 4px 4px 0"></div>':'')+'</div></div><div class="bva-val-t" style="color:var(--ok)">'+red+'% faster</div></div></div>';
+    }).join('');
+    tot.innerHTML='<div class="bva-row"><div class="bva-before-lbl" style="font-size:10px">Before</div><div class="bva-track"><div style="height:10px;width:100%;background:#c0392b;border-radius:4px"></div></div><div class="bva-val-t" style="color:#c0392b;font-weight:600">'+bvaFmt(totalB)+'</div></div><div class="bva-row"><div class="bva-row-lbl" style="color:var(--cr);font-weight:500">With AI</div><div class="bva-track"><div style="display:flex;height:10px;width:'+(totalAfter/BVA_MAX*100).toFixed(2)+'%"><div style="background:var(--in);width:'+(totalAI/totalAfter*100).toFixed(1)+'%;height:100%;border-radius:4px 0 0 4px"></div><div style="background:var(--ac);flex:1;height:100%;border-radius:0 4px 4px 0"></div></div></div><div class="bva-val-t" style="color:var(--ok);font-weight:600">97% reduction</div></div>';
+  }
+}
+window.addEventListener('load',()=>renderBVA());
 
 function printCaseFile(artId, title) {
   const art = document.getElementById(artId);
