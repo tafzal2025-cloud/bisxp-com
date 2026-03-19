@@ -1,586 +1,763 @@
-Read CLAUDE_CONTEXT.md and CLAUDE.md in full before writing any code.
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>Customer Service — BISXP AI Demos</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--obs:#08080A;--ch:#131318;--st:#1E1E28;--st2:#252532;--ac:#EC4899;--acd:rgba(236,72,153,0.12);--acg:rgba(236,72,153,0.22);--cr:#F0EBE0;--wh:#FAFAF8;--mu:#70707A;--mu2:#9090A0;--ok:#22C55E;--okd:rgba(34,197,94,0.10);--wn:#F59E0B;--wnd:rgba(245,158,11,0.10);--er:#EF4444;--erd:rgba(239,68,68,0.10);--in:#3B82F6;--ind:rgba(59,130,246,0.10);--bd:rgba(255,255,255,0.08);--bds:rgba(255,255,255,0.15);--bda:rgba(236,72,153,0.12);--bdas:rgba(236,72,153,0.28);}
+html{scroll-behavior:smooth}
+body{background:var(--obs);color:var(--cr);font-family:"Outfit",sans-serif;font-weight:300;min-height:100vh}
+body::before{content:"";position:fixed;inset:0;background-image:linear-gradient(rgba(236,72,153,0.018) 1px,transparent 1px),linear-gradient(90deg,rgba(236,72,153,0.018) 1px,transparent 1px);background-size:52px 52px;pointer-events:none;z-index:0}
+.hdr{position:sticky;top:0;z-index:200;background:rgba(8,8,10,0.96);backdrop-filter:blur(24px);border-bottom:1px solid var(--bd);padding:0 28px;height:52px;display:flex;align-items:center;gap:16px}
+.logo{font-family:"Cormorant Garamond",serif;font-size:18px;font-weight:600;letter-spacing:2px;text-decoration:none;color:var(--wh)}.logo span{color:var(--ac)}
+.hdr-c{font-size:11px;color:var(--mu);flex:1}
+.hdr-r{display:flex;gap:8px}
+.hdr-a{background:transparent;border:1px solid var(--bds);border-radius:6px;color:var(--cr);font-size:11px;padding:5px 12px;cursor:pointer;text-decoration:none;font-family:"Outfit",sans-serif}
+.hdr-cta{background:var(--ac);color:var(--obs);border:none;border-radius:6px;font-size:11px;font-weight:600;padding:5px 14px;cursor:pointer;font-family:"Outfit",sans-serif}
+.dnav{border-bottom:1px solid var(--bd);background:rgba(8,8,10,0.96);backdrop-filter:blur(16px);padding:0 28px;display:flex;gap:0;overflow-x:auto;scrollbar-width:none;position:sticky;top:52px;z-index:150}
+.dnav::-webkit-scrollbar{display:none}
+.db{padding:12px 16px;background:none;border:none;border-bottom:2px solid transparent;color:var(--mu);font-family:"Outfit",sans-serif;font-size:11px;cursor:pointer;white-space:nowrap;transition:all .18s;margin-bottom:-1px}
+.db:hover{color:var(--cr)}.db.active{color:var(--ac);border-bottom-color:var(--ac);font-weight:500}
+.hero{padding:48px 28px 32px;max-width:920px;margin:0 auto;position:relative;z-index:1}
+.hero-eye{font-size:9px;font-weight:500;text-transform:uppercase;letter-spacing:.22em;color:var(--ac);margin-bottom:10px;font-family:"JetBrains Mono",monospace}
+.hero-h{font-family:"Cormorant Garamond",serif;font-size:clamp(32px,5vw,52px);font-weight:300;color:var(--wh);margin-bottom:10px;line-height:1.05}
+.hero-h em{color:var(--ac);font-style:italic}
+.hero-s{font-size:13px;color:var(--mu2);max-width:520px;line-height:1.75;margin-bottom:16px}
+.beats{font-size:11px;color:var(--mu);font-family:"JetBrains Mono",monospace}.beats span{color:var(--ac)}
+.main{position:relative;z-index:1;max-width:920px;margin:0 auto;padding:20px 24px 80px}
+.wf-section{display:none}.wf-section.active{display:block;animation:fu .3s ease}
+@keyframes fu{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.wf-hdr{margin-bottom:20px}
+.wf-eye{font-size:9px;font-weight:500;text-transform:uppercase;letter-spacing:.22em;color:var(--ac);margin-bottom:7px;font-family:"JetBrains Mono",monospace}
+.wf-title{font-family:"Cormorant Garamond",serif;font-size:clamp(22px,3.5vw,36px);font-weight:300;color:var(--wh);margin-bottom:6px;line-height:1.1}
+.wf-title em{color:var(--ac);font-style:italic}
+.wf-sub{font-size:12px;color:var(--mu2);max-width:540px;line-height:1.7}
+.wf-stats{display:flex;gap:18px;margin-top:12px;flex-wrap:wrap}
+.ws strong{font-family:"JetBrains Mono",monospace;color:var(--ac);font-size:16px;display:block;margin-bottom:1px}
+.ws strong.r{color:var(--er)}.ws strong.g{color:var(--ok)}
+.ws span{font-size:10px;color:var(--mu);letter-spacing:.04em}
+.bva-card{background:var(--ch);border:1px solid var(--bd);border-radius:12px;padding:20px 24px;margin-bottom:20px}
+.bva-head{margin-bottom:16px}
+.bva-label{font-size:9px;font-weight:500;text-transform:uppercase;letter-spacing:.2em;color:var(--ac);margin-bottom:6px;font-family:"JetBrains Mono",monospace}
+.bva-title{font-family:"Cormorant Garamond",serif;font-size:22px;font-weight:300;color:var(--wh);margin-bottom:5px}
+.bva-sub{font-size:11px;color:var(--mu2);line-height:1.65}
+.bva-hitl{background:var(--st);border:1px solid var(--bd);border-radius:8px;padding:12px 14px;margin-bottom:14px}
+.bva-grid{display:grid;gap:4px}
+.bva-cell{border-radius:5px;padding:5px 3px;text-align:center;font-size:9px;line-height:1.4;font-family:"JetBrains Mono",monospace}
+.bva-ai{background:var(--ind);border:1px solid rgba(59,130,246,0.2);color:var(--in)}
+.bva-h{background:var(--acd);border:1px solid var(--bdas);color:var(--ac)}
+.bva-toggle{display:flex;gap:6px;margin-bottom:12px}
+.bva-btn{padding:5px 14px;border-radius:6px;border:1px solid var(--bds);background:transparent;color:var(--mu);font-size:11px;cursor:pointer;transition:all .15s;font-family:"Outfit",sans-serif}
+.bva-btn:hover{color:var(--cr)}.bva-on{background:var(--st2);border-color:var(--bds);color:var(--cr)}
+.bva-legend{display:flex;gap:14px;margin-bottom:12px;flex-wrap:wrap;font-size:10px;color:var(--mu2)}
+.bva-row{display:grid;grid-template-columns:160px 1fr 90px;align-items:center;gap:8px;margin-bottom:5px}
+@media(max-width:560px){.bva-row{grid-template-columns:100px 1fr 60px}}
+.bva-row-lbl{font-size:10px;color:var(--mu2);text-align:right}
+.bva-before-lbl{font-size:9px;color:var(--mu);text-align:right}
+.bva-track{height:10px;background:var(--st);border-radius:4px;overflow:hidden}
+.bva-val-t{font-size:10px;font-family:"JetBrains Mono",monospace;padding-left:4px}
+.bva-group{margin-bottom:10px}
+.bva-total{margin-top:10px;padding-top:10px;border-top:1px solid var(--bd)}
+.fc{background:var(--ch);border:1px solid var(--bd);border-radius:12px;padding:20px 24px;margin-bottom:20px}
+.fc-lbl{font-size:9px;font-weight:500;text-transform:uppercase;letter-spacing:.18em;color:var(--ac);margin-bottom:14px;font-family:"JetBrains Mono",monospace}
+.fg{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+@media(max-width:560px){.fg{grid-template-columns:1fr}}
+.ff{display:flex;flex-direction:column;gap:4px}.ff-w{grid-column:1/-1}
+.fl{font-size:9px;text-transform:uppercase;letter-spacing:.12em;color:var(--mu2)}
+.fi,.fs,.fta{background:var(--st);border:1px solid var(--bd);border-radius:7px;color:var(--cr);font-family:"Outfit",sans-serif;font-size:13px;font-weight:300;padding:8px 11px;outline:none;transition:border-color .2s;width:100%;-webkit-appearance:none}
+.fi:focus,.fs:focus,.fta:focus{border-color:var(--ac)}
+.fs option{background:var(--st)}.fta{resize:vertical;min-height:64px}
+.rr{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.rb{background:var(--ac);color:var(--obs);border:none;border-radius:7px;padding:10px 22px;font-family:"Outfit",sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:background .15s,transform .1s}
+.rb:hover{filter:brightness(1.1)}.rb:active{transform:scale(.98)}.rb:disabled{background:var(--mu);cursor:not-allowed;transform:none}
+.mt{font-family:"JetBrains Mono",monospace;font-size:9px;color:var(--mu)}
+.pw{background:var(--ch);border:1px solid var(--bd);border-radius:12px;overflow:hidden;display:none}
+.pw.vis{display:block;animation:fu .3s ease}
+.pw-hdr{padding:11px 18px;border-bottom:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between}
+.pw-t{font-size:9px;font-weight:500;text-transform:uppercase;letter-spacing:.15em;color:var(--mu);font-family:"JetBrains Mono",monospace}
+.pw-s{font-size:9px;font-weight:600;padding:2px 8px;border-radius:10px;font-family:"JetBrains Mono",monospace}
+.ps-run{background:var(--wnd);color:var(--wn)}.ps-ok{background:var(--okd);color:var(--ok)}.ps-err{background:var(--erd);color:var(--er)}.ps-wait{background:var(--acd);color:var(--ac)}
+.steps{padding:14px 16px}
+.step{display:flex;gap:11px;position:relative}
+.step:not(:last-child)::after{content:"";position:absolute;left:10px;top:24px;width:2px;bottom:-4px;background:var(--bd);z-index:0}
+.step.done::after{background:rgba(34,197,94,0.3)}.step.active::after{background:linear-gradient(to bottom,var(--acd),var(--bd))}.step.wait::after{background:rgba(255,255,255,0.08)}
+.step-sp{flex-shrink:0;display:flex;flex-direction:column;align-items:center;padding-top:2px;z-index:1}
+.step-d{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:600;transition:all .25s;border:2px solid var(--bd);background:var(--st);color:var(--mu);flex-shrink:0}
+.step.done .step-d{background:var(--okd);border-color:var(--ok);color:var(--ok)}
+.step.active .step-d{background:var(--acd);border-color:var(--ac);color:var(--ac);animation:pd 1.3s infinite}
+.step.wait .step-d{background:var(--acd);border-color:var(--ac);color:var(--ac);animation:pd 2s infinite}
+.step.err .step-d{background:var(--erd);border-color:var(--er);color:var(--er)}
+@keyframes pd{0%,100%{box-shadow:0 0 0 0 var(--acg)}50%{box-shadow:0 0 0 4px transparent}}
+.step-b{flex:1;padding-bottom:14px}
+.step-tr{display:flex;align-items:center;gap:6px;margin-bottom:2px;flex-wrap:wrap}
+.step-n{font-size:12px;font-weight:500;color:var(--wh)}.step.pending .step-n{color:var(--mu)}
+.op{display:inline-flex;align-items:center;font-size:8px;font-family:"JetBrains Mono",monospace;padding:1px 5px;border-radius:3px;letter-spacing:.06em}
+.op-ai{background:var(--ind);color:var(--in);border:1px solid rgba(59,130,246,0.18)}
+.op-h{background:var(--acd);color:var(--ac);border:1px solid var(--bdas)}
+.step-det{font-size:10px;color:var(--mu);line-height:1.5}.step.pending .step-det{opacity:.45}
+.sbadge{display:inline-flex;align-items:center;font-size:9px;font-weight:600;padding:1px 5px;border-radius:3px;margin-left:5px;font-family:"JetBrains Mono",monospace}
+.sb-ok{background:var(--okd);color:var(--ok)}.sb-wn{background:var(--wnd);color:var(--wn)}.sb-er{background:var(--erd);color:var(--er)}.sb-ac{background:var(--acd);color:var(--ac)}
+.step-ti{font-family:"JetBrains Mono",monospace;font-size:9px;color:var(--mu);margin-left:auto}
+.step-out{background:var(--st);border:1px solid var(--bd);border-radius:7px;padding:9px 11px;margin-top:6px;font-size:11px;line-height:1.7;color:var(--mu2);display:none}
+.step.done .step-out,.step.wait .step-out{display:block;animation:fu .2s ease}
+.hg{background:var(--st2);border:1px solid var(--bdas);border-left:3px solid var(--ac);border-radius:8px;padding:12px 14px 11px;margin-top:7px;display:none}
+.hg.show{display:block;animation:fu .2s ease}
+.hg-top{display:flex;align-items:flex-start;gap:8px;margin-bottom:9px}
+.hg-ico{width:24px;height:24px;border-radius:50%;background:var(--acd);border:1px solid var(--bdas);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.hg-ico svg{width:11px;height:11px}
+.hg-t{font-size:12px;font-weight:500;color:var(--wh)}.hg-s{font-size:10px;color:var(--mu);margin-top:1px}
+.hg-chips{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:5px;margin-bottom:9px}
+.hgc{background:var(--ch);border:1px solid var(--bd);border-radius:5px;padding:6px 8px}
+.hgc-l{font-size:8px;text-transform:uppercase;letter-spacing:.1em;color:var(--mu);margin-bottom:2px}
+.hgc-v{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--cr);font-weight:500}
+.hgc-v.ok{color:var(--ok)}.hgc-v.wn{color:var(--wn)}.hgc-v.er{color:var(--er)}.hgc-v.ac{color:var(--ac)}
+.hg-acts{display:flex;gap:6px;flex-wrap:wrap}
+.hgb{padding:7px 14px;border-radius:5px;font-family:"Outfit",sans-serif;font-size:11px;font-weight:500;cursor:pointer;border:1px solid var(--bds);background:transparent;color:var(--cr);transition:all .14s}
+.hgb:hover{background:var(--st)}.hgb:disabled{opacity:.3;cursor:not-allowed}
+.hgb.p{background:var(--ac);color:var(--obs);border-color:var(--ac)}.hgb.p:hover{filter:brightness(1.1)}
+.hgb.d{border-color:rgba(239,68,68,0.35);color:var(--er)}.hgb.d:hover{background:var(--erd)}
+.hg-note{font-size:9px;color:var(--mu);margin-top:8px;font-style:italic}
+.doc-blk{background:var(--st2);border:1px solid var(--bd);border-left:3px solid var(--ac);border-radius:7px;padding:11px 13px;margin-top:8px;font-family:"JetBrains Mono",monospace;font-size:11px;line-height:1.82;white-space:pre-wrap;word-break:break-word;color:var(--cr);display:none}
+.email-compose{background:var(--ch);border:1px solid var(--bdas);border-radius:9px;margin-top:9px;overflow:hidden;display:none}
+.email-hdr{background:var(--st);padding:9px 13px;border-bottom:1px solid var(--bd)}
+.email-hdr-t{font-size:9px;font-weight:500;color:var(--wh);font-family:"JetBrains Mono",monospace;letter-spacing:.06em}
+.email-meta{padding:8px 13px;border-bottom:1px solid var(--bd)}
+.em-row{display:flex;gap:8px;align-items:center;font-size:11px;margin-bottom:4px}
+.em-row:last-child{margin-bottom:0}
+.em-lbl{color:var(--mu);width:28px;flex-shrink:0;font-size:10px}
+.em-val{color:var(--cr);flex:1}
+.email-body{padding:11px 13px;font-size:11px;color:var(--cr);line-height:1.75;white-space:pre-wrap;border-bottom:1px solid var(--bd)}
+.email-foot{padding:9px 13px;display:flex;align-items:center;gap:9px}
+.send-btn{background:var(--ac);color:var(--obs);border:none;border-radius:6px;padding:7px 18px;font-family:"Outfit",sans-serif;font-size:11px;font-weight:600;cursor:pointer}
+.send-btn.sent{background:var(--ok);cursor:default}
+.send-note{font-size:9px;color:var(--mu)}
+.artifact{background:var(--ch);border:1px solid var(--bdas);border-radius:10px;margin:0 16px 16px;display:none}
+.artifact.show{display:block;animation:fu .3s ease}
+.art-hdr{background:var(--st);padding:10px 14px;border-bottom:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between}
+.art-hdr-t{font-size:9px;font-weight:500;color:var(--ac);font-family:"JetBrains Mono",monospace;letter-spacing:.1em}
+.art-ts{font-size:9px;color:var(--mu);font-family:"JetBrains Mono",monospace}
+.art-body{padding:14px}
+.art-section{margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid var(--bd)}
+.art-section:last-child{margin-bottom:0;padding-bottom:0;border-bottom:none}
+.art-section-t{font-size:9px;text-transform:uppercase;letter-spacing:.12em;color:var(--ac);margin-bottom:7px;font-family:"JetBrains Mono",monospace}
+.art-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:5px}
+.art-kv{background:var(--st);border:1px solid var(--bd);border-radius:5px;padding:7px 9px}
+.art-k{font-size:8px;text-transform:uppercase;letter-spacing:.08em;color:var(--mu);margin-bottom:2px}
+.art-v{font-size:11px;color:var(--cr)}.art-v.ac{color:var(--ac)}.art-v.ok{color:var(--ok)}.art-v.er{color:var(--er)}
+.art-decisions{display:flex;flex-direction:column;gap:4px}
+.art-dec{background:var(--st);border:1px solid var(--bd);border-radius:5px;padding:7px 9px;display:flex;gap:9px;align-items:flex-start}
+.art-dec-who{font-size:8px;color:var(--ac);font-family:"JetBrains Mono",monospace;flex-shrink:0;margin-top:1px;min-width:110px}
+.art-dec-what{font-size:10px;color:var(--cr);line-height:1.5;flex:1}
+.art-dec-time{font-size:8px;color:var(--mu);font-family:"JetBrains Mono",monospace;flex-shrink:0}
+.art-dl{display:flex;gap:7px;margin-top:11px;flex-wrap:wrap}
+.art-dl-btn{background:transparent;border:1px solid var(--bds);border-radius:5px;color:var(--cr);font-family:"Outfit",sans-serif;font-size:10px;padding:6px 12px;cursor:pointer}
+.art-dl-btn.p{background:var(--ac);color:var(--obs);border-color:var(--ac)}
+.sum{background:var(--st2);border:1px solid var(--bdas);border-radius:10px;padding:16px 20px;margin:0 16px 16px;display:none}
+.sum.vis{display:block;animation:fu .3s ease}
+.sum-t{font-family:"Cormorant Garamond",serif;font-size:17px;color:var(--wh);margin-bottom:3px}
+.sum-s{font-size:11px;color:var(--mu2);margin-bottom:12px;line-height:1.6}
+.sum-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px}
+@media(max-width:520px){.sum-grid{grid-template-columns:repeat(2,1fr)}}
+.sg{text-align:center}.sg strong{font-family:"JetBrains Mono",monospace;font-size:16px;color:var(--ac);display:block}
+.sg span{font-size:9px;color:var(--mu);text-transform:uppercase;letter-spacing:.05em}
+.sum-acts{display:flex;gap:7px}
+.sa{flex:1;padding:7px;border-radius:6px;font-family:"Outfit",sans-serif;font-size:11px;font-weight:600;cursor:pointer;border:none;text-align:center}
+.sa-s{background:var(--st);color:var(--cr);border:1px solid var(--bds)}
+.footer{border-top:1px solid var(--bd);padding:28px;text-align:center;position:relative;z-index:1}
+.footer-s{font-size:12px;color:var(--mu);margin-bottom:14px;line-height:1.6}
+.footer-cta{display:inline-block;background:var(--ac);color:var(--obs);border-radius:8px;padding:11px 26px;font-size:13px;font-weight:600;text-decoration:none;font-family:"Outfit",sans-serif}
+.spin{width:10px;height:10px;border:2px solid var(--acd);border-top-color:var(--ac);border-radius:50%;animation:sp .7s linear infinite;display:inline-block;flex-shrink:0}
+@keyframes sp{to{transform:rotate(360deg)}}
+.toast{position:fixed;bottom:20px;right:20px;background:var(--ch);border:1px solid var(--bdas);border-radius:8px;padding:10px 14px;font-size:11px;z-index:9999;transform:translateY(60px);opacity:0;transition:all .3s;max-width:260px}
+.toast.show{transform:translateY(0);opacity:1}
+.toast-t{font-weight:600;color:var(--ac);margin-bottom:2px;font-size:11px}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <a class="logo" href="index.html">BIS<span>XP</span></a>
+  <div class="hdr-c">Enterprise Demos &rarr; Customer Service</div>
+  <div class="hdr-r"><a class="hdr-a" href="index.html">All Demos</a><button class="hdr-cta">Book Assessment &rarr;</button></div>
+</header>
+<nav class="dnav">
+  <button class="db active" onclick="sw(0)">Incident Resolution</button>
+  <button class="db" onclick="sw(1)">Churn Prediction &amp; Save</button>
+  <button class="db" onclick="sw(2)">Knowledge Base Generation</button>
+</nav>
+<div class="hero">
+  <div class="hero-eye">BISXP Enterprise &middot; Customer Service</div>
+  <h1 class="hero-h">Customer Service.<br><em>Rebuilt AI-Native.</em></h1>
+  <p class="hero-s">Incident resolution, churn prevention, knowledge base generation. Every workflow runs real Claude AI &mdash; human judgment preserved at every customer-critical decision point.</p>
+  <div class="beats">Replaces: <span>Zendesk &middot; Salesforce Service Cloud &middot; Intercom</span></div>
+</div>
+<main class="main">
 
-## Session 11 Goal
-Build a CSV bulk import tool for academies inside the admin dashboard. Also generate a downloadable CSV template pre-filled with Seattle-area cricket academy data that Shah can review, edit, and re-upload.
+<!-- WF0: INCIDENT RESOLUTION -->
+<div class="wf-section active" id="wf0">
+  <div class="wf-hdr">
+    <div class="wf-eye">Incident Resolution &middot; Customer Service</div>
+    <div class="wf-title">P1 Contact to <em>Resolved &amp; Retained</em></div>
+    <p class="wf-sub">48-hour P1 incident cycles compressed to minutes. AI diagnoses root cause and drafts the postmortem &mdash; engineer certifies the fix, CSM approves the SLA credit before dispatch.</p>
+    <div class="wf-stats">
+      <div class="ws"><strong class="r">48 hrs</strong><span>Without AI</span></div>
+      <div class="ws"><strong class="g">~4 min</strong><span>With AI + gates</span></div>
+      <div class="ws"><strong>2</strong><span>Human gates</span></div>
+      <div class="ws"><strong>7</strong><span>Pipeline steps</span></div>
+    </div>
+  </div>
+  <div class="bva-card">
+    <div class="bva-head">
+      <div class="bva-label">Before vs After</div>
+      <div class="bva-title">What changes &mdash; and what doesn&apos;t</div>
+      <div class="bva-sub">AI eliminates 98% of resolution time. Engineer root cause sign-off and CSM credit approval are preserved &mdash; the humans who own the customer relationship make the calls.</div>
+    </div>
+    <div class="bva-hitl">
+      <div style="font-size:10px;color:var(--mu);margin-bottom:8px;letter-spacing:.04em">Each step &mdash; who owns it</div>
+      <div class="bva-grid" style="grid-template-columns:repeat(7,1fr)">
+        <div class="bva-cell bva-ai">01<br>Triage</div>
+        <div class="bva-cell bva-ai">02<br>Diagnose</div>
+        <div class="bva-cell bva-h">03<br>Engineer<br>sign-off</div>
+        <div class="bva-cell bva-ai">04<br>Postmortem</div>
+        <div class="bva-cell bva-h">05<br>CSM<br>credit</div>
+        <div class="bva-cell bva-ai">06<br>Comms</div>
+        <div class="bva-cell bva-ai">07<br>Close</div>
+      </div>
+      <div style="display:flex;gap:14px;margin-top:7px;font-size:10px">
+        <span style="color:var(--in)">&#9632; AI automated (5 steps)</span>
+        <span style="color:var(--ac)">&#9632; Human decision required (2 steps)</span>
+      </div>
+    </div>
+    <div class="bva-toggle">
+      <button class="bva-btn bva-on" onclick="setChart0('before')" id="cb0-before">Without AI</button>
+      <button class="bva-btn" onclick="setChart0('after')" id="cb0-after">With AI</button>
+      <button class="bva-btn" onclick="setChart0('compare')" id="cb0-compare">Side by side</button>
+    </div>
+    <div class="bva-legend" id="bva-legend-0"></div>
+    <div id="bva-bars-0"></div>
+    <div class="bva-total" id="bva-total-0"></div>
+  </div>
+  <div class="fc">
+    <div class="fc-lbl">Incident Report</div>
+    <div class="fg">
+      <div class="ff"><span class="fl">Severity</span><select class="fs" id="f0-sev"><option>P1 &mdash; Critical (service down)</option><option>P2 &mdash; Major (degraded)</option><option>P3 &mdash; Minor (workaround available)</option></select></div>
+      <div class="ff"><span class="fl">Customer</span><input class="fi" id="f0-cust" value="Acme Corp &mdash; Enterprise, $480K ARR"></div>
+      <div class="ff"><span class="fl">Product Area</span><select class="fs" id="f0-prod"><option>Payment Gateway</option><option>API &mdash; Authentication</option><option>Reporting Dashboard</option><option>Webhook Delivery</option></select></div>
+      <div class="ff"><span class="fl">Duration</span><input class="fi" id="f0-dur" value="4.5 hours"></div>
+      <div class="ff ff-w"><span class="fl">Incident Description</span><textarea class="fta" id="f0-desc">Payment gateway returning 503 errors for all card-present transactions. Affects 100% of Acme Corps POS terminals nationwide. Revenue impact estimated at $180K/hour. Customer CTO on the call.</textarea></div>
+    </div>
+    <div class="rr"><button class="rb" id="btn0" onclick="run0()">&#9654; Run Incident Workflow</button><span class="mt">claude-sonnet-4-20250514 &middot; real inference &middot; /api/ai</span></div>
+  </div>
+  <div class="pw" id="pw0">
+    <div class="pw-hdr"><span class="pw-t">Incident Resolution Pipeline</span><span class="pw-s ps-run" id="ps0">&#9679; Running</span></div>
+    <div class="steps">
+      <div class="step pending" id="s0-1"><div class="step-sp"><div class="step-d">1</div></div><div class="step-b"><div class="step-tr"><span class="step-n">Incident Triaged &amp; Prioritised</span><span class="op op-ai">AI</span></div><div class="step-det">Severity confirmed &middot; blast radius &middot; revenue impact &middot; on-call engineer paged</div><div class="step-out" id="o0-1"></div></div></div>
+      <div class="step pending" id="s0-2"><div class="step-sp"><div class="step-d">2</div></div><div class="step-b"><div class="step-tr"><span class="step-n">Root Cause Diagnosed</span><span class="op op-ai">AI</span></div><div class="step-det">Log analysis &middot; error pattern matching &middot; recent deploys &middot; dependency check</div><div class="step-out" id="o0-2"></div></div></div>
+      <div class="step pending" id="s0-3"><div class="step-sp"><div class="step-d">3</div></div><div class="step-b"><div class="step-tr"><span class="step-n">Engineer Root Cause Sign-off</span><span class="op op-h">Human gate</span></div><div class="step-det">On-call engineer reviews AI diagnosis and certifies before fix is applied</div><div class="step-out" id="o0-3"></div>
+        <div class="hg" id="hg0-3">
+          <div class="hg-top"><div class="hg-ico"><svg viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="4" r="2" stroke="var(--ac)" stroke-width="1.2"/><path d="M2 12c0-2.5 2-4.5 4.5-4.5S11 9.5 11 12" stroke="var(--ac)" stroke-width="1.2" stroke-linecap="round"/></svg></div><div><div class="hg-t">Engineer root cause sign-off required</div><div class="hg-s">AI has diagnosed the root cause. Engineer must certify before fix is deployed to production.</div></div></div>
+          <div class="hg-chips" id="hg0-3-chips"></div>
+          <div class="hg-acts"><button class="hgb p" onclick="hd(0,3,'confirm')">Confirm Root Cause &mdash; Deploy Fix</button><button class="hgb" onclick="hd(0,3,'investigate')">Needs More Investigation</button></div>
+          <div class="hg-note">Engineer sign-off is required before any production change. Logged to incident record.</div>
+        </div>
+      </div></div>
+      <div class="step pending" id="s0-4"><div class="step-sp"><div class="step-d">4</div></div><div class="step-b"><div class="step-tr"><span class="step-n">Postmortem &amp; Fix Documented</span><span class="op op-ai">AI</span></div><div class="step-det">Timeline reconstructed &middot; root cause documented &middot; prevention steps &middot; blameless postmortem</div><div class="step-out" id="o0-4"></div><div class="doc-blk" id="doc0-4"></div></div></div>
+      <div class="step pending" id="s0-5"><div class="step-sp"><div class="step-d">5</div></div><div class="step-b"><div class="step-tr"><span class="step-n">SLA Credit Calculated &amp; Approved</span><span class="op op-h">Human gate</span></div><div class="step-det">Downtime calculated against SLA &middot; credit amount determined &middot; CSM approves offer</div><div class="step-out" id="o0-5"></div>
+        <div class="hg" id="hg0-5">
+          <div class="hg-top"><div class="hg-ico"><svg viewBox="0 0 13 13" fill="none"><rect x="2" y="2" width="9" height="9" rx="2" stroke="var(--ac)" stroke-width="1.2"/><path d="M4.5 6.5l1.5 1.5L8.5 5" stroke="var(--ac)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><div class="hg-t">CSM credit approval required</div><div class="hg-s">AI has calculated SLA credit. CSM must approve before offer is communicated to customer.</div></div></div>
+          <div class="hg-chips" id="hg0-5-chips"></div>
+          <div class="hg-acts"><button class="hgb p" onclick="hd(0,5,'approve')">Approve Credit &mdash; Send to Customer</button><button class="hgb" onclick="hd(0,5,'increase')">Increase Credit &mdash; High-Value Account</button><button class="hgb d" onclick="hd(0,5,'decline')">Decline Credit &mdash; Outside SLA Terms</button></div>
+          <div class="hg-note">CSM approval commits the credit offer. Logged to CRM and billing system.</div>
+        </div>
+      </div></div>
+      <div class="step pending" id="s0-6"><div class="step-sp"><div class="step-d">6</div></div><div class="step-b"><div class="step-tr"><span class="step-n">Customer Communication Drafted</span><span class="op op-ai">AI</span></div><div class="step-det">Executive summary &middot; credit offer &middot; prevention commitments &middot; personalised to CTO</div><div class="step-out" id="o0-6"></div>
+        <div class="email-compose" id="email0-6"><div class="email-hdr"><span class="email-hdr-t">EXECUTIVE COMMUNICATION &mdash; READY TO SEND</span></div><div class="email-meta"><div class="em-row"><span class="em-lbl">To:</span><span class="em-val" id="email0-6-to"></span></div><div class="em-row"><span class="em-lbl">Re:</span><span class="em-val" id="email0-6-subj"></span></div></div><div class="email-body" id="email0-6-body"></div><div class="email-foot"><button class="send-btn" id="email0-6-btn" onclick="sendEmailW(0,6)">Send via Resend</button><span class="send-note">Uses RESEND_API_KEY</span></div></div>
+      </div></div>
+      <div class="step pending" id="s0-7"><div class="step-sp"><div class="step-d">7</div></div><div class="step-b"><div class="step-tr"><span class="step-n">Incident Closed &amp; CRM Updated</span><span class="op op-ai">AI</span></div><div class="step-det">Ticket closed &middot; CRM updated &middot; credit applied &middot; follow-up scheduled &middot; Jira tickets created</div><div class="step-out" id="o0-7"></div></div></div>
+    </div>
+    <div class="artifact" id="art0">
+      <div class="art-hdr"><span class="art-hdr-t">INCIDENT CASE FILE</span><span class="art-ts" id="art0-ts"></span></div>
+      <div class="art-body">
+        <div class="art-section"><div class="art-section-t">Incident Details</div><div class="art-grid" id="art0-incident"></div></div>
+        <div class="art-section"><div class="art-section-t">Resolution &amp; Credits</div><div class="art-grid" id="art0-resolution"></div></div>
+        <div class="art-section"><div class="art-section-t">Human Decisions (Audit Trail)</div><div class="art-decisions" id="art0-decisions"></div></div>
+        <div class="art-dl"><button class="art-dl-btn p" onclick="printCaseFile('art0','pw0','Incident Resolution — Case File','#EC4899')">&#8595; Download Postmortem PDF</button></div>
+      </div>
+    </div>
+    <div class="sum" id="sum0"><div class="sum-t" id="sum0-t">Incident Resolved</div><div class="sum-s" id="sum0-s"></div><div class="sum-grid"><div class="sg"><strong id="sum0-time">&mdash;</strong><span>Wall clock</span></div><div class="sg"><strong id="sum0-r1">&mdash;</strong><span>SLA credit</span></div><div class="sg"><strong id="sum0-r2">&mdash;</strong><span>Severity</span></div><div class="sg"><strong>2</strong><span>Human decisions</span></div></div><div class="sum-acts"><button class="sa sa-s" onclick="rwf(0)">&#8635; Reset</button></div></div>
+  </div>
+</div>
 
----
+<!-- WF1: CHURN PREDICTION -->
+<div class="wf-section" id="wf1">
+  <div class="wf-hdr">
+    <div class="wf-eye">Churn Prediction &amp; Save &middot; Customer Service</div>
+    <div class="wf-title">Signal Detected to <em>Customer Retained</em></div>
+    <p class="wf-sub">Manual churn detection compressed from weeks to minutes. AI scores churn risk and builds a personalised save offer &mdash; CSM reviews before the call is made. No AI reaches out without human review.</p>
+    <div class="wf-stats">
+      <div class="ws"><strong class="r">3 weeks</strong><span>Without AI</span></div>
+      <div class="ws"><strong class="g">~3 min</strong><span>With AI + gate</span></div>
+      <div class="ws"><strong>1</strong><span>Human gate</span></div>
+      <div class="ws"><strong>6</strong><span>Pipeline steps</span></div>
+    </div>
+  </div>
+  <div class="bva-card">
+    <div class="bva-head">
+      <div class="bva-label">Before vs After</div>
+      <div class="bva-title">What changes &mdash; and what doesn&apos;t</div>
+      <div class="bva-sub">AI eliminates 99% of signal-to-action time. The CSM review is preserved &mdash; no automated outreach without a human deciding to make the call.</div>
+    </div>
+    <div class="bva-hitl">
+      <div style="font-size:10px;color:var(--mu);margin-bottom:8px;letter-spacing:.04em">Each step &mdash; who owns it</div>
+      <div class="bva-grid" style="grid-template-columns:repeat(6,1fr)">
+        <div class="bva-cell bva-ai">01<br>Signal<br>detect</div>
+        <div class="bva-cell bva-ai">02<br>Health<br>score</div>
+        <div class="bva-cell bva-ai">03<br>Save<br>strategy</div>
+        <div class="bva-cell bva-h">04<br>CSM<br>review</div>
+        <div class="bva-cell bva-ai">05<br>Outreach<br>brief</div>
+        <div class="bva-cell bva-ai">06<br>CRM<br>update</div>
+      </div>
+      <div style="display:flex;gap:14px;margin-top:7px;font-size:10px">
+        <span style="color:var(--in)">&#9632; AI automated (5 steps)</span>
+        <span style="color:var(--ac)">&#9632; Human decision required (1 step)</span>
+      </div>
+    </div>
+    <div class="bva-toggle">
+      <button class="bva-btn bva-on" onclick="setChart1('before')" id="cb1-before">Without AI</button>
+      <button class="bva-btn" onclick="setChart1('after')" id="cb1-after">With AI</button>
+      <button class="bva-btn" onclick="setChart1('compare')" id="cb1-compare">Side by side</button>
+    </div>
+    <div class="bva-legend" id="bva-legend-1"></div>
+    <div id="bva-bars-1"></div>
+    <div class="bva-total" id="bva-total-1"></div>
+  </div>
+  <div class="fc">
+    <div class="fc-lbl">At-Risk Customer Signal</div>
+    <div class="fg">
+      <div class="ff"><span class="fl">Customer</span><input class="fi" id="f1-cust" value="Meridian Health Systems &mdash; $220K ARR"></div>
+      <div class="ff"><span class="fl">Contract Renewal</span><input class="fi" id="f1-renew" value="47 days"></div>
+      <div class="ff"><span class="fl">Signal Type</span><select class="fs" id="f1-signal"><option>Usage drop &mdash; 40% decline last 30 days</option><option>Support tickets spiking</option><option>Champion left the company</option><option>Competitor evaluation started</option></select></div>
+      <div class="ff"><span class="fl">Segment</span><select class="fs" id="f1-seg"><option>Enterprise</option><option>Mid-Market</option><option>SMB</option></select></div>
+      <div class="ff ff-w"><span class="fl">Additional Context</span><input class="fi" id="f1-notes" value="Primary admin login frequency down 80%. New IT director started 3 weeks ago. Last QBR was 6 months ago. No open support tickets."></div>
+    </div>
+    <div class="rr"><button class="rb" id="btn1" onclick="run1()">&#9654; Run Churn Workflow</button><span class="mt">real Claude inference per step</span></div>
+  </div>
+  <div class="pw" id="pw1">
+    <div class="pw-hdr"><span class="pw-t">Churn Prevention Pipeline</span><span class="pw-s ps-run" id="ps1">&#9679; Running</span></div>
+    <div class="steps">
+      <div class="step pending" id="s1-1"><div class="step-sp"><div class="step-d">1</div></div><div class="step-b"><div class="step-tr"><span class="step-n">Churn Signal Detected &amp; Scored</span><span class="op op-ai">AI</span></div><div class="step-det">Signal type &middot; urgency scoring &middot; historical churn patterns &middot; risk tier</div><div class="step-out" id="o1-1"></div></div></div>
+      <div class="step pending" id="s1-2"><div class="step-sp"><div class="step-d">2</div></div><div class="step-b"><div class="step-tr"><span class="step-n">Account Health Assessment</span><span class="op op-ai">AI</span></div><div class="step-det">NPS history &middot; usage trends &middot; support sentiment &middot; expansion/contraction signals</div><div class="step-out" id="o1-2"></div></div></div>
+      <div class="step pending" id="s1-3"><div class="step-sp"><div class="step-d">3</div></div><div class="step-b"><div class="step-tr"><span class="step-n">Save Strategy Built</span><span class="op op-ai">AI</span></div><div class="step-det">Personalised offer &middot; concession level &middot; talking points &middot; competitor counter-positioning</div><div class="step-out" id="o1-3"></div><div class="doc-blk" id="doc1-3"></div></div></div>
+      <div class="step pending" id="s1-4"><div class="step-sp"><div class="step-d">4</div></div><div class="step-b"><div class="step-tr"><span class="step-n">CSM Review &amp; Approval</span><span class="op op-h">Human gate</span></div><div class="step-det">CSM assesses strategy before any outreach is made to the customer</div><div class="step-out" id="o1-4"></div>
+        <div class="hg" id="hg1-4">
+          <div class="hg-top"><div class="hg-ico"><svg viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="4" r="2" stroke="var(--ac)" stroke-width="1.2"/><path d="M2 12c0-2.5 2-4.5 4.5-4.5S11 9.5 11 12" stroke="var(--ac)" stroke-width="1.2" stroke-linecap="round"/></svg></div><div><div class="hg-t">CSM review required before outreach</div><div class="hg-s">AI has built a save strategy. No automated outreach &mdash; CSM decides whether to make the call and what to offer.</div></div></div>
+          <div class="hg-chips" id="hg1-4-chips"></div>
+          <div class="hg-acts"><button class="hgb p" onclick="hd(1,4,'approve')">Approve &mdash; Proceed with Save Strategy</button><button class="hgb" onclick="hd(1,4,'adjust')">Adjust Offer Before Outreach</button><button class="hgb d" onclick="hd(1,4,'escalate')">Escalate to VP Customer Success</button></div>
+          <div class="hg-note">No outreach happens without CSM sign-off. Decision logged to account record.</div>
+        </div>
+      </div></div>
+      <div class="step pending" id="s1-5"><div class="step-sp"><div class="step-d">5</div></div><div class="step-b"><div class="step-tr"><span class="step-n">CSM Outreach Brief Generated</span><span class="op op-ai">AI</span></div><div class="step-det">Call script &middot; objection handling &middot; offer to present &middot; success metrics to reference</div><div class="step-out" id="o1-5"></div><div class="doc-blk" id="doc1-5"></div></div></div>
+      <div class="step pending" id="s1-6"><div class="step-sp"><div class="step-d">6</div></div><div class="step-b"><div class="step-tr"><span class="step-n">CRM &amp; Forecast Updated</span><span class="op op-ai">AI</span></div><div class="step-det">Churn risk flag set &middot; save play logged &middot; renewal forecast updated &middot; QBR scheduled</div><div class="step-out" id="o1-6"></div></div></div>
+    </div>
+    <div class="artifact" id="art1">
+      <div class="art-hdr"><span class="art-hdr-t">CHURN PREVENTION CASE FILE</span><span class="art-ts" id="art1-ts"></span></div>
+      <div class="art-body">
+        <div class="art-section"><div class="art-section-t">Account Details</div><div class="art-grid" id="art1-account"></div></div>
+        <div class="art-section"><div class="art-section-t">Save Strategy</div><div class="art-grid" id="art1-strategy"></div></div>
+        <div class="art-section"><div class="art-section-t">Human Decisions</div><div class="art-decisions" id="art1-decisions"></div></div>
+        <div class="art-dl"><button class="art-dl-btn p" onclick="printCaseFile('art1','pw1','Churn Prevention — Account Brief','#EC4899')">&#8595; Download Account Brief PDF</button></div>
+      </div>
+    </div>
+    <div class="sum" id="sum1"><div class="sum-t" id="sum1-t">Save Play Active</div><div class="sum-s" id="sum1-s"></div><div class="sum-grid"><div class="sg"><strong id="sum1-time">&mdash;</strong><span>Total time</span></div><div class="sg"><strong id="sum1-r1">&mdash;</strong><span>Churn risk</span></div><div class="sg"><strong id="sum1-r2">&mdash;</strong><span>ARR at risk</span></div><div class="sg"><strong>1</strong><span>Human decision</span></div></div><div class="sum-acts"><button class="sa sa-s" onclick="rwf(1)">&#8635; Reset</button></div></div>
+  </div>
+</div>
 
-## Part 1 — CSV Import Tab in Admin Dashboard
+<!-- WF2: KNOWLEDGE BASE GENERATION -->
+<div class="wf-section" id="wf2">
+  <div class="wf-hdr">
+    <div class="wf-eye">Knowledge Base Generation &middot; Customer Service</div>
+    <div class="wf-title">Ticket Cluster to <em>KB Article Live</em></div>
+    <p class="wf-sub">Weeks of manual KB authoring compressed to minutes. AI clusters related tickets, identifies gaps, and drafts the article &mdash; SME reviews before it goes live. Human expertise stays in the loop.</p>
+    <div class="wf-stats">
+      <div class="ws"><strong class="r">2 weeks</strong><span>Without AI</span></div>
+      <div class="ws"><strong class="g">~3 min</strong><span>With AI + gate</span></div>
+      <div class="ws"><strong>1</strong><span>Human gate</span></div>
+      <div class="ws"><strong>6</strong><span>Pipeline steps</span></div>
+    </div>
+  </div>
+  <div class="bva-card">
+    <div class="bva-head">
+      <div class="bva-label">Before vs After</div>
+      <div class="bva-title">What changes &mdash; and what doesn&apos;t</div>
+      <div class="bva-sub">AI eliminates 99% of authoring time. The SME review gate is preserved &mdash; no article goes live without a domain expert approving accuracy and tone.</div>
+    </div>
+    <div class="bva-hitl">
+      <div style="font-size:10px;color:var(--mu);margin-bottom:8px;letter-spacing:.04em">Each step &mdash; who owns it</div>
+      <div class="bva-grid" style="grid-template-columns:repeat(6,1fr)">
+        <div class="bva-cell bva-ai">01<br>Ticket<br>cluster</div>
+        <div class="bva-cell bva-ai">02<br>Gap<br>analysis</div>
+        <div class="bva-cell bva-ai">03<br>Draft<br>article</div>
+        <div class="bva-cell bva-h">04<br>SME<br>review</div>
+        <div class="bva-cell bva-ai">05<br>SEO<br>optimise</div>
+        <div class="bva-cell bva-ai">06<br>Publish<br>live</div>
+      </div>
+      <div style="display:flex;gap:14px;margin-top:7px;font-size:10px">
+        <span style="color:var(--in)">&#9632; AI automated (5 steps)</span>
+        <span style="color:var(--ac)">&#9632; Human decision required (1 step)</span>
+      </div>
+    </div>
+    <div class="bva-toggle">
+      <button class="bva-btn bva-on" onclick="setChart2('before')" id="cb2-before">Without AI</button>
+      <button class="bva-btn" onclick="setChart2('after')" id="cb2-after">With AI</button>
+      <button class="bva-btn" onclick="setChart2('compare')" id="cb2-compare">Side by side</button>
+    </div>
+    <div class="bva-legend" id="bva-legend-2"></div>
+    <div id="bva-bars-2"></div>
+    <div class="bva-total" id="bva-total-2"></div>
+  </div>
+  <div class="fc">
+    <div class="fc-lbl">Knowledge Gap Input</div>
+    <div class="fg">
+      <div class="ff"><span class="fl">Topic / Product Area</span><input class="fi" id="f2-topic" value="Payment gateway webhook retry configuration"></div>
+      <div class="ff"><span class="fl">Ticket Volume</span><input class="fi" id="f2-vol" value="47 tickets in last 30 days"></div>
+      <div class="ff"><span class="fl">Audience</span><select class="fs" id="f2-aud"><option>Developer &mdash; Technical</option><option>Admin &mdash; Non-technical</option><option>End user &mdash; Consumer</option></select></div>
+      <div class="ff"><span class="fl">Existing Article</span><select class="fs" id="f2-exist"><option>None &mdash; new article needed</option><option>Outdated &mdash; needs rewrite</option><option>Incomplete &mdash; needs expansion</option></select></div>
+      <div class="ff ff-w"><span class="fl">Common Questions / Pain Points</span><textarea class="fta" id="f2-pain">Customers confused about retry intervals, max attempts, and how to handle failed webhooks. Many don&apos;t know about exponential backoff. Signature verification failures also common.</textarea></div>
+    </div>
+    <div class="rr"><button class="rb" id="btn2" onclick="run2()">&#9654; Run KB Generation Workflow</button><span class="mt">real Claude inference per step</span></div>
+  </div>
+  <div class="pw" id="pw2">
+    <div class="pw-hdr"><span class="pw-t">KB Generation Pipeline</span><span class="pw-s ps-run" id="ps2">&#9679; Running</span></div>
+    <div class="steps">
+      <div class="step pending" id="s2-1"><div class="step-sp"><div class="step-d">1</div></div><div class="step-b"><div class="step-tr"><span class="step-n">Ticket Cluster Analysed</span><span class="op op-ai">AI</span></div><div class="step-det">Related tickets grouped &middot; common patterns extracted &middot; question taxonomy built</div><div class="step-out" id="o2-1"></div></div></div>
+      <div class="step pending" id="s2-2"><div class="step-sp"><div class="step-d">2</div></div><div class="step-b"><div class="step-tr"><span class="step-n">Knowledge Gap Identified</span><span class="op op-ai">AI</span></div><div class="step-det">Existing docs compared &middot; gaps mapped &middot; scope of new article defined</div><div class="step-out" id="o2-2"></div></div></div>
+      <div class="step pending" id="s2-3"><div class="step-sp"><div class="step-d">3</div></div><div class="step-b"><div class="step-tr"><span class="step-n">KB Article Drafted</span><span class="op op-ai">AI</span></div><div class="step-det">Full article written &middot; code examples &middot; troubleshooting steps &middot; structured for audience</div><div class="step-out" id="o2-3"></div><div class="doc-blk" id="doc2-3"></div></div></div>
+      <div class="step pending" id="s2-4"><div class="step-sp"><div class="step-d">4</div></div><div class="step-b"><div class="step-tr"><span class="step-n">SME Review &amp; Approval</span><span class="op op-h">Human gate</span></div><div class="step-det">Subject matter expert reviews for accuracy, completeness, and tone</div><div class="step-out" id="o2-4"></div>
+        <div class="hg" id="hg2-4">
+          <div class="hg-top"><div class="hg-ico"><svg viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="4" r="2" stroke="var(--ac)" stroke-width="1.2"/><path d="M2 12c0-2.5 2-4.5 4.5-4.5S11 9.5 11 12" stroke="var(--ac)" stroke-width="1.2" stroke-linecap="round"/></svg></div><div><div class="hg-t">SME review required before publishing</div><div class="hg-s">AI has drafted the article. No article goes live without a subject matter expert approving accuracy.</div></div></div>
+          <div class="hg-chips" id="hg2-4-chips"></div>
+          <div class="hg-acts"><button class="hgb p" onclick="hd(2,4,'approve')">Approve &mdash; Publish Article</button><button class="hgb" onclick="hd(2,4,'revise')">Request Revisions</button></div>
+          <div class="hg-note">SME approval is required before publication. Reviewer attributed in article metadata.</div>
+        </div>
+      </div></div>
+      <div class="step pending" id="s2-5"><div class="step-sp"><div class="step-d">5</div></div><div class="step-b"><div class="step-tr"><span class="step-n">SEO &amp; Metadata Optimised</span><span class="op op-ai">AI</span></div><div class="step-det">Title tag &middot; meta description &middot; header structure &middot; internal linking &middot; search keywords</div><div class="step-out" id="o2-5"></div></div></div>
+      <div class="step pending" id="s2-6"><div class="step-sp"><div class="step-d">6</div></div><div class="step-b"><div class="step-tr"><span class="step-n">Article Published &amp; Deflection Tracked</span><span class="op op-ai">AI</span></div><div class="step-det">Article live &middot; Zendesk linked &middot; ticket deflection baseline set &middot; chatbot trained</div><div class="step-out" id="o2-6"></div></div></div>
+    </div>
+    <div class="artifact" id="art2">
+      <div class="art-hdr"><span class="art-hdr-t">KB ARTICLE RECORD</span><span class="art-ts" id="art2-ts"></span></div>
+      <div class="art-body">
+        <div class="art-section"><div class="art-section-t">Article Details</div><div class="art-grid" id="art2-article"></div></div>
+        <div class="art-section"><div class="art-section-t">Impact Forecast</div><div class="art-grid" id="art2-impact"></div></div>
+        <div class="art-section"><div class="art-section-t">Human Decisions</div><div class="art-decisions" id="art2-decisions"></div></div>
+        <div class="art-dl"><button class="art-dl-btn p" onclick="printCaseFile('art2','pw2','Knowledge Base Article — Draft','#EC4899')">&#8595; Download KB Article PDF</button></div>
+      </div>
+    </div>
+    <div class="sum" id="sum2"><div class="sum-t" id="sum2-t">Article Published</div><div class="sum-s" id="sum2-s"></div><div class="sum-grid"><div class="sg"><strong id="sum2-time">&mdash;</strong><span>Total time</span></div><div class="sg"><strong id="sum2-r1">&mdash;</strong><span>Tickets addressed</span></div><div class="sg"><strong id="sum2-r2">&mdash;</strong><span>Est. deflection</span></div><div class="sg"><strong>1</strong><span>Human decision</span></div></div><div class="sum-acts"><button class="sa sa-s" onclick="rwf(2)">&#8635; Reset</button></div></div>
+  </div>
+</div>
 
-### New Tab in /dashboard
-Add an "Import" tab to the existing admin dashboard (app/dashboard/page.tsx) alongside the existing tabs: Overview, Claims, Academies, Coaches, Enquiries, Settings, Backlog.
-
-Import tab UI:
-- Section 1: "Download Template" — gold button that downloads the CSV template (see Part 3)
-- Section 2: "Upload CSV" — file input (accept .csv only) + "Import Academies" button
-- Section 3: "Import Results" — shown after upload, displays a results table
-
-Results table columns:
-- Row # | Academy Name | Status (Imported / Skipped / Error) | Detail (reason if skipped/error)
-
-Import rules:
-- Skip rows where slug already exists in academies table (show "Skipped — already exists")
-- Skip rows with missing required fields: name, city, state (show "Skipped — missing required fields")
-- On successful insert show "Imported"
-- On DB error show "Error — [error message]"
-- Show summary at top: "X imported, Y skipped, Z errors" in colored badges
-
-### Import API
-File: app/api/admin/import-academies/route.ts
-Method: POST
-Auth: verify DASHBOARD_PIN from Authorization header (same pattern as other admin APIs)
-Body: JSON array of academy rows parsed from CSV on the client side
-
-Processing per row:
-- Generate slug from name: lowercase, replace spaces and special chars with hyphens, strip double hyphens
-- Check slug uniqueness — if slug exists, skip
-- Validate required: name, city, state — if missing, skip
-- Insert into academies table with:
-  - All provided fields
-  - tier = 'basic' (default for all imports)
-  - claimed = false
-  - is_active = true
-  - is_demo = false
-  - is_verified = false
-  - created_at = now()
-- Use service role client
-- Return per-row results array
-
-Slug generation function (also add to lib/utils.ts):
-function generateSlug(name: string): string
-- Lowercase
-- Replace & with 'and'
-- Remove apostrophes
-- Replace all non-alphanumeric chars with hyphens
-- Replace multiple consecutive hyphens with single hyphen
-- Trim leading/trailing hyphens
-- Max 80 chars
-
-### Client-side CSV parsing
-In the Import tab component:
-- Use PapaParse (already available as papaparse in the project, or install if not present)
-- Parse CSV on client before sending to API
-- Map CSV column headers to academy table fields (see template columns below)
-- Trim all string values
-- Convert boolean columns: 'true'/'yes'/'1' → true, anything else → false
-- Convert numeric columns: parse as float, null if empty or NaN
-
----
-
-## Part 2 — CSV Template Columns
-
-The CSV template must have exactly these columns in this order:
-
-name, short_description, description, address, city, state, zip,
-phone, whatsapp, email, website, instagram, facebook, youtube,
-age_groups, formats, facilities,
-price_from, owner_name, owner_phone, owner_email,
-latitude, longitude
-
-Column notes:
-- age_groups: pipe-separated list e.g. "U13|U15|U17|Adult"
-- formats: pipe-separated list e.g. "T20|ODI"
-- facilities: pipe-separated list e.g. "Indoor Nets|Bowling Machine|Parking"
-- price_from: number, USD
-- latitude/longitude: decimal numbers
-- All other fields: plain text
-
-Client-side parser must split pipe-separated columns into arrays before sending to API.
-
----
-
-## Part 3 — Pre-filled Seattle Template
-
-Generate a downloadable CSV file with 12-15 Seattle-area cricket academies pre-filled using publicly known information. Research the following known Seattle-area cricket organizations and fill in as much accurate data as possible:
-
-Known Seattle cricket organizations to include:
-- MLCA Seattle Academy (theunitedsports.com — already known, city: Redmond WA)
-- Seattle Chargers / United Sports Academy (Redmond, WA)
-- Pacific Cricket Club (Seattle area)
-- Eastside Cricket Club (Bellevue/Redmond area)
-- Washington Cricket Association affiliated academies
-- Snohomish County cricket clubs
-- Tacoma cricket clubs
-- Any other Pacific Northwest cricket academies findable via public info
-
-For each academy include:
-- Accurate name, city, state (WA), address if known
-- Phone/email/website/instagram if publicly available
-- age_groups and formats based on what is known about the organization
-- facilities if known
-- owner_name if the organization has a known director/head coach
-
-Leave fields blank if not known — do not invent data.
-
-The template file should be generated as a downloadable .csv file that the Import tab serves when Shah clicks "Download Template".
-
-Store the template data as a constant in the dashboard or as a static file at public/templates/academies-template.csv
-
----
-
-## Part 4 — Duplicate Slug Handling
-
-Update generateSlug in lib/utils.ts to handle collisions:
-- In the import API, if generated slug exists, append -2, -3 etc. until unique
-- Check uniqueness with a Supabase query before insert
-- Max suffix: -99
-
----
-
-## Testing
-- Unit tests: generateSlug() — handles special chars, ampersands, apostrophes, long names, max length
-- Unit tests: CSV boolean parser, numeric parser, pipe-array splitter
-- Integration tests: POST /api/admin/import-academies — imports valid row, skips duplicate slug, skips missing required fields, returns correct result shape, returns 401 without PIN
-- E2E: admin dashboard Import tab visible, upload CSV with 2 rows → results table shows
-
-## Session End Checklist
-1. Update CLAUDE_CONTEXT.md — new files, routes, updated backlog
-2. Run npm test — all tests must pass
-3. Commit: "Session 11: CSV bulk import tool for academies + Seattle academy template"
-Show more
-Let me read the dashboard and check for papaparse.
-
-Read c:\Users\taher\theunitedsports\app\dashboard\page.tsx (lines 186-200)
-Bash Check if papaparse is installed
-IN
-cd c:/Users/taher/theunitedsports && npm ls papaparse 2>&1 | head -3
-
-OUT
-theunitedsports@0.1.0 C:\Users\taher\theunitedsports
-`-- (empty)
-Need to install papaparse. Let me also read the full TABS section and understand the dashboard structure.
-
-Read c:\Users\taher\theunitedsports\app\dashboard\page.tsx (lines 195-204)
-Bash Install papaparse and types
-IN
-cd c:/Users/taher/theunitedsports && npm install papaparse @types/papaparse 2>&1 | tail -3
-
-OUT
-  npm audit fix --force
-
-Run `npm audit` for details.
-Update Todos
-
-Create generateSlug in lib/utils.ts + unit tests
-
-Create import API route
-
-Create CSV template + add Import tab to dashboard
-
-Run tests, update CLAUDE_CONTEXT.md, commit
-Edit c:\Users\taher\theunitedsports\CLAUDE_CONTEXT.md
-Modified
-Create lib/utils.ts with generateSlug.
-
-Write c:\Users\taher\theunitedsports\lib\utils.ts
-31 lines
-/** Generate a URL-safe slug from a name */
-export function generateSlug(name: string): string {
-  return name
-    .toLowerCase()
-    .replace(/&/g, 'and')
-    .replace(/'/g, '')
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/-{2,}/g, '-')
-    .replace(/^-|-$/g, '')
-    .slice(0, 80)
+</main>
+<footer class="footer">
+  <p class="footer-s">Every workflow above took us hours to build. Your Zendesk or Salesforce Service Cloud implementation took months and cost millions.<br>We rebuild it AI-native in 8 weeks &mdash; you own the code.</p>
+  <a class="footer-cta" href="https://bisxp.com/#contact">Book a Free Assessment &rarr;</a>
+</footer>
+<div class="toast" id="toast-el"><div class="toast-t" id="toast-t"></div><div id="toast-m"></div></div>
+<script>
+const API='/api/ai',MODEL='claude-sonnet-4-20250514';
+let running={},hRes={},t0={};
+function toast(t,m){document.getElementById('toast-t').textContent=t;document.getElementById('toast-m').textContent=m;const el=document.getElementById('toast-el');el.classList.add('show');setTimeout(()=>el.classList.remove('show'),5000);}
+function sw(n){document.querySelectorAll('.db').forEach((b,i)=>b.classList.toggle('active',i===n));document.querySelectorAll('.wf-section').forEach((s,i)=>s.classList.toggle('active',i===n));window.scrollTo({top:document.querySelector('.dnav').offsetTop-10,behavior:'smooth'});}
+function now(){return new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit',second:'2-digit'});}
+function ms(t){return((Date.now()-t)/1000).toFixed(1)+'s';}
+function sendEmailW(w,n){const btn=document.getElementById('email'+w+'-'+n+'-btn');if(btn){btn.textContent='Sent';btn.classList.add('sent');toast('Sent','Communication dispatched via Resend.');}}
+async function ai(sys,usr){const r=await fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:MODEL,max_tokens:900,system:sys,messages:[{role:'user',content:usr}]})});if(!r.ok)throw new Error('API '+r.status);const d=await r.json();return(d.content?.find(b=>b.type==='text')?.text||'').trim();}
+function pj(t){try{return JSON.parse(t.replace(/```json
+?/g,'').replace(/```
+?/g,'').trim());}catch{return null;}}
+function stepA(w,n){const el=document.getElementById('s'+w+'-'+n);if(!el)return;el.className='step active';el.querySelector('.step-d').innerHTML='<div class="spin"></div>';}
+function stepD(w,n,txt,badge,t){const el=document.getElementById('s'+w+'-'+n);if(!el)return;el.className='step done';el.querySelector('.step-d').textContent='✓';const out=document.getElementById('o'+w+'-'+n);if(!out)return;const bc={OK:'sb-ok',APPROVED:'sb-ok',COMPLETE:'sb-ok',GENERATED:'sb-ac',WARNING:'sb-wn',FLAGGED:'sb-er'};const bt={OK:'OK',APPROVED:'Approved',COMPLETE:'Complete',GENERATED:'Generated',WARNING:'Warning',FLAGGED:'Flagged'}[badge]||'Done';out.innerHTML=txt+'<span class="sbadge '+(bc[badge]||'sb-ok')+'">'+bt+'</span>'+(t?'<span class="step-ti">'+t+'</span>':'');out.style.display='block';}
+function stepW(w,n){const el=document.getElementById('s'+w+'-'+n);if(el)el.className='step wait';}
+function ps(w,cls,txt){const el=document.getElementById('ps'+w);if(el){el.className='pw-s '+cls;el.textContent=txt;}}
+function showHG(id){document.getElementById(id)&&document.getElementById(id).classList.add('show');}
+function chips(id,arr){const el=document.getElementById(id);if(!el)return;el.innerHTML=arr.map(c=>'<div class="hgc"><div class="hgc-l">'+c.l+'</div><div class="hgc-v '+(c.cl||'')+'">'+c.v+'</div></div>').join('');}
+function artKV(id,arr){const el=document.getElementById(id);if(!el)return;el.innerHTML=arr.map(c=>'<div class="art-kv"><div class="art-k">'+c.k+'</div><div class="art-v '+(c.cl||'')+'">'+c.v+'</div></div>').join('');}
+function artDec(w,who,what){const el=document.getElementById('art'+w+'-decisions');if(!el)return;el.innerHTML+='<div class="art-dec"><span class="art-dec-who">'+who+'</span><span class="art-dec-what">'+what+'</span><span class="art-dec-time">'+now()+'</span></div>';}
+function waitH(key){return new Promise(res=>{hRes[key]=res;});}
+function hd(w,n,val){document.getElementById('hg'+w+'-'+n)&&document.getElementById('hg'+w+'-'+n).classList.remove('show');if(hRes[w+'-'+n]){hRes[w+'-'+n](val);delete hRes[w+'-'+n];}}
+function rwf(w){
+  running[w]=false;
+  document.getElementById('pw'+w)?.classList.remove('vis');
+  document.getElementById('sum'+w)?.classList.remove('vis');
+  document.getElementById('art'+w)?.classList.remove('show');
+  const btn=document.getElementById('btn'+w);if(btn){btn.disabled=false;btn.textContent='Run Workflow';}
+  for(let n=1;n<=8;n++){const s=document.getElementById('s'+w+'-'+n);if(!s)continue;s.className='step pending';const d=s.querySelector('.step-d');if(d)d.textContent=n;const o=document.getElementById('o'+w+'-'+n);if(o){o.textContent='';o.style.display='none';}const doc=document.getElementById('doc'+w+'-'+n);if(doc){doc.textContent='';doc.style.display='none';}const hg=document.getElementById('hg'+w+'-'+n);if(hg)hg.classList.remove('show');}
+  const em=document.getElementById('email'+w+'-6');if(em)em.style.display='none';
+  ['incident','resolution','decisions','account','strategy','article','impact'].forEach(s=>{const el=document.getElementById('art'+w+'-'+s);if(el)el.innerHTML='';});
 }
 
-/** Parse pipe-separated string into array — e.g. "T20|ODI" → ["T20", "ODI"] */
-export function parsePipeArray(value: string | undefined | null): string[] {
-  if (!value || !value.trim()) return []
-  return value.split('|').map(s => s.trim()).filter(Boolean)
+// WF0: Incident Resolution
+async function run0(){
+  if(running[0])return;running[0]=true;t0[0]=Date.now();
+  const btn=document.getElementById('btn0');btn.disabled=true;btn.textContent='Running...';
+  rwf(0);document.getElementById('pw0').classList.add('vis');ps(0,'ps-run','Running');
+  document.getElementById('pw0').scrollIntoView({behavior:'smooth',block:'start'});
+  const sev=document.getElementById('f0-sev').value;
+  const cust=document.getElementById('f0-cust').value;
+  const prod=document.getElementById('f0-prod').value;
+  const dur=document.getElementById('f0-dur').value;
+  const desc=document.getElementById('f0-desc').value;
+  const ctx='Severity: '+sev+' | Customer: '+cust+' | Product: '+prod+' | Duration: '+dur+' | Description: '+desc;
+  const SYS='You are a customer success and incident management AI. Respond ONLY valid JSON no fences. Schema: {"output":"2-3 sentence specific result for this incident","badge":"OK|COMPLETE|WARNING|FLAGGED|APPROVED|GENERATED","detail":"specifics: root cause, revenue impact, SLA credit amount, postmortem sections, fix description"}';
+  try{
+    let prev='';
+    stepA(0,1);const t1=Date.now();
+    const r1=await ai(SYS,'Triage this incident. Confirm severity, estimate blast radius, calculate revenue impact. '+ctx);
+    const d1=pj(r1)||{output:r1,badge:'WARNING',detail:''};prev=d1.output+(d1.detail?' '+d1.detail:'');
+    stepD(0,1,d1.output||r1,'WARNING',ms(t1));
+    artKV('art0-incident',[{k:'Severity',v:sev.split('—')[0].trim(),cl:'er'},{k:'Customer',v:cust.split('—')[0].trim(),cl:'ac'},{k:'Product',v:prod},{k:'Duration',v:dur}]);
+
+    stepA(0,2);const t2=Date.now();
+    const r2=await ai(SYS,'Diagnose root cause. Analyse logs, error patterns, recent deploys, dependencies. '+ctx+' Prior: '+prev);
+    const d2=pj(r2)||{output:r2,badge:'FLAGGED',detail:''};prev=d2.output+(d2.detail?' '+d2.detail:'');
+    stepD(0,2,d2.output||r2,'FLAGGED',ms(t2));
+
+    stepA(0,3);const t3=Date.now();
+    const r3=await ai(SYS,'Summarise root cause for engineer sign-off. What is the diagnosis and proposed fix? '+ctx+' Prior: '+prev);
+    const d3=pj(r3)||{output:r3,badge:'OK',detail:''};prev=d3.output+(d3.detail?' '+d3.detail:'');
+    stepD(0,3,d3.output||r3,'OK',ms(t3));
+    chips('hg0-3-chips',[
+      {l:'Root Cause',v:'Identified',cl:'ac'},{l:'Fix Ready',v:'Yes',cl:'ok'},
+      {l:'Product Area',v:prod},{l:'Duration',v:dur},
+    ]);
+    ps(0,'ps-wait','Awaiting engineer sign-off');stepW(0,3);showHG('hg0-3');
+    const c3=await waitH('0-3');ps(0,'ps-run','Running');
+    artDec(0,'On-call Engineer','Root cause '+(c3==='confirm'?'confirmed':'flagged for more investigation')+' — fix deployed to '+prod);
+    document.getElementById('s0-3').className='step done';document.getElementById('s0-3').querySelector('.step-d').textContent='✓';
+
+    stepA(0,4);const t4=Date.now();
+    const r4=await ai(SYS+' Also include postmortem field: a structured blameless postmortem with Timeline, Root Cause, Impact, Resolution, and Prevention sections.','Write blameless postmortem. '+ctx+' Engineer confirmed fix: '+prev);
+    const d4=pj(r4)||{output:r4,badge:'GENERATED',detail:'',postmortem:r4};prev=d4.output+(d4.detail?' '+d4.detail:'');
+    stepD(0,4,d4.output||r4,'GENERATED',ms(t4));
+    const doc4=document.getElementById('doc0-4');if(doc4&&d4.postmortem){doc4.textContent=d4.postmortem;doc4.style.display='block';}
+
+    stepA(0,5);const t5=Date.now();
+    const r5=await ai(SYS,'Calculate SLA credit. Duration: '+dur+'. Customer is enterprise. Include SLA tier breach analysis and credit amount. '+ctx+' Prior: '+prev);
+    const d5=pj(r5)||{output:r5,badge:'OK',detail:''};prev=d5.output+(d5.detail?' '+d5.detail:'');
+    stepD(0,5,d5.output||r5,'OK',ms(t5));
+    const creditAmt=d5.detail?.match(/\$[\d,]+/)?.[0]||'$2,400';
+    const arrVal=cust.match(/\$[\d,]+K?/)?.[0]||'$480K';
+    chips('hg0-5-chips',[
+      {l:'Downtime',v:dur},{l:'SLA Breach',v:'Tier 1',cl:'er'},
+      {l:'Credit Calculated',v:creditAmt,cl:'ac'},{l:'ARR',v:arrVal},
+    ]);
+    ps(0,'ps-wait','Awaiting CSM credit approval');stepW(0,5);showHG('hg0-5');
+    const c5=await waitH('0-5');ps(0,'ps-run','Running');
+    const creditFinal=c5==='increase'?'Increased credit (high-value account)':c5==='decline'?'Credit declined':creditAmt+' approved';
+    artDec(0,'Customer Success Manager','SLA credit: '+creditFinal+' for '+cust.split('—')[0].trim());
+    document.getElementById('s0-5').className='step done';document.getElementById('s0-5').querySelector('.step-d').textContent='✓';
+    artKV('art0-resolution',[{k:'Root Cause',v:'Identified & Fixed',cl:'ok'},{k:'SLA Credit',v:creditAmt,cl:'ac'},{k:'Credit Status',v:c5==='decline'?'Declined':'Approved',cl:c5==='decline'?'er':'ok'},{k:'Postmortem',v:'Complete',cl:'ok'}]);
+
+    stepA(0,6);const t6=Date.now();
+    const r6=await ai(SYS+' Also include email_subject and email_body fields: executive communication to CTO/VP acknowledging the incident, what was fixed, and the credit offer.','Draft executive communication. '+ctx+' Credit: '+creditAmt+' Prior: '+prev);
+    const d6=pj(r6)||{output:r6,badge:'GENERATED',email_subject:'Re: Service Incident — Resolution & Credit',email_body:r6};
+    stepD(0,6,d6.output||r6,'GENERATED',ms(t6));
+    const em6=document.getElementById('email0-6');
+    if(em6){document.getElementById('email0-6-to').textContent='CTO, '+cust.split('—')[0].trim();document.getElementById('email0-6-subj').textContent=d6.email_subject||'Incident Resolution';document.getElementById('email0-6-body').textContent=d6.email_body||r6;em6.style.display='block';}
+
+    stepA(0,7);const t7=Date.now();
+    const r7=await ai(SYS,'Close the incident. Update CRM, apply credit, create Jira tickets for prevention work, schedule follow-up. '+ctx+' Prior: '+prev);
+    const d7=pj(r7)||{output:r7,badge:'COMPLETE',detail:''};
+    stepD(0,7,d7.output||r7,'COMPLETE',ms(t7));
+
+    document.getElementById('art0-ts').textContent='Completed '+now();document.getElementById('art0').classList.add('show');
+    ps(0,'ps-ok','Complete');
+    document.getElementById('sum0-t').textContent=cust.split('—')[0].trim()+' — Incident Resolved';
+    document.getElementById('sum0-s').textContent=sev.split('—')[0].trim()+' · Root cause fixed · '+creditAmt+' SLA credit approved · Postmortem complete';
+    document.getElementById('sum0-time').textContent=ms(t0[0]);document.getElementById('sum0-r1').textContent=creditAmt;document.getElementById('sum0-r2').textContent=sev.split('—')[0].trim();
+    document.getElementById('sum0').classList.add('vis');document.getElementById('sum0').scrollIntoView({behavior:'smooth',block:'nearest'});
+  }catch(err){ps(0,'ps-err','Error');toast('Error',err.message);}
+  btn.disabled=false;btn.textContent='Run Again';running[0]=false;
 }
 
-/** Parse CSV boolean — 'true', 'yes', '1' → true, anything else → false */
-export function parseCsvBoolean(value: string | undefined | null): boolean {
-  if (!value) return false
-  return ['true', 'yes', '1'].includes(value.trim().toLowerCase())
+// WF1: Churn Prediction
+async function run1(){
+  if(running[1])return;running[1]=true;t0[1]=Date.now();
+  const btn=document.getElementById('btn1');btn.disabled=true;btn.textContent='Running...';
+  rwf(1);document.getElementById('pw1').classList.add('vis');ps(1,'ps-run','Running');
+  document.getElementById('pw1').scrollIntoView({behavior:'smooth',block:'start'});
+  const cust=document.getElementById('f1-cust').value;
+  const renew=document.getElementById('f1-renew').value;
+  const signal=document.getElementById('f1-signal').value;
+  const seg=document.getElementById('f1-seg').value;
+  const notes=document.getElementById('f1-notes').value;
+  const ctx='Customer: '+cust+' | Renewal in: '+renew+' | Signal: '+signal+' | Segment: '+seg+' | Context: '+notes;
+  const SYS='You are a customer success AI specialising in churn prevention. Respond ONLY valid JSON no fences. Schema: {"output":"2-3 sentence specific result","badge":"OK|COMPLETE|WARNING|FLAGGED|GENERATED","detail":"specifics: churn probability %, health score, ARR at risk, save offer details, call script key points, objection handlers"}';
+  try{
+    let prev='';
+    stepA(1,1);const t1=Date.now();
+    const r1=await ai(SYS,'Score churn risk for this customer. '+ctx);
+    const d1=pj(r1)||{output:r1,badge:'FLAGGED',detail:''};prev=d1.output+(d1.detail?' '+d1.detail:'');
+    const risk=d1.badge==='FLAGGED'?'High':d1.badge==='WARNING'?'Medium':'Low';
+    stepD(1,1,d1.output||r1,d1.badge||'FLAGGED',ms(t1));
+    artKV('art1-account',[{k:'Customer',v:cust.split('—')[0].trim(),cl:'ac'},{k:'ARR',v:cust.match(/\$[\d,]+K?/)?.[0]||'—'},{k:'Renewal',v:renew},{k:'Signal',v:signal.split('—')[0].trim()},{k:'Churn Risk',v:risk,cl:risk==='High'?'er':'wn'}]);
+
+    stepA(1,2);const t2=Date.now();
+    const r2=await ai(SYS,'Assess full account health. NPS, usage trends, support sentiment, expansion signals. '+ctx+' Prior: '+prev);
+    const d2=pj(r2)||{output:r2,badge:'WARNING',detail:''};prev=d2.output+(d2.detail?' '+d2.detail:'');
+    stepD(1,2,d2.output||r2,d2.badge||'WARNING',ms(t2));
+
+    stepA(1,3);const t3=Date.now();
+    const r3=await ai(SYS+' Also include strategy_brief field: a 150-word save strategy brief with recommended offer, talking points, and competitor counter-positioning.','Build personalised save strategy. '+ctx+' Prior: '+prev);
+    const d3=pj(r3)||{output:r3,badge:'GENERATED',detail:'',strategy_brief:r3};prev=d3.output+(d3.detail?' '+d3.detail:'');
+    stepD(1,3,d3.output||r3,'GENERATED',ms(t3));
+    const doc3=document.getElementById('doc1-3');if(doc3&&d3.strategy_brief){doc3.textContent=d3.strategy_brief;doc3.style.display='block';}
+
+    chips('hg1-4-chips',[
+      {l:'Churn Risk',v:risk,cl:risk==='High'?'er':'wn'},{l:'Renewal',v:renew},
+      {l:'Segment',v:seg},{l:'ARR at Risk',v:cust.match(/\$[\d,]+K?/)?.[0]||'—',cl:'ac'},
+    ]);
+    ps(1,'ps-wait','Awaiting CSM review');stepW(1,4);showHG('hg1-4');
+    const c4=await waitH('1-4');ps(1,'ps-run','Running');
+    artDec(1,'Customer Success Manager','Save strategy '+(c4==='approve'?'approved':'adjusted')+' for '+cust.split('—')[0].trim()+' — outreach authorised');
+    document.getElementById('s1-4').className='step done';document.getElementById('s1-4').querySelector('.step-d').textContent='✓';
+    artKV('art1-strategy',[{k:'Strategy',v:c4==='approve'?'Approved as-is':'Adjusted',cl:'ok'},{k:'Offer Level',v:c4==='adjust'?'Modified':'As recommended'},{k:'Next Step',v:'CSM outreach call'},{k:'Timeline',v:'Within 48 hours'}]);
+
+    stepA(1,5);const t5=Date.now();
+    const r5=await ai(SYS+' Also include call_brief field: a structured call brief with opening, key talking points, offer to present, objection handlers, and close.','Generate CSM call brief and outreach script. '+ctx+' Strategy approved: '+prev);
+    const d5=pj(r5)||{output:r5,badge:'GENERATED',detail:'',call_brief:r5};
+    stepD(1,5,d5.output||r5,'GENERATED',ms(t5));
+    const doc5=document.getElementById('doc1-5');if(doc5&&d5.call_brief){doc5.textContent=d5.call_brief;doc5.style.display='block';}
+
+    stepA(1,6);const t6=Date.now();
+    const r6=await ai(SYS,'Update CRM. Set churn risk flag, log save play, update renewal forecast, schedule QBR. '+ctx+' Prior: '+prev);
+    const d6=pj(r6)||{output:r6,badge:'COMPLETE',detail:''};
+    stepD(1,6,d6.output||r6,'COMPLETE',ms(t6));
+
+    document.getElementById('art1-ts').textContent='Completed '+now();document.getElementById('art1').classList.add('show');
+    ps(1,'ps-ok','Complete');
+    document.getElementById('sum1-t').textContent='Save Play Active — '+cust.split('—')[0].trim();
+    document.getElementById('sum1-s').textContent='Churn risk: '+risk+' · CSM brief ready · Outreach authorised · CRM updated';
+    document.getElementById('sum1-time').textContent=ms(t0[1]);document.getElementById('sum1-r1').textContent=risk;document.getElementById('sum1-r2').textContent=cust.match(/\$[\d,]+K?/)?.[0]||'—';
+    document.getElementById('sum1').classList.add('vis');document.getElementById('sum1').scrollIntoView({behavior:'smooth',block:'nearest'});
+  }catch(err){ps(1,'ps-err','Error');toast('Error',err.message);}
+  btn.disabled=false;btn.textContent='Run Again';running[1]=false;
 }
 
-/** Parse CSV number — returns number or null */
-export function parseCsvNumber(value: string | undefined | null): number | null {
-  if (!value || !value.trim()) return null
-  const n = parseFloat(value.trim())
-  return isNaN(n) ? null : n
+// WF2: KB Generation
+async function run2(){
+  if(running[2])return;running[2]=true;t0[2]=Date.now();
+  const btn=document.getElementById('btn2');btn.disabled=true;btn.textContent='Running...';
+  rwf(2);document.getElementById('pw2').classList.add('vis');ps(2,'ps-run','Running');
+  document.getElementById('pw2').scrollIntoView({behavior:'smooth',block:'start'});
+  const topic=document.getElementById('f2-topic').value;
+  const vol=document.getElementById('f2-vol').value;
+  const aud=document.getElementById('f2-aud').value;
+  const exist=document.getElementById('f2-exist').value;
+  const pain=document.getElementById('f2-pain').value;
+  const ctx='Topic: '+topic+' | Ticket volume: '+vol+' | Audience: '+aud+' | Existing article: '+exist+' | Pain points: '+pain;
+  const SYS='You are a knowledge base and technical writing AI. Respond ONLY valid JSON no fences. Schema: {"output":"2-3 sentence specific result","badge":"OK|COMPLETE|WARNING|GENERATED","detail":"specifics: article title, word count, sections, SEO keywords, estimated ticket deflection %, chatbot training impact"}';
+  try{
+    let prev='';
+    stepA(2,1);const t1=Date.now();
+    const r1=await ai(SYS,'Analyse the ticket cluster. Extract common patterns, question taxonomy, and frequency. '+ctx);
+    const d1=pj(r1)||{output:r1,badge:'OK',detail:''};prev=d1.output+(d1.detail?' '+d1.detail:'');
+    stepD(2,1,d1.output||r1,'OK',ms(t1));
+
+    stepA(2,2);const t2=Date.now();
+    const r2=await ai(SYS,'Identify the knowledge gap. Compare against existing docs, define exact scope of new article. '+ctx+' Prior: '+prev);
+    const d2=pj(r2)||{output:r2,badge:'OK',detail:''};prev=d2.output+(d2.detail?' '+d2.detail:'');
+    stepD(2,2,d2.output||r2,'OK',ms(t2));
+
+    stepA(2,3);const t3=Date.now();
+    const r3=await ai(SYS+' Also include article_draft field: a complete, publication-ready KB article with title, introduction, structured sections, code examples where relevant, troubleshooting steps, and FAQ. Minimum 400 words. Audience: '+aud,'Write the full KB article. '+ctx+' Prior: '+prev);
+    const d3=pj(r3)||{output:r3,badge:'GENERATED',detail:'',article_draft:r3};prev=d3.output+(d3.detail?' '+d3.detail:'');
+    stepD(2,3,d3.output||r3,'GENERATED',ms(t3));
+    const doc3=document.getElementById('doc2-3');if(doc3&&d3.article_draft){doc3.textContent=d3.article_draft;doc3.style.display='block';}
+
+    const deflect=d3.detail?.match(/\d+%/)?.[0]||'60%';
+    chips('hg2-4-chips',[
+      {l:'Topic',v:topic.split(' ').slice(0,3).join(' ')+'...'},{l:'Ticket Volume',v:vol.split(' ')[0]},
+      {l:'Audience',v:aud.split('—')[0].trim()},{l:'Est. Deflection',v:deflect,cl:'ok'},
+    ]);
+    ps(2,'ps-wait','Awaiting SME review');stepW(2,4);showHG('hg2-4');
+    const c4=await waitH('2-4');ps(2,'ps-run','Running');
+    artDec(2,'Subject Matter Expert','KB article '+(c4==='approve'?'approved for publication':'sent for revision')+' — '+topic);
+    document.getElementById('s2-4').className='step done';document.getElementById('s2-4').querySelector('.step-d').textContent='✓';
+
+    stepA(2,5);const t5=Date.now();
+    const r5=await ai(SYS,'Optimise for SEO. Generate title tag, meta description, headers, internal links, keywords. '+ctx+' Prior: '+prev);
+    const d5=pj(r5)||{output:r5,badge:'COMPLETE',detail:''};
+    stepD(2,5,d5.output||r5,'COMPLETE',ms(t5));
+
+    stepA(2,6);const t6=Date.now();
+    const r6=await ai(SYS,'Publish article. Link to Zendesk, set ticket deflection baseline, update chatbot training. '+ctx+' Prior: '+prev);
+    const d6=pj(r6)||{output:r6,badge:'COMPLETE',detail:''};
+    stepD(2,6,d6.output||r6,'COMPLETE',ms(t6));
+
+    artKV('art2-article',[{k:'Topic',v:topic,cl:'ac'},{k:'Audience',v:aud.split('—')[0].trim()},{k:'Ticket Volume',v:vol},{k:'Status',v:'Live',cl:'ok'}]);
+    artKV('art2-impact',[{k:'Est. Deflection',v:deflect,cl:'ok'},{k:'Tickets Addressed',v:vol.split(' ')[0]},{k:'Chatbot',v:'Training updated',cl:'ok'},{k:'SEO',v:'Optimised',cl:'ok'}]);
+    document.getElementById('art2-ts').textContent='Completed '+now();document.getElementById('art2').classList.add('show');
+    ps(2,'ps-ok','Complete');
+    document.getElementById('sum2-t').textContent='KB Article Published — '+topic.split(' ').slice(0,4).join(' ')+'...';
+    document.getElementById('sum2-s').textContent='SME approved · Live in help centre · Chatbot trained · Est. '+deflect+' ticket deflection';
+    document.getElementById('sum2-time').textContent=ms(t0[2]);document.getElementById('sum2-r1').textContent=vol.split(' ')[0];document.getElementById('sum2-r2').textContent=deflect;
+    document.getElementById('sum2').classList.add('vis');document.getElementById('sum2').scrollIntoView({behavior:'smooth',block:'nearest'});
+  }catch(err){ps(2,'ps-err','Error');toast('Error',err.message);}
+  btn.disabled=false;btn.textContent='Run Again';running[2]=false;
 }
-Now create the import API route and the CSV template in parallel.
 
-Bash Create directories
-IN
-mkdir -p "c:/Users/taher/theunitedsports/app/api/admin/import-academies" "c:/Users/taher/theunitedsports/public/templates"
-
-OUT
-(Bash completed with no output)
-Write c:\Users\taher\theunitedsports\app\api\admin\import-academies\route.ts
-120 lines
-import { createClient } from '@supabase/supabase-js'
-import { NextResponse } from 'next/server'
-import { generateSlug } from '@/lib/utils'
-
-export const maxDuration = 60
-
-const serviceClient = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-)
-
-/** Row result shape returned to the client */
-interface RowResult {
-  row: number
-  name: string
-  status: 'imported' | 'skipped' | 'error'
-  detail: string
-}
-
-export async function POST(request: Request) {
-  try {
-    /* Verify admin PIN */
-    const pin = request.headers.get('x-dashboard-pin')
-    if (!pin || pin !== process.env.DASHBOARD_PIN) {
-      return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 })
-    }
-
-    const body = await request.json()
-    const rows = body.rows as Record<string, unknown>[]
-
-    if (!Array.isArray(rows) || rows.length === 0) {
-      return NextResponse.json({ success: false, error: 'No rows provided' }, { status: 400 })
-    }
-
-    const results: RowResult[] = []
-
-    for (let i = 0; i < rows.length; i++) {
-      const row = rows[i]
-      const name = (row.name as string || '').trim()
-      const city = (row.city as string || '').trim()
-      const state = (row.state as string || '').trim()
-
-      /* Validate required fields */
-      if (!name || !city || !state) {
-        results.push({ row: i + 1, name: name || '(empty)', status: 'skipped', detail: 'Missing required fields (name, city, state)' })
-        continue
-      }
-
-      /* Generate unique slug */
-      let baseSlug = generateSlug(name)
-      let slug = baseSlug
-      let suffix = 1
-      let slugExists = true
-
-      while (slugExists && suffix <= 99) {
-        const { data } = await serviceClient.from('academies').select('id').eq('slug', slug).single()
-        if (data) {
-          suffix++
-          slug = `${baseSlug}-${suffix}`
-        } else {
-          slugExists = false
-        }
-      }
-
-      if (slugExists) {
-        results.push({ row: i + 1, name, status: 'skipped', detail: 'Could not generate unique slug' })
-        continue
-      }
-
-      /* Build insert record */
-      const insertData: Record<string, unknown> = {
-        name, slug, city, state,
-        short_description: row.short_description || null,
-        description: row.description || null,
-        address: row.address || null,
-        zip: row.zip || null,
-        phone: row.phone || null,
-        whatsapp: row.whatsapp || null,
-        email: row.email || null,
-        website: row.website || null,
-        instagram: row.instagram || null,
-        facebook: row.facebook || null,
-        youtube: row.youtube || null,
-        age_groups: Array.isArray(row.age_groups) ? row.age_groups : [],
-        formats: Array.isArray(row.formats) ? row.formats : [],
-        facilities: Array.isArray(row.facilities) ? row.facilities : [],
-        price_from: typeof row.price_from === 'number' ? row.price_from : null,
-        owner_name: row.owner_name || null,
-        owner_phone: row.owner_phone || null,
-        owner_email: row.owner_email || null,
-        latitude: typeof row.latitude === 'number' ? row.latitude : null,
-        longitude: typeof row.longitude === 'number' ? row.longitude : null,
-        tier: 'basic',
-        claimed: false,
-        is_active: true,
-        is_demo: false,
-        is_verified: false,
-      }
-
-      const { error } = await serviceClient.from('academies').insert(insertData)
-
-      if (error) {
-        console.error(`Import row ${i + 1} error:`, error)
-        results.push({ row: i + 1, name, status: 'error', detail: error.message })
-      } else {
-        results.push({ row: i + 1, name, status: 'imported', detail: `Slug: ${slug}` })
-      }
-    }
-
-    const imported = results.filter(r => r.status === 'imported').length
-    const skipped = results.filter(r => r.status === 'skipped').length
-    const errors = results.filter(r => r.status === 'error').length
-
-    return NextResponse.json({ success: true, results, summary: { imported, skipped, errors } })
-  } catch (err) {
-    console.error('Import academies error:', err)
-    return NextResponse.json({ success: false, error: 'Internal server error' }, { status: 500 })
+// BVA Charts
+const BVA_DATA=[
+  [{l:'Incident triage',    before:1440, ai:5,  human:0},{l:'Root cause diagnosis', before:2880, ai:10, human:0},{l:'Engineer sign-off',    before:1440, ai:8,  human:900},{l:'Postmortem draft',     before:4320, ai:15, human:0},{l:'SLA credit calc',     before:2880, ai:8,  human:1800},{l:'Customer comms',      before:2880, ai:10, human:0},{l:'Incident closure',   before:1440, ai:5,  human:0}],
+  [{l:'Signal detection',   before:14400,ai:5,  human:0},{l:'Account health score', before:14400,ai:8,  human:0},{l:'Save strategy build', before:14400,ai:12, human:0},{l:'CSM review',           before:14400,ai:5,  human:1800},{l:'Outreach brief',      before:14400,ai:10, human:0},{l:'CRM update',          before:14400,ai:5,  human:0}],
+  [{l:'Ticket clustering',  before:2880, ai:8,  human:0},{l:'Gap identification',   before:2880, ai:8,  human:0},{l:'Article draft',        before:14400,ai:20, human:0},{l:'SME review',           before:2880, ai:5,  human:1800},{l:'SEO optimisation',    before:2880, ai:8,  human:0},{l:'Publish & train',     before:2880, ai:5,  human:0}],
+];
+const reductions=['98','99','99'];
+let bvaModes=['before','before','before'];
+function bvaFmt(m){if(m<1)return'<1m';if(m<60)return Math.round(m)+'m';if(m<1440)return(m/60).toFixed(1)+'h';return(m/1440).toFixed(1)+'d';}
+function bvaFmtS(s){return s<60?s+'s':Math.round(s/60)+'m';}
+function dot(c){return'<span style="display:inline-block;width:8px;height:8px;border-radius:2px;background:'+c+';margin-right:4px;vertical-align:middle"></span>';}
+function setChart0(m){bvaModes[0]=m;['before','after','compare'].forEach(b=>{const el=document.getElementById('cb0-'+b);if(el)el.className='bva-btn'+(b===m?' bva-on':'');});renderBVA(0);}
+function setChart1(m){bvaModes[1]=m;['before','after','compare'].forEach(b=>{const el=document.getElementById('cb1-'+b);if(el)el.className='bva-btn'+(b===m?' bva-on':'');});renderBVA(1);}
+function setChart2(m){bvaModes[2]=m;['before','after','compare'].forEach(b=>{const el=document.getElementById('cb2-'+b);if(el)el.className='bva-btn'+(b===m?' bva-on':'');});renderBVA(2);}
+function renderBVA(w){
+  const STEPS=BVA_DATA[w],mode=bvaModes[w];
+  const bars=document.getElementById('bva-bars-'+w),leg=document.getElementById('bva-legend-'+w),tot=document.getElementById('bva-total-'+w);
+  if(!bars||!leg||!tot)return;
+  const MAX=STEPS.reduce((a,s)=>a+s.before,0);
+  const tAI=STEPS.reduce((a,s)=>a+s.ai/60,0),tH=STEPS.reduce((a,s)=>a+s.human/60,0),tAfter=tAI+tH;
+  if(mode==='before'){
+    leg.innerHTML=dot('#c0392b')+'Manual process today';
+    bars.innerHTML=STEPS.map(s=>'<div class="bva-row"><div class="bva-row-lbl">'+s.l+'</div><div class="bva-track"><div style="height:10px;width:'+(s.before/MAX*100).toFixed(1)+'%;background:#c0392b;border-radius:4px"></div></div><div class="bva-val-t" style="color:#c0392b">'+bvaFmt(s.before)+'</div></div>').join('');
+    tot.innerHTML='<div class="bva-row"><div class="bva-row-lbl" style="color:var(--cr);font-weight:500">Overall</div><div class="bva-track"><div style="height:10px;width:100%;background:#c0392b;border-radius:4px"></div></div><div class="bva-val-t" style="color:#c0392b;font-weight:600">'+bvaFmt(MAX)+'</div></div>';
+  } else if(mode==='after'){
+    leg.innerHTML=dot('var(--in)')+'AI automated &nbsp; '+dot('var(--ac)')+'Human review (preserved)';
+    bars.innerHTML=STEPS.map(s=>{const aiM=s.ai/60,t2=aiM+s.human/60,pct=(t2/MAX*100).toFixed(3),aiW=t2>0?(aiM/t2*100).toFixed(1)+'%':'100%';const lbl=s.human>0?'<span style="color:var(--in)">'+bvaFmtS(s.ai)+' AI</span> + <span style="color:var(--ac)">'+bvaFmt(s.human/60)+' human</span>':'<span style="color:var(--in)">'+bvaFmtS(s.ai)+'</span>';return '<div class="bva-row"><div class="bva-row-lbl">'+s.l+'</div><div class="bva-track"><div style="display:flex;height:10px;width:'+pct+'%"><div style="background:var(--in);width:'+aiW+';height:100%;border-radius:4px 0 0 4px"></div>'+(s.human>0?'<div style="background:var(--ac);flex:1;height:100%;border-radius:0 4px 4px 0"></div>':'')+'</div></div><div class="bva-val-t" style="font-size:9px">'+lbl+'</div></div>';}).join('');
+    const aiW2=(tAI/tAfter*100).toFixed(1)+'%';
+    tot.innerHTML='<div class="bva-row"><div class="bva-row-lbl" style="color:var(--cr);font-weight:500">Overall</div><div class="bva-track"><div style="display:flex;height:10px;width:'+(tAfter/MAX*100).toFixed(2)+'%"><div style="background:var(--in);width:'+aiW2+';height:100%;border-radius:4px 0 0 4px"></div><div style="background:var(--ac);flex:1;height:100%;border-radius:0 4px 4px 0"></div></div></div><div class="bva-val-t" style="color:var(--ok);font-weight:600">~'+Math.round(tAfter)+'m</div></div>';
+  } else {
+    leg.innerHTML=dot('#c0392b')+'Without AI &nbsp; '+dot('var(--in)')+'AI steps &nbsp; '+dot('var(--ac)')+'Human review';
+    bars.innerHTML=STEPS.map(s=>{const t2=(s.ai/60+s.human/60),tP=(t2/MAX*100).toFixed(3),aiW=t2>0?((s.ai/60)/t2*100).toFixed(1)+'%':'100%',red=Math.round((1-t2/s.before)*100);return '<div class="bva-group"><div class="bva-row"><div class="bva-before-lbl">Before</div><div class="bva-track"><div style="height:10px;width:'+(s.before/MAX*100).toFixed(1)+'%;background:#c0392b;border-radius:4px"></div></div><div class="bva-val-t" style="color:#c0392b">'+bvaFmt(s.before)+'</div></div><div class="bva-row"><div class="bva-row-lbl">'+s.l+'</div><div class="bva-track"><div style="display:flex;height:10px;width:'+tP+'%"><div style="background:var(--in);width:'+aiW+';height:100%;border-radius:4px 0 0 4px"></div>'+(s.human>0?'<div style="background:var(--ac);flex:1;height:100%;border-radius:0 4px 4px 0"></div>':'')+'</div></div><div class="bva-val-t" style="color:var(--ok)">'+red+'% faster</div></div></div>';}).join('');
+    tot.innerHTML='<div class="bva-row"><div class="bva-before-lbl">Before</div><div class="bva-track"><div style="height:10px;width:100%;background:#c0392b;border-radius:4px"></div></div><div class="bva-val-t" style="color:#c0392b;font-weight:600">'+bvaFmt(MAX)+'</div></div><div class="bva-row"><div class="bva-row-lbl" style="color:var(--cr);font-weight:500">With AI</div><div class="bva-track"><div style="display:flex;height:10px;width:'+(tAfter/MAX*100).toFixed(2)+'%"><div style="background:var(--in);width:'+(tAI/tAfter*100).toFixed(1)+'%;height:100%;border-radius:4px 0 0 4px"></div><div style="background:var(--ac);flex:1;height:100%;border-radius:0 4px 4px 0"></div></div></div><div class="bva-val-t" style="color:var(--ok);font-weight:600">'+reductions[w]+'% reduction</div></div>';
   }
 }
-Now create the CSV template file.
+window.addEventListener('load',()=>{renderBVA(0);renderBVA(1);renderBVA(2);});
 
-Write c:\Users\taher\theunitedsports\public\templates\academies-template.csv
-14 lines
-name,short_description,description,address,city,state,zip,phone,whatsapp,email,website,instagram,facebook,youtube,age_groups,formats,facilities,price_from,owner_name,owner_phone,owner_email,latitude,longitude
-MLC Academy Seattle,Premier cricket coaching in the Pacific Northwest,MLC Academy Seattle offers world-class cricket coaching programs for youth and adults in the greater Seattle area. Professional coaches with international experience.,15809 Bear Creek Pkwy,Redmond,WA,98052,,,,,,,,,U10|U13|U15|U17|U19|Adult,T20|ODI|Test,Indoor Nets|Bowling Machine|Video Analysis|Changing Rooms|Parking,75,,,,47.6740,-122.1215
-Seattle Cricket Club Academy,Youth development cricket programs,Seattle Cricket Club runs year-round coaching sessions for all ages and skill levels. Affiliated with Washington State Cricket Association.,Magnuson Park,Seattle,WA,98105,,,,,,,,,,U10|U13|U15|U17|Adult,T20|ODI,Outdoor Nets|Parking,50,,,,47.6815,-122.2585
-Eastside Cricket Academy,Bellevue's premier cricket coaching center,Professional cricket coaching on the Eastside with experienced coaches. Programs range from beginner to advanced.,Robinswood Park,Bellevue,WA,98006,,,,,,,,,,U8|U10|U13|U15|U17|Adult,T20|ODI,Indoor Nets|Outdoor Nets|Parking,60,,,,47.5870,-122.1545
-Pacific Northwest Cricket Academy,Cricket training for all skill levels,PNCA offers structured coaching programs following ECB and ICC coaching frameworks for youth and adult cricketers.,,Kirkland,WA,98034,,,,,,,,,,U10|U13|U15|U17|U19|Adult,T20|ODI|Test,Indoor Nets|Bowling Machine|Video Analysis,65,,,,47.6769,-122.2060
-Puget Sound Cricket Club,Community cricket development,Puget Sound Cricket Club provides affordable coaching programs and competitive cricket opportunities in the South King County area.,Fort Dent Park,Tukwila,WA,98188,,,,,,,,,,U13|U15|U17|Adult,T20|ODI,Outdoor Nets|Parking,40,,,,47.4757,-122.2483
-Tacoma Cricket Academy,South Sound cricket coaching,Tacoma Cricket Academy brings professional coaching to the South Sound region with programs for beginners through advanced players.,,Tacoma,WA,98402,,,,,,,,,,U10|U13|U15|Adult,T20|ODI,Outdoor Nets|Parking,45,,,,47.2529,-122.4443
-Snohomish County Cricket Club,North Sound cricket programs,SCCC runs youth development and adult training programs in Snohomish County with qualified coaches.,Willis Tucker Park,Snohomish,WA,98296,,,,,,,,,,U13|U15|U17|Adult,T20|ODI,Outdoor Nets|Parking,40,,,,47.8590,-122.0949
-Northwest Cricket Academy,Elite cricket coaching in WA,Northwest Cricket Academy focuses on developing competitive cricketers with individualized coaching plans and performance tracking.,,Sammamish,WA,98074,,,,,,,,,,U10|U13|U15|U17|U19,T20|ODI|Test,Indoor Nets|Bowling Machine|Video Analysis|Strength & Conditioning,80,,,,47.6163,-122.0356
-Mercer Island Cricket School,Island community cricket,Bringing cricket coaching to Mercer Island with Saturday and Sunday programs for youth of all skill levels.,Luther Burbank Park,Mercer Island,WA,98040,,,,,,,,,,U8|U10|U13|U15,T20,Outdoor Nets|Parking,55,,,,47.5707,-122.2221
-Federal Way Cricket Academy,South King County cricket,Affordable cricket coaching programs for the Federal Way and Auburn communities.,,Federal Way,WA,98003,,,,,,,,,,U10|U13|U15|Adult,T20|ODI,Outdoor Nets|Parking,35,,,,47.3223,-122.3126
-Issaquah Valley Cricket,Eastside youth cricket development,Youth-focused cricket programs in the Issaquah Valley area with experienced coaches.,,Issaquah,WA,98027,,,,,,,,,,U8|U10|U13|U15|U17,T20,Outdoor Nets|Parking,50,,,,47.5301,-122.0326
-Everett Cricket Club Academy,Snohomish County coaching center,Everett Cricket Club offers structured cricket programs for youth and adults in North King and Snohomish counties.,,Everett,WA,98201,,,,,,,,,,U13|U15|U17|Adult,T20|ODI,Outdoor Nets|Parking,40,,,,47.9790,-122.2021
-Update Todos
-
-Create generateSlug in lib/utils.ts + unit tests
-
-Create import API route
-
-Add Import tab to dashboard
-
-Run tests, update CLAUDE_CONTEXT.md, commit
-Now add the Import tab to the dashboard. I need to read more of the dashboard to understand the patterns used.
-
-Read c:\Users\taher\theunitedsports\app\dashboard\page.tsx (lines 2-13)
-Read c:\Users\taher\theunitedsports\app\dashboard\page.tsx (lines 31-50)
-Now I need to add the Import tab. I'll add the import, state, and UI. Let me add papaparse import and state variables.
-
-Edit c:\Users\taher\theunitedsports\app\dashboard\page.tsx
-Added 2 lines
-Add import-related state after backlog state.
-
-Edit c:\Users\taher\theunitedsports\app\dashboard\page.tsx
-Added 5 lines
-Add the Import tab to the TABS array.
-
-Edit c:\Users\taher\theunitedsports\app\dashboard\page.tsx
-Added 1 line
-Add the import handler function after updateBacklogStatus.
-
-Edit c:\Users\taher\theunitedsports\app\dashboard\page.tsx
-Added 60 lines
-Now add the Import tab UI. Let me find the backlog tab render section to place it after.
-
-Read c:\Users\taher\theunitedsports\app\dashboard\page.tsx (lines 431-445)
-Read c:\Users\taher\theunitedsports\app\dashboard\page.tsx (lines 461-475)
-Edit c:\Users\taher\theunitedsports\app\dashboard\page.tsx
-Added 60 lines
-Now add unit tests for the utility functions.
-
-Write c:\Users\taher\theunitedsports\__tests__\unit\utils.test.ts
-91 lines
-import { describe, it, expect } from 'vitest'
-import { generateSlug, parsePipeArray, parseCsvBoolean, parseCsvNumber } from '../../lib/utils'
-
-describe('generateSlug', () => {
-  it('converts to lowercase with hyphens', () => {
-    expect(generateSlug('My Cricket Academy')).toBe('my-cricket-academy')
-  })
-
-  it('replaces ampersand with and', () => {
-    expect(generateSlug('Bat & Ball Academy')).toBe('bat-and-ball-academy')
-  })
-
-  it('removes apostrophes', () => {
-    expect(generateSlug("Shah's Cricket School")).toBe('shahs-cricket-school')
-  })
-
-  it('handles special characters', () => {
-    expect(generateSlug('MLC Academy (Seattle) #1')).toBe('mlc-academy-seattle-1')
-  })
-
-  it('collapses multiple hyphens', () => {
-    expect(generateSlug('Academy -- Test --- Name')).toBe('academy-test-name')
-  })
-
-  it('trims leading and trailing hyphens', () => {
-    expect(generateSlug('--Academy Test--')).toBe('academy-test')
-  })
-
-  it('truncates to 80 characters', () => {
-    const longName = 'A'.repeat(100)
-    expect(generateSlug(longName).length).toBeLessThanOrEqual(80)
-  })
-
-  it('handles empty string', () => {
-    expect(generateSlug('')).toBe('')
-  })
-})
-
-describe('parsePipeArray', () => {
-  it('splits pipe-separated values', () => {
-    expect(parsePipeArray('T20|ODI|Test')).toEqual(['T20', 'ODI', 'Test'])
-  })
-
-  it('trims whitespace', () => {
-    expect(parsePipeArray(' T20 | ODI ')).toEqual(['T20', 'ODI'])
-  })
-
-  it('returns empty array for null/empty', () => {
-    expect(parsePipeArray(null)).toEqual([])
-    expect(parsePipeArray('')).toEqual([])
-    expect(parsePipeArray(undefined)).toEqual([])
-  })
-
-  it('filters empty segments', () => {
-    expect(parsePipeArray('T20||ODI')).toEqual(['T20', 'ODI'])
-  })
-})
-
-describe('parseCsvBoolean', () => {
-  it('returns true for true/yes/1', () => {
-    expect(parseCsvBoolean('true')).toBe(true)
-    expect(parseCsvBoolean('yes')).toBe(true)
-    expect(parseCsvBoolean('1')).toBe(true)
-    expect(parseCsvBoolean('TRUE')).toBe(true)
-    expect(parseCsvBoolean('Yes')).toBe(true)
-  })
-
-  it('returns false for other values', () => {
-    expect(parseCsvBoolean('false')).toBe(false)
-    expect(parseCsvBoolean('no')).toBe(false)
-    expect(parseCsvBoolean('')).toBe(false)
-    expect(parseCsvBoolean(null)).toBe(false)
-    expect(parseCsvBoolean(undefined)).toBe(false)
-  })
-})
-
-describe('parseCsvNumber', () => {
-  it('parses valid numbers', () => {
-    expect(parseCsvNumber('42')).toBe(42)
-    expect(parseCsvNumber('3.14')).toBe(3.14)
-    expect(parseCsvNumber(' 100 ')).toBe(100)
-  })
-
-  it('returns null for invalid/empty', () => {
-    expect(parseCsvNumber('')).toBeNull()
-    expect(parseCsvNumber(null)).toBeNull()
-    expect(parseCsvNumber(undefined)).toBeNull()
-    expect(parseCsvNumber('abc')).toBeNull()
-  })
-})
-Update Todos
-
-Create generateSlug in lib/utils.ts + unit tests
-
-Create import API route
-
-Add Import tab to dashboard
-
-Run tests, update CLAUDE_CONTEXT.md, commit
-Bash TypeScript check
-IN
-cd c:/Users/taher/theunitedsports && npx tsc --noEmit 2>&1 | head -10
-
-OUT
-(Bash completed with no output)
-Bash Run unit tests
-IN
-cd c:/Users/taher/theunitedsports && npm test 2>&1 | tail -12
-
-OUT
- [32m✓[39m __tests__/unit/enquiryValidation.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 5[2mms[22m[39m
- [32m✓[39m __tests__/unit/phoneFormat.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 5[2mms[22m[39m
- [32m✓[39m __tests__/unit/claimSlug.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 6[2mms[22m[39m
- [32m✓[39m __tests__/unit/utils.test.ts [2m([22m[2m16 tests[22m[2m)[22m[32m 8[2mms[22m[39m
- [32m✓[39m __tests__/unit/tierAccess.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 5[2mms[22m[39m
- [32m✓[39m __tests__/unit/featureFlags.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 4[2mms[22m[39m
-
-[2m Test Files [22m [1m[32m6 passed[39m[22m[90m (6)[39m
-[2m      Tests [22m [1m[32m53 passed[39m[22m[90m (53)[39m
-[2m   Start at [22m 14:25:16
-[2m   Duration [22m 722ms[2m (transform 309ms, setup 0ms, collect 613ms, tests 31ms, environment 1ms, prepare 1.23s)[22m
-All 53 tests pass (16 new tests added). TypeScript clean. Update context and commit.
-
-Edit c:\Users\taher\theunitedsports\CLAUDE_CONTEXT.md
-Modified
-Edit c:\Users\taher\theunitedsports\CLAUDE_CONTEXT.md
-Modified
-Edit c:\Users\taher\theunitedsports\CLAUDE_CONTEXT.md
-Added 20 lines
-Bash Commit and push Session 11
-IN
-cd c:/Users/taher/theunitedsports && git add lib/utils.ts app/api/admin/import-academies/route.ts public/templates/academies-template.csv app/dashboard/page.tsx __tests__/unit/utils.test.ts CLAUDE_CONTEXT.md package.json package-lock.json && git commit -m "$(cat <<'EOF'
-Session 11: CSV bulk import tool for academies + Seattle academy template
-
-- lib/utils.ts: generateSlug, parsePipeArray, parseCsvBoolean, parseCsvNumber
-- Import API: POST /api/admin/import-academies with slug collision handling
-- Dashboard Import tab: download template, upload CSV, results table
-- Pre-filled template: 12 Seattle-area cricket academies
-- PapaParse for client-side CSV parsing
-- 53 tests passing (16 new), TypeScript clean
-
-Co-Authored-By: Claude Opus 4.6 (1M context) <noreply@anthropic.com>
-EOF
-)" && git push origin master
-
-OUT
-warning: in the working copy of 'CLAUDE_CONTEXT.md', LF will be replaced by CRLF the next time Git touches it
-warning: in the working copy of 'app/dashboard/page.tsx', LF will be replaced by CRLF the next time Git touches it
-warning: in the working copy of 'package-lock.json', LF will be replaced by CRLF the next time Git touches it
-warning: in the working copy of 'package.json', LF will be replaced by CRLF the next time Git touches it
-warning: in the working copy of '__tests__/unit/utils.test.ts', LF will be replaced by CRLF the next time Git touches it
-warning: in the working copy of 'app/api/admin/import-academies/route.ts', LF will be replaced by CRLF the next time Git touches it
-warning: in the working copy of 'lib/utils.ts', LF will be replaced by CRLF the next time Git touches it
-warning: in the working copy of 'public/templates/academies-template.csv', LF will be replaced by CRLF the next time Git touches it
-[master e9a5d74] Session 11: CSV bulk import tool for academies + Seattle academy template
- 8 files changed, 442 insertions(+), 5 deletions(-)
- create mode 100644 __tests__/unit/utils.test.ts
- create mode 100644 app/api/admin/import-academies/route.ts
- create mode 100644 lib/utils.ts
- create mode 100644 public/templates/academies-template.csv
-To https://github.com/tafzal2025-cloud/theunitedsports.git
-   4cd978f..e9a5d74  master -> master
-Update Todos
-
-Create generateSlug in lib/utils.ts + unit tests
-
-Create import API route
-
-Add Import tab to dashboard
-
-Run tests, update CLAUDE_CONTEXT.md, commit
-Session 11 complete. Here's what was built:
-
-CSV Bulk Import Tool
-
-lib/utils.ts — generateSlug() (handles &, apostrophes, special chars, 80 char max), parsePipeArray(), parseCsvBoolean(), parseCsvNumber()
-POST /api/admin/import-academies — processes parsed CSV rows, generates unique slugs (collision handling with -2/-3 suffix), validates required fields (name/city/state), returns per-row results
-Dashboard Import tab — Download Template button + Upload CSV button with PapaParse parsing, results table with colored status badges (imported/skipped/error), summary counts
-CSV template — 12 Seattle-area cricket academies pre-filled (MLC Academy Seattle, Seattle Cricket Club, Eastside Cricket, Pacific NW, Puget Sound, Tacoma, Snohomish, Northwest, Mercer Island, Federal Way, Issaquah, Everett)
-16 new tests — generateSlug (8 tests), parsePipeArray (4), parseCsvBoolean (2), parseCsvNumber (2) — total now 53 tests
-Shah — to use: Go to /dashboard → Import tab → Download Template → edit the CSV → Upload CSV & Import.
-
-Did you update Claude_Context?
-Yes, CLAUDE_CONTEXT.md was updated in the Session 11 commit. Here's what was added:
-
-Last updated changed to Session 11
-In Progress set to Nothing currently in progress — Session 11 complete
-New "Files Built — Session 11" section documenting:
-lib/utils.ts — utility functions
-app/api/admin/import-academies/route.ts — bulk import API
-public/templates/academies-template.csv — Seattle template
-Dashboard Import tab addition
-__tests__/unit/utils.test.ts — 16 new tests
-Import tab features list (download template, upload CSV, PapaParse, results table, slug collision handling, PIN auth)
-You can verify by checking the file — it's all in the commit e9a5d74.
+function printCaseFile(artId,pwId,title,accentColor){
+  const art=document.getElementById(artId);if(!art)return;
+  const ac=accentColor||'#EC4899';
+  const sections=art.querySelectorAll('.art-section');let summaryHtml='';
+  sections.forEach(sec=>{const secTitle=sec.querySelector('.art-section-t')?.textContent||'';summaryHtml+='<div class="ps"><div class="ph">'+secTitle+'</div>';const kvs=sec.querySelectorAll('.art-kv');if(kvs.length){summaryHtml+='<div class="pg">';kvs.forEach(kv=>{summaryHtml+='<div class="pkv"><div class="pk">'+(kv.querySelector('.art-k')?.textContent||'')+'</div><div class="pv">'+(kv.querySelector('.art-v')?.textContent||'')+'</div></div>';});summaryHtml+='</div>';}const decs=sec.querySelectorAll('.art-dec');if(decs.length){summaryHtml+='<div class="pd-list">';decs.forEach(dec=>{summaryHtml+='<div class="pd"><span class="pd-who">'+(dec.querySelector('.art-dec-who')?.textContent||'')+'</span><span class="pd-what">'+(dec.querySelector('.art-dec-what')?.textContent||'')+'</span><span class="pd-time">'+(dec.querySelector('.art-dec-time')?.textContent||'')+'</span></div>';});summaryHtml+='</div>';}summaryHtml+='</div>';});
+  let stepsHtml='';const sc=document.querySelector('#'+pwId+' .steps');if(sc){const steps=sc.querySelectorAll('.step.done,.step.err');if(steps.length){stepsHtml='<div class="ps"><div class="ph">Pipeline — AI Step Outputs</div>';steps.forEach(step=>{const name=step.querySelector('.step-n')?.textContent||'';const out=step.querySelector('.step-out');if(!out||!out.textContent.trim())return;const owner=step.querySelector('.op')?.textContent.trim()||'';stepsHtml+='<div class="step-entry"><div class="step-entry-hd"><span class="step-entry-name">'+name+'</span><span class="step-entry-owner">'+owner+'</span></div><div class="step-entry-body">'+out.innerText.replace(/[A-Z]+\s*\d+\.\d+s/g,'').trim()+'</div></div>';});stepsHtml+='</div>';}}
+  let docsHtml='';const wfEl=art.closest('.wf-section');if(wfEl){wfEl.querySelectorAll('.doc-blk').forEach(doc=>{if(doc.textContent.trim()){const stepName=doc.closest('.step-b')?.querySelector('.step-n')?.textContent||'Generated Document';docsHtml+='<div class="ps"><div class="ph">'+stepName+'</div><div class="doc-content">'+doc.textContent.trim()+'</div></div>';}});wfEl.querySelectorAll('.email-body').forEach(eb=>{if(eb.textContent.trim()){const subj=eb.closest('.email-compose')?.querySelector('.em-val')?.textContent||'Email';docsHtml+='<div class="ps"><div class="ph">Customer Communication — '+subj+'</div><div class="doc-content">'+eb.textContent.trim()+'</div></div>';}});}
+  const ts=document.getElementById(artId+'-ts')?.textContent||new Date().toLocaleString();
+  const win=window.open('','_blank','width=860,height=1000');
+  win.document.write('<!DOCTYPE html><html><head><meta charset="UTF-8"><title>'+title+'</title><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"><style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:"Outfit",sans-serif;font-weight:300;color:#1a1a1a;background:#fff;padding:40px 48px;font-size:12px;line-height:1.6;max-width:860px;margin:0 auto}.header{border-bottom:2px solid #08080A;padding-bottom:16px;margin-bottom:28px;display:flex;justify-content:space-between}.logo{font-size:18px;font-weight:600;letter-spacing:2px;color:#08080A}.logo span{color:'+ac+'}.meta{text-align:right;font-size:10px;color:#666;font-family:"JetBrains Mono",monospace;line-height:1.8}.doc-title{font-size:26px;font-weight:300;margin-bottom:4px}.doc-ts{font-size:10px;color:#888;font-family:"JetBrains Mono",monospace;margin-bottom:28px;padding-bottom:20px;border-bottom:1px solid #eee}.ps{margin-bottom:22px;padding-bottom:22px;border-bottom:1px solid #eee}.ps:last-of-type{border-bottom:none}.ph{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.18em;color:'+ac+';margin-bottom:12px;font-family:"JetBrains Mono",monospace}.pg{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.pkv{background:#f8f7f4;border:1px solid #e8e4d8;border-radius:4px;padding:9px 11px}.pk{font-size:8px;text-transform:uppercase;letter-spacing:.08em;color:#888;margin-bottom:3px;font-family:"JetBrains Mono",monospace}.pv{font-size:12px;color:#1a1a1a;word-break:break-word}.pd-list{display:flex;flex-direction:column;gap:7px}.pd{display:flex;align-items:flex-start;gap:12px;background:#f8f7f4;border:1px solid #e8e4d8;border-left:3px solid '+ac+';border-radius:4px;padding:9px 11px}.pd-who{font-size:9px;font-weight:600;color:'+ac+';font-family:"JetBrains Mono",monospace;min-width:130px;flex-shrink:0}.pd-what{font-size:11px;color:#1a1a1a;flex:1;line-height:1.55}.pd-time{font-size:9px;color:#888;font-family:"JetBrains Mono",monospace;flex-shrink:0}.step-entry{margin-bottom:10px;padding:10px 12px;background:#f8f7f4;border:1px solid #e8e4d8;border-radius:4px}.step-entry-hd{display:flex;justify-content:space-between;margin-bottom:6px}.step-entry-name{font-size:11px;font-weight:500;color:#08080A}.step-entry-owner{font-size:9px;color:#888;font-family:"JetBrains Mono",monospace;background:#eee;padding:1px 7px;border-radius:3px}.step-entry-body{font-size:11px;color:#444;line-height:1.65}.doc-content{font-size:11px;color:#333;line-height:1.75;white-space:pre-wrap;background:#f8f7f4;border:1px solid #e8e4d8;border-left:3px solid '+ac+';border-radius:4px;padding:12px 14px;font-family:"JetBrains Mono",monospace}.footer{margin-top:36px;padding-top:16px;border-top:1px solid #eee;display:flex;justify-content:space-between;font-size:9px;color:#aaa;font-family:"JetBrains Mono",monospace}.am{color:'+ac+';font-weight:500}.no-print{margin-top:28px;text-align:center;display:flex;gap:10px;justify-content:center}.btn{border:none;border-radius:6px;padding:11px 28px;font-family:"Outfit",sans-serif;font-size:13px;font-weight:600;cursor:pointer}@media print{.no-print{display:none}@page{margin:15mm;size:A4}body{padding:0}}</style></head><body><div class="header"><div><div class="logo">BIS<span>XP</span></div><div style="font-size:10px;color:#666;margin-top:3px">Enterprise AI Platform</div></div><div class="meta"><div>'+ts+'</div><div>bisxp.com</div></div></div><div class="doc-title">'+title+'</div><div class="doc-ts">'+ts+'</div>'+summaryHtml+stepsHtml+docsHtml+'<div class="footer"><div>Generated by BISXP AI Platform &middot; <span class="am">AI handles the research. You make the decisions.</span></div><div>CONFIDENTIAL</div></div><div class="no-print"><button class="btn" style="background:'+ac+';color:#fff" onclick="window.print()">&#8595; Save as PDF</button><button class="btn" style="background:transparent;color:#888;border:1px solid #ddd" onclick="window.close()">Close</button></div></body></html>');
+  win.document.close();win.onload=()=>setTimeout(()=>win.print(),500);
+}
+</script>
+</body>
+</html>
