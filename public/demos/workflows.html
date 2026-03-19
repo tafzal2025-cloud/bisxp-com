@@ -1070,8 +1070,13 @@ function showValidation(){
   if(errors.length===0)toast('All checks passed','API reachable · All human gates wired · No fake delays');
   else toast('Validation issues',errors.join(' | '));
 }
-// Run on load
-window.addEventListener('load',()=>setTimeout(validate,2000));
+// Auto-select domain from ?wf= URL param + run validator
+window.addEventListener('load',()=>{
+  const params=new URLSearchParams(window.location.search);
+  const wfParam=params.get('wf');
+  if(wfParam!==null){const n=parseInt(wfParam);if(n>=0&&n<=7)sw(n);}
+  setTimeout(validate,2000);
+});
 </script>
 </body>
 </html>
