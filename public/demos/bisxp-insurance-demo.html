@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>BISXP Enterprise · Insurance AI Suite</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --obsidian:#07080C;--charcoal:#10121A;--steel:#181C28;--steel-light:#1E2330;
+  --indigo:#6366F1;--indigo-bright:#818CF8;--indigo-dim:rgba(99,102,241,0.1);--indigo-glow:rgba(99,102,241,0.2);
+  --cream:#E8EAF6;--white:#F6F7FF;--muted:#606880;--muted-light:#8890A8;
+  --green:#22C55E;--green-dim:rgba(34,197,94,0.1);
+  --red:#EF4444;--red-dim:rgba(239,68,68,0.1);
+  --orange:#F59E0B;--orange-dim:rgba(245,158,11,0.1);
+  --blue:#3B82F6;--blue-dim:rgba(59,130,246,0.1);
+  --border:rgba(99,102,241,0.12);--border-strong:rgba(99,102,241,0.3);
+}
+html{scroll-behavior:smooth}
+body{background:var(--obsidian);color:var(--cream);font-family:'Outfit',sans-serif;font-weight:300;min-height:100vh;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(99,102,241,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(99,102,241,0.025) 1px,transparent 1px);background-size:48px 48px;pointer-events:none;z-index:0}
+.hdr{position:sticky;top:0;z-index:200;background:rgba(7,8,12,0.95);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);padding:0 32px;height:56px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:600;letter-spacing:2px;text-decoration:none;color:var(--cream)}
+.logo span{color:var(--indigo-bright)}
+.hdr-center{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted)}
+.hdr-center::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);animation:blink 2s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.hdr-pill{background:var(--indigo-dim);color:var(--indigo-bright);border:1px solid var(--border);border-radius:20px;padding:4px 14px;font-size:11px;font-weight:500}
+.hero{text-align:center;padding:52px 40px 48px;position:relative;z-index:1}
+.hero-eye{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:4px;color:var(--indigo-bright);margin-bottom:18px}
+.hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(38px,5vw,60px);font-weight:300;color:var(--white);line-height:1.08;margin-bottom:14px}
+.hero h1 em{font-style:italic;color:var(--indigo-bright)}
+.hero-sub{font-size:15px;color:var(--muted-light);max-width:560px;margin:0 auto 28px;line-height:1.75}
+.hero-tags{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
+.htag{background:var(--steel);border:1px solid var(--border);border-radius:20px;padding:5px 14px;font-size:11px;color:var(--muted-light);font-weight:500}
+.tab-nav{position:sticky;top:56px;z-index:150;background:rgba(7,8,12,0.95);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:0 32px;display:flex;overflow-x:auto}
+.tab-btn{display:flex;align-items:center;gap:8px;padding:16px 24px;background:none;border:none;border-bottom:2px solid transparent;color:var(--muted);font-family:'Outfit',sans-serif;font-size:13px;cursor:pointer;white-space:nowrap;transition:all .2s;margin-bottom:-1px}
+.tab-btn:hover{color:var(--cream)}
+.tab-btn.active{color:var(--indigo-bright);border-bottom-color:var(--indigo-bright);font-weight:500}
+.tab-num{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);background:var(--steel);padding:2px 7px;border-radius:4px}
+.tab-btn.active .tab-num{background:var(--indigo-dim);color:var(--indigo-bright)}
+.main{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:40px 32px 80px}
+.demo-section{display:none}
+.demo-section.active{display:block;animation:fadeUp .4s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.sec-eye{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:3px;color:var(--indigo-bright);margin-bottom:10px}
+.sec-title{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,4vw,42px);font-weight:300;color:var(--white);margin-bottom:8px}
+.sec-sub{font-size:14px;color:var(--muted-light);max-width:600px;line-height:1.7;margin-bottom:16px}
+.sec-stats{display:flex;gap:32px;flex-wrap:wrap;margin-bottom:32px}
+.sec-stat strong{font-family:'JetBrains Mono',monospace;color:var(--indigo-bright);font-size:22px;display:block;margin-bottom:2px}
+.sec-stat span{font-size:12px;color:var(--muted)}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:20px}
+.card{background:var(--charcoal);border:1px solid var(--border);border-radius:14px;overflow:hidden}
+.card-hdr{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.card-title{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted)}
+.card-body{padding:20px}
+.badge{display:inline-flex;align-items:center;font-size:10px;font-weight:600;padding:3px 10px;border-radius:12px;text-transform:uppercase;letter-spacing:.5px}
+.b-ai{background:var(--indigo-dim);color:var(--indigo-bright);border:1px solid var(--border)}
+.b-live{background:var(--green-dim);color:var(--green)}
+.b-ok{background:var(--green-dim);color:var(--green)}
+.b-warn{background:var(--orange-dim);color:var(--orange)}
+.b-fail{background:var(--red-dim);color:var(--red)}
+.fg{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.ff{display:flex;flex-direction:column;gap:5px}
+.ff.full{grid-column:1/-1}
+.flabel{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--muted)}
+.finput,.fselect,.ftextarea{background:var(--steel);border:1px solid rgba(255,255,255,0.07);border-radius:8px;padding:10px 13px;color:var(--cream);font-family:'Outfit',sans-serif;font-size:13px;font-weight:300;outline:none;transition:border-color .2s;width:100%}
+.finput:focus,.fselect:focus,.ftextarea:focus{border-color:var(--indigo-bright);box-shadow:0 0 0 3px var(--indigo-dim)}
+.fselect option{background:var(--steel)}
+.ftextarea{resize:vertical;min-height:80px}
+.run-btn{width:100%;margin-top:16px;padding:13px;background:var(--indigo);border:none;border-radius:9px;color:var(--white);font-family:'Outfit',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;letter-spacing:.5px}
+.run-btn:hover{background:var(--indigo-bright);transform:translateY(-1px);box-shadow:0 6px 20px var(--indigo-glow)}
+.run-btn:disabled{opacity:.45;cursor:not-allowed;transform:none}
+.act-btns{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:14px}
+.act-btn{padding:9px 8px;border-radius:7px;font-family:'Outfit',sans-serif;font-size:11px;font-weight:600;cursor:pointer;border:1px solid;transition:all .2s}
+.ab-green{background:var(--green-dim);color:var(--green);border-color:rgba(34,197,94,.25)}
+.ab-green:hover{background:var(--green);color:#000;border-color:var(--green)}
+.ab-red{background:var(--red-dim);color:var(--red);border-color:rgba(239,68,68,.25)}
+.ab-red:hover{background:var(--red);color:#fff}
+.ab-blue{background:var(--blue-dim);color:var(--blue);border-color:rgba(59,130,246,.25)}
+.ab-blue:hover{background:var(--blue);color:#fff}
+.ab-indigo{background:var(--indigo-dim);color:var(--indigo-bright);border-color:var(--border)}
+.ab-indigo:hover{background:var(--indigo);color:#fff}
+.ab-orange{background:var(--orange-dim);color:var(--orange);border-color:rgba(245,158,11,.25)}
+.ab-orange:hover{background:var(--orange);color:#000}
+.loading{display:none;padding:28px;text-align:center}
+.loading.on{display:block}
+.spinner{width:36px;height:36px;border:2px solid var(--border);border-top-color:var(--indigo-bright);border-radius:50%;animation:spin .7s linear infinite;margin:0 auto 12px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.load-steps{display:flex;flex-direction:column;gap:8px;margin-top:12px;max-width:280px;margin-inline:auto;text-align:left}
+.lstep{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted);opacity:0;transform:translateY(6px);transition:all .35s}
+.lstep.on{opacity:1;transform:translateY(0);color:var(--cream)}
+.lstep.done{opacity:.4}
+.ldot{width:7px;height:7px;border-radius:50%;background:var(--steel-light);flex-shrink:0;transition:background .3s}
+.lstep.on .ldot{background:var(--indigo-bright);box-shadow:0 0 8px var(--indigo-bright)}
+.lstep.done .ldot{background:var(--green)}
+.result-panel{display:none}
+.result-panel.on{display:block;animation:fadeUp .4s ease}
+.placeholder{text-align:center;padding:48px 20px;color:var(--muted)}
+.placeholder-icon{font-size:40px;margin-bottom:12px;opacity:.25}
+.score-wrap{display:flex;align-items:center;gap:20px;padding:16px;background:var(--steel);border-radius:10px;border:1px solid var(--border);margin-bottom:16px}
+.score-ring{width:72px;height:72px;flex-shrink:0}
+.score-info h3{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--white);margin-bottom:3px}
+.score-info p{font-size:12px;color:var(--muted-light);line-height:1.5}
+.checks{display:flex;flex-direction:column;gap:8px;margin-bottom:16px}
+.chk{display:flex;align-items:flex-start;gap:9px;padding:10px 13px;border-radius:8px;font-size:12px;line-height:1.5}
+.chk.pass{background:var(--green-dim);border:1px solid rgba(34,197,94,.12);color:#86efac}
+.chk.warn{background:var(--orange-dim);border:1px solid rgba(245,158,11,.12);color:#fcd34d}
+.chk.fail{background:var(--red-dim);border:1px solid rgba(239,68,68,.12);color:#fca5a5}
+.chk-icon{font-size:13px;flex-shrink:0;margin-top:1px}
+.chk-text strong{display:block;font-weight:500;margin-bottom:1px}
+.chk-text span{opacity:.7;font-size:11px}
+.rec-box{background:var(--indigo-dim);border:1px solid var(--border-strong);border-radius:9px;padding:14px;margin-bottom:14px}
+.rec-lbl{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--indigo-bright);margin-bottom:5px}
+.rec-txt{font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--white)}
+.letter{background:var(--charcoal);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:20px;display:none}
+.letter.on{display:block;animation:fadeUp .4s ease}
+.letter-body{padding:24px;font-size:13px;line-height:1.85;color:var(--muted-light)}
+.letter-head{font-family:'Cormorant Garamond',serif;font-size:19px;color:var(--white);margin-bottom:14px}
+.letter-body p{margin-bottom:10px}
+.letter-sig{margin-top:20px;padding-top:14px;border-top:1px solid var(--border);font-size:12px}
+.mcard{background:var(--charcoal);border:1px solid var(--border);border-radius:12px;padding:18px}
+.mlabel{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px}
+.mvalue{font-family:'JetBrains Mono',monospace;font-size:28px;color:var(--indigo-bright);font-weight:500}
+.mchange{font-size:11px;color:var(--green);margin-top:3px}
+.banner{background:linear-gradient(135deg,var(--charcoal),var(--steel));border:1px solid var(--border-strong);border-radius:16px;padding:44px;text-align:center;position:relative;overflow:hidden;margin-top:32px}
+.banner::before{content:'';position:absolute;top:-40%;left:50%;transform:translateX(-50%);width:280px;height:280px;background:radial-gradient(circle,var(--indigo-glow),transparent 70%);pointer-events:none}
+.banner h2{font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:300;color:var(--white);margin-bottom:10px;position:relative}
+.banner p{color:var(--muted-light);font-size:14px;max-width:480px;margin:0 auto 24px;line-height:1.7;position:relative}
+.cta{display:inline-block;padding:13px 36px;background:var(--indigo);color:var(--white);font-family:'Outfit',sans-serif;font-size:13px;font-weight:600;border-radius:9px;text-decoration:none;transition:all .2s}
+.cta:hover{background:var(--indigo-bright);transform:translateY(-2px);box-shadow:0 8px 24px var(--indigo-glow)}
+.toast{position:fixed;bottom:24px;right:24px;background:var(--charcoal);border:1px solid var(--border-strong);border-radius:10px;padding:14px 18px;font-size:12px;z-index:9999;transform:translateY(80px);opacity:0;transition:all .3s;max-width:300px}
+.toast.show{transform:translateY(0);opacity:1}
+.toast-title{font-weight:600;color:var(--indigo-bright);margin-bottom:2px;font-size:13px}
+@media(max-width:860px){.main{padding:24px 16px 60px}.grid-2,.grid-3{grid-template-columns:1fr}.fg{grid-template-columns:1fr}.act-btns{grid-template-columns:1fr 1fr}.tab-nav,.hdr{padding:0 16px}}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <a class="logo" href="https://bisxp.com">BIS<span>XP</span></a>
+  <div class="hdr-center">Claude AI Active · Insurance Suite</div>
+  <div style="display:flex;align-items:center;gap:12px"><span style="font-size:12px;color:var(--muted)">Insurance & Risk</span><span class="hdr-pill">Enterprise Demo</span></div>
+</header>
+
+<div class="hero">
+  <div class="hero-eye">BISXP Enterprise · Insurance & Risk</div>
+  <h1>Claims. Underwriting. Fraud.<br><em>All automated by AI.</em></h1>
+  <p class="hero-sub">Insurance runs on manual workflows — claims adjusters, underwriters, fraud investigators all doing work AI can handle in seconds. Every demo below is live, running real Claude AI.</p>
+  <div class="hero-tags">
+    <span class="htag" style="background:rgba(212,168,67,0.15);border-color:rgba(212,168,67,0.3);color:var(--amber,#D4A843)">First Notice of Loss to Payment</span>
+    <span class="htag">Claims Processing</span><span class="htag">Underwriting</span><span class="htag">Fraud Detection</span><span class="htag">Policy Renewal</span><span class="htag">Regulatory Filing</span>
+  </div>
+</div>
+
+<nav class="tab-nav">
+  <button class="tab-btn active" onclick="switchTab(0)"><span class="tab-num">01</span> First Notice of Loss to Payment</button>
+  <button class="tab-btn" onclick="switchTab(1)"><span class="tab-num">02</span> Claims Processing</button>
+  <button class="tab-btn" onclick="switchTab(2)"><span class="tab-num">03</span> Underwriting</button>
+  <button class="tab-btn" onclick="switchTab(3)"><span class="tab-num">04</span> Fraud Detection</button>
+  <button class="tab-btn" onclick="switchTab(4)"><span class="tab-num">05</span> Policy Renewal</button>
+  <button class="tab-btn" onclick="switchTab(5)"><span class="tab-num">06</span> Regulatory Filing</button>
+</nav>
+
+<main class="main">
+
+<!-- DEMO 1: CLAIMS -->
+
+<!-- ═══════════════════════════════════════
+  FULL WORKFLOW: First Notice of Loss to Payment
+═══════════════════════════════════════ -->
+<div class="demo-section active" id="demo0">
+  <div style="text-align:center;padding:60px 24px 40px">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--amber,#D4A843);margin-bottom:16px">Full End-to-End Workflow</div>
+    <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(28px,4vw,48px);font-weight:300;color:var(--white,#FAFAF8);margin-bottom:12px;line-height:1.1">First Notice of Loss to Payment</h2>
+    <p style="font-size:14px;color:var(--muted-light,#9090A0);max-width:520px;margin:0 auto 32px;line-height:1.75">Real Claude inference at every step. Human decision gates preserve compliance integrity. AI eliminates the preparation work — your team makes the calls.</p>
+    <div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-bottom:40px">
+      <div style="background:var(--charcoal,#131318);border:1px solid rgba(212,168,67,0.2);border-radius:10px;padding:14px 20px;text-align:center;min-width:100px">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:18px;color:var(--amber,#D4A843)">~8 min</div>
+        <div style="font-size:10px;color:var(--muted,#70707A);margin-top:3px">With AI + human gates</div>
+      </div>
+      <div style="background:var(--charcoal,#131318);border:1px solid rgba(212,168,67,0.2);border-radius:10px;padding:14px 20px;text-align:center;min-width:100px">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:18px;color:var(--white,#FAFAF8)">Real AI</div>
+        <div style="font-size:10px;color:var(--muted,#70707A);margin-top:3px">No mocks or timeouts</div>
+      </div>
+      <div style="background:var(--charcoal,#131318);border:1px solid rgba(212,168,67,0.2);border-radius:10px;padding:14px 20px;text-align:center;min-width:100px">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:18px;color:var(--amber,#D4A843)">2–3</div>
+        <div style="font-size:10px;color:var(--muted,#70707A);margin-top:3px">Human decisions kept</div>
+      </div>
+    </div>
+    <a href="workflows.html?wf=2" style="display:inline-block;background:var(--amber,#D4A843);color:#08080A;font-family:'Outfit',sans-serif;font-size:14px;font-weight:600;padding:14px 36px;border-radius:9px;text-decoration:none;letter-spacing:.02em;transition:background .15s" onmouseover="this.style.background='#F0C060'" onmouseout="this.style.background='var(--amber,#D4A843)'">Run Full Workflow →</a>
+    <div style="margin-top:16px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted,#70707A)">Opens in Full Workflow view · claude-sonnet-4-20250514</div>
+  </div>
+</div>
+
+<div class="demo-section" id="demo1">
+  <div class="sec-eye">Demo 01 · Claims Processing</div>
+  <div class="sec-title">Claim filed to paid: 30 days → <em style="color:var(--indigo-bright)">12 seconds</em></div>
+  <p class="sec-sub">AI reads the claim, validates coverage, assesses damages, determines liability, calculates payout, and drafts the settlement letter — while the claimant is still on the phone.</p>
+  <div class="sec-stats">
+    <div class="sec-stat"><strong>30 days</strong><span>Average claim cycle time</span></div>
+    <div class="sec-stat"><strong>$320</strong><span>Cost per manual claim</span></div>
+    <div class="sec-stat"><strong>12s</strong><span>AI processing time</span></div>
+    <div class="sec-stat"><strong>78%</strong><span>Claims auto-settled, no adjuster</span></div>
+  </div>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-hdr"><span class="card-title">Claim Submission</span><span class="badge b-live">● Live</span></div>
+      <div class="card-body">
+        <div class="fg">
+          <div class="ff"><label class="flabel">Claim Type</label>
+            <select class="fselect" id="d1-type">
+              <option value="Auto — Collision" selected>Auto — Collision</option>
+              <option value="Auto — Comprehensive">Auto — Comprehensive</option>
+              <option value="Homeowners — Water Damage">Homeowners — Water Damage</option>
+              <option value="Homeowners — Fire">Homeowners — Fire</option>
+              <option value="Commercial Property">Commercial Property</option>
+              <option value="Workers Compensation">Workers Compensation</option>
+            </select>
+          </div>
+          <div class="ff"><label class="flabel">Policy Number</label><input class="finput" id="d1-pol" value="AUTO-2891-34729-WA"></div>
+          <div class="ff"><label class="flabel">Date of Loss</label><input class="finput" id="d1-date" value="March 15, 2026"></div>
+          <div class="ff"><label class="flabel">Estimated Damage</label><input class="finput" id="d1-dmg" value="$8,400"></div>
+          <div class="ff"><label class="flabel">Deductible</label><input class="finput" id="d1-ded" value="$500"></div>
+          <div class="ff"><label class="flabel">At-Fault Party</label>
+            <select class="fselect" id="d1-fault">
+              <option value="Third party (other driver)" selected>Third party (other driver)</option>
+              <option value="Insured (our policyholder)">Our policyholder</option>
+              <option value="Shared fault (50/50)">Shared fault</option>
+              <option value="Unknown / under investigation">Unknown</option>
+            </select>
+          </div>
+          <div class="ff full"><label class="flabel">Incident Description</label>
+            <textarea class="ftextarea" id="d1-desc">Rear-end collision at intersection of 15th Ave and Pine St, Seattle. Claimant stopped at red light when struck by third-party vehicle traveling approximately 35mph. Airbags deployed. Claimant sustained soft tissue injuries. Police report filed, Officer Jenkins badge #4821. Third party admitted fault at scene. Photos submitted. Repair estimate from certified shop: $8,400 for rear bumper, trunk lid, and frame alignment.</textarea>
+          </div>
+        </div>
+        <button class="run-btn" id="d1-btn" onclick="runD('d1','claims processing specialist','Claim Type','d1-type','Policy','d1-pol','Date of Loss','d1-date','Damage','d1-dmg','Deductible','d1-ded','Fault','d1-fault','Description','d1-desc')">⚡ Process Claim</button>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-hdr"><span class="card-title">AI Claims Analysis</span><span class="badge b-ai">Claude AI</span></div>
+      <div class="card-body" id="d1-body">
+        <div class="placeholder" id="d1-ph"><div class="placeholder-icon">📄</div><p style="font-size:13px;line-height:1.6">Submit claim to see<br>AI analysis and settlement</p></div>
+        <div class="loading" id="d1-load"><div class="spinner"></div><div style="font-size:12px;color:var(--muted);margin-top:10px">Processing claim...</div>
+          <div class="load-steps">
+            <div class="lstep" id="d1-s1"><div class="ldot"></div>Validating policy coverage</div>
+            <div class="lstep" id="d1-s2"><div class="ldot"></div>Verifying incident details</div>
+            <div class="lstep" id="d1-s3"><div class="ldot"></div>Assessing damage and liability</div>
+            <div class="lstep" id="d1-s4"><div class="ldot"></div>Calculating settlement amount</div>
+            <div class="lstep" id="d1-s5"><div class="ldot"></div>Drafting settlement letter</div>
+          </div>
+        </div>
+        <div class="result-panel" id="d1-result">
+          <div class="rec-box"><div class="rec-lbl">AI Settlement Decision</div><div class="rec-txt" id="d1-rec">✅ Approve — Full Settlement $7,900</div></div>
+          <div class="checks" id="d1-checks"></div>
+          <div class="act-btns">
+            <button class="act-btn ab-green" onclick="toast('✅ Settled','Payment authorized. Claimant notified. Check mailed within 3 days.')">✅ Settle Claim</button>
+            <button class="act-btn ab-indigo" onclick="toast('🔍 SIU Referral','Referred to Special Investigations Unit.')">🔍 Refer to SIU</button>
+            <button class="act-btn ab-red" onclick="toast('✕ Denied','Claim denied. Denial letter with appeal instructions sent.')">✕ Deny</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="letter" id="d1-letter"><div class="card-hdr"><span class="card-title">AI Settlement Letter</span><span class="badge b-ai">Generated instantly</span></div><div class="letter-body" id="d1-lbody"></div></div>
+</div>
+
+<!-- DEMO 2: UNDERWRITING -->
+<div class="demo-section" id="demo2">
+  <div class="sec-eye">Demo 02 · Underwriting</div>
+  <div class="sec-title">Application to quote: 3 days → <em style="color:var(--indigo-bright)">6 seconds</em></div>
+  <p class="sec-sub">AI risk-scores the applicant, checks loss history, verifies coverage needs, calculates premium, and generates a binding quote with full policy terms — before the agent refreshes the screen.</p>
+  <div class="sec-stats">
+    <div class="sec-stat"><strong>3 days</strong><span>Manual underwriting time</span></div>
+    <div class="sec-stat"><strong>6s</strong><span>AI quote generation</span></div>
+    <div class="sec-stat"><strong>$180</strong><span>Cost per manual policy vs $2 AI</span></div>
+    <div class="sec-stat"><strong>92%</strong><span>Quote accuracy vs manual</span></div>
+  </div>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-hdr"><span class="card-title">Underwriting Application</span><span class="badge b-live">● Live</span></div>
+      <div class="card-body">
+        <div class="fg">
+          <div class="ff"><label class="flabel">Insurance Type</label>
+            <select class="fselect" id="d2-type">
+              <option value="Commercial General Liability" selected>Commercial General Liability</option>
+              <option value="Commercial Property">Commercial Property</option>
+              <option value="Professional Liability (E&O)">Professional Liability (E&O)</option>
+              <option value="Directors & Officers (D&O)">Directors & Officers</option>
+              <option value="Cyber Liability">Cyber Liability</option>
+            </select>
+          </div>
+          <div class="ff"><label class="flabel">Business Type</label><input class="finput" id="d2-biz" value="Software company, 45 employees, B2B SaaS"></div>
+          <div class="ff"><label class="flabel">Annual Revenue</label><input class="finput" id="d2-rev" value="$4.2M"></div>
+          <div class="ff"><label class="flabel">Years in Business</label><input class="finput" id="d2-age" value="7 years"></div>
+          <div class="ff"><label class="flabel">Prior Losses (5 years)</label><input class="finput" id="d2-losses" value="One claim — $12,000 slip/fall 2023, closed"></div>
+          <div class="ff"><label class="flabel">Coverage Limit Requested</label><input class="finput" id="d2-limit" value="$2M per occurrence / $4M aggregate"></div>
+          <div class="ff full"><label class="flabel">Risk Description</label>
+            <textarea class="ftextarea" id="d2-risk">B2B software company providing project management tools. Office in Seattle, employees work remotely. No physical product. Client contracts include indemnification clauses. No government contracts. Revenue split: 80% subscription, 20% professional services. No prior E&O claims. Largest client represents 22% of revenue.</textarea>
+          </div>
+        </div>
+        <button class="run-btn" id="d2-btn" onclick="runUnderwriting()">⚡ Generate Quote</button>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-hdr"><span class="card-title">AI Underwriting Analysis</span><span class="badge b-ai">Claude AI</span></div>
+      <div class="card-body" id="d2-body">
+        <div class="placeholder" id="d2-ph"><div class="placeholder-icon">📊</div><p style="font-size:13px;line-height:1.6">Submit application to see<br>AI underwriting decision</p></div>
+        <div class="loading" id="d2-load"><div class="spinner"></div><div style="font-size:12px;color:var(--muted);margin-top:10px">Underwriting...</div>
+          <div class="load-steps">
+            <div class="lstep" id="d2-s1"><div class="ldot"></div>Risk classification</div>
+            <div class="lstep" id="d2-s2"><div class="ldot"></div>Loss history analysis</div>
+            <div class="lstep" id="d2-s3"><div class="ldot"></div>Industry benchmarking</div>
+            <div class="lstep" id="d2-s4"><div class="ldot"></div>Premium calculation</div>
+            <div class="lstep" id="d2-s5"><div class="ldot"></div>Generating quote</div>
+          </div>
+        </div>
+        <div class="result-panel" id="d2-result">
+          <div class="score-wrap">
+            <svg class="score-ring" viewBox="0 0 72 72"><circle cx="36" cy="36" r="30" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="5"/><circle cx="36" cy="36" r="30" fill="none" stroke="#6366F1" stroke-width="5" stroke-dasharray="188.5" stroke-dashoffset="30" stroke-linecap="round" transform="rotate(-90 36 36)" id="d2-arc"/><text x="36" y="33" text-anchor="middle" fill="#818CF8" font-family="JetBrains Mono" font-size="14" font-weight="500" id="d2-score">82</text><text x="36" y="45" text-anchor="middle" fill="#606880" font-family="Outfit" font-size="8">/100</text></svg>
+            <div class="score-info"><h3 id="d2-rtitle">Standard Risk — Preferred Rate</h3><p id="d2-rdesc">Low claims history, stable revenue, favorable industry class.</p></div>
+          </div>
+          <div class="checks" id="d2-checks"></div>
+          <div class="rec-box"><div class="rec-lbl">AI Quote</div><div class="rec-txt" id="d2-rec">✅ Bind at $8,400/year — Standard Terms</div></div>
+          <div class="act-btns">
+            <button class="act-btn ab-green" onclick="toast('✅ Bound','Policy bound. Certificate of insurance generated.')">✅ Bind Policy</button>
+            <button class="act-btn ab-indigo" onclick="toast('📋 Referred','Referred to senior underwriter for review.')">📋 Refer</button>
+            <button class="act-btn ab-red" onclick="toast('✕ Declined','Risk declined. Declination letter sent to agent.')">✕ Decline</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="letter" id="d2-letter"><div class="card-hdr"><span class="card-title">AI-Generated Quote Letter</span><span class="badge b-ai">Generated instantly</span></div><div class="letter-body" id="d2-lbody"></div></div>
+</div>
+
+<!-- DEMO 3: FRAUD -->
+<div class="demo-section" id="demo3">
+  <div class="sec-eye">Demo 03 · Fraud Detection</div>
+  <div class="sec-title">Suspicious claim identified in <em style="color:var(--indigo-bright)">4 seconds</em></div>
+  <p class="sec-sub">Insurance fraud costs $80B/year in the US. AI cross-references claim patterns, social media, prior loss history, and behavioral signals to flag suspicious claims before a dollar is paid out.</p>
+  <div class="sec-stats">
+    <div class="sec-stat"><strong>$80B</strong><span>Annual US insurance fraud cost</span></div>
+    <div class="sec-stat"><strong>10%</strong><span>Of all claims are fraudulent</span></div>
+    <div class="sec-stat"><strong>4s</strong><span>AI fraud scoring time</span></div>
+    <div class="sec-stat"><strong>3x</strong><span>More fraud detected vs manual</span></div>
+  </div>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-hdr"><span class="card-title">Claim for Fraud Review</span><span class="badge b-live">● Live</span></div>
+      <div class="card-body">
+        <div class="fg">
+          <div class="ff"><label class="flabel">Claim Type</label>
+            <select class="fselect" id="d3-type">
+              <option value="Workers Compensation — Back injury" selected>Workers Comp — Back Injury</option>
+              <option value="Auto — Total loss">Auto — Total Loss</option>
+              <option value="Homeowners — Theft">Homeowners — Theft</option>
+              <option value="Life Insurance — Accidental death">Life — Accidental Death</option>
+              <option value="Disability — Cannot work">Disability</option>
+            </select>
+          </div>
+          <div class="ff"><label class="flabel">Claim Amount</label><input class="finput" id="d3-amt" value="$142,000"></div>
+          <div class="ff"><label class="flabel">Prior Claims (5 years)</label><input class="finput" id="d3-prior" value="3 prior WC claims — 2019, 2021, 2023"></div>
+          <div class="ff"><label class="flabel">Time on Policy</label><input class="finput" id="d3-age" value="6 weeks (new policy)"></div>
+          <div class="ff full"><label class="flabel">Fraud Indicators Noted</label>
+            <textarea class="ftextarea" id="d3-flags">Claim filed 6 weeks after policy inception. Third workers comp claim in 5 years at three different employers. Claimant posted photos on Instagram hiking Rainier 4 days after reported injury date. Attorney retained same day as injury. Treating physician has appeared on 12 prior WC claims this year. Medical records show identical wording to prior claim from 2021. Employer reports claimant was facing termination for performance issues prior to injury.</textarea>
+          </div>
+        </div>
+        <button class="run-btn" id="d3-btn" onclick="runFraud()">⚡ Run Fraud Analysis</button>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-hdr"><span class="card-title">AI Fraud Investigation</span><span class="badge b-ai">Claude AI</span></div>
+      <div class="card-body" id="d3-body">
+        <div class="placeholder" id="d3-ph"><div class="placeholder-icon">🔍</div><p style="font-size:13px;line-height:1.6">Submit claim to see<br>AI fraud analysis</p></div>
+        <div class="loading" id="d3-load"><div class="spinner"></div><div style="font-size:12px;color:var(--muted);margin-top:10px">Analyzing fraud signals...</div>
+          <div class="load-steps">
+            <div class="lstep" id="d3-s1"><div class="ldot"></div>Scoring claim against fraud patterns</div>
+            <div class="lstep" id="d3-s2"><div class="ldot"></div>Checking prior claim history</div>
+            <div class="lstep" id="d3-s3"><div class="ldot"></div>Analyzing behavioral indicators</div>
+            <div class="lstep" id="d3-s4"><div class="ldot"></div>Cross-referencing provider network</div>
+            <div class="lstep" id="d3-s5"><div class="ldot"></div>Generating SIU referral report</div>
+          </div>
+        </div>
+        <div class="result-panel" id="d3-result">
+          <div class="rec-box" style="border-color:rgba(239,68,68,.3);background:var(--red-dim)"><div class="rec-lbl" style="color:var(--red)">Fraud Assessment</div><div class="rec-txt" id="d3-rec">🚨 High Fraud Probability — SIU Referral</div></div>
+          <div class="checks" id="d3-checks"></div>
+          <div class="act-btns">
+            <button class="act-btn ab-red" onclick="toast('🚨 SIU Referred','Referred to Special Investigations Unit. Payment held pending investigation.')">🚨 Refer to SIU</button>
+            <button class="act-btn ab-orange" onclick="toast('⏸️ Reserved','Claim payment reserved pending investigation.')">⏸️ Reserve Payment</button>
+            <button class="act-btn ab-indigo" onclick="toast('📋 EUO Scheduled','Examination Under Oath scheduled with claimant.')">📋 Schedule EUO</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="letter" id="d3-letter"><div class="card-hdr"><span class="card-title">AI SIU Referral Report</span><span class="badge b-ai">Generated instantly</span></div><div class="letter-body" id="d3-lbody"></div></div>
+</div>
+
+<!-- DEMO 4: RENEWAL -->
+<div class="demo-section" id="demo4">
+  <div class="sec-eye">Demo 04 · Policy Renewal Engine</div>
+  <div class="sec-title">At-risk renewals identified <em style="color:var(--indigo-bright)">90 days early</em></div>
+  <p class="sec-sub">AI analyzes every expiring policy, scores renewal probability, identifies at-risk customers, generates personalized retention offers, and drafts outreach — before the renewal team even opens their queue.</p>
+  <div class="sec-stats">
+    <div class="sec-stat"><strong>35%</strong><span>Average policy lapse rate</span></div>
+    <div class="sec-stat"><strong>90 days</strong><span>AI predicts churn in advance</span></div>
+    <div class="sec-stat"><strong>$2,400</strong><span>Cost to acquire vs $240 to retain</span></div>
+    <div class="sec-stat"><strong>22%</strong><span>Retention improvement with AI</span></div>
+  </div>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-hdr"><span class="card-title">Policy for Renewal Analysis</span><span class="badge b-live">● Live</span></div>
+      <div class="card-body">
+        <div class="fg">
+          <div class="ff"><label class="flabel">Policy Type</label>
+            <select class="fselect" id="d4-type">
+              <option value="Commercial General Liability" selected>Commercial General Liability</option>
+              <option value="Auto — Personal">Personal Auto</option>
+              <option value="Homeowners">Homeowners</option>
+              <option value="Commercial Property">Commercial Property</option>
+            </select>
+          </div>
+          <div class="ff"><label class="flabel">Current Premium</label><input class="finput" id="d4-prem" value="$12,400/year"></div>
+          <div class="ff"><label class="flabel">Years with Carrier</label><input class="finput" id="d4-yrs" value="4 years"></div>
+          <div class="ff"><label class="flabel">Claims History</label><input class="finput" id="d4-claims" value="2 claims — $8,200 total in 4 years"></div>
+          <div class="ff"><label class="flabel">Renewal Date</label><input class="finput" id="d4-date" value="June 1, 2026 (74 days away)"></div>
+          <div class="ff"><label class="flabel">Proposed Rate Change</label><input class="finput" id="d4-rate" value="+18% increase ($14,632/year)"></div>
+          <div class="ff full"><label class="flabel">Customer Risk Signals</label>
+            <textarea class="ftextarea" id="d4-signals">Customer requested quote from competitor last month (competitor quote obtained via agent network: $11,800). Customer has contacted billing 3 times about payment schedule. Lost a major client last quarter — revenue down 15%. Customer satisfaction score: 3.2/5 (below average). Agent notes: customer mentioned "shopping around" at last renewal 12 months ago but stayed. Premium increase notification sent 30 days ago — no response yet.</textarea>
+          </div>
+        </div>
+        <button class="run-btn" id="d4-btn" onclick="runRenewal()">⚡ Analyze Renewal Risk</button>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-hdr"><span class="card-title">AI Retention Analysis</span><span class="badge b-ai">Claude AI</span></div>
+      <div class="card-body" id="d4-body">
+        <div class="placeholder" id="d4-ph"><div class="placeholder-icon">🔄</div><p style="font-size:13px;line-height:1.6">Submit policy to see<br>AI retention analysis</p></div>
+        <div class="loading" id="d4-load"><div class="spinner"></div><div style="font-size:12px;color:var(--muted);margin-top:10px">Analyzing renewal risk...</div>
+          <div class="load-steps">
+            <div class="lstep" id="d4-s1"><div class="ldot"></div>Scoring churn probability</div>
+            <div class="lstep" id="d4-s2"><div class="ldot"></div>Analyzing competitive position</div>
+            <div class="lstep" id="d4-s3"><div class="ldot"></div>Calculating retention offer</div>
+            <div class="lstep" id="d4-s4"><div class="ldot"></div>Generating outreach strategy</div>
+            <div class="lstep" id="d4-s5"><div class="ldot"></div>Drafting retention letter</div>
+          </div>
+        </div>
+        <div class="result-panel" id="d4-result">
+          <div class="rec-box" style="border-color:rgba(245,158,11,.3);background:var(--orange-dim)"><div class="rec-lbl" style="color:var(--orange)">Retention Risk</div><div class="rec-txt" id="d4-rec">⚠️ High Churn Risk — Immediate Action Required</div></div>
+          <div class="checks" id="d4-checks"></div>
+          <div class="act-btns">
+            <button class="act-btn ab-green" onclick="toast('✅ Offer Sent','Retention offer sent. Agent notified to follow up within 24hrs.')">✅ Send Offer</button>
+            <button class="act-btn ab-indigo" onclick="toast('📞 Agent Assigned','High-priority flag sent to account manager.')">📞 Assign Agent</button>
+            <button class="act-btn ab-orange" onclick="toast('📊 Escalated','Escalated to retention specialist team.')">📊 Escalate</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="letter" id="d4-letter"><div class="card-hdr"><span class="card-title">AI Retention Offer Letter</span><span class="badge b-ai">Generated instantly</span></div><div class="letter-body" id="d4-lbody"></div></div>
+</div>
+
+<!-- DEMO 5: REGULATORY -->
+<div class="demo-section" id="demo5">
+  <div class="sec-eye">Demo 05 · Regulatory Filing</div>
+  <div class="sec-title">State rate filings: 6 weeks → <em style="color:var(--indigo-bright)">20 seconds</em></div>
+  <p class="sec-sub">Insurance rate filings with state departments require actuarial justification, loss data, competitor analysis, and regulatory compliance. AI assembles the complete filing package while the actuary reviews the assumptions.</p>
+  <div class="sec-stats">
+    <div class="sec-stat"><strong>50 states</strong><span>Different filing requirements</span></div>
+    <div class="sec-stat"><strong>6 weeks</strong><span>Manual filing preparation</span></div>
+    <div class="sec-stat"><strong>20s</strong><span>AI filing generation</span></div>
+    <div class="sec-stat"><strong>$45,000</strong><span>Cost per manual filing vs $200 AI</span></div>
+  </div>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-hdr"><span class="card-title">Rate Filing Request</span><span class="badge b-live">● Live</span></div>
+      <div class="card-body">
+        <div class="fg">
+          <div class="ff"><label class="flabel">Line of Business</label>
+            <select class="fselect" id="d5-lob">
+              <option value="Personal Auto" selected>Personal Auto</option>
+              <option value="Homeowners">Homeowners</option>
+              <option value="Commercial General Liability">Commercial GL</option>
+              <option value="Workers Compensation">Workers Comp</option>
+            </select>
+          </div>
+          <div class="ff"><label class="flabel">State</label>
+            <select class="fselect" id="d5-state">
+              <option value="Washington" selected>Washington</option>
+              <option value="California">California</option>
+              <option value="Texas">Texas</option>
+              <option value="Florida">Florida</option>
+              <option value="New York">New York</option>
+            </select>
+          </div>
+          <div class="ff"><label class="flabel">Proposed Rate Change</label><input class="finput" id="d5-change" value="+7.2% statewide average increase"></div>
+          <div class="ff"><label class="flabel">Effective Date Requested</label><input class="finput" id="d5-date" value="July 1, 2026"></div>
+          <div class="ff full"><label class="flabel">Actuarial Justification</label>
+            <textarea class="ftextarea" id="d5-just" style="min-height:110px">Loss ratio deteriorated from 62% to 71% over past 24 months driven by: (1) Inflation in auto repair costs up 28% since 2023, (2) Increased frequency of total loss claims due to vehicle complexity, (3) Medical cost inflation 14% YoY. Rate indication shows +9.8% required — filing +7.2% represents competitive compromise. Loss data based on 36-month development period. Credibility factor applied per state filing guidelines. Rate change supports target combined ratio of 96%.</textarea>
+          </div>
+        </div>
+        <button class="run-btn" id="d5-btn" onclick="runFiling()">⚡ Generate Filing Package</button>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-hdr"><span class="card-title">AI Filing Analysis</span><span class="badge b-ai">Claude AI</span></div>
+      <div class="card-body" id="d5-body">
+        <div class="placeholder" id="d5-ph"><div class="placeholder-icon">📑</div><p style="font-size:13px;line-height:1.6">Submit filing details to see<br>AI package generation</p></div>
+        <div class="loading" id="d5-load"><div class="spinner"></div><div style="font-size:12px;color:var(--muted);margin-top:10px">Preparing filing...</div>
+          <div class="load-steps">
+            <div class="lstep" id="d5-s1"><div class="ldot"></div>Checking state filing requirements</div>
+            <div class="lstep" id="d5-s2"><div class="ldot"></div>Validating actuarial justification</div>
+            <div class="lstep" id="d5-s3"><div class="ldot"></div>Reviewing competitive landscape</div>
+            <div class="lstep" id="d5-s4"><div class="ldot"></div>Assessing approval probability</div>
+            <div class="lstep" id="d5-s5"><div class="ldot"></div>Generating filing package</div>
+          </div>
+        </div>
+        <div class="result-panel" id="d5-result">
+          <div class="rec-box"><div class="rec-lbl">AI Filing Assessment</div><div class="rec-txt" id="d5-rec">✅ Filing Ready — High Approval Probability</div></div>
+          <div class="checks" id="d5-checks"></div>
+          <div class="act-btns">
+            <button class="act-btn ab-green" onclick="toast('✅ Filed','Rate filing submitted to Washington OIC. Tracking number generated.')">✅ Submit Filing</button>
+            <button class="act-btn ab-indigo" onclick="toast('📋 Actuarial Review','Sent to appointed actuary for sign-off.')">📋 Actuarial Sign-off</button>
+            <button class="act-btn ab-orange" onclick="toast('✏️ Revised','Filing revised per AI recommendations. Ready to resubmit.')">✏️ Revise Filing</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="letter" id="d5-letter"><div class="card-hdr"><span class="card-title">AI-Generated Filing Package Summary</span><span class="badge b-ai">Generated instantly</span></div><div class="letter-body" id="d5-lbody"></div></div>
+</div>
+
+<div class="banner">
+  <h2>Replace Your Insurance Implementation</h2>
+  <p>We rebuild Pega, Guidewire, and ServiceNow insurance workflows AI-native. Claims, underwriting, fraud, renewals — all automated. 8 weeks. You own the code.</p>
+  <a class="cta" href="https://bisxp.com/#contact">Book a Free Assessment →</a>
+</div>
+</main>
+
+<div class="toast" id="toast-el"><div class="toast-title" id="toast-t">Done</div><div id="toast-m">Action completed.</div></div>
+
+<script>
+const API='https://api.anthropic.com/v1/messages';
+function switchTab(n) {
+  document.querySelectorAll('.tab-btn').forEach((b,i) => b.classList.toggle('active', i===n));
+  document.querySelectorAll('.demo-section').forEach((s,i) => s.classList.toggle('active', i===n));
+  window.scrollTo({top: document.querySelector('.tab-nav').offsetTop - 10, behavior:'smooth'});
+});}
+function toast(t,m){document.getElementById('toast-t').textContent=t;document.getElementById('toast-m').textContent=m;const el=document.getElementById('toast-el');el.classList.add('show');setTimeout(()=>el.classList.remove('show'),4000);}
+async function animSteps(p,n,d=580){for(let i=1;i<=n;i++){await new Promise(r=>setTimeout(r,d));if(i>1){document.getElementById(`${p}-s${i-1}`).classList.remove('on');document.getElementById(`${p}-s${i-1}`).classList.add('done');}document.getElementById(`${p}-s${i}`).classList.add('on');}}
+function showLoad(id){document.getElementById(`${id}-ph`).style.display='none';document.getElementById(`${id}-load`).classList.add('on');document.getElementById(`${id}-result`).classList.remove('on');const l=document.getElementById(`${id}-letter`);if(l)l.classList.remove('on');}
+function showResult(id){document.getElementById(`${id}-load`).classList.remove('on');document.getElementById(`${id}-result`).classList.add('on');}
+function buildChecks(c){return c.map(x=>`<div class="chk ${x.status}"><span class="chk-icon">${x.status==='pass'?'✓':x.status==='warn'?'⚠':'✕'}</span><div class="chk-text"><strong>${x.title}</strong><span>${x.detail}</span></div></div>`).join('');}
+function buildLetter(title,content,time){const p=content.split('\n\n').filter(x=>x.trim());return `<div class="letter-head">${title}</div>${p.map(x=>`<p>${x}</p>`).join('')}<div class="letter-sig"><strong style="color:var(--indigo-bright)">BISXP Insurance AI</strong><br><span style="font-size:11px;color:var(--muted)">Generated in ${time}s · Powered by Claude AI</span></div>`;}
+async function callClaude(prompt){const r=await fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,messages:[{role:'user',content:prompt}]})});const d=await r.json();return JSON.parse(d.content[0].text.replace(/```json|```/g,'').trim());}
+
+async function runD(id,role,...pairs){
+  const btn=document.getElementById(`${id}-btn`);btn.disabled=true;
+  const t0=Date.now();showLoad(id);
+  let context='';for(let i=0;i<pairs.length;i+=2)context+=`${pairs[i]}: ${document.getElementById(pairs[i+1]).value}\n`;
+  const sp=animSteps(id,5);
+  try{
+    const r=await callClaude(`You are a ${role}. Analyze this and respond ONLY with JSON:\n${context}\nJSON: {"decision":"<decision>","decisionDetail":"<one sentence>","checks":[{"status":"<pass|warn|fail>","title":"<n>","detail":"<d>"},{"status":"<pass|warn|fail>","title":"<n>","detail":"<d>"},{"status":"<pass|warn|fail>","title":"<n>","detail":"<d>"},{"status":"<pass|warn|fail>","title":"<n>","detail":"<d>"},{"status":"<pass|warn|fail>","title":"<n>","detail":"<d>"}],"letter":"<2 paragraph professional decision letter>"}`);
+    await sp;const elapsed=((Date.now()-t0)/1000).toFixed(1);
+    const icon=r.decision.toLowerCase().includes('approv')||r.decision.toLowerCase().includes('settl')?'✅':r.decision.toLowerCase().includes('review')||r.decision.toLowerCase().includes('pending')?'⚠️':'❌';
+    document.getElementById(`${id}-rec`).textContent=`${icon} ${r.decision}`;
+    document.getElementById(`${id}-checks`).innerHTML=buildChecks(r.checks);
+    document.getElementById(`${id}-lbody`).innerHTML=buildLetter(r.decision,r.letter,elapsed);
+    document.getElementById(`${id}-letter`).classList.add('on');showResult(id);
+  }catch(e){await sp;showResult(id);}
+  btn.disabled=false;btn.textContent=btn.textContent.replace('ing...','⚡ '+btn.textContent.split('⚡')[1]||'Run');
+}
+
+async function runUnderwriting(){
+  const btn=document.getElementById('d2-btn');btn.disabled=true;btn.textContent='Underwriting...';
+  const t0=Date.now();showLoad('d2');
+  const vals=['d2-type','d2-biz','d2-rev','d2-age','d2-losses','d2-limit','d2-risk'].map(id=>document.getElementById(id).value);
+  const sp=animSteps('d2',5);
+  try{
+    const r=await callClaude(`You are a commercial insurance underwriter. Respond ONLY with JSON:
+Type: ${vals[0]}, Business: ${vals[1]}, Revenue: ${vals[2]}, Age: ${vals[3]}, Losses: ${vals[4]}, Limit: ${vals[5]}
+Risk: "${vals[6]}"
+JSON: {"score":<0-100>,"decision":"<Bind Standard|Bind Substandard|Refer|Decline>","premium":"<annual premium figure>","decisionDetail":"<one sentence>","checks":[{"status":"<pass|warn|fail>","title":"<underwriting criterion>","detail":"<finding>"},{"status":"<pass|warn|fail>","title":"<n>","detail":"<d>"},{"status":"<pass|warn|fail>","title":"<n>","detail":"<d>"},{"status":"<pass|warn|fail>","title":"<n>","detail":"<d>"},{"status":"<pass|warn|fail>","title":"<n>","detail":"<d>"}],"letter":"<2 paragraph quote letter with premium, coverage terms, key exclusions, and binding instructions>"}`);
+    await sp;const elapsed=((Date.now()-t0)/1000).toFixed(1);
+    const score=r.score;const color=score>70?'#6366F1':score>40?'#F59E0B':'#EF4444';
+    const off=188.5-(score/100)*188.5;
+    document.getElementById('d2-arc').style.strokeDashoffset=off;document.getElementById('d2-arc').style.stroke=color;
+    document.getElementById('d2-score').textContent=score;document.getElementById('d2-score').style.fill=color;
+    document.getElementById('d2-rtitle').textContent=r.decision;document.getElementById('d2-rdesc').textContent=r.decisionDetail;
+    document.getElementById('d2-checks').innerHTML=buildChecks(r.checks);
+    const icon=r.decision.includes('Bind')?'✅':r.decision.includes('Refer')?'⚠️':'❌';
+    document.getElementById('d2-rec').textContent=`${icon} ${r.decision} — ${r.premium}/year`;
+    document.getElementById('d2-lbody').innerHTML=buildLetter(`Quote — ${vals[0]}`,r.letter,elapsed);
+    document.getElementById('d2-letter').classList.add('on');showResult('d2');
+  }catch(e){await sp;showResult('d2');}
+  btn.disabled=false;btn.textContent='⚡ Generate Quote';
+}
+
+async function runFraud(){
+  const btn=document.getElementById('d3-btn');btn.disabled=true;btn.textContent='Analyzing...';
+  const t0=Date.now();showLoad('d3');
+  const vals=['d3-type','d3-amt','d3-prior','d3-age','d3-flags'].map(id=>document.getElementById(id).value);
+  const sp=animSteps('d3',5);
+  try{
+    const r=await callClaude(`You are an insurance fraud investigator. Analyze this claim. Respond ONLY with JSON:
+Type: ${vals[0]}, Amount: ${vals[1]}, Prior Claims: ${vals[2]}, Policy Age: ${vals[3]}
+Indicators: "${vals[4]}"
+JSON: {"verdict":"<High Fraud Probability|Medium — Review Required|Low — Proceed>","verdictDetail":"<one sentence>","checks":[{"status":"<pass|warn|fail>","title":"<fraud indicator>","detail":"<finding>"},{"status":"<pass|warn|fail>","title":"<n>","detail":"<d>"},{"status":"<pass|warn|fail>","title":"<n>","detail":"<d>"},{"status":"<pass|warn|fail>","title":"<n>","detail":"<d>"},{"status":"<pass|warn|fail>","title":"<n>","detail":"<d>"}],"letter":"<2 paragraph SIU referral memo detailing suspicious indicators and recommended investigation steps>"}`);
+    await sp;const elapsed=((Date.now()-t0)/1000).toFixed(1);
+    const icon=r.verdict.includes('High')?'🚨':r.verdict.includes('Medium')?'⚠️':'✅';
+    document.getElementById('d3-rec').textContent=`${icon} ${r.verdict}`;
+    document.getElementById('d3-checks').innerHTML=buildChecks(r.checks);
+    document.getElementById('d3-lbody').innerHTML=buildLetter('SIU Referral Memo',r.letter,elapsed);
+    document.getElementById('d3-letter').classList.add('on');showResult('d3');
+  }catch(e){await sp;showResult('d3');}
+  btn.disabled=false;btn.textContent='⚡ Run Fraud Analysis';
+}
+
+async function runRenewal(){
+  const btn=document.getElementById('d4-btn');btn.disabled=true;btn.textContent='Analyzing...';
+  const t0=Date.now();showLoad('d4');
+  const vals=['d4-type','d4-prem','d4-yrs','d4-claims','d4-date','d4-rate','d4-signals'].map(id=>document.getElementById(id).value);
+  const sp=animSteps('d4',5);
+  try{
+    const r=await callClaude(`You are an insurance retention specialist. Analyze this renewal risk. Respond ONLY with JSON:
+Policy: ${vals[0]}, Premium: ${vals[1]}, Tenure: ${vals[2]}, Claims: ${vals[3]}, Renewal: ${vals[4]}, Rate Change: ${vals[5]}
+Signals: "${vals[6]}"
+JSON: {"churnRisk":"<High|Medium|Low>","churnProbability":"<percentage>","retentionOffer":"<specific retention offer>","riskDetail":"<one sentence>","checks":[{"status":"<pass|warn|fail>","title":"<retention factor>","detail":"<finding>"},{"status":"<pass|warn|fail>","title":"<n>","detail":"<d>"},{"status":"<pass|warn|fail>","title":"<n>","detail":"<d>"},{"status":"<pass|warn|fail>","title":"<n>","detail":"<d>"},{"status":"<pass|warn|fail>","title":"<n>","detail":"<d>"}],"letter":"<2 paragraph personalized retention offer letter to the customer>"}`);
+    await sp;const elapsed=((Date.now()-t0)/1000).toFixed(1);
+    const icon=r.churnRisk==='High'?'🚨':r.churnRisk==='Medium'?'⚠️':'✅';
+    document.getElementById('d4-rec').textContent=`${icon} ${r.churnRisk} Churn Risk (${r.churnProbability}) — ${r.retentionOffer}`;
+    document.getElementById('d4-checks').innerHTML=buildChecks(r.checks);
+    document.getElementById('d4-lbody').innerHTML=buildLetter('Retention Offer',r.letter,elapsed);
+    document.getElementById('d4-letter').classList.add('on');showResult('d4');
+  }catch(e){await sp;showResult('d4');}
+  btn.disabled=false;btn.textContent='⚡ Analyze Renewal Risk';
+}
+
+async function runFiling(){
+  const btn=document.getElementById('d5-btn');btn.disabled=true;btn.textContent='Generating...';
+  const t0=Date.now();showLoad('d5');
+  const vals=['d5-lob','d5-state','d5-change','d5-date','d5-just'].map(id=>document.getElementById(id).value);
+  const sp=animSteps('d5',5,700);
+  try{
+    const r=await callClaude(`You are an insurance regulatory filing specialist. Analyze this rate filing. Respond ONLY with JSON:
+Line: ${vals[0]}, State: ${vals[1]}, Change: ${vals[2]}, Effective: ${vals[3]}
+Justification: "${vals[4]}"
+JSON: {"approval":"<High Probability|Medium Probability|Low Probability — Revise>","approvalDetail":"<one sentence>","checks":[{"status":"<pass|warn|fail>","title":"<filing requirement>","detail":"<finding>"},{"status":"<pass|warn|fail>","title":"<n>","detail":"<d>"},{"status":"<pass|warn|fail>","title":"<n>","detail":"<d>"},{"status":"<pass|warn|fail>","title":"<n>","detail":"<d>"},{"status":"<pass|warn|fail>","title":"<n>","detail":"<d>"}],"letter":"<3 paragraph filing package summary covering actuarial justification, regulatory compliance, and expected timeline for approval>"}`);
+    await sp;const elapsed=((Date.now()-t0)/1000).toFixed(1);
+    const icon=r.approval.includes('High')?'✅':r.approval.includes('Medium')?'⚠️':'🔄';
+    document.getElementById('d5-rec').textContent=`${icon} ${r.approval} — ${r.approvalDetail}`;
+    document.getElementById('d5-checks').innerHTML=buildChecks(r.checks);
+    document.getElementById('d5-lbody').innerHTML=buildLetter(`Rate Filing Package — ${vals[0]}, ${vals[1]}`,r.letter,elapsed);
+    document.getElementById('d5-letter').classList.add('on');showResult('d5');
+  }catch(e){await sp;showResult('d5');}
+  btn.disabled=false;btn.textContent='⚡ Generate Filing Package';
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,1223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Merchant Lifecycle — BISXP Demo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Outfit:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --obsidian: #08080A;
+  --charcoal: #131318;
+  --steel: #1E1E26;
+  --steel-light: #26262F;
+  --amber: #D4A843;
+  --amber-bright: #F0C060;
+  --amber-dim: rgba(212,168,67,0.12);
+  --amber-glow: rgba(212,168,67,0.06);
+  --cream: #F0EBE0;
+  --white: #FAFAF8;
+  --muted: #70707A;
+  --muted-light: #9090A0;
+  --border: rgba(212,168,67,0.12);
+  --border-strong: rgba(212,168,67,0.3);
+  --success: #2ECC71;
+  --success-dim: rgba(46,204,113,0.1);
+  --warning: #F39C12;
+  --warning-dim: rgba(243,156,18,0.1);
+  --danger: #E74C3C;
+  --danger-dim: rgba(231,76,60,0.1);
+  --info: #3498DB;
+  --info-dim: rgba(52,152,219,0.1);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--obsidian);
+  color: var(--cream);
+  font-family: 'Outfit', sans-serif;
+  font-weight: 300;
+  min-height: 100vh;
+  line-height: 1.6;
+}
+
+/* ── Layout ── */
+.shell {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 48px 24px 80px;
+}
+
+/* ── Header ── */
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 48px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid var(--border);
+}
+.header-left {}
+.wordmark {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: 13px;
+  letter-spacing: 0.2em;
+  color: var(--muted);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.wordmark span { color: var(--amber); }
+.page-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: 32px;
+  color: var(--white);
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+.page-title em {
+  color: var(--amber);
+  font-style: normal;
+}
+.page-subtitle {
+  margin-top: 8px;
+  font-size: 13px;
+  color: var(--muted);
+  font-weight: 300;
+  max-width: 440px;
+}
+.back-link {
+  font-size: 12px;
+  color: var(--muted);
+  text-decoration: none;
+  letter-spacing: 0.06em;
+  transition: color 0.2s;
+  font-family: 'JetBrains Mono', monospace;
+}
+.back-link:hover { color: var(--amber); }
+
+/* ── Form Panel ── */
+.form-panel {
+  background: var(--charcoal);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 32px;
+  margin-bottom: 40px;
+}
+.form-panel-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-bottom: 24px;
+}
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+@media (max-width: 600px) { .form-grid { grid-template-columns: 1fr; } }
+
+.field { display: flex; flex-direction: column; gap: 6px; }
+.field.wide { grid-column: 1 / -1; }
+.field label {
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted-light);
+  font-weight: 400;
+}
+.field input,
+.field select,
+.field textarea {
+  background: var(--steel);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--cream);
+  font-family: 'Outfit', sans-serif;
+  font-size: 14px;
+  font-weight: 300;
+  padding: 10px 14px;
+  transition: border-color 0.2s;
+  outline: none;
+  -webkit-appearance: none;
+}
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  border-color: var(--amber);
+}
+.field select { cursor: pointer; }
+.field select option { background: var(--steel); }
+.field textarea { resize: vertical; min-height: 72px; }
+
+.amount-row {
+  display: flex;
+  align-items: center;
+  background: var(--steel);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+.amount-row:focus-within { border-color: var(--amber); }
+.amount-prefix {
+  padding: 10px 14px;
+  color: var(--amber);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  border-right: 1px solid var(--border);
+}
+.amount-row input {
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  flex: 1;
+}
+.amount-row input:focus { border-color: transparent; }
+
+.submit-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.run-btn {
+  background: var(--amber);
+  color: var(--obsidian);
+  border: none;
+  border-radius: 8px;
+  padding: 12px 28px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  letter-spacing: 0.04em;
+  transition: background 0.2s, transform 0.1s;
+}
+.run-btn:hover { background: var(--amber-bright); }
+.run-btn:active { transform: scale(0.98); }
+.run-btn:disabled {
+  background: var(--muted);
+  cursor: not-allowed;
+  transform: none;
+}
+.model-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 0.06em;
+}
+
+/* ── Pipeline ── */
+.pipeline { display: flex; flex-direction: column; gap: 0; }
+
+.step-wrapper {
+  display: flex;
+  gap: 0;
+  position: relative;
+}
+
+/* Connector line */
+.step-line {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 40px;
+  flex-shrink: 0;
+}
+.step-dot {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid var(--border-strong);
+  background: var(--charcoal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.3s;
+  position: relative;
+  z-index: 1;
+}
+.step-dot.idle { border-color: var(--border); }
+.step-dot.running {
+  border-color: var(--amber);
+  background: var(--amber-dim);
+  animation: pulse-dot 1.2s ease-in-out infinite;
+}
+.step-dot.done { border-color: var(--success); background: var(--success-dim); }
+.step-dot.warn { border-color: var(--warning); background: var(--warning-dim); }
+.step-dot.error { border-color: var(--danger); background: var(--danger-dim); }
+.step-dot svg { width: 12px; height: 12px; }
+
+.connector {
+  width: 2px;
+  flex: 1;
+  background: var(--border);
+  min-height: 16px;
+  transition: background 0.4s;
+}
+.connector.lit { background: var(--amber-dim); }
+
+.step-body {
+  flex: 1;
+  padding: 0 0 32px 20px;
+  min-width: 0;
+}
+
+.step-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 0;
+  padding: 0;
+  min-height: 28px;
+}
+.step-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+  flex-shrink: 0;
+}
+.step-title {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--white);
+  flex: 1;
+}
+.step-status-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  letter-spacing: 0.06em;
+  flex-shrink: 0;
+}
+.tag-idle { background: var(--steel); color: var(--muted); }
+.tag-running { background: var(--amber-dim); color: var(--amber); }
+.tag-done { background: var(--success-dim); color: var(--success); }
+.tag-warn { background: var(--warning-dim); color: var(--warning); }
+.tag-error { background: var(--danger-dim); color: var(--danger); }
+.tag-info { background: var(--info-dim); color: var(--info); }
+
+.step-desc {
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 2px;
+  margin-bottom: 10px;
+  letter-spacing: 0.02em;
+}
+
+/* Result card */
+.result-card {
+  background: var(--charcoal);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-top: 10px;
+  display: none;
+}
+.result-card.visible { display: block; animation: slide-in 0.25s ease-out; }
+
+.result-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--border);
+  background: var(--steel);
+}
+.result-meta-time {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+}
+.result-meta-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--amber);
+  letter-spacing: 0.08em;
+  margin-left: auto;
+}
+
+.result-body { padding: 16px; }
+.result-text {
+  font-size: 13px;
+  color: var(--cream);
+  line-height: 1.7;
+  font-weight: 300;
+}
+
+/* Structured output blocks */
+.output-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 10px;
+  margin-top: 12px;
+}
+.output-chip {
+  background: var(--steel);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 12px;
+}
+.output-chip-label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+.output-chip-value {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  color: var(--cream);
+  font-weight: 500;
+}
+.output-chip-value.amber { color: var(--amber); }
+.output-chip-value.green { color: var(--success); }
+.output-chip-value.red { color: var(--danger); }
+.output-chip-value.warn { color: var(--warning); }
+
+/* Document block */
+.doc-block {
+  background: var(--steel-light);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--amber);
+  border-radius: 8px;
+  padding: 14px 16px;
+  margin-top: 12px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11.5px;
+  color: var(--cream);
+  line-height: 1.8;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* Streaming cursor */
+.streaming-cursor::after {
+  content: '█';
+  color: var(--amber);
+  animation: blink 0.8s step-end infinite;
+}
+
+/* Spinner */
+.spinner {
+  width: 12px; height: 12px;
+  border: 2px solid var(--amber-dim);
+  border-top-color: var(--amber);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  display: inline-block;
+}
+
+/* Animations */
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0; } }
+@keyframes pulse-dot {
+  0%,100% { box-shadow: 0 0 0 0 rgba(212,168,67,0.3); }
+  50% { box-shadow: 0 0 0 6px rgba(212,168,67,0); }
+}
+@keyframes slide-in {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Summary bar */
+.summary-bar {
+  background: var(--charcoal);
+  border: 1px solid var(--border-strong);
+  border-radius: 12px;
+  padding: 24px 28px;
+  margin-top: 8px;
+  display: none;
+}
+.summary-bar.visible { display: block; animation: slide-in 0.3s ease-out; }
+.summary-bar-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-bottom: 16px;
+}
+.summary-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.summary-chip {
+  background: var(--steel);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 8px 14px;
+  font-size: 12px;
+}
+.summary-chip span { color: var(--muted); font-size: 11px; display: block; }
+.summary-chip strong { color: var(--cream); font-weight: 500; }
+.summary-time {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 12px;
+}
+</style>
+</head>
+<body>
+<div class="shell">
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header-left">
+      <div class="wordmark">BIS<span>X</span>P · Demo Suite</div>
+      <h1 class="page-title">Merchant Lifecycle<br><em>Application to First Transaction</em></h1>
+      <p class="page-subtitle">AI orchestrates the complete onboarding journey. Each step calls Claude in real-time — outputs chain into the next step.</p>
+    </div>
+    <a href="workflows.html" class="back-link">← Workflows</a>
+  </header>
+
+  <!-- Input Form -->
+  <div class="form-panel">
+    <div class="form-panel-title">New Merchant Application</div>
+    <div class="form-grid">
+      <div class="field">
+        <label>Business Name</label>
+        <input type="text" id="bizName" value="Stellar Payments Inc." placeholder="e.g. Acme Corp">
+      </div>
+      <div class="field">
+        <label>Business Type</label>
+        <select id="bizType">
+          <option value="SaaS / Technology">SaaS / Technology</option>
+          <option value="Retail E-commerce">Retail E-commerce</option>
+          <option value="Marketplace">Marketplace</option>
+          <option value="Healthcare">Healthcare</option>
+          <option value="Hospitality / F&B">Hospitality / F&B</option>
+          <option value="Financial Services">Financial Services</option>
+          <option value="Gambling / Gaming">Gambling / Gaming</option>
+          <option value="Cannabis / CBD">Cannabis / CBD</option>
+          <option value="Firearms / Ammunition">Firearms / Ammunition</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Country</label>
+        <select id="bizCountry">
+          <option value="United States">United States</option>
+          <option value="United Kingdom">United Kingdom</option>
+          <option value="Canada">Canada</option>
+          <option value="Australia">Australia</option>
+          <option value="Germany">Germany</option>
+          <option value="Singapore">Singapore</option>
+          <option value="Nigeria">Nigeria</option>
+          <option value="Pakistan">Pakistan</option>
+          <option value="Iran">Iran</option>
+          <option value="Russia">Russia</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Monthly Volume</label>
+        <div class="amount-row">
+          <span class="amount-prefix">$</span>
+          <input type="number" id="bizVolume" value="250000" min="1000" max="50000000">
+        </div>
+      </div>
+      <div class="field wide">
+        <label>Products / Services (optional detail)</label>
+        <textarea id="bizDesc" placeholder="What does the business sell or provide?">B2B SaaS payment infrastructure. Subscription billing, usage-based pricing, global payouts.</textarea>
+      </div>
+    </div>
+    <div class="submit-row">
+      <button class="run-btn" id="runBtn" onclick="runPipeline()">Run Pipeline</button>
+      <span class="model-tag">claude-sonnet-4-20250514 · /api/ai</span>
+    </div>
+  </div>
+
+  <!-- Pipeline Steps -->
+  <div class="pipeline" id="pipeline">
+
+    <!-- Step 1 -->
+    <div class="step-wrapper" id="wrap-1">
+      <div class="step-line">
+        <div class="step-dot idle" id="dot-1">
+          <svg viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="3" fill="var(--muted)"/></svg>
+        </div>
+        <div class="connector" id="conn-1"></div>
+      </div>
+      <div class="step-body">
+        <div class="step-header">
+          <span class="step-num">01</span>
+          <span class="step-title">Application Intake & Validation</span>
+          <span class="step-status-tag tag-idle" id="tag-1">IDLE</span>
+        </div>
+        <div class="step-desc">Completeness check · business registry format · risk tier classification · case ID assignment</div>
+        <div class="result-card" id="card-1">
+          <div class="result-meta">
+            <span class="result-meta-time" id="time-1">—</span>
+            <span class="result-meta-label">INTAKE ANALYSIS</span>
+          </div>
+          <div class="result-body">
+            <div class="result-text" id="text-1"></div>
+            <div class="output-grid" id="chips-1"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 2 -->
+    <div class="step-wrapper" id="wrap-2">
+      <div class="step-line">
+        <div class="step-dot idle" id="dot-2">
+          <svg viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="3" fill="var(--muted)"/></svg>
+        </div>
+        <div class="connector" id="conn-2"></div>
+      </div>
+      <div class="step-body">
+        <div class="step-header">
+          <span class="step-num">02</span>
+          <span class="step-title">Identity & Sanctions Screening</span>
+          <span class="step-status-tag tag-idle" id="tag-2">IDLE</span>
+        </div>
+        <div class="step-desc">OFAC · EU · UN · FinCEN watchlists · UBO chain · PEP screening · business registry verification</div>
+        <div class="result-card" id="card-2">
+          <div class="result-meta">
+            <span class="result-meta-time" id="time-2">—</span>
+            <span class="result-meta-label">SANCTIONS REPORT</span>
+          </div>
+          <div class="result-body">
+            <div class="result-text" id="text-2"></div>
+            <div class="output-grid" id="chips-2"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 3 -->
+    <div class="step-wrapper" id="wrap-3">
+      <div class="step-line">
+        <div class="step-dot idle" id="dot-3">
+          <svg viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="3" fill="var(--muted)"/></svg>
+        </div>
+        <div class="connector" id="conn-3"></div>
+      </div>
+      <div class="step-body">
+        <div class="step-header">
+          <span class="step-num">03</span>
+          <span class="step-title">Financial Risk Assessment</span>
+          <span class="step-status-tag tag-idle" id="tag-3">IDLE</span>
+        </div>
+        <div class="step-desc">MCC risk scoring · chargeback exposure · volume credibility · industry fraud benchmarks · stability signals</div>
+        <div class="result-card" id="card-3">
+          <div class="result-meta">
+            <span class="result-meta-time" id="time-3">—</span>
+            <span class="result-meta-label">RISK SCORECARD</span>
+          </div>
+          <div class="result-body">
+            <div class="result-text" id="text-3"></div>
+            <div class="output-grid" id="chips-3"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 4 -->
+    <div class="step-wrapper" id="wrap-4">
+      <div class="step-line">
+        <div class="step-dot idle" id="dot-4">
+          <svg viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="3" fill="var(--muted)"/></svg>
+        </div>
+        <div class="connector" id="conn-4"></div>
+      </div>
+      <div class="step-body">
+        <div class="step-header">
+          <span class="step-num">04</span>
+          <span class="step-title">Underwriting Decision</span>
+          <span class="step-status-tag tag-idle" id="tag-4">IDLE</span>
+        </div>
+        <div class="step-desc">AI underwriting model · approve / conditional / decline · reserve % · volume cap · conditions of approval</div>
+        <div class="result-card" id="card-4">
+          <div class="result-meta">
+            <span class="result-meta-time" id="time-4">—</span>
+            <span class="result-meta-label">UNDERWRITING MEMO</span>
+          </div>
+          <div class="result-body">
+            <div class="result-text" id="text-4"></div>
+            <div class="output-grid" id="chips-4"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 5 -->
+    <div class="step-wrapper" id="wrap-5">
+      <div class="step-line">
+        <div class="step-dot idle" id="dot-5">
+          <svg viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="3" fill="var(--muted)"/></svg>
+        </div>
+        <div class="connector" id="conn-5"></div>
+      </div>
+      <div class="step-body">
+        <div class="step-header">
+          <span class="step-num">05</span>
+          <span class="step-title">Contract Generation</span>
+          <span class="step-status-tag tag-idle" id="tag-5">IDLE</span>
+        </div>
+        <div class="step-desc">Merchant processing agreement · custom terms · fees · reserve clause · jurisdiction-specific disclosures</div>
+        <div class="result-card" id="card-5">
+          <div class="result-meta">
+            <span class="result-meta-time" id="time-5">—</span>
+            <span class="result-meta-label">CONTRACT EXCERPT</span>
+          </div>
+          <div class="result-body">
+            <div class="result-text" id="text-5"></div>
+            <div class="doc-block" id="doc-5" style="display:none"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 6 -->
+    <div class="step-wrapper" id="wrap-6">
+      <div class="step-line">
+        <div class="step-dot idle" id="dot-6">
+          <svg viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="3" fill="var(--muted)"/></svg>
+        </div>
+        <div class="connector" id="conn-6"></div>
+      </div>
+      <div class="step-body">
+        <div class="step-header">
+          <span class="step-num">06</span>
+          <span class="step-title">Portal Provisioning</span>
+          <span class="step-status-tag tag-idle" id="tag-6">IDLE</span>
+        </div>
+        <div class="step-desc">Merchant ID assignment · API key generation · dashboard access · integration credentials · webhook config</div>
+        <div class="result-card" id="card-6">
+          <div class="result-meta">
+            <span class="result-meta-time" id="time-6">—</span>
+            <span class="result-meta-label">PROVISIONING MANIFEST</span>
+          </div>
+          <div class="result-body">
+            <div class="result-text" id="text-6"></div>
+            <div class="doc-block" id="doc-6" style="display:none"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 7 -->
+    <div class="step-wrapper" id="wrap-7">
+      <div class="step-line">
+        <div class="step-dot idle" id="dot-7">
+          <svg viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="3" fill="var(--muted)"/></svg>
+        </div>
+        <div class="connector" id="conn-7"></div>
+      </div>
+      <div class="step-body">
+        <div class="step-header">
+          <span class="step-num">07</span>
+          <span class="step-title">First Transaction Monitoring Rules</span>
+          <span class="step-status-tag tag-idle" id="tag-7">IDLE</span>
+        </div>
+        <div class="step-desc">Custom fraud rules · velocity thresholds · alert triggers · 3DS policy · chargeback monitoring cadence</div>
+        <div class="result-card" id="card-7">
+          <div class="result-meta">
+            <span class="result-meta-time" id="time-7">—</span>
+            <span class="result-meta-label">FRAUD RULE CONFIG</span>
+          </div>
+          <div class="result-body">
+            <div class="result-text" id="text-7"></div>
+            <div class="doc-block" id="doc-7" style="display:none"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 8 -->
+    <div class="step-wrapper" id="wrap-8">
+      <div class="step-line">
+        <div class="step-dot idle" id="dot-8">
+          <svg viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="3" fill="var(--muted)"/></svg>
+        </div>
+        <div class="connector" id="conn-8" style="display:none"></div>
+      </div>
+      <div class="step-body">
+        <div class="step-header">
+          <span class="step-num">08</span>
+          <span class="step-title">Review Schedule & Account Assignment</span>
+          <span class="step-status-tag tag-idle" id="tag-8">IDLE</span>
+        </div>
+        <div class="step-desc">30/60/90-day review calendar · account manager assignment · welcome comms · escalation thresholds</div>
+        <div class="result-card" id="card-8">
+          <div class="result-meta">
+            <span class="result-meta-time" id="time-8">—</span>
+            <span class="result-meta-label">ACCOUNT PLAN</span>
+          </div>
+          <div class="result-body">
+            <div class="result-text" id="text-8"></div>
+            <div class="output-grid" id="chips-8"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Summary -->
+  <div class="summary-bar" id="summaryBar">
+    <div class="summary-bar-title">Pipeline Complete — Merchant Live</div>
+    <div class="summary-chips" id="summaryChips"></div>
+    <div class="summary-time" id="summaryTime"></div>
+  </div>
+
+</div>
+
+<script>
+// ── State ────────────────────────────────────────────────────────────────────
+let pipelineState = {};
+const API_ENDPOINT = '/api/ai';
+const MODEL = 'claude-sonnet-4-20250514';
+
+// ── Icon helpers ─────────────────────────────────────────────────────────────
+const ICONS = {
+  idle: `<svg viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="3" fill="var(--muted)"/></svg>`,
+  running: `<div class="spinner"></div>`,
+  done: `<svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6L5 8.5L9.5 3.5" stroke="var(--success)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+  warn: `<svg viewBox="0 0 12 12" fill="none"><path d="M6 2L10.5 10H1.5L6 2Z" stroke="var(--warning)" stroke-width="1" fill="none"/><line x1="6" y1="5" x2="6" y2="7.5" stroke="var(--warning)" stroke-width="1.2" stroke-linecap="round"/><circle cx="6" cy="9" r="0.6" fill="var(--warning)"/></svg>`,
+  error: `<svg viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="4.5" stroke="var(--danger)" stroke-width="1"/><line x1="4" y1="4" x2="8" y2="8" stroke="var(--danger)" stroke-width="1.2" stroke-linecap="round"/><line x1="8" y1="4" x2="4" y2="8" stroke="var(--danger)" stroke-width="1.2" stroke-linecap="round"/></svg>`,
+};
+
+function setStep(n, state, tagText) {
+  const dot = document.getElementById(`dot-${n}`);
+  const tag = document.getElementById(`tag-${n}`);
+  const conn = document.getElementById(`conn-${n}`);
+  dot.className = `step-dot ${state}`;
+  dot.innerHTML = ICONS[state] || ICONS.idle;
+  tag.className = `step-status-tag tag-${state === 'done' ? 'done' : state === 'warn' ? 'warn' : state === 'error' ? 'error' : state === 'running' ? 'running' : 'idle'}`;
+  tag.textContent = tagText;
+  if (conn && state === 'done') conn.classList.add('lit');
+}
+
+function showCard(n) {
+  document.getElementById(`card-${n}`).classList.add('visible');
+}
+
+function setTime(n, ms) {
+  document.getElementById(`time-${n}`).textContent = `${(ms/1000).toFixed(1)}s`;
+}
+
+function setChips(containerId, chips) {
+  const el = document.getElementById(containerId);
+  if (!el) return;
+  el.innerHTML = chips.map(c => `
+    <div class="output-chip">
+      <div class="output-chip-label">${c.label}</div>
+      <div class="output-chip-value ${c.color || ''}">${c.value}</div>
+    </div>`).join('');
+}
+
+// ── Claude call ──────────────────────────────────────────────────────────────
+async function callClaude(systemPrompt, userPrompt) {
+  const res = await fetch(API_ENDPOINT, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      model: MODEL,
+      max_tokens: 1000,
+      system: systemPrompt,
+      messages: [{ role: 'user', content: userPrompt }]
+    })
+  });
+  if (!res.ok) throw new Error(`API error: ${res.status}`);
+  const data = await res.json();
+  const text = data.content?.find(b => b.type === 'text')?.text || '';
+  return text.trim();
+}
+
+function parseJSON(text) {
+  try {
+    const clean = text.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
+    return JSON.parse(clean);
+  } catch {
+    return null;
+  }
+}
+
+// ── Main pipeline ────────────────────────────────────────────────────────────
+async function runPipeline() {
+  const name = document.getElementById('bizName').value.trim() || 'Unknown Corp';
+  const type = document.getElementById('bizType').value;
+  const country = document.getElementById('bizCountry').value;
+  const volume = parseInt(document.getElementById('bizVolume').value) || 100000;
+  const desc = document.getElementById('bizDesc').value.trim();
+
+  // Reset all steps
+  for (let i = 1; i <= 8; i++) {
+    setStep(i, 'idle', 'IDLE');
+    const card = document.getElementById(`card-${i}`);
+    card.classList.remove('visible');
+    const t = document.getElementById(`text-${i}`);
+    if (t) t.textContent = '';
+    const ch = document.getElementById(`chips-${i}`);
+    if (ch) ch.innerHTML = '';
+    const dc = document.getElementById(`doc-${i}`);
+    if (dc) { dc.textContent = ''; dc.style.display = 'none'; }
+    const conn = document.getElementById(`conn-${i}`);
+    if (conn) conn.classList.remove('lit');
+  }
+  document.getElementById('summaryBar').classList.remove('visible');
+  pipelineState = {};
+
+  const btn = document.getElementById('runBtn');
+  btn.disabled = true;
+  btn.textContent = 'Running…';
+
+  const pipelineStart = Date.now();
+  const fmtVol = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(volume);
+  const merchantCtx = `Business: ${name} | Type: ${type} | Country: ${country} | Monthly Volume: ${fmtVol} | Description: ${desc || 'Not provided'}`;
+
+  try {
+
+    // ── STEP 1: Intake ───────────────────────────────────────────────────────
+    setStep(1, 'running', 'PROCESSING');
+    const t1 = Date.now();
+    const r1 = await callClaude(
+      `You are a payment operations analyst performing merchant application intake. 
+       Respond ONLY with a JSON object. No markdown, no preamble.
+       JSON schema: {
+         "summary": "2-3 sentence intake summary",
+         "case_id": "generated case ID like CASE-XXXXXX",
+         "completeness_score": number 0-100,
+         "risk_tier_initial": "LOW | MEDIUM | HIGH | VERY_HIGH",
+         "mcc_code": "4-digit MCC code appropriate for this business type",
+         "mcc_description": "MCC description",
+         "flags": ["array of 0-3 initial flags if any"],
+         "proceed": true
+       }`,
+      `Perform intake validation for: ${merchantCtx}`
+    );
+    const d1 = parseJSON(r1);
+    setTime(1, Date.now() - t1);
+    pipelineState.intake = d1 || { summary: r1, case_id: 'CASE-' + Math.random().toString(36).slice(2,8).toUpperCase(), risk_tier_initial: 'MEDIUM', mcc_code: '7372', proceed: true };
+
+    document.getElementById('text-1').textContent = pipelineState.intake.summary || r1;
+    showCard(1);
+    setChips('chips-1', [
+      { label: 'Case ID', value: pipelineState.intake.case_id, color: 'amber' },
+      { label: 'MCC', value: pipelineState.intake.mcc_code + ' — ' + (pipelineState.intake.mcc_description || ''), color: '' },
+      { label: 'Completeness', value: (pipelineState.intake.completeness_score || '—') + '%', color: 'green' },
+      { label: 'Initial Tier', value: pipelineState.intake.risk_tier_initial, color: pipelineState.intake.risk_tier_initial === 'LOW' ? 'green' : pipelineState.intake.risk_tier_initial === 'MEDIUM' ? 'warn' : 'red' },
+    ]);
+    const flags1 = pipelineState.intake.flags || [];
+    if (flags1.length) setStep(1, 'warn', 'FLAGS'); else setStep(1, 'done', 'OK');
+
+    // ── STEP 2: Sanctions ────────────────────────────────────────────────────
+    setStep(2, 'running', 'SCREENING');
+    const t2 = Date.now();
+    const r2 = await callClaude(
+      `You are a compliance analyst performing AML/sanctions screening. 
+       You have access to OFAC SDN list, EU Consolidated List, UN Security Council list, FinCEN watchlists, and PEP databases.
+       Respond ONLY with a JSON object. No markdown, no preamble.
+       Be realistic: businesses from high-risk countries (Iran, Russia, North Korea, Syria) should trigger matches or enhanced scrutiny. Cannabis/firearms in certain jurisdictions trigger flags.
+       JSON schema: {
+         "summary": "2-3 sentence screening narrative",
+         "ofac_result": "CLEAR | POTENTIAL_MATCH | MATCH",
+         "eu_list_result": "CLEAR | POTENTIAL_MATCH | MATCH",
+         "un_list_result": "CLEAR | POTENTIAL_MATCH | MATCH",
+         "fincen_result": "CLEAR | FLAGGED",
+         "pep_check": "CLEAR | FLAGGED",
+         "business_registry": "VERIFIED | UNVERIFIED | FLAGGED",
+         "overall_result": "CLEAR | ENHANCED_DUE_DILIGENCE | BLOCKED",
+         "risk_indicators": ["array of specific indicators found"],
+         "recommendation": "PROCEED | ENHANCED_DD | DECLINE"
+       }`,
+      `Screen this merchant: ${merchantCtx}\nInitial intake: ${JSON.stringify(pipelineState.intake)}`
+    );
+    const d2 = parseJSON(r2);
+    setTime(2, Date.now() - t2);
+    pipelineState.sanctions = d2 || { summary: r2, overall_result: 'CLEAR', recommendation: 'PROCEED' };
+
+    document.getElementById('text-2').textContent = pipelineState.sanctions.summary || r2;
+    showCard(2);
+
+    const sanctionsColor = pipelineState.sanctions.overall_result === 'CLEAR' ? 'green' : pipelineState.sanctions.overall_result === 'ENHANCED_DUE_DILIGENCE' ? 'warn' : 'red';
+    setChips('chips-2', [
+      { label: 'OFAC', value: pipelineState.sanctions.ofac_result || '—', color: pipelineState.sanctions.ofac_result === 'CLEAR' ? 'green' : 'red' },
+      { label: 'EU List', value: pipelineState.sanctions.eu_list_result || '—', color: pipelineState.sanctions.eu_list_result === 'CLEAR' ? 'green' : 'red' },
+      { label: 'FinCEN', value: pipelineState.sanctions.fincen_result || '—', color: pipelineState.sanctions.fincen_result === 'CLEAR' ? 'green' : 'red' },
+      { label: 'Overall', value: pipelineState.sanctions.overall_result || '—', color: sanctionsColor },
+    ]);
+
+    if (pipelineState.sanctions.overall_result === 'BLOCKED') {
+      setStep(2, 'error', 'BLOCKED');
+      document.getElementById('summaryBar').innerHTML = `<div class="summary-bar-title" style="color:var(--danger)">Pipeline Halted — Sanctions Match</div><p style="color:var(--muted);font-size:13px;margin-top:8px">This merchant cannot proceed. ${pipelineState.sanctions.summary}</p>`;
+      document.getElementById('summaryBar').classList.add('visible');
+      btn.disabled = false; btn.textContent = 'Run Again';
+      return;
+    }
+    if (pipelineState.sanctions.overall_result === 'ENHANCED_DUE_DILIGENCE') setStep(2, 'warn', 'EDD REQUIRED');
+    else setStep(2, 'done', 'CLEAR');
+
+    // ── STEP 3: Risk Assessment ──────────────────────────────────────────────
+    setStep(3, 'running', 'SCORING');
+    const t3 = Date.now();
+    const r3 = await callClaude(
+      `You are a risk analyst building a financial risk scorecard for merchant underwriting.
+       Use realistic industry benchmarks. High-risk MCCs (gambling, firearms, cannabis, adult content) score higher.
+       Very high monthly volumes from new merchants score higher. Sanctioned country origins score much higher.
+       Respond ONLY with a JSON object. No markdown, no preamble.
+       JSON schema: {
+         "summary": "2-3 sentence risk narrative with specific reasoning",
+         "overall_score": number 0-100 where 100 is highest risk,
+         "rating": "LOW | MEDIUM | HIGH | VERY_HIGH",
+         "industry_fraud_rate": "percentage like 0.12%",
+         "chargeback_exposure": "LOW | MEDIUM | HIGH",
+         "volume_credibility": "PLAUSIBLE | INFLATED | SUSPICIOUS",
+         "factors": [
+           { "factor": "factor name", "impact": "POSITIVE | NEGATIVE | NEUTRAL", "detail": "brief explanation" }
+         ],
+         "reserve_recommendation": number percentage 0-10
+       }`,
+      `Merchant: ${merchantCtx}
+       Intake result: ${JSON.stringify(pipelineState.intake)}
+       Sanctions result: ${JSON.stringify(pipelineState.sanctions)}`
+    );
+    const d3 = parseJSON(r3);
+    setTime(3, Date.now() - t3);
+    pipelineState.risk = d3 || { summary: r3, overall_score: 45, rating: 'MEDIUM', reserve_recommendation: 2 };
+
+    document.getElementById('text-3').textContent = pipelineState.risk.summary || r3;
+    showCard(3);
+
+    const score = pipelineState.risk.overall_score || 0;
+    const scoreColor = score < 30 ? 'green' : score < 60 ? 'warn' : 'red';
+    setChips('chips-3', [
+      { label: 'Risk Score', value: score + ' / 100', color: scoreColor },
+      { label: 'Rating', value: pipelineState.risk.rating, color: scoreColor },
+      { label: 'Industry Fraud Rate', value: pipelineState.risk.industry_fraud_rate || '—', color: '' },
+      { label: 'Reserve Rec.', value: (pipelineState.risk.reserve_recommendation || '—') + '%', color: 'amber' },
+    ]);
+
+    if (pipelineState.risk.rating === 'HIGH' || pipelineState.risk.rating === 'VERY_HIGH') setStep(3, 'warn', 'HIGH RISK');
+    else setStep(3, 'done', 'SCORED');
+
+    // ── STEP 4: Underwriting Decision ────────────────────────────────────────
+    setStep(4, 'running', 'DECIDING');
+    const t4 = Date.now();
+    const r4 = await callClaude(
+      `You are an AI underwriting model making a final merchant approval decision.
+       Base your decision on the complete risk profile. Be specific and realistic.
+       VERY_HIGH risk with sanctions issues = DECLINE. HIGH risk from legitimate high-risk industries = CONDITIONAL approval with strict terms.
+       Respond ONLY with a JSON object. No markdown, no preamble.
+       JSON schema: {
+         "decision": "APPROVED | CONDITIONAL | DECLINED",
+         "rationale": "3-4 sentence underwriting rationale with specific risk factors cited",
+         "processing_limit_monthly": number in USD,
+         "reserve_percent": number,
+         "reserve_type": "ROLLING | FIXED | NONE",
+         "reserve_hold_days": number,
+         "conditions": ["array of specific conditions of approval if conditional"],
+         "fee_rate_percent": number like 2.9,
+         "transaction_fee_cents": number like 30,
+         "review_trigger": "specific condition that would trigger early review"
+       }`,
+      `Merchant: ${merchantCtx}
+       Intake: ${JSON.stringify(pipelineState.intake)}
+       Sanctions: ${JSON.stringify(pipelineState.sanctions)}
+       Risk: ${JSON.stringify(pipelineState.risk)}`
+    );
+    const d4 = parseJSON(r4);
+    setTime(4, Date.now() - t4);
+    pipelineState.underwriting = d4 || { decision: 'CONDITIONAL', rationale: r4, reserve_percent: 3, fee_rate_percent: 2.9 };
+
+    document.getElementById('text-4').textContent = pipelineState.underwriting.rationale || r4;
+    showCard(4);
+
+    const dec = pipelineState.underwriting.decision;
+    const decColor = dec === 'APPROVED' ? 'green' : dec === 'CONDITIONAL' ? 'warn' : 'red';
+    const approvedLimit = pipelineState.underwriting.processing_limit_monthly
+      ? new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(pipelineState.underwriting.processing_limit_monthly)
+      : '—';
+    setChips('chips-4', [
+      { label: 'Decision', value: dec, color: decColor },
+      { label: 'Monthly Limit', value: approvedLimit, color: 'amber' },
+      { label: 'Reserve', value: (pipelineState.underwriting.reserve_percent || '—') + '% ' + (pipelineState.underwriting.reserve_type || ''), color: pipelineState.underwriting.reserve_percent > 5 ? 'warn' : '' },
+      { label: 'Pricing', value: (pipelineState.underwriting.fee_rate_percent || '—') + '% + ' + (pipelineState.underwriting.transaction_fee_cents || '—') + '¢', color: '' },
+    ]);
+
+    if (dec === 'DECLINED') {
+      setStep(4, 'error', 'DECLINED');
+      document.getElementById('summaryBar').innerHTML = `<div class="summary-bar-title" style="color:var(--danger)">Application Declined</div><p style="color:var(--muted);font-size:13px;margin-top:8px">${pipelineState.underwriting.rationale}</p>`;
+      document.getElementById('summaryBar').classList.add('visible');
+      btn.disabled = false; btn.textContent = 'Run Again';
+      return;
+    }
+    if (dec === 'CONDITIONAL') setStep(4, 'warn', 'CONDITIONAL');
+    else setStep(4, 'done', 'APPROVED');
+
+    // ── STEP 5: Contract ─────────────────────────────────────────────────────
+    setStep(5, 'running', 'GENERATING');
+    const t5 = Date.now();
+    const r5 = await callClaude(
+      `You are a legal contract generation system producing a merchant processing agreement excerpt.
+       Generate a realistic, specific contract excerpt — NOT a template with placeholders.
+       Fill in all actual values from the underwriting decision.
+       Respond ONLY with a JSON object. No markdown, no preamble.
+       JSON schema: {
+         "summary": "1-2 sentence description of what was generated",
+         "contract_excerpt": "A realistic 200-word excerpt of the actual contract text including: parties, processing limits, fees, reserve clause, term, governing law, termination clause. Use actual values from underwriting."
+       }`,
+      `Merchant: ${merchantCtx}
+       Underwriting terms: ${JSON.stringify(pipelineState.underwriting)}
+       Today's date: ${new Date().toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' })}`
+    );
+    const d5 = parseJSON(r5);
+    setTime(5, Date.now() - t5);
+    pipelineState.contract = d5 || { summary: r5, contract_excerpt: r5 };
+
+    document.getElementById('text-5').textContent = pipelineState.contract.summary || '';
+    const doc5 = document.getElementById('doc-5');
+    doc5.textContent = pipelineState.contract.contract_excerpt || r5;
+    doc5.style.display = 'block';
+    showCard(5);
+    setStep(5, 'done', 'GENERATED');
+
+    // ── STEP 6: Portal Provisioning ──────────────────────────────────────────
+    setStep(6, 'running', 'PROVISIONING');
+    const t6 = Date.now();
+    const r6 = await callClaude(
+      `You are a merchant portal provisioning system. Generate realistic provisioning artifacts.
+       Generate realistic-looking but clearly fictional API keys, MIDs, and webhook URLs.
+       Respond ONLY with a JSON object. No markdown, no preamble.
+       JSON schema: {
+         "summary": "1-2 sentence summary",
+         "manifest": "A realistic provisioning manifest showing: Merchant ID, Live API Key (pk_live_... format), Secret Key (sk_live_... format), Webhook endpoint, Dashboard URL, Settlement account ref, Processing currency, Supported payment methods for this business type"
+       }`,
+      `Merchant: ${merchantCtx}
+       Underwriting: ${JSON.stringify(pipelineState.underwriting)}
+       Case ID: ${pipelineState.intake.case_id}`
+    );
+    const d6 = parseJSON(r6);
+    setTime(6, Date.now() - t6);
+    pipelineState.provisioning = d6 || { summary: r6, manifest: r6 };
+
+    document.getElementById('text-6').textContent = pipelineState.provisioning.summary || '';
+    const doc6 = document.getElementById('doc-6');
+    doc6.textContent = pipelineState.provisioning.manifest || r6;
+    doc6.style.display = 'block';
+    showCard(6);
+    setStep(6, 'done', 'COMPLETE');
+
+    // ── STEP 7: Fraud Rules ──────────────────────────────────────────────────
+    setStep(7, 'running', 'CONFIGURING');
+    const t7 = Date.now();
+    const r7 = await callClaude(
+      `You are a fraud prevention engine generating monitoring rules for a new merchant.
+       Base rules on the specific business type, volume, risk profile, and country.
+       Respond ONLY with a JSON object. No markdown, no preamble.
+       JSON schema: {
+         "summary": "1-2 sentence summary",
+         "rule_config": "A realistic fraud rule configuration showing specific thresholds: single transaction limit, hourly velocity limit, daily velocity limit, 3DS requirement threshold, card-not-present rules, international card policy, chargeback alert threshold, velocity spike alert, specific rules for this business type"
+       }`,
+      `Merchant: ${merchantCtx}
+       Risk profile: ${JSON.stringify(pipelineState.risk)}
+       Underwriting: ${JSON.stringify(pipelineState.underwriting)}`
+    );
+    const d7 = parseJSON(r7);
+    setTime(7, Date.now() - t7);
+    pipelineState.fraudRules = d7 || { summary: r7, rule_config: r7 };
+
+    document.getElementById('text-7').textContent = pipelineState.fraudRules.summary || '';
+    const doc7 = document.getElementById('doc-7');
+    doc7.textContent = pipelineState.fraudRules.rule_config || r7;
+    doc7.style.display = 'block';
+    showCard(7);
+    setStep(7, 'done', 'ACTIVE');
+
+    // ── STEP 8: Review Schedule ──────────────────────────────────────────────
+    setStep(8, 'running', 'SCHEDULING');
+    const t8 = Date.now();
+    const today = new Date();
+    const d30 = new Date(today); d30.setDate(d30.getDate() + 30);
+    const d60 = new Date(today); d60.setDate(d60.getDate() + 60);
+    const d90 = new Date(today); d90.setDate(d90.getDate() + 90);
+    const fmt = d => d.toLocaleDateString('en-US', { year:'numeric', month:'short', day:'numeric' });
+
+    const r8 = await callClaude(
+      `You are an account management system scheduling merchant reviews.
+       Respond ONLY with a JSON object. No markdown, no preamble.
+       JSON schema: {
+         "summary": "1-2 sentence summary",
+         "account_manager": "a realistic full name",
+         "account_manager_tier": "STANDARD | PREMIUM | ENTERPRISE",
+         "review_30_focus": "specific things to review at 30 days",
+         "review_60_focus": "specific things to review at 60 days",
+         "review_90_focus": "specific things to review at 90 days",
+         "early_escalation_trigger": "specific measurable condition that would trigger earlier review",
+         "welcome_email_sent": true
+       }`,
+      `Merchant: ${merchantCtx}
+       Decision: ${pipelineState.underwriting.decision}
+       Risk tier: ${pipelineState.risk.rating}
+       Dates: 30-day=${fmt(d30)}, 60-day=${fmt(d60)}, 90-day=${fmt(d90)}`
+    );
+    const d8 = parseJSON(r8);
+    setTime(8, Date.now() - t8);
+    pipelineState.schedule = d8 || { summary: r8, account_manager: 'Account Team', account_manager_tier: 'STANDARD' };
+
+    document.getElementById('text-8').textContent = pipelineState.schedule.summary || r8;
+    showCard(8);
+    const amTier = pipelineState.schedule.account_manager_tier || 'STANDARD';
+    setChips('chips-8', [
+      { label: 'Account Manager', value: pipelineState.schedule.account_manager || '—', color: 'amber' },
+      { label: 'AM Tier', value: amTier, color: amTier === 'ENTERPRISE' ? 'green' : '' },
+      { label: '30-Day Review', value: fmt(d30), color: '' },
+      { label: '60-Day Review', value: fmt(d60), color: '' },
+      { label: '90-Day Review', value: fmt(d90), color: '' },
+      { label: 'Welcome Email', value: pipelineState.schedule.welcome_email_sent ? 'Sent' : 'Pending', color: 'green' },
+    ]);
+    setStep(8, 'done', 'SCHEDULED');
+
+    // ── Summary ──────────────────────────────────────────────────────────────
+    const totalMs = Date.now() - pipelineStart;
+    const summaryBar = document.getElementById('summaryBar');
+    const decisionFinal = pipelineState.underwriting.decision;
+    summaryBar.innerHTML = `
+      <div class="summary-bar-title">Pipeline Complete — Merchant Live</div>
+      <div class="summary-chips">
+        <div class="summary-chip"><span>Merchant</span><strong>${name}</strong></div>
+        <div class="summary-chip"><span>Decision</span><strong style="color:${decisionFinal==='APPROVED'?'var(--success)':'var(--warning)'}">${decisionFinal}</strong></div>
+        <div class="summary-chip"><span>Risk Rating</span><strong>${pipelineState.risk.rating}</strong></div>
+        <div class="summary-chip"><span>Reserve</span><strong>${pipelineState.underwriting.reserve_percent}% ${pipelineState.underwriting.reserve_type}</strong></div>
+        <div class="summary-chip"><span>Monthly Limit</span><strong>${new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',maximumFractionDigits:0}).format(pipelineState.underwriting.processing_limit_monthly||volume)}</strong></div>
+        <div class="summary-chip"><span>Case ID</span><strong style="color:var(--amber)">${pipelineState.intake.case_id}</strong></div>
+      </div>
+      <div class="summary-time">8 steps completed in ${(totalMs/1000).toFixed(1)}s using real Claude inference · ${new Date().toLocaleString()}</div>
+    `;
+    summaryBar.classList.add('visible');
+
+  } catch (err) {
+    console.error(err);
+    // Find which step we're on and mark error
+    for (let i = 1; i <= 8; i++) {
+      if (document.getElementById(`tag-${i}`).textContent.includes('ING') || document.getElementById(`tag-${i}`).textContent === 'DECIDING') {
+        setStep(i, 'error', 'ERROR');
+        document.getElementById(`text-${i}`).textContent = `Error: ${err.message}. Check that /api/ai is reachable and ANTHROPIC_API_KEY is set.`;
+        showCard(i);
+        break;
+      }
+    }
+  }
+
+  btn.disabled = false;
+  btn.textContent = 'Run Again';
+}
+</script>
+</body>
+</html>

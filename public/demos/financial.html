@@ -3,988 +3,979 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="robots" content="noindex, nofollow">
-<title>BISXP Enterprise · Financial Services AI Suite</title>
+<meta name="robots" content="noindex">
+<title>Financial Services — BISXP AI Demos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+*{margin:0;padding:0;box-sizing:border-box}
 :root{
-  --obsidian:#08080A;--charcoal:#131318;--steel:#1E1E28;--steel-light:#252532;
-  --amber:#D4A843;--amber-bright:#F0C060;--amber-dim:rgba(212,168,67,0.1);--amber-glow:rgba(212,168,67,0.2);
-  --cream:#F0EBE0;--white:#FAFAF8;--muted:#70707A;--muted-light:#9090A0;
-  --green:#22C55E;--green-dim:rgba(34,197,94,0.1);
-  --red:#EF4444;--red-dim:rgba(239,68,68,0.1);
-  --orange:#F59E0B;--orange-dim:rgba(245,158,11,0.1);
-  --blue:#3B82F6;--blue-dim:rgba(59,130,246,0.1);
-  --purple:#A855F7;--purple-dim:rgba(168,85,247,0.1);
-  --border:rgba(212,168,67,0.1);--border-strong:rgba(212,168,67,0.25);
+  --obsidian:#08080A;
+  --charcoal:#131318;
+  --steel:#1E1E26;
+  --steel2:#26262F;
+  --amber:#D4A843;
+  --amber-b:#F0C060;
+  --amber-dim:rgba(212,168,67,0.10);
+  --amber-glow:rgba(212,168,67,0.05);
+  --cream:#F0EBE0;
+  --white:#FAFAF8;
+  --muted:#70707A;
+  --muted2:#9090A0;
+  --border:rgba(212,168,67,0.12);
+  --border-s:rgba(212,168,67,0.28);
+  --ok:#2ECC71;
+  --ok-dim:rgba(46,204,113,0.10);
+  --warn:#F39C12;
+  --warn-dim:rgba(243,156,18,0.10);
+  --err:#E74C3C;
+  --err-dim:rgba(231,76,60,0.10);
+  --info:#3498DB;
+  --info-dim:rgba(52,152,219,0.10);
 }
 html{scroll-behavior:smooth}
-body{background:var(--obsidian);color:var(--cream);font-family:'Outfit',sans-serif;font-weight:300;min-height:100vh;overflow-x:hidden}
-body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(212,168,67,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(212,168,67,0.025) 1px,transparent 1px);background-size:48px 48px;pointer-events:none;z-index:0}
+body{background:var(--obsidian);color:var(--cream);font-family:'Outfit',sans-serif;font-weight:300;line-height:1.6;min-height:100vh}
 
-/* HEADER */
-.hdr{position:sticky;top:0;z-index:200;background:rgba(8,8,10,0.95);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);padding:0 32px;height:56px;display:flex;align-items:center;justify-content:space-between}
-.logo{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:600;letter-spacing:2px;text-decoration:none;color:var(--cream)}
-.logo span{color:var(--amber)}
-.hdr-center{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted);letter-spacing:0.5px}
-.hdr-center::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);animation:blink 2s infinite}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
-.hdr-right{display:flex;align-items:center;gap:12px}
-.hdr-pill{background:var(--amber-dim);color:var(--amber);border:1px solid var(--border);border-radius:20px;padding:4px 14px;font-size:11px;font-weight:500;letter-spacing:.5px}
+/* ── NAV ── */
+.nav{position:sticky;top:0;z-index:100;background:rgba(8,8,10,0.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 32px;display:flex;align-items:center;gap:0;height:52px}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:18px;color:var(--white);letter-spacing:0.04em;margin-right:32px}
+.nav-logo span{color:var(--amber)}
+.nav-tabs{display:flex;gap:0;flex:1;overflow-x:auto;scrollbar-width:none}
+.nav-tabs::-webkit-scrollbar{display:none}
+.nav-tab{padding:0 18px;height:52px;display:flex;align-items:center;font-size:12px;font-weight:400;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:color .2s,border-color .2s;text-decoration:none}
+.nav-tab:hover{color:var(--cream)}
+.nav-tab.active{color:var(--amber);border-bottom-color:var(--amber)}
+.nav-right{display:flex;align-items:center;gap:16px;margin-left:auto}
+.nav-back{font-size:11px;color:var(--muted);text-decoration:none;font-family:'JetBrains Mono',monospace;letter-spacing:0.06em;transition:color .2s}
+.nav-back:hover{color:var(--amber)}
+.nav-cta{background:var(--amber);color:var(--obsidian);border:none;border-radius:6px;padding:7px 16px;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap;font-family:'Outfit',sans-serif;transition:background .2s}
+.nav-cta:hover{background:var(--amber-b)}
 
-/* HERO */
-.hero{text-align:center;padding:52px 40px 48px;position:relative;z-index:1}
-.hero-eye{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:4px;color:var(--amber);margin-bottom:18px}
-.hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(38px,5vw,60px);font-weight:300;color:var(--white);line-height:1.08;margin-bottom:14px}
-.hero h1 em{font-style:italic;color:var(--amber)}
-.hero-sub{font-size:15px;color:var(--muted-light);max-width:540px;margin:0 auto 28px;line-height:1.75}
-.hero-tags{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
-.htag{background:var(--steel);border:1px solid var(--border);border-radius:20px;padding:5px 14px;font-size:11px;color:var(--muted-light);font-weight:500}
+/* ── HERO ── */
+.hero{padding:72px 48px 56px;max-width:900px;margin:0 auto;text-align:center}
+.hero-eyebrow{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.2em;color:var(--amber);text-transform:uppercase;margin-bottom:20px}
+.hero-h1{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(40px,6vw,72px);line-height:1.05;color:var(--white);letter-spacing:-0.02em;margin-bottom:20px}
+.hero-h1 em{color:var(--amber);font-style:italic}
+.hero-sub{font-size:15px;color:var(--muted2);font-weight:300;max-width:560px;margin:0 auto 40px;line-height:1.7}
+.hero-stats{display:flex;justify-content:center;gap:48px;flex-wrap:wrap}
+.hero-stat{text-align:center}
+.hero-stat-n{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:300;color:var(--amber)}
+.hero-stat-l{font-size:11px;color:var(--muted);letter-spacing:0.06em;margin-top:2px}
 
-/* TAB NAV */
-.tab-nav{position:sticky;top:56px;z-index:150;background:rgba(8,8,10,0.95);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:0 32px;display:flex;gap:0;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}.tab-nav::-webkit-scrollbar{display:none}
-.tab-btn{display:flex;align-items:center;gap:8px;padding:16px 24px;background:none;border:none;border-bottom:2px solid transparent;color:var(--muted);font-family:'Outfit',sans-serif;font-size:13px;font-weight:400;cursor:pointer;white-space:nowrap;transition:all .2s;letter-spacing:.3px;margin-bottom:-1px}
-.tab-btn:hover{color:var(--cream)}
-.tab-btn.active{color:var(--amber);border-bottom-color:var(--amber);font-weight:500}
-.tab-num{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);background:var(--steel);padding:2px 7px;border-radius:4px}
-.tab-btn.active .tab-num{background:var(--amber-dim);color:var(--amber)}
+/* ── COMPARISON SECTION ── */
+.section{max-width:900px;margin:0 auto;padding:0 32px 64px}
+.section-head{margin-bottom:32px}
+.section-label{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--amber);margin-bottom:10px}
+.section-title{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;color:var(--white)}
+.section-sub{font-size:13px;color:var(--muted);margin-top:6px}
 
-/* MAIN */
-.main{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:40px 32px 80px}
+/* Toggle */
+.toggle-row{display:flex;gap:6px;margin-bottom:24px}
+.t-btn{padding:6px 16px;border-radius:6px;border:1px solid var(--border);background:transparent;color:var(--muted);font-size:12px;cursor:pointer;transition:all .15s;font-family:'Outfit',sans-serif}
+.t-btn:hover{border-color:var(--border-s);color:var(--cream)}
+.t-btn.on{background:var(--steel2);border-color:var(--border-s);color:var(--cream)}
 
-/* DEMO SECTION */
-.demo-section{display:none}
-.demo-section.active{display:block;animation:fadeUp .4s ease}
-@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+/* Bar chart */
+.chart-legend{display:flex;gap:16px;margin-bottom:16px;flex-wrap:wrap}
+.leg{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted)}
+.leg-dot{width:10px;height:10px;border-radius:2px;flex-shrink:0}
+.bar-rows{display:flex;flex-direction:column;gap:5px}
+.bar-r{display:grid;grid-template-columns:160px 1fr 90px;gap:10px;align-items:center;min-height:26px}
+.bar-r-label{font-size:12px;color:var(--muted);text-align:right;line-height:1.3}
+.bar-track{height:18px;background:var(--steel);border-radius:4px;overflow:hidden;position:relative}
+.bar-fill{height:100%;border-radius:4px;transition:width .55s cubic-bezier(.4,0,.2,1)}
+.bar-val{font-size:11px;font-family:'JetBrains Mono',monospace;color:var(--muted2);white-space:nowrap}
+.chart-total{display:grid;grid-template-columns:160px 1fr 90px;gap:10px;margin-top:10px;padding-top:10px;border-top:1px solid var(--border)}
 
-/* SECTION HERO */
-.sec-hero{margin-bottom:32px}
-.sec-eye{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:3px;color:var(--amber);margin-bottom:10px}
-.sec-title{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,4vw,40px);font-weight:300;color:var(--white);margin-bottom:8px}
-.sec-sub{font-size:14px;color:var(--muted-light);max-width:600px;line-height:1.7}
-.sec-stats{display:flex;gap:32px;margin-top:16px;flex-wrap:wrap}
-.sec-stat{font-size:12px;color:var(--muted)}
-.sec-stat strong{font-family:'JetBrains Mono',monospace;color:var(--amber);font-size:20px;display:block;margin-bottom:2px}
+/* ── HITL MAP ── */
+.hitl-grid{display:grid;grid-template-columns:repeat(8,1fr);gap:2px;margin-bottom:8px}
+.hitl-cell{border-radius:4px;padding:8px 6px;text-align:center;font-size:10px;line-height:1.3}
+.hitl-ai{background:var(--info-dim);border:1px solid rgba(52,152,219,0.2);color:var(--info)}
+.hitl-human{background:var(--amber-dim);border:1px solid var(--border-s);color:var(--amber)}
+.hitl-label{font-size:9px;color:var(--muted);text-align:center;display:grid;grid-template-columns:repeat(8,1fr);gap:2px;margin-top:4px}
+.hitl-label div{padding:0 2px;line-height:1.4}
 
-/* CARDS */
-.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px}
-.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:20px}
-.card{background:var(--charcoal);border:1px solid var(--border);border-radius:14px;overflow:hidden}
-.card-hdr{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
-.card-title{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted)}
-.card-body{padding:20px}
-.badge{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:600;padding:3px 10px;border-radius:12px;text-transform:uppercase;letter-spacing:.5px}
-.b-ai{background:var(--amber-dim);color:var(--amber);border:1px solid var(--border)}
-.b-live{background:var(--green-dim);color:var(--green)}
-.b-pending{background:var(--orange-dim);color:var(--orange)}
-.b-ok{background:var(--green-dim);color:var(--green)}
-.b-warn{background:var(--orange-dim);color:var(--orange)}
-.b-fail{background:var(--red-dim);color:var(--red)}
-.b-blue{background:var(--blue-dim);color:var(--blue)}
-.b-purple{background:var(--purple-dim);color:var(--purple)}
+/* ── DEMO SECTION ── */
+.demo-wrap{max-width:900px;margin:0 auto;padding:0 32px 80px}
 
-/* FORMS */
-.fg{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.ff{display:flex;flex-direction:column;gap:5px}
-.ff.full{grid-column:1/-1}
-.flabel{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--muted)}
-.finput,.fselect,.ftextarea{background:var(--steel);border:1px solid rgba(255,255,255,0.07);border-radius:8px;padding:10px 13px;color:var(--cream);font-family:'Outfit',sans-serif;font-size:13px;font-weight:300;outline:none;transition:border-color .2s,box-shadow .2s;width:100%}
-.finput:focus,.fselect:focus,.ftextarea:focus{border-color:var(--amber);box-shadow:0 0 0 3px rgba(212,168,67,0.08)}
-.fselect option{background:var(--steel)}
-.ftextarea{resize:vertical;min-height:80px}
+/* Form */
+.form-card{background:var(--charcoal);border:1px solid var(--border);border-radius:14px;padding:32px;margin-bottom:48px}
+.form-title{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--amber);margin-bottom:24px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:20px}
+@media(max-width:600px){.form-grid{grid-template-columns:1fr}}
+.f-field{display:flex;flex-direction:column;gap:5px}
+.f-field.wide{grid-column:1/-1}
+.f-label{font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted2);font-weight:400}
+.f-input,.f-select,.f-textarea{background:var(--steel);border:1px solid var(--border);border-radius:8px;color:var(--cream);font-family:'Outfit',sans-serif;font-size:14px;font-weight:300;padding:10px 14px;outline:none;transition:border-color .2s;-webkit-appearance:none}
+.f-input:focus,.f-select:focus,.f-textarea:focus{border-color:var(--amber)}
+.f-select{cursor:pointer}.f-select option{background:var(--steel)}
+.f-amount{display:flex;align-items:center;background:var(--steel);border:1px solid var(--border);border-radius:8px;overflow:hidden;transition:border-color .2s}
+.f-amount:focus-within{border-color:var(--amber)}
+.f-prefix{padding:10px 12px;color:var(--amber);font-family:'JetBrains Mono',monospace;font-size:13px;border-right:1px solid var(--border)}
+.f-amount input{border:none;border-radius:0;background:transparent;flex:1;color:var(--cream);font-family:'Outfit',sans-serif;font-size:14px;padding:10px 12px;outline:none}
+.run-row{display:flex;align-items:center;gap:14px}
+.run-btn{background:var(--amber);color:var(--obsidian);border:none;border-radius:8px;padding:12px 28px;font-family:'Outfit',sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:background .15s,transform .1s;letter-spacing:0.03em}
+.run-btn:hover{background:var(--amber-b)}
+.run-btn:active{transform:scale(0.98)}
+.run-btn:disabled{background:var(--muted);cursor:not-allowed;transform:none}
+.model-info{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted)}
 
-/* BUTTONS */
-.run-btn{width:100%;margin-top:16px;padding:13px;background:var(--amber);border:none;border-radius:9px;color:var(--obsidian);font-family:'Outfit',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;letter-spacing:.5px;position:relative;overflow:hidden}
-.run-btn:hover{background:var(--amber-bright);transform:translateY(-1px);box-shadow:0 6px 20px var(--amber-glow)}
-.run-btn:disabled{opacity:.45;cursor:not-allowed;transform:none;box-shadow:none}
-.run-btn::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.15),transparent);transform:translateX(-100%);transition:transform .5s}
-.run-btn:hover::after{transform:translateX(100%)}
+/* ── PIPELINE ── */
+.pipeline{display:flex;flex-direction:column}
 
-.act-btns{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:14px}
-.act-btn{padding:9px 8px;border-radius:7px;font-family:'Outfit',sans-serif;font-size:11px;font-weight:600;cursor:pointer;border:1px solid;transition:all .2s;letter-spacing:.3px}
-.ab-green{background:var(--green-dim);color:var(--green);border-color:rgba(34,197,94,.25)}
-.ab-green:hover{background:var(--green);color:var(--obsidian);border-color:var(--green)}
-.ab-red{background:var(--red-dim);color:var(--red);border-color:rgba(239,68,68,.25)}
-.ab-red:hover{background:var(--red);color:var(--white);border-color:var(--red)}
-.ab-blue{background:var(--blue-dim);color:var(--blue);border-color:rgba(59,130,246,.25)}
-.ab-blue:hover{background:var(--blue);color:var(--white);border-color:var(--blue)}
-.ab-orange{background:var(--orange-dim);color:var(--orange);border-color:rgba(245,158,11,.25)}
-.ab-orange:hover{background:var(--orange);color:var(--obsidian);border-color:var(--orange)}
+.step-wrap{display:flex;gap:0}
+.step-spine{display:flex;flex-direction:column;align-items:center;width:36px;flex-shrink:0}
+.step-dot{width:28px;height:28px;border-radius:50%;border:2px solid var(--border);background:var(--charcoal);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .3s;z-index:1;position:relative}
+.step-dot.idle{border-color:var(--steel2)}
+.step-dot.run{border-color:var(--amber);background:var(--amber-dim);animation:pdot 1.1s ease-in-out infinite}
+.step-dot.wait{border-color:var(--amber);background:var(--amber-dim);animation:pdot 1.8s ease-in-out infinite}
+.step-dot.ok{border-color:var(--ok);background:var(--ok-dim)}
+.step-dot.warn{border-color:var(--warn);background:var(--warn-dim)}
+.step-dot.skip{border-color:var(--muted);background:transparent;opacity:0.4}
+.step-dot svg{width:12px;height:12px;display:block}
+.spine-line{width:2px;flex:1;min-height:12px;background:var(--steel);transition:background .4s}
+.spine-line.lit{background:rgba(212,168,67,0.25)}
 
-/* LOADING */
-.loading{display:none;padding:28px;text-align:center}
-.loading.on{display:block}
-.spinner{width:36px;height:36px;border:2px solid var(--border);border-top-color:var(--amber);border-radius:50%;animation:spin .7s linear infinite;margin:0 auto 12px}
+.step-body{flex:1;padding:0 0 0 18px;min-width:0}
+
+/* Step header */
+.step-hd{display:flex;align-items:center;gap:10px;min-height:28px;margin-bottom:0}
+.step-n{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:0.1em}
+.step-name{font-size:14px;font-weight:500;color:var(--white);flex:1}
+.step-tag{font-family:'JetBrains Mono',monospace;font-size:10px;padding:2px 8px;border-radius:4px;flex-shrink:0;letter-spacing:0.06em}
+.tag-idle{background:var(--steel);color:var(--muted)}
+.tag-run{background:var(--amber-dim);color:var(--amber)}
+.tag-wait{background:var(--amber-dim);color:var(--amber)}
+.tag-ok{background:var(--ok-dim);color:var(--ok)}
+.tag-warn{background:var(--warn-dim);color:var(--warn)}
+.tag-auto{background:var(--info-dim);color:var(--info)}
+.tag-err{background:var(--err-dim);color:var(--err)}
+.step-desc{font-size:11px;color:var(--muted);margin:3px 0 10px;letter-spacing:0.02em}
+
+/* Ownership badge */
+.owner-badge{display:inline-flex;align-items:center;gap:5px;font-size:10px;border-radius:4px;padding:2px 8px;margin-bottom:8px;font-family:'JetBrains Mono',monospace;letter-spacing:0.06em}
+.badge-ai{background:var(--info-dim);color:var(--info);border:1px solid rgba(52,152,219,0.2)}
+.badge-human{background:var(--amber-dim);color:var(--amber);border:1px solid var(--border-s)}
+
+/* Result card */
+.result-card{background:var(--charcoal);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-top:8px;margin-bottom:24px;display:none}
+.result-card.show{display:block;animation:slideIn .22s ease-out}
+.rc-bar{display:flex;align-items:center;gap:10px;padding:9px 14px;background:var(--steel);border-bottom:1px solid var(--border)}
+.rc-time{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted)}
+.rc-label{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--amber);margin-left:auto;letter-spacing:0.08em}
+.rc-body{padding:16px}
+.rc-text{font-size:13px;color:var(--cream);line-height:1.75;font-weight:300}
+.chips{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;margin-top:12px}
+.chip{background:var(--steel);border:1px solid var(--border);border-radius:7px;padding:10px 12px}
+.chip-l{font-size:10px;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-bottom:3px}
+.chip-v{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--cream);font-weight:500}
+.chip-v.ok{color:var(--ok)}.chip-v.warn{color:var(--warn)}.chip-v.err{color:var(--err)}.chip-v.amber{color:var(--amber)}.chip-v.info{color:var(--info)}
+.doc-block{background:var(--steel2);border:1px solid var(--border);border-left:3px solid var(--amber);border-radius:8px;padding:14px 16px;margin-top:12px;font-family:'JetBrains Mono',monospace;font-size:11.5px;line-height:1.85;white-space:pre-wrap;word-break:break-word;color:var(--cream)}
+
+/* ── HUMAN GATE ── */
+.hgate{background:var(--charcoal);border:1px solid var(--border-s);border-left:3px solid var(--amber);border-radius:10px;padding:20px 20px 16px;margin-top:8px;margin-bottom:24px;display:none}
+.hgate.show{display:block;animation:slideIn .22s ease-out}
+.hgate-top{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.hgate-icon{width:32px;height:32px;border-radius:50%;background:var(--amber-dim);border:1px solid var(--border-s);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.hgate-icon svg{width:14px;height:14px}
+.hgate-title{font-size:14px;font-weight:500;color:var(--white)}
+.hgate-sub{font-size:12px;color:var(--muted);margin-top:1px}
+.hgate-memo{background:var(--steel);border:1px solid var(--border);border-radius:8px;padding:14px 16px;font-size:13px;color:var(--cream);line-height:1.7;font-weight:300;margin-bottom:14px}
+.hgate-chips{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px;margin-bottom:16px}
+.hgate-actions{display:flex;gap:8px;flex-wrap:wrap}
+.hgate-btn{padding:9px 20px;border-radius:7px;font-family:'Outfit',sans-serif;font-size:13px;font-weight:500;cursor:pointer;border:1px solid var(--border-s);background:transparent;color:var(--cream);transition:all .15s}
+.hgate-btn:hover{background:var(--steel2)}
+.hgate-btn.primary{background:var(--amber);color:var(--obsidian);border-color:var(--amber)}
+.hgate-btn.primary:hover{background:var(--amber-b)}
+.hgate-btn.danger{border-color:rgba(231,76,60,0.4);color:var(--err)}
+.hgate-btn.danger:hover{background:var(--err-dim)}
+.hgate-note{font-size:11px;color:var(--muted);margin-top:10px;font-style:italic}
+
+/* ── SPINNER ── */
+.spin{width:12px;height:12px;border:2px solid var(--amber-dim);border-top-color:var(--amber);border-radius:50%;animation:spin .7s linear infinite;display:inline-block;flex-shrink:0}
+
+/* ── SUMMARY ── */
+.summary{background:var(--charcoal);border:1px solid var(--border-s);border-radius:12px;padding:28px 32px;margin-top:8px;display:none}
+.summary.show{display:block;animation:slideIn .3s ease-out}
+.summary-title{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:24px;color:var(--white);margin-bottom:4px}
+.summary-sub{font-size:12px;color:var(--muted);margin-bottom:20px}
+.summary-chips{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:16px}
+.s-chip{background:var(--steel);border:1px solid var(--border);border-radius:7px;padding:10px 16px}
+.s-chip span{font-size:10px;color:var(--muted);display:block;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:2px}
+.s-chip strong{font-size:14px;color:var(--cream);font-weight:500}
+.summary-time{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted)}
+
+/* ── FOOTER ── */
+.footer{border-top:1px solid var(--border);padding:32px;text-align:center}
+.footer-text{font-size:12px;color:var(--muted)}
+.footer-cta{display:inline-block;margin-top:16px;background:var(--amber);color:var(--obsidian);border-radius:8px;padding:12px 28px;font-size:14px;font-weight:600;text-decoration:none;transition:background .15s}
+.footer-cta:hover{background:var(--amber-b)}
+
 @keyframes spin{to{transform:rotate(360deg)}}
-.load-steps{display:flex;flex-direction:column;gap:8px;margin-top:12px;max-width:280px;margin-inline:auto;text-align:left}
-.lstep{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted);opacity:0;transform:translateY(6px);transition:all .35s}
-.lstep.on{opacity:1;transform:translateY(0);color:var(--cream)}
-.lstep.done{opacity:.4}
-.ldot{width:7px;height:7px;border-radius:50%;background:var(--steel-light);flex-shrink:0;transition:background .3s}
-.lstep.on .ldot{background:var(--amber);box-shadow:0 0 8px var(--amber)}
-.lstep.done .ldot{background:var(--green)}
-
-/* RESULTS */
-.result-panel{display:none}
-.result-panel.on{display:block;animation:fadeUp .4s ease}
-
-/* SCORE RING */
-.score-wrap{display:flex;align-items:center;gap:20px;padding:16px;background:var(--steel);border-radius:10px;border:1px solid var(--border);margin-bottom:16px}
-.score-ring{width:72px;height:72px;flex-shrink:0}
-.score-info h3{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--white);margin-bottom:3px}
-.score-info p{font-size:12px;color:var(--muted-light);line-height:1.5}
-
-/* CHECKS */
-.checks{display:flex;flex-direction:column;gap:8px;margin-bottom:16px}
-.chk{display:flex;align-items:flex-start;gap:9px;padding:10px 13px;border-radius:8px;font-size:12px;line-height:1.5}
-.chk.pass{background:var(--green-dim);border:1px solid rgba(34,197,94,.12);color:#86efac}
-.chk.warn{background:var(--orange-dim);border:1px solid rgba(245,158,11,.12);color:#fcd34d}
-.chk.fail{background:var(--red-dim);border:1px solid rgba(239,68,68,.12);color:#fca5a5}
-.chk-icon{font-size:13px;flex-shrink:0;margin-top:1px}
-.chk-text strong{display:block;font-weight:500;margin-bottom:1px}
-.chk-text span{opacity:.7;font-size:11px}
-
-/* RECOMMENDATION */
-.rec-box{background:var(--amber-dim);border:1px solid var(--border-strong);border-radius:9px;padding:14px;margin-bottom:14px}
-.rec-lbl{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--amber);margin-bottom:5px}
-.rec-txt{font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--white)}
-
-/* LETTER */
-.letter{background:var(--charcoal);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:20px;display:none}
-.letter.on{display:block;animation:fadeUp .4s ease}
-.letter-body{padding:24px;font-size:13px;line-height:1.85;color:var(--muted-light)}
-.letter-head{font-family:'Cormorant Garamond',serif;font-size:19px;color:var(--white);margin-bottom:14px}
-.letter-body p{margin-bottom:10px}
-.letter-sig{margin-top:20px;padding-top:14px;border-top:1px solid var(--border);font-size:12px}
-
-/* TABLE */
-.dtable{width:100%;border-collapse:collapse}
-.dtable th{padding:9px 13px;text-align:left;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);border-bottom:1px solid var(--border)}
-.dtable td{padding:12px 13px;font-size:12px;color:var(--cream);border-bottom:1px solid rgba(255,255,255,.03);vertical-align:middle}
-.dtable tr:last-child td{border-bottom:none}
-.dtable tr:hover td{background:rgba(255,255,255,.015)}
-.ent-name{font-weight:500;color:var(--white);font-size:13px}
-.ent-sub{font-size:10px;color:var(--muted);margin-top:2px}
-.mono{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted)}
-
-/* RISK BAR */
-.rbar{height:3px;border-radius:2px;width:56px;background:var(--steel);position:relative;overflow:hidden}
-.rfill{position:absolute;left:0;top:0;height:100%;border-radius:2px}
-.rlow .rfill{background:var(--green);width:15%}
-.rmed .rfill{background:var(--orange);width:55%}
-.rhigh .rfill{background:var(--red);width:88%}
-
-/* TEXT AREAS */
-.ai-output{background:var(--steel);border:1px solid var(--border);border-radius:9px;padding:16px;font-size:13px;line-height:1.8;color:var(--muted-light);white-space:pre-wrap;margin-bottom:14px;min-height:120px;display:none}
-.ai-output.on{display:block;animation:fadeUp .4s ease}
-
-/* PLACEHOLDER */
-.placeholder{text-align:center;padding:48px 20px;color:var(--muted)}
-.placeholder-icon{font-size:40px;margin-bottom:12px;opacity:.25}
-.placeholder p{font-size:13px;line-height:1.6}
-
-/* METRIC CARDS */
-.mcard{background:var(--charcoal);border:1px solid var(--border);border-radius:12px;padding:18px}
-.mlabel{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px}
-.mvalue{font-family:'JetBrains Mono',monospace;font-size:28px;color:var(--amber);font-weight:500}
-.mchange{font-size:11px;color:var(--green);margin-top:3px}
-.mchange.neg{color:var(--red)}
-
-/* BOTTOM BANNER */
-.banner{background:linear-gradient(135deg,var(--charcoal),var(--steel));border:1px solid var(--border-strong);border-radius:16px;padding:44px;text-align:center;position:relative;overflow:hidden;margin-top:32px}
-.banner::before{content:'';position:absolute;top:-40%;left:50%;transform:translateX(-50%);width:280px;height:280px;background:radial-gradient(circle,var(--amber-glow),transparent 70%);pointer-events:none}
-.banner h2{font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:300;color:var(--white);margin-bottom:10px;position:relative}
-.banner p{color:var(--muted-light);font-size:14px;max-width:480px;margin:0 auto 24px;line-height:1.7;position:relative}
-.cta{display:inline-block;padding:13px 36px;background:var(--amber);color:var(--obsidian);font-family:'Outfit',sans-serif;font-size:13px;font-weight:600;border-radius:9px;text-decoration:none;transition:all .2s;letter-spacing:.5px;position:relative}
-.cta:hover{background:var(--amber-bright);transform:translateY(-2px);box-shadow:0 8px 24px var(--amber-glow)}
-
-/* TOAST */
-.toast{position:fixed;bottom:24px;right:24px;background:var(--charcoal);border:1px solid var(--border-strong);border-radius:10px;padding:14px 18px;font-size:12px;z-index:9999;transform:translateY(80px);opacity:0;transition:all .3s;max-width:300px}
-.toast.show{transform:translateY(0);opacity:1}
-.toast-title{font-weight:600;color:var(--green);margin-bottom:2px;font-size:13px}
-
-/* RESPONSIVE */
-@media(max-width:860px){
-  .main{padding:24px 16px 60px}
-  .grid-2,.grid-3{grid-template-columns:1fr}
-  .fg{grid-template-columns:1fr}
-  .act-btns{grid-template-columns:1fr 1fr}
-  .tab-nav{padding:0 16px}
-  .hdr{padding:0 16px}
-  .hdr-right{display:none}
-  .sec-stats{gap:20px}
-}
+@keyframes pdot{0%,100%{box-shadow:0 0 0 0 rgba(212,168,67,0.3)}50%{box-shadow:0 0 0 5px rgba(212,168,67,0)}}
+@keyframes slideIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
-<header class="hdr" style="gap:12px">
-  <a class="logo" href="https://bisxp.com">BIS<span>XP</span></a>
-  <div style="position:absolute;left:50%;transform:translateX(-50%);font-size:13px;color:var(--muted);display:flex;align-items:center;gap:8px"><a href="index.html" style="color:var(--cream);text-decoration:none;font-weight:400">Enterprise Demos</a><span style="color:var(--muted)">→</span><span style="color:var(--cream);font-weight:400">Financial Services</span></div>
-  <div style="display:flex;align-items:center;gap:10px">
-    <a href="index.html" style="display:inline-block;padding:6px 14px;border:1px solid var(--border-strong);color:var(--cream);font-size:11px;font-weight:500;border-radius:8px;text-decoration:none;transition:all .2s">All Demos</a>
-    <a href="https://bisxp.com/#contact" style="display:inline-block;padding:7px 18px;background:var(--amber);color:var(--obsidian);font-size:12px;font-weight:600;border-radius:8px;text-decoration:none;letter-spacing:0.3px;transition:all .2s">Book Assessment →</a>
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-logo">BIS<span>X</span>P</div>
+  <div class="nav-tabs">
+    <a class="nav-tab active" href="#demo-01">Merchant Onboarding</a>
+    <a class="nav-tab" href="#">Dispute Resolution</a>
+    <a class="nav-tab" href="#">Compliance Monitor</a>
+    <a class="nav-tab" href="#">Fraud Investigation</a>
+    <a class="nav-tab" href="#">Partner Bank Onboarding</a>
   </div>
-</header>
+  <div class="nav-right">
+    <a class="nav-back" href="index.html">← All Demos</a>
+    <button class="nav-cta">Book Assessment</button>
+  </div>
+</nav>
 
 <!-- HERO -->
 <div class="hero">
-  <div class="hero-eye">BISXP Enterprise · Built for Financial Services</div>
-  <h1>Five Workflows.<br><em>One Platform.</em> Real AI.</h1>
-  <p class="hero-sub">Every demo below runs live AI. No mocks, no pre-recorded responses. This is exactly what we'd build for your team — in 8 weeks.</p>
-  <div class="hero-tags">
-    <span class="htag">Merchant Onboarding</span>
-    <span class="htag">Dispute Resolution</span>
-    <span class="htag">Compliance Monitor</span>
-    <span class="htag">Fraud Investigation</span>
-    <span class="htag">Partner Bank Onboarding</span>
+  <div class="hero-eyebrow">BISXP Enterprise · Financial Services</div>
+  <h1 class="hero-h1">AI handles the research.<br><em>You make the decisions.</em></h1>
+  <p class="hero-sub">Every demo below runs live AI. No mocks, no pre-recorded responses. Human judgment stays in the loop — AI eliminates the preparation work that used to take days.</p>
+  <div class="hero-stats">
+    <div class="hero-stat"><div class="hero-stat-n">3 wks</div><div class="hero-stat-l">Current avg time</div></div>
+    <div class="hero-stat"><div class="hero-stat-n" style="color:var(--ok)">~8 min</div><div class="hero-stat-l">With AI assist</div></div>
+    <div class="hero-stat"><div class="hero-stat-n">97%</div><div class="hero-stat-l">Analyst time saved</div></div>
+    <div class="hero-stat"><div class="hero-stat-n">3</div><div class="hero-stat-l">Human decisions kept</div></div>
   </div>
 </div>
 
-<!-- TAB NAV -->
-<nav class="tab-nav">
-  <button class="tab-btn active" onclick="switchTab(0)"><span class="tab-num">01</span> Merchant Onboarding</button>
-  <button class="tab-btn" onclick="switchTab(1)"><span class="tab-num">02</span> Dispute Resolution</button>
-  <button class="tab-btn" onclick="switchTab(2)"><span class="tab-num">03</span> Compliance Monitor</button>
-  <button class="tab-btn" onclick="switchTab(3)"><span class="tab-num">04</span> Fraud Investigation</button>
-  <button class="tab-btn" onclick="switchTab(4)"><span class="tab-num">05</span> Partner Bank Onboarding</button>
-<button class="tab-btn" onclick="window.location.href='workflows.html#wf0'"><span class="tab-num">✦</span> Full Workflow</button>
-</nav>
+<!-- COMPARISON SECTION -->
+<div class="section">
+  <div class="section-head">
+    <div class="section-label">Before vs After</div>
+    <div class="section-title">What changes — and what doesn't</div>
+    <div class="section-sub">AI eliminates 97% of calendar time. The three decisions that require human judgment are preserved — and made faster by better AI-prepared context.</div>
+  </div>
 
-<!-- MAIN -->
-<main class="main">
-
-<!-- ═══════════════════════════════════════
-  DEMO 1: MERCHANT ONBOARDING
-═══════════════════════════════════════ -->
-<div class="demo-section active" id="demo0">
-  <div class="sec-hero">
-    <div class="sec-eye">Demo 01 · Merchant Onboarding</div>
-    <div class="sec-title">2 weeks of manual review → <em style="color:var(--amber)">4 seconds</em></div>
-    <p class="sec-sub">AI verifies business registration, checks sanctions lists, scores fraud risk, generates compliance report, and drafts the approval letter — all before a human touches the file.</p>
-    <div class="sec-stats">
-      <div class="sec-stat"><strong>2–3 wks</strong>Current avg time</div>
-      <div class="sec-stat"><strong>4.2s</strong>AI processing time</div>
-      <div class="sec-stat"><strong>84%</strong>Auto-approved, no review</div>
-      <div class="sec-stat"><strong>$0</strong>Cost per application vs $340 manual</div>
+  <!-- Human-in-loop map -->
+  <div style="margin-bottom:28px">
+    <div style="font-size:11px;color:var(--muted);margin-bottom:10px;letter-spacing:0.04em">Each step — who owns it</div>
+    <div class="hitl-grid">
+      <div class="hitl-cell hitl-ai">01<br>Intake</div>
+      <div class="hitl-cell hitl-human">02<br>Sanctions<br>sign-off</div>
+      <div class="hitl-cell hitl-ai">03<br>Risk<br>score</div>
+      <div class="hitl-cell hitl-human">04<br>Underwriting<br>decision</div>
+      <div class="hitl-cell hitl-human">05<br>Contract<br>review</div>
+      <div class="hitl-cell hitl-ai">06<br>Portal<br>provision</div>
+      <div class="hitl-cell hitl-ai">07<br>Fraud<br>rules</div>
+      <div class="hitl-cell hitl-ai">08<br>Account<br>setup</div>
+    </div>
+    <div style="display:flex;gap:16px;margin-top:8px;font-size:11px">
+      <span style="color:var(--info)">■ AI automated (5 steps)</span>
+      <span style="color:var(--amber)">■ Human decision required (3 steps)</span>
     </div>
   </div>
 
-  <div class="grid-3" style="margin-bottom:20px">
-    <div class="mcard"><div class="mlabel">Processing Today</div><div class="mvalue" id="d1-cnt">247</div><div class="mchange">↑ 34% vs yesterday</div></div>
-    <div class="mcard"><div class="mlabel">Auto-Approved</div><div class="mvalue">84%</div><div class="mchange">No human needed</div></div>
-    <div class="mcard"><div class="mlabel">Avg AI Time</div><div class="mvalue" id="d1-time">—</div><div class="mchange">vs 2-3 week manual</div></div>
+  <!-- Chart toggle -->
+  <div class="toggle-row">
+    <button class="t-btn on" onclick="setChart('before')" id="cb-before">Without AI</button>
+    <button class="t-btn" onclick="setChart('after')" id="cb-after">With AI</button>
+    <button class="t-btn" onclick="setChart('compare')" id="cb-compare">Side by side</button>
+  </div>
+  <div class="chart-legend" id="chart-legend">
+    <span class="leg"><span class="leg-dot" style="background:#c0392b"></span>Manual process today</span>
+  </div>
+  <div class="bar-rows" id="chart-bars"></div>
+  <div class="chart-total" id="chart-total"></div>
+</div>
+
+<!-- DEMO -->
+<div class="demo-wrap" id="demo-01">
+  <div class="section-head">
+    <div class="section-label">Demo 01 · Live AI</div>
+    <div class="section-title">Merchant Onboarding — Application to Live</div>
+    <div class="section-sub">Fill in any merchant details. The pipeline runs real Claude inference at each step. Three steps will pause for your decision before proceeding.</div>
   </div>
 
-  <div class="grid-2">
-    <div class="card">
-      <div class="card-hdr"><span class="card-title">Merchant Application</span><span class="badge b-live">● Live</span></div>
-      <div class="card-body">
-        <div class="fg">
-          <div class="ff"><label class="flabel">Legal Business Name</label><input class="finput" id="d1-name" value="Stellar Payments Inc."></div>
-          <div class="ff"><label class="flabel">Business Type</label>
-            <select class="fselect" id="d1-type">
-              <option value="SaaS / Technology" selected>SaaS / Technology</option>
-              <option value="Retail E-commerce">Retail E-commerce</option>
-              <option value="Marketplace">Marketplace</option>
-              <option value="Healthcare">Healthcare</option>
-              <option value="Financial Services">Financial Services</option>
-            </select>
-          </div>
-          <div class="ff"><label class="flabel">Country</label>
-            <select class="fselect" id="d1-country">
-              <option value="United States" selected>🇺🇸 United States</option>
-              <option value="United Kingdom">🇬🇧 United Kingdom</option>
-              <option value="Canada">🇨🇦 Canada</option>
-              <option value="Singapore">🇸🇬 Singapore</option>
-              <option value="India">🇮🇳 India</option>
-            </select>
-          </div>
-          <div class="ff"><label class="flabel">Annual Revenue</label>
-            <select class="fselect" id="d1-rev">
-              <option value="$1M-$10M" selected>$1M – $10M</option>
-              <option value="Under $1M">Under $1M</option>
-              <option value="$10M-$50M">$10M – $50M</option>
-              <option value="$50M+">$50M+</option>
-            </select>
-          </div>
-          <div class="ff"><label class="flabel">Monthly Volume</label>
-            <select class="fselect" id="d1-vol">
-              <option value="$50K-$500K" selected>$50K – $500K</option>
-              <option value="Under $50K">Under $50K</option>
-              <option value="$500K-$5M">$500K – $5M</option>
-              <option value="$5M+">$5M+</option>
-            </select>
-          </div>
-          <div class="ff"><label class="flabel">Years in Business</label>
-            <select class="fselect" id="d1-age">
-              <option value="3-7 years" selected>3 – 7 years</option>
-              <option value="Under 1 year">Under 1 year</option>
-              <option value="1-3 years">1 – 3 years</option>
-              <option value="7+ years">7+ years</option>
-            </select>
-          </div>
-          <div class="ff full"><label class="flabel">Business Website</label><input class="finput" id="d1-web" value="https://stellarpayments.com"></div>
+  <!-- Form -->
+  <div class="form-card">
+    <div class="form-title">New Merchant Application</div>
+    <div class="form-grid">
+      <div class="f-field">
+        <span class="f-label">Legal Business Name</span>
+        <input class="f-input" id="biz-name" type="text" value="Stellar Payments Inc." placeholder="e.g. Acme Corp">
+      </div>
+      <div class="f-field">
+        <span class="f-label">Business Type</span>
+        <select class="f-select" id="biz-type">
+          <option>SaaS / Technology</option>
+          <option>Retail E-commerce</option>
+          <option>Marketplace</option>
+          <option>Healthcare</option>
+          <option>Hospitality / F&amp;B</option>
+          <option>Financial Services</option>
+          <option>Gambling / Gaming</option>
+          <option>Cannabis / CBD</option>
+          <option>Firearms / Ammunition</option>
+        </select>
+      </div>
+      <div class="f-field">
+        <span class="f-label">Country</span>
+        <select class="f-select" id="biz-country">
+          <option>United States</option>
+          <option>United Kingdom</option>
+          <option>Canada</option>
+          <option>Australia</option>
+          <option>Germany</option>
+          <option>Singapore</option>
+          <option>Nigeria</option>
+          <option>Pakistan</option>
+          <option>Iran</option>
+          <option>Russia</option>
+        </select>
+      </div>
+      <div class="f-field">
+        <span class="f-label">Monthly Volume</span>
+        <div class="f-amount">
+          <span class="f-prefix">$</span>
+          <input type="number" id="biz-vol" value="250000" min="1000">
         </div>
-        <button class="run-btn" id="d1-btn" onclick="runDemo1()">⚡ Run AI Analysis</button>
+      </div>
+      <div class="f-field wide">
+        <span class="f-label">Products / Services</span>
+        <input class="f-input" id="biz-desc" type="text" value="B2B SaaS payment infrastructure — subscription billing, usage-based pricing, global payouts.">
+      </div>
+    </div>
+    <div class="run-row">
+      <button class="run-btn" id="run-btn" onclick="runPipeline()">Run Pipeline</button>
+      <span class="model-info">claude-sonnet-4-20250514 · real inference · /api/ai</span>
+    </div>
+  </div>
+
+  <!-- PIPELINE STEPS -->
+  <div class="pipeline" id="pipeline">
+
+    <!-- S1 -->
+    <div class="step-wrap">
+      <div class="step-spine">
+        <div class="step-dot idle" id="dot-1"><svg viewBox="0 0 12 12"><circle cx="6" cy="6" r="2.5" fill="var(--muted)"/></svg></div>
+        <div class="spine-line" id="ln-1"></div>
+      </div>
+      <div class="step-body">
+        <div class="step-hd">
+          <span class="step-n">01</span>
+          <span class="step-name">Application Intake &amp; Validation</span>
+          <span class="step-tag tag-idle" id="tag-1">IDLE</span>
+        </div>
+        <div class="step-desc">Completeness check · MCC classification · case ID assignment · initial tier</div>
+        <div class="owner-badge badge-ai">AI Automated</div>
+        <div class="result-card" id="rc-1">
+          <div class="rc-bar"><span class="rc-time" id="t-1">—</span><span class="rc-label">INTAKE ANALYSIS</span></div>
+          <div class="rc-body"><div class="rc-text" id="txt-1"></div><div class="chips" id="ch-1"></div></div>
+        </div>
       </div>
     </div>
 
-    <div class="card">
-      <div class="card-hdr"><span class="card-title">AI Risk Analysis</span><span class="badge b-ai">AI Analysis</span></div>
-      <div class="card-body" id="d1-body">
-        <div class="placeholder" id="d1-ph"><div class="placeholder-icon">⚡</div><p>Submit application to see<br>real-time AI analysis</p></div>
-        <div class="loading" id="d1-load">
-          <div class="spinner"></div>
-          <div style="font-size:12px;color:var(--muted);margin-top:10px">Claude analyzing...</div>
-          <div class="load-steps">
-            <div class="lstep" id="d1-s1"><div class="ldot"></div>Verifying business registration</div>
-            <div class="lstep" id="d1-s2"><div class="ldot"></div>Sanctions & watchlist check</div>
-            <div class="lstep" id="d1-s3"><div class="ldot"></div>Fraud risk scoring</div>
-            <div class="lstep" id="d1-s4"><div class="ldot"></div>Generating AI recommendation</div>
-            <div class="lstep" id="d1-s5"><div class="ldot"></div>Drafting approval letter</div>
-          </div>
+    <!-- S2 — HUMAN GATE: Sanctions sign-off -->
+    <div class="step-wrap">
+      <div class="step-spine">
+        <div class="step-dot idle" id="dot-2"><svg viewBox="0 0 12 12"><circle cx="6" cy="6" r="2.5" fill="var(--muted)"/></svg></div>
+        <div class="spine-line" id="ln-2"></div>
+      </div>
+      <div class="step-body">
+        <div class="step-hd">
+          <span class="step-n">02</span>
+          <span class="step-name">Identity &amp; Sanctions Screening</span>
+          <span class="step-tag tag-idle" id="tag-2">IDLE</span>
         </div>
-        <div class="result-panel" id="d1-result">
-          <div class="score-wrap">
-            <svg class="score-ring" viewBox="0 0 72 72">
-              <circle cx="36" cy="36" r="30" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="5"/>
-              <circle cx="36" cy="36" r="30" fill="none" stroke="#22C55E" stroke-width="5" stroke-dasharray="188.5" stroke-dashoffset="30" stroke-linecap="round" transform="rotate(-90 36 36)" id="d1-arc"/>
-              <text x="36" y="33" text-anchor="middle" fill="#22C55E" font-family="JetBrains Mono" font-size="14" font-weight="500" id="d1-score">82</text>
-              <text x="36" y="45" text-anchor="middle" fill="#70707A" font-family="Outfit" font-size="8">/100</text>
-            </svg>
-            <div class="score-info">
-              <h3 id="d1-rec-title">Conditional Approval</h3>
-              <p id="d1-rec-desc">Low risk profile. PCI DSS certification required within 90 days.</p>
+        <div class="step-desc">OFAC · EU · UN · FinCEN · PEP checks · business registry verification</div>
+        <div class="owner-badge badge-human">Human Sign-off Required</div>
+        <div class="result-card" id="rc-2">
+          <div class="rc-bar"><span class="rc-time" id="t-2">—</span><span class="rc-label">SANCTIONS REPORT</span></div>
+          <div class="rc-body"><div class="rc-text" id="txt-2"></div><div class="chips" id="ch-2"></div></div>
+        </div>
+        <!-- HUMAN GATE 1 -->
+        <div class="hgate" id="hg-2">
+          <div class="hgate-top">
+            <div class="hgate-icon"><svg viewBox="0 0 14 14" fill="none"><circle cx="7" cy="4.5" r="2" stroke="var(--amber)" stroke-width="1.2"/><path d="M2 12c0-2.8 2.2-5 5-5s5 2.2 5 5" stroke="var(--amber)" stroke-width="1.2" stroke-linecap="round"/></svg></div>
+            <div>
+              <div class="hgate-title">Compliance officer sign-off required</div>
+              <div class="hgate-sub">AI has completed the screening. Review the report and clear to proceed.</div>
             </div>
           </div>
-          <div class="checks" id="d1-checks"></div>
-          <div class="rec-box"><div class="rec-lbl">AI Decision</div><div class="rec-txt" id="d1-rec">✅ Approve with Standard Conditions</div></div>
-          <div class="act-btns">
-            <button class="act-btn ab-green" onclick="handleAction(this,'✓ Merchant Approved','Approval confirmed. Portal access granted. Welcome email sent.')">✓ Approve</button>
-            <button class="act-btn ab-blue" onclick="handleAction(this,'📋 Info Requested','Request sent. 5 business days to respond.')">📋 More Info</button>
-            <button class="act-btn ab-red" onclick="handleAction(this,'✕ Rejected','Rejection recorded. Merchant notified.')">✕ Reject</button>
+          <div class="hgate-memo" id="hg-2-memo"></div>
+          <div class="hgate-chips" id="hg-2-chips"></div>
+          <div class="hgate-actions">
+            <button class="hgate-btn primary" onclick="humanDecide(2,'clear')">Clear — Proceed to Risk Assessment</button>
+            <button class="hgate-btn" onclick="humanDecide(2,'edd')">Flag for Enhanced Due Diligence</button>
+            <button class="hgate-btn danger" onclick="humanDecide(2,'block')">Block Application</button>
           </div>
+          <div class="hgate-note">Your decision is logged with timestamp and user ID for audit trail.</div>
         </div>
       </div>
     </div>
-  </div>
 
-  <div class="letter" id="d1-letter">
-    <div class="card-hdr"><span class="card-title">AI-Generated Decision Letter</span><span class="badge b-ai" id="d1-letter-time">—</span></div>
-    <div class="letter-body" id="d1-letter-body"></div>
-  </div>
-
-  <div class="card">
-    <div class="card-hdr"><span class="card-title">Review Queue — Today</span><span class="badge b-pending">4 Active</span></div>
-    <div class="card-body" style="padding:0">
-      <table class="dtable">
-        <thead><tr><th>Merchant</th><th>Type</th><th>Volume</th><th>Risk</th><th>AI Decision</th><th>Time</th></tr></thead>
-        <tbody>
-          <tr><td><div class="ent-name">NovaTech Solutions</div><div class="ent-sub">SaaS · B2B</div></td><td style="color:var(--muted);font-size:11px">Technology</td><td style="color:var(--muted);font-size:11px">$2.1M/mo</td><td><div class="rbar rlow"><div class="rfill"></div></div><div style="font-size:10px;color:var(--green);margin-top:3px">8/100</div></td><td><span class="badge b-ok">Auto-Approved</span></td><td class="mono">1.8s</td></tr>
-          <tr><td><div class="ent-name">Meridian Market</div><div class="ent-sub">Marketplace · C2C</div></td><td style="color:var(--muted);font-size:11px">Commerce</td><td style="color:var(--muted);font-size:11px">$890K/mo</td><td><div class="rbar rmed"><div class="rfill"></div></div><div style="font-size:10px;color:var(--orange);margin-top:3px">52/100</div></td><td><span class="badge b-pending">Review Needed</span></td><td class="mono">3.2s</td></tr>
-          <tr><td><div class="ent-name">FastCash P2P</div><div class="ent-sub">FinTech · Transfers</div></td><td style="color:var(--muted);font-size:11px">Financial</td><td style="color:var(--muted);font-size:11px">$4.2M/mo</td><td><div class="rbar rhigh"><div class="rfill"></div></div><div style="font-size:10px;color:var(--red);margin-top:3px">87/100</div></td><td><span class="badge b-fail">🚨 Flagged</span></td><td class="mono">2.1s</td></tr>
-          <tr id="d1-new-row" style="display:none"><td><div class="ent-name" id="d1-new-name">—</div><div class="ent-sub">Technology</div></td><td style="color:var(--muted);font-size:11px">SaaS</td><td style="color:var(--muted);font-size:11px">$350K/mo</td><td><div class="rbar rlow"><div class="rfill"></div></div><div style="font-size:10px;color:var(--green);margin-top:3px">16/100</div></td><td><span class="badge b-ok" id="d1-new-status">Conditional</span></td><td class="mono" id="d1-new-time">—</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</div>
-
-<!-- ═══════════════════════════════════════
-  DEMO 2: DISPUTE RESOLUTION
-═══════════════════════════════════════ -->
-<div class="demo-section" id="demo1">
-  <div class="sec-hero">
-    <div class="sec-eye">Demo 02 · Dispute Resolution</div>
-    <div class="sec-title">Chargeback cases resolved in <em style="color:var(--amber)">seconds</em></div>
-    <p class="sec-sub">AI reads transaction data, classifies the dispute, pulls relevant evidence, determines liability, and drafts the resolution decision — reducing analyst time from hours to a single review click.</p>
-    <div class="sec-stats">
-      <div class="sec-stat"><strong>3–5 days</strong>Current resolution time</div>
-      <div class="sec-stat"><strong>8s</strong>AI case build time</div>
-      <div class="sec-stat"><strong>$45</strong>Cost per case vs $280 manual</div>
-      <div class="sec-stat"><strong>91%</strong>AI accuracy rate</div>
-    </div>
-  </div>
-
-  <div class="grid-2">
-    <div class="card">
-      <div class="card-hdr"><span class="card-title">Dispute Case Input</span><span class="badge b-live">● Live</span></div>
-      <div class="card-body">
-        <div class="fg">
-          <div class="ff"><label class="flabel">Transaction ID</label><input class="finput" id="d2-txid" value="TXN-2026-03-847291"></div>
-          <div class="ff"><label class="flabel">Dispute Type</label>
-            <select class="fselect" id="d2-type">
-              <option value="Item Not Received">Item Not Received</option>
-              <option value="Unauthorized Transaction" selected>Unauthorized Transaction</option>
-              <option value="Item Not As Described">Item Not As Described</option>
-              <option value="Duplicate Charge">Duplicate Charge</option>
-              <option value="Subscription Cancelled">Subscription Cancelled</option>
-            </select>
-          </div>
-          <div class="ff"><label class="flabel">Transaction Amount</label><input class="finput" id="d2-amt" value="$847.50"></div>
-          <div class="ff"><label class="flabel">Transaction Date</label><input class="finput" id="d2-date" value="March 12, 2026"></div>
-          <div class="ff"><label class="flabel">Merchant Category</label>
-            <select class="fselect" id="d2-mcc">
-              <option value="Electronics Retail" selected>Electronics Retail</option>
-              <option value="Travel & Hotels">Travel & Hotels</option>
-              <option value="Software & SaaS">Software & SaaS</option>
-              <option value="Restaurant & Food">Restaurant & Food</option>
-              <option value="Gas & Fuel">Gas & Fuel</option>
-            </select>
-          </div>
-          <div class="ff"><label class="flabel">Cardholder Location</label><input class="finput" id="d2-loc" value="Seattle, WA, USA"></div>
-          <div class="ff full"><label class="flabel">Cardholder Statement</label><textarea class="ftextarea" id="d2-stmt">I never made this purchase. My card was in my possession the entire time. I was at home in Seattle when this charge appeared from a merchant in Miami. This is clearly fraudulent.</textarea></div>
+    <!-- S3 -->
+    <div class="step-wrap">
+      <div class="step-spine">
+        <div class="step-dot idle" id="dot-3"><svg viewBox="0 0 12 12"><circle cx="6" cy="6" r="2.5" fill="var(--muted)"/></svg></div>
+        <div class="spine-line" id="ln-3"></div>
+      </div>
+      <div class="step-body">
+        <div class="step-hd">
+          <span class="step-n">03</span>
+          <span class="step-name">Financial Risk Assessment</span>
+          <span class="step-tag tag-idle" id="tag-3">IDLE</span>
         </div>
-        <button class="run-btn" id="d2-btn" onclick="runDemo2()">⚡ Analyze Dispute</button>
+        <div class="step-desc">MCC scoring · chargeback exposure · volume credibility · industry fraud benchmarks</div>
+        <div class="owner-badge badge-ai">AI Automated</div>
+        <div class="result-card" id="rc-3">
+          <div class="rc-bar"><span class="rc-time" id="t-3">—</span><span class="rc-label">RISK SCORECARD</span></div>
+          <div class="rc-body"><div class="rc-text" id="txt-3"></div><div class="chips" id="ch-3"></div></div>
+        </div>
       </div>
     </div>
 
-    <div class="card">
-      <div class="card-hdr"><span class="card-title">AI Case Analysis</span><span class="badge b-ai">AI Analysis</span></div>
-      <div class="card-body" id="d2-body">
-        <div class="placeholder" id="d2-ph"><div class="placeholder-icon">⚖️</div><p>Submit dispute to see<br>AI case analysis</p></div>
-        <div class="loading" id="d2-load">
-          <div class="spinner"></div>
-          <div style="font-size:12px;color:var(--muted);margin-top:10px">Building case file...</div>
-          <div class="load-steps">
-            <div class="lstep" id="d2-s1"><div class="ldot"></div>Retrieving transaction records</div>
-            <div class="lstep" id="d2-s2"><div class="ldot"></div>Analyzing location & device data</div>
-            <div class="lstep" id="d2-s3"><div class="ldot"></div>Checking merchant history</div>
-            <div class="lstep" id="d2-s4"><div class="ldot"></div>Determining liability</div>
-            <div class="lstep" id="d2-s5"><div class="ldot"></div>Drafting resolution</div>
-          </div>
-        </div>
-        <div class="result-panel" id="d2-result">
-          <div class="rec-box"><div class="rec-lbl">AI Liability Assessment</div><div class="rec-txt" id="d2-liability">Cardholder Favored — Issue Chargeback</div></div>
-          <div class="checks" id="d2-checks"></div>
-          <div style="background:var(--steel);border:1px solid var(--border);border-radius:9px;padding:14px;margin-bottom:14px">
-            <div class="rec-lbl" style="margin-bottom:8px">Evidence Summary</div>
-            <div id="d2-evidence" style="font-size:12px;color:var(--muted-light);line-height:1.7"></div>
-          </div>
-          <div class="act-btns">
-            <button class="act-btn ab-green" onclick="handleAction(this,'✓ Chargeback Issued','Funds returned to cardholder. Merchant notified.')">✓ Issue Chargeback</button>
-            <button class="act-btn ab-orange" onclick="handleAction(this,'📋 Escalated','Sent to senior analyst for review.')">↑ Escalate</button>
-            <button class="act-btn ab-red" onclick="handleAction(this,'✕ Denied','Dispute denied. Cardholder notified with reason.')">✕ Deny</button>
-          </div>
-        </div>
+    <!-- S4 — HUMAN GATE: Underwriting decision -->
+    <div class="step-wrap">
+      <div class="step-spine">
+        <div class="step-dot idle" id="dot-4"><svg viewBox="0 0 12 12"><circle cx="6" cy="6" r="2.5" fill="var(--muted)"/></svg></div>
+        <div class="spine-line" id="ln-4"></div>
       </div>
-    </div>
-  </div>
-
-  <div class="letter" id="d2-letter">
-    <div class="card-hdr"><span class="card-title">AI-Generated Resolution Letter</span><span class="badge b-ai" id="d2-letter-time">—</span></div>
-    <div class="letter-body" id="d2-letter-body"></div>
-  </div>
-</div>
-
-<!-- ═══════════════════════════════════════
-  DEMO 3: COMPLIANCE MONITOR
-═══════════════════════════════════════ -->
-<div class="demo-section" id="demo2">
-  <div class="sec-hero">
-    <div class="sec-eye">Demo 03 · Regulatory Compliance</div>
-    <div class="sec-title">210 countries. <em style="color:var(--amber)">Zero gaps.</em></div>
-    <p class="sec-sub">Paste any regulatory update — PCI DSS change, GDPR ruling, Fed circular, local banking law — and AI instantly identifies which workflows are affected, scores compliance gaps, and generates a remediation plan.</p>
-    <div class="sec-stats">
-      <div class="sec-stat"><strong>210</strong>Countries monitored</div>
-      <div class="sec-stat"><strong>3 weeks</strong>Manual compliance review</div>
-      <div class="sec-stat"><strong>12s</strong>AI gap analysis</div>
-      <div class="sec-stat"><strong>$2.4M</strong>Avg regulatory fine avoided</div>
-    </div>
-  </div>
-
-  <div class="grid-2">
-    <div class="card">
-      <div class="card-hdr"><span class="card-title">Regulatory Input</span><span class="badge b-live">● Live</span></div>
-      <div class="card-body">
-        <div class="fg">
-          <div class="ff"><label class="flabel">Regulation Name</label><input class="finput" id="d3-name" value="PCI DSS v4.0 — Multi-Factor Authentication Requirement"></div>
-          <div class="ff"><label class="flabel">Jurisdiction</label>
-            <select class="fselect" id="d3-juris">
-              <option value="Global (all markets)" selected>Global (all markets)</option>
-              <option value="United States">United States</option>
-              <option value="European Union">European Union</option>
-              <option value="United Kingdom">United Kingdom</option>
-              <option value="Asia Pacific">Asia Pacific</option>
-            </select>
-          </div>
-          <div class="ff"><label class="flabel">Effective Date</label><input class="finput" id="d3-date" value="April 1, 2026"></div>
-          <div class="ff"><label class="flabel">Penalty for Non-Compliance</label><input class="finput" id="d3-penalty" value="$5,000-$100,000 per month"></div>
-          <div class="ff full"><label class="flabel">Regulation Text / Summary</label>
-            <textarea class="ftextarea" id="d3-text" style="min-height:120px">All payment processors and networks must implement multi-factor authentication (MFA) for all non-consumer accounts with access to cardholder data. This includes administrative access to payment systems, merchant portals, and internal dashboards. Organizations must complete MFA implementation for all applicable systems by the effective date or face graduated penalties.</textarea>
-          </div>
+      <div class="step-body">
+        <div class="step-hd">
+          <span class="step-n">04</span>
+          <span class="step-name">Underwriting Decision</span>
+          <span class="step-tag tag-idle" id="tag-4">IDLE</span>
         </div>
-        <button class="run-btn" id="d3-btn" onclick="runDemo3()">⚡ Analyze Compliance Gap</button>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-hdr"><span class="card-title">AI Compliance Analysis</span><span class="badge b-ai">AI Analysis</span></div>
-      <div class="card-body" id="d3-body">
-        <div class="placeholder" id="d3-ph"><div class="placeholder-icon">📋</div><p>Submit regulation to see<br>AI compliance gap analysis</p></div>
-        <div class="loading" id="d3-load">
-          <div class="spinner"></div>
-          <div style="font-size:12px;color:var(--muted);margin-top:10px">Scanning workflows...</div>
-          <div class="load-steps">
-            <div class="lstep" id="d3-s1"><div class="ldot"></div>Parsing regulatory requirements</div>
-            <div class="lstep" id="d3-s2"><div class="ldot"></div>Mapping to current workflows</div>
-            <div class="lstep" id="d3-s3"><div class="ldot"></div>Identifying compliance gaps</div>
-            <div class="lstep" id="d3-s4"><div class="ldot"></div>Scoring risk by jurisdiction</div>
-            <div class="lstep" id="d3-s5"><div class="ldot"></div>Generating remediation plan</div>
-          </div>
+        <div class="step-desc">AI drafts recommendation memo · human underwrites final decision · one-click approval</div>
+        <div class="owner-badge badge-human">Human Decision Required</div>
+        <div class="result-card" id="rc-4">
+          <div class="rc-bar"><span class="rc-time" id="t-4">—</span><span class="rc-label">UNDERWRITING MEMO</span></div>
+          <div class="rc-body"><div class="rc-text" id="txt-4"></div><div class="chips" id="ch-4"></div></div>
         </div>
-        <div class="result-panel" id="d3-result">
-          <div class="rec-box"><div class="rec-lbl">Compliance Status</div><div class="rec-txt" id="d3-status">⚠️ Partial Gap — Action Required</div></div>
-          <div class="checks" id="d3-checks"></div>
-          <div class="act-btns">
-            <button class="act-btn ab-green" onclick="handleAction(this,'✓ Assigned','Remediation tasks assigned to compliance team.')">✓ Assign Team</button>
-            <button class="act-btn ab-blue" onclick="handleAction(this,'📊 Exported','Full gap report exported to PDF.')">📊 Export Report</button>
-            <button class="act-btn ab-orange" onclick="handleAction(this,'📅 Scheduled','Compliance review scheduled for next week.')">📅 Schedule Review</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="letter" id="d3-letter">
-    <div class="card-hdr"><span class="card-title">AI-Generated Remediation Plan</span><span class="badge b-ai" id="d3-letter-time">—</span></div>
-    <div class="letter-body" id="d3-letter-body"></div>
-  </div>
-</div>
-
-<!-- ═══════════════════════════════════════
-  DEMO 4: FRAUD INVESTIGATION
-═══════════════════════════════════════ -->
-<div class="demo-section" id="demo3">
-  <div class="sec-hero">
-    <div class="sec-eye">Demo 04 · Fraud Investigation</div>
-    <div class="sec-title">From alert to case file in <em style="color:var(--amber)">8 seconds</em></div>
-    <p class="sec-sub">When a fraud alert fires, AI aggregates data from 5 systems, builds a complete investigation file, scores probability, and recommends action — including SAR filing drafts when required.</p>
-    <div class="sec-stats">
-      <div class="sec-stat"><strong>5 systems</strong>Collapsed into one screen</div>
-      <div class="sec-stat"><strong>4 hours</strong>Manual case build time</div>
-      <div class="sec-stat"><strong>8s</strong>AI case build time</div>
-      <div class="sec-stat"><strong>$127M</strong>Fraud prevented last quarter</div>
-    </div>
-  </div>
-
-  <div class="grid-2">
-    <div class="card">
-      <div class="card-hdr"><span class="card-title">Fraud Alert Input</span><span class="badge b-live">● Live</span></div>
-      <div class="card-body">
-        <div class="fg">
-          <div class="ff"><label class="flabel">Alert ID</label><input class="finput" id="d4-id" value="FRD-2026-093847"></div>
-          <div class="ff"><label class="flabel">Alert Type</label>
-            <select class="fselect" id="d4-type">
-              <option value="Card Not Present Fraud" selected>Card Not Present Fraud</option>
-              <option value="Account Takeover">Account Takeover</option>
-              <option value="Money Laundering Signal">Money Laundering Signal</option>
-              <option value="Synthetic Identity">Synthetic Identity</option>
-              <option value="Bust-Out Fraud">Bust-Out Fraud</option>
-            </select>
-          </div>
-          <div class="ff"><label class="flabel">Transaction Amount</label><input class="finput" id="d4-amt" value="$12,450.00"></div>
-          <div class="ff"><label class="flabel">Risk Score Triggered</label><input class="finput" id="d4-score" value="94/100 (Critical)"></div>
-          <div class="ff"><label class="flabel">Account Age</label><input class="finput" id="d4-age" value="14 months"></div>
-          <div class="ff"><label class="flabel">Transactions Last 24hrs</label><input class="finput" id="d4-txns" value="23 transactions (abnormal)"></div>
-          <div class="ff full"><label class="flabel">Suspicious Pattern Description</label>
-            <textarea class="ftextarea" id="d4-pattern">Multiple high-value card-not-present transactions across 6 different merchants in 3 countries within 4 hours. Device fingerprint changed 3 times. IP addresses from Russia, Nigeria, and Brazil. Account holder's usual pattern shows local Seattle transactions averaging $45.</textarea>
-          </div>
-        </div>
-        <button class="run-btn" id="d4-btn" onclick="runDemo4()">⚡ Investigate Alert</button>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-hdr"><span class="card-title">AI Investigation Report</span><span class="badge b-ai">AI Analysis</span></div>
-      <div class="card-body" id="d4-body">
-        <div class="placeholder" id="d4-ph"><div class="placeholder-icon">🔍</div><p>Submit alert to see<br>AI investigation report</p></div>
-        <div class="loading" id="d4-load">
-          <div class="spinner"></div>
-          <div style="font-size:12px;color:var(--muted);margin-top:10px">Building case file...</div>
-          <div class="load-steps">
-            <div class="lstep" id="d4-s1"><div class="ldot"></div>Pulling transaction history</div>
-            <div class="lstep" id="d4-s2"><div class="ldot"></div>Analyzing device & IP signals</div>
-            <div class="lstep" id="d4-s3"><div class="ldot"></div>Cross-referencing fraud database</div>
-            <div class="lstep" id="d4-s4"><div class="ldot"></div>Calculating fraud probability</div>
-            <div class="lstep" id="d4-s5"><div class="ldot"></div>Preparing SAR draft if required</div>
-          </div>
-        </div>
-        <div class="result-panel" id="d4-result">
-          <div class="rec-box" style="border-color:rgba(239,68,68,.4);background:var(--red-dim)"><div class="rec-lbl" style="color:var(--red)">Fraud Assessment</div><div class="rec-txt" id="d4-verdict">🚨 High Confidence Fraud — Immediate Action</div></div>
-          <div class="checks" id="d4-checks"></div>
-          <div class="act-btns">
-            <button class="act-btn ab-red" onclick="handleAction(this,'🚨 Card Blocked','Card suspended. Customer notified via SMS and email.')">🚨 Block Card</button>
-            <button class="act-btn ab-orange" onclick="handleAction(this,'📋 SAR Filed','Suspicious Activity Report submitted to FinCEN.')">📋 File SAR</button>
-            <button class="act-btn ab-blue" onclick="handleAction(this,'📞 Customer Called','Outbound verification call initiated.')">📞 Call Customer</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="letter" id="d4-letter">
-    <div class="card-hdr"><span class="card-title">AI-Generated SAR Draft</span><span class="badge b-ai">Auto-drafted · Review before filing</span></div>
-    <div class="letter-body" id="d4-letter-body"></div>
-  </div>
-</div>
-
-<!-- ═══════════════════════════════════════
-  DEMO 5: PARTNER BANK ONBOARDING
-═══════════════════════════════════════ -->
-<div class="demo-section" id="demo4">
-  <div class="sec-hero">
-    <div class="sec-eye">Demo 05 · Partner Bank Onboarding</div>
-    <div class="sec-title">6 months of review → <em style="color:var(--amber)">12 seconds</em></div>
-    <p class="sec-sub">New issuing banks applying to join the network go through months of manual document review. AI checks regulatory standing, capital adequacy, compliance history, and generates partnership terms instantly.</p>
-    <div class="sec-stats">
-      <div class="sec-stat"><strong>6–12 mo</strong>Current onboarding time</div>
-      <div class="sec-stat"><strong>12s</strong>AI review time</div>
-      <div class="sec-stat"><strong>$2.3M</strong>Cost per manual onboarding</div>
-      <div class="sec-stat"><strong>340+</strong>Partner banks globally</div>
-    </div>
-  </div>
-
-  <div class="grid-2">
-    <div class="card">
-      <div class="card-hdr"><span class="card-title">Partner Bank Application</span><span class="badge b-live">● Live</span></div>
-      <div class="card-body">
-        <div class="fg">
-          <div class="ff"><label class="flabel">Bank Name</label><input class="finput" id="d5-name" value="Pacific Horizon Bank"></div>
-          <div class="ff"><label class="flabel">Country of Incorporation</label>
-            <select class="fselect" id="d5-country">
-              <option value="United States" selected>🇺🇸 United States</option>
-              <option value="United Kingdom">🇬🇧 United Kingdom</option>
-              <option value="Singapore">🇸🇬 Singapore</option>
-              <option value="UAE">🇦🇪 UAE</option>
-              <option value="India">🇮🇳 India</option>
-            </select>
-          </div>
-          <div class="ff"><label class="flabel">Total Assets (USD)</label>
-            <select class="fselect" id="d5-assets">
-              <option value="$1B-$10B" selected>$1B – $10B</option>
-              <option value="Under $1B">Under $1B</option>
-              <option value="$10B-$100B">$10B – $100B</option>
-              <option value="$100B+">$100B+</option>
-            </select>
-          </div>
-          <div class="ff"><label class="flabel">Years of Operation</label><input class="finput" id="d5-age" value="23 years"></div>
-          <div class="ff"><label class="flabel">Primary Regulator</label><input class="finput" id="d5-reg" value="OCC (Office of the Comptroller)"></div>
-          <div class="ff"><label class="flabel">Credit Rating</label>
-            <select class="fselect" id="d5-rating">
-              <option value="A- (S&P)" selected>A- (S&P)</option>
-              <option value="AA (S&P)">AA (S&P)</option>
-              <option value="BBB+ (S&P)">BBB+ (S&P)</option>
-              <option value="Not Rated">Not Rated</option>
-            </select>
-          </div>
-          <div class="ff full"><label class="flabel">Intended Card Program</label>
-            <textarea class="ftextarea" id="d5-program">We intend to issue Mastercard credit and debit cards to our retail and business banking customers across the Pacific Northwest. Initial issuance target: 250,000 cards in year one, growing to 1.2M by year three. Products include consumer credit, business debit, and premium travel rewards.</textarea>
-          </div>
-        </div>
-        <button class="run-btn" id="d5-btn" onclick="runDemo5()">⚡ Review Application</button>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-hdr"><span class="card-title">AI Due Diligence Report</span><span class="badge b-ai">AI Analysis</span></div>
-      <div class="card-body" id="d5-body">
-        <div class="placeholder" id="d5-ph"><div class="placeholder-icon">🏦</div><p>Submit application to see<br>AI due diligence report</p></div>
-        <div class="loading" id="d5-load">
-          <div class="spinner"></div>
-          <div style="font-size:12px;color:var(--muted);margin-top:10px">Running due diligence...</div>
-          <div class="load-steps">
-            <div class="lstep" id="d5-s1"><div class="ldot"></div>Verifying regulatory standing</div>
-            <div class="lstep" id="d5-s2"><div class="ldot"></div>Checking capital adequacy</div>
-            <div class="lstep" id="d5-s3"><div class="ldot"></div>Reviewing compliance history</div>
-            <div class="lstep" id="d5-s4"><div class="ldot"></div>Assessing program viability</div>
-            <div class="lstep" id="d5-s5"><div class="ldot"></div>Drafting partnership terms</div>
-          </div>
-        </div>
-        <div class="result-panel" id="d5-result">
-          <div class="score-wrap">
-            <svg class="score-ring" viewBox="0 0 72 72">
-              <circle cx="36" cy="36" r="30" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="5"/>
-              <circle cx="36" cy="36" r="30" fill="none" stroke="#22C55E" stroke-width="5" stroke-dasharray="188.5" stroke-dashoffset="25" stroke-linecap="round" transform="rotate(-90 36 36)" id="d5-arc"/>
-              <text x="36" y="33" text-anchor="middle" fill="#22C55E" font-family="JetBrains Mono" font-size="14" font-weight="500" id="d5-score">87</text>
-              <text x="36" y="45" text-anchor="middle" fill="#70707A" font-family="Outfit" font-size="8">/100</text>
-            </svg>
-            <div class="score-info">
-              <h3 id="d5-rec-title">Strong Candidate</h3>
-              <p id="d5-rec-desc">Well-capitalized, clean compliance history, viable program.</p>
+        <!-- HUMAN GATE 2 -->
+        <div class="hgate" id="hg-4">
+          <div class="hgate-top">
+            <div class="hgate-icon"><svg viewBox="0 0 14 14" fill="none"><rect x="2" y="2" width="10" height="10" rx="2" stroke="var(--amber)" stroke-width="1.2"/><path d="M5 7l1.5 1.5L9 5" stroke="var(--amber)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <div>
+              <div class="hgate-title">Underwriter decision required</div>
+              <div class="hgate-sub">AI recommendation above. You hold final authority — approve, modify, or decline.</div>
             </div>
           </div>
-          <div class="checks" id="d5-checks"></div>
-          <div class="rec-box"><div class="rec-lbl">AI Recommendation</div><div class="rec-txt" id="d5-rec">✅ Approve — Proceed to Partnership Agreement</div></div>
-          <div class="act-btns">
-            <button class="act-btn ab-green" onclick="handleAction(this,'✓ Approved','Bank approved. Partnership agreement package sent.')">✓ Approve Partner</button>
-            <button class="act-btn ab-blue" onclick="handleAction(this,'📋 Terms Sent','Partnership terms sent for review.')">📋 Send Terms</button>
-            <button class="act-btn ab-red" onclick="handleAction(this,'✕ Declined','Application declined. Bank notified.')">✕ Decline</button>
+          <div class="hgate-chips" id="hg-4-chips"></div>
+          <div class="hgate-actions">
+            <button class="hgate-btn primary" onclick="humanDecide(4,'approve')">Approve — AI recommended terms</button>
+            <button class="hgate-btn" onclick="humanDecide(4,'conditional')">Approve with modified terms</button>
+            <button class="hgate-btn danger" onclick="humanDecide(4,'decline')">Decline application</button>
           </div>
+          <div class="hgate-note">Decision is timestamped, attributed to your user account, and stored in the audit log.</div>
         </div>
       </div>
     </div>
+
+    <!-- S5 — HUMAN GATE: Contract review -->
+    <div class="step-wrap">
+      <div class="step-spine">
+        <div class="step-dot idle" id="dot-5"><svg viewBox="0 0 12 12"><circle cx="6" cy="6" r="2.5" fill="var(--muted)"/></svg></div>
+        <div class="spine-line" id="ln-5"></div>
+      </div>
+      <div class="step-body">
+        <div class="step-hd">
+          <span class="step-n">05</span>
+          <span class="step-name">Contract Generation &amp; Review</span>
+          <span class="step-tag tag-idle" id="tag-5">IDLE</span>
+        </div>
+        <div class="step-desc">AI drafts full merchant agreement · human reviews · sends for merchant e-signature</div>
+        <div class="owner-badge badge-human">Human Review Required</div>
+        <div class="result-card" id="rc-5">
+          <div class="rc-bar"><span class="rc-time" id="t-5">—</span><span class="rc-label">CONTRACT DRAFT</span></div>
+          <div class="rc-body">
+            <div class="rc-text" id="txt-5"></div>
+            <div class="doc-block" id="doc-5" style="display:none"></div>
+          </div>
+        </div>
+        <!-- HUMAN GATE 3 -->
+        <div class="hgate" id="hg-5">
+          <div class="hgate-top">
+            <div class="hgate-icon"><svg viewBox="0 0 14 14" fill="none"><path d="M3 2h6l3 3v7a1 1 0 01-1 1H3a1 1 0 01-1-1V3a1 1 0 011-1z" stroke="var(--amber)" stroke-width="1.2"/><path d="M9 2v3h3M5 8h4M5 10h2" stroke="var(--amber)" stroke-width="1.2" stroke-linecap="round"/></svg></div>
+            <div>
+              <div class="hgate-title">Review contract before sending to merchant</div>
+              <div class="hgate-sub">Read the AI-generated agreement above. Redline or approve as-is.</div>
+            </div>
+          </div>
+          <div class="hgate-actions">
+            <button class="hgate-btn primary" onclick="humanDecide(5,'send')">Approve &amp; Send for E-Signature</button>
+            <button class="hgate-btn" onclick="humanDecide(5,'redline')">Redline — Request revisions</button>
+          </div>
+          <div class="hgate-note">Approval triggers DocuSign dispatch to merchant's email. Your name appears as authorizing signatory.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- S6 -->
+    <div class="step-wrap">
+      <div class="step-spine">
+        <div class="step-dot idle" id="dot-6"><svg viewBox="0 0 12 12"><circle cx="6" cy="6" r="2.5" fill="var(--muted)"/></svg></div>
+        <div class="spine-line" id="ln-6"></div>
+      </div>
+      <div class="step-body">
+        <div class="step-hd">
+          <span class="step-n">06</span>
+          <span class="step-name">Portal Provisioning</span>
+          <span class="step-tag tag-idle" id="tag-6">IDLE</span>
+        </div>
+        <div class="step-desc">MID assignment · API key generation · dashboard access · webhook config · credentials dispatch</div>
+        <div class="owner-badge badge-ai">AI Automated</div>
+        <div class="result-card" id="rc-6">
+          <div class="rc-bar"><span class="rc-time" id="t-6">—</span><span class="rc-label">PROVISIONING MANIFEST</span></div>
+          <div class="rc-body"><div class="rc-text" id="txt-6"></div><div class="doc-block" id="doc-6" style="display:none"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- S7 -->
+    <div class="step-wrap">
+      <div class="step-spine">
+        <div class="step-dot idle" id="dot-7"><svg viewBox="0 0 12 12"><circle cx="6" cy="6" r="2.5" fill="var(--muted)"/></svg></div>
+        <div class="spine-line" id="ln-7"></div>
+      </div>
+      <div class="step-body">
+        <div class="step-hd">
+          <span class="step-n">07</span>
+          <span class="step-name">First Transaction Monitoring Setup</span>
+          <span class="step-tag tag-idle" id="tag-7">IDLE</span>
+        </div>
+        <div class="step-desc">Custom fraud rules · velocity thresholds · 3DS policy · chargeback alert cadence</div>
+        <div class="owner-badge badge-ai">AI Automated</div>
+        <div class="result-card" id="rc-7">
+          <div class="rc-bar"><span class="rc-time" id="t-7">—</span><span class="rc-label">FRAUD RULE CONFIG</span></div>
+          <div class="rc-body"><div class="rc-text" id="txt-7"></div><div class="doc-block" id="doc-7" style="display:none"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- S8 -->
+    <div class="step-wrap">
+      <div class="step-spine">
+        <div class="step-dot idle" id="dot-8"><svg viewBox="0 0 12 12"><circle cx="6" cy="6" r="2.5" fill="var(--muted)"/></svg></div>
+        <div class="spine-line" id="ln-8" style="display:none"></div>
+      </div>
+      <div class="step-body">
+        <div class="step-hd">
+          <span class="step-n">08</span>
+          <span class="step-name">Account Setup &amp; Review Schedule</span>
+          <span class="step-tag tag-idle" id="tag-8">IDLE</span>
+        </div>
+        <div class="step-desc">30/60/90-day review calendar · account manager assignment · welcome email · escalation triggers</div>
+        <div class="owner-badge badge-ai">AI Automated</div>
+        <div class="result-card" id="rc-8">
+          <div class="rc-bar"><span class="rc-time" id="t-8">—</span><span class="rc-label">ACCOUNT PLAN</span></div>
+          <div class="rc-body"><div class="rc-text" id="txt-8"></div><div class="chips" id="ch-8"></div></div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /pipeline -->
+
+  <!-- SUMMARY -->
+  <div class="summary" id="summary">
+    <div class="summary-title" id="sum-title">Merchant Live</div>
+    <div class="summary-sub" id="sum-sub"></div>
+    <div class="summary-chips" id="sum-chips"></div>
+    <div class="summary-time" id="sum-time"></div>
   </div>
 
-  <div class="letter" id="d5-letter">
-    <div class="card-hdr"><span class="card-title">AI-Generated Partnership Terms</span><span class="badge b-ai" id="d5-letter-time">—</span></div>
-    <div class="letter-body" id="d5-letter-body"></div>
-  </div>
+</div><!-- /demo-wrap -->
+
+<div class="footer">
+  <div class="footer-text">Every workflow above was built in hours. Your Appian, Pega, or ServiceNow implementation took months and cost millions. We rebuild it AI-native in 8 weeks — you own the code.</div>
+  <a class="footer-cta" href="#">Book a Free Assessment →</a>
 </div>
 
-<!-- BOTTOM BANNER -->
-<div class="banner">
-  <h2>Ready to replace your implementation?</h2>
-  <p>Every demo above was built in hours. Your Appian, Pega, or ServiceNow implementation took months and cost millions. We rebuild it AI-native in 8 weeks — you own the code.</p>
-  <a class="cta" href="https://bisxp.com/#contact">Book a Free Assessment →</a>
-</div>
-
-</main>
-
-<!-- TOAST -->
-<div class="toast" id="toast-el"><div class="toast-title" id="toast-t">Done</div><div id="toast-m">Action completed.</div></div>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <script>
-const API_URL = '/api/ai';
+// ─── Chart data ──────────────────────────────────────────────────────────────
+const STEPS = [
+  {l:'Application intake',    before:2880, ai:8,  human:0},
+  {l:'Sanctions screening',   before:1440, ai:12, human:600},
+  {l:'Risk scoring',          before:4320, ai:10, human:0},
+  {l:'Underwriting',          before:7200, ai:20, human:1200},
+  {l:'Contract generation',   before:2880, ai:15, human:900},
+  {l:'Portal provisioning',   before:1440, ai:20, human:0},
+  {l:'Fraud rules',           before:1440, ai:10, human:0},
+  {l:'Account setup',         before:240,  ai:5,  human:0},
+];
+const MAX_V = STEPS.reduce((a,s)=>a+s.before,0);
+function fmt(mins){if(mins<1)return'<1m';if(mins<60)return Math.round(mins)+'m';if(mins<1440)return(mins/60).toFixed(1)+'h';return(mins/1440).toFixed(1)+'d';}
+function fmtS(s){return s<60?s+'s':Math.round(s/60)+'m '+(s%60)+'s';}
 
-// TAB SWITCHING
-function switchTab(n) {
-  document.querySelectorAll('.tab-btn').forEach((b,i) => b.classList.toggle('active', i===n));
-  document.querySelectorAll('.demo-section').forEach((s,i) => s.classList.toggle('active', i===n));
-  window.scrollTo({top: document.querySelector('.tab-nav').offsetTop - 10, behavior:'smooth'});
+let chartMode = 'before';
+function setChart(m){
+  chartMode=m;
+  ['before','after','compare'].forEach(b=>{document.getElementById('cb-'+b).classList.toggle('on',b===m);});
+  renderChart();
 }
 
-// TOAST
-function toast(title, msg) {
-  const el = document.getElementById('toast-el');
-  document.getElementById('toast-t').textContent = title;
-  document.getElementById('toast-m').textContent = msg;
-  el.classList.add('show');
-  setTimeout(() => el.classList.remove('show'), 6000);
-}
+function renderChart(){
+  const bars=document.getElementById('chart-bars');
+  const leg=document.getElementById('chart-legend');
+  const tot=document.getElementById('chart-total');
+  const totalB=STEPS.reduce((a,s)=>a+s.before,0);
+  const totalAI=STEPS.reduce((a,s)=>a+s.ai/60,0);
+  const totalH=STEPS.reduce((a,s)=>a+s.human/60,0);
+  const totalAfter=totalAI+totalH;
 
-// LOADING ANIMATION
-async function animateSteps(prefix, count, delay=550) {
-  for(let i=1; i<=count; i++) {
-    await new Promise(r => setTimeout(r, delay));
-    if(i>1) { document.getElementById(`${prefix}-s${i-1}`).classList.remove('on'); document.getElementById(`${prefix}-s${i-1}`).classList.add('done'); }
-    document.getElementById(`${prefix}-s${i}`).classList.add('on');
+  if(chartMode==='before'){
+    leg.innerHTML=`<span class="leg"><span class="leg-dot" style="background:#c0392b"></span>Manual process today</span>`;
+    bars.innerHTML=STEPS.map(s=>{
+      const pct=(s.before/MAX_V*100).toFixed(1);
+      return `<div class="bar-r"><div class="bar-r-label">${s.l}</div><div class="bar-track"><div class="bar-fill" style="width:${pct}%;background:#c0392b"></div></div><div class="bar-val" style="color:#c0392b">${fmt(s.before)}</div></div>`;
+    }).join('');
+    tot.innerHTML=`<div class="bar-r-label" style="color:var(--cream);font-weight:500">Total</div><div class="bar-track"><div class="bar-fill" style="width:100%;background:#c0392b"></div></div><div class="bar-val" style="color:#c0392b;font-weight:500">${fmt(totalB)}</div>`;
+  }
+  else if(chartMode==='after'){
+    leg.innerHTML=`<span class="leg"><span class="leg-dot" style="background:var(--info)"></span>AI automated</span><span class="leg"><span class="leg-dot" style="background:var(--amber)"></span>Human review (preserved)</span>`;
+    bars.innerHTML=STEPS.map(s=>{
+      const aiMins=s.ai/60, hMins=s.human/60, total=aiMins+hMins;
+      const pctAI=(aiMins/MAX_V*100).toFixed(3), pctH=(hMins/MAX_V*100).toFixed(3);
+      const totalPct=(total/MAX_V*100).toFixed(2);
+      const aiW=total>0?(aiMins/total*100).toFixed(1)+'%':'100%';
+      const label=s.human>0?`<span style="color:var(--info)">${fmtS(s.ai)} AI</span> + <span style="color:var(--amber)">${fmt(s.human/60)} human</span>`:`<span style="color:var(--info)">${fmtS(s.ai)}</span>`;
+      return `<div class="bar-r"><div class="bar-r-label">${s.l}</div><div class="bar-track"><div style="display:flex;height:100%;width:${totalPct}%"><div style="background:var(--info);width:${aiW};height:100%;border-radius:4px 0 0 4px"></div>${s.human>0?`<div style="background:var(--amber);flex:1;height:100%;border-radius:0 4px 4px 0"></div>`:''}</div></div><div class="bar-val" style="font-size:10px">${label}</div></div>`;
+    }).join('');
+    const aiW2=(totalAI/totalAfter*100).toFixed(1)+'%';
+    tot.innerHTML=`<div class="bar-r-label" style="color:var(--cream);font-weight:500">Total</div><div class="bar-track"><div style="display:flex;height:100%;width:${(totalAfter/MAX_V*100).toFixed(2)}%"><div style="background:var(--info);width:${aiW2};height:100%;border-radius:4px 0 0 4px"></div><div style="background:var(--amber);flex:1;height:100%;border-radius:0 4px 4px 0"></div></div></div><div class="bar-val" style="color:var(--ok);font-weight:500">~${Math.round(totalAfter)}m</div>`;
+  }
+  else{
+    leg.innerHTML=`<span class="leg"><span class="leg-dot" style="background:#c0392b"></span>Without AI</span><span class="leg"><span class="leg-dot" style="background:var(--info)"></span>AI steps</span><span class="leg"><span class="leg-dot" style="background:var(--amber)"></span>Human review</span>`;
+    bars.innerHTML=STEPS.map(s=>{
+      const bPct=(s.before/MAX_V*100).toFixed(1);
+      const total=(s.ai/60+s.human/60),totalPct=(total/MAX_V*100).toFixed(3);
+      const aiW=total>0?((s.ai/60)/total*100).toFixed(1)+'%':'100%';
+      const reduction=Math.round((1-total/s.before)*100);
+      return `<div style="margin-bottom:8px">
+        <div class="bar-r" style="margin-bottom:2px"><div class="bar-r-label" style="font-size:10px;color:var(--muted)">Before</div><div class="bar-track"><div class="bar-fill" style="width:${bPct}%;background:#c0392b"></div></div><div class="bar-val" style="color:#c0392b">${fmt(s.before)}</div></div>
+        <div class="bar-r"><div class="bar-r-label">${s.l}</div><div class="bar-track"><div style="display:flex;height:100%;width:${totalPct}%"><div style="background:var(--info);width:${aiW};height:100%;border-radius:4px 0 0 4px"></div>${s.human>0?`<div style="background:var(--amber);flex:1;height:100%;border-radius:0 4px 4px 0"></div>`:''}</div></div><div class="bar-val" style="color:var(--ok)">${reduction}% faster</div></div>
+      </div>`;
+    }).join('');
+    const totalReduction=Math.round((1-totalAfter/totalB)*100);
+    tot.innerHTML=`<div class="bar-r-label" style="color:var(--cream);font-weight:500">Overall</div><div style="display:flex;align-items:center;gap:8px;font-size:13px"><span style="color:#c0392b">${fmt(totalB)}</span><span style="color:var(--muted)">→</span><span style="color:var(--ok);font-weight:500">~${Math.round(totalAfter)}m</span></div><div class="bar-val" style="color:var(--ok);font-weight:500;font-size:13px">${totalReduction}% reduction</div>`;
   }
 }
+renderChart();
 
-// SHOW/HIDE helpers
-function showLoad(id) {
-  document.getElementById(`${id}-ph`).style.display='none';
-  document.getElementById(`${id}-load`).classList.add('on');
-  document.getElementById(`${id}-result`).classList.remove('on');
-  if(document.getElementById(`${id}-letter`)) document.getElementById(`${id}-letter`).classList.remove('on');
-}
-function showResult(id) {
-  document.getElementById(`${id}-load`).classList.remove('on');
-  document.getElementById(`${id}-result`).classList.add('on');
-}
+// ─── Pipeline ────────────────────────────────────────────────────────────────
+const API = '/api/ai';
+const MODEL = 'claude-sonnet-4-20250514';
+let STATE = {};
+let pipelineRunning = false;
 
-// BUILD CHECKS HTML
-function buildChecks(checks) {
-  return checks.map(c => `
-    <div class="chk ${c.status}">
-      <span class="chk-icon">${c.status==='pass'?'✓':c.status==='warn'?'⚠':'✕'}</span>
-      <div class="chk-text"><strong>${c.title}</strong><span>${c.detail}</span></div>
-    </div>`).join('');
-}
+const ICONS = {
+  idle:`<svg viewBox="0 0 12 12"><circle cx="6" cy="6" r="2.5" fill="var(--muted)"/></svg>`,
+  run:`<div class="spin"></div>`,
+  wait:`<svg viewBox="0 0 12 12" fill="none"><circle cx="6" cy="4.5" r="2" stroke="var(--amber)" stroke-width="1.2"/><path d="M2 11c0-2.2 1.8-4 4-4s4 1.8 4 4" stroke="var(--amber)" stroke-width="1.2" stroke-linecap="round"/></svg>`,
+  ok:`<svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6L5 8.5L9.5 3.5" stroke="var(--ok)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+  warn:`<svg viewBox="0 0 12 12" fill="none"><path d="M6 2L10.5 10H1.5L6 2Z" stroke="var(--warn)" stroke-width="1" fill="none"/><line x1="6" y1="5" x2="6" y2="7.5" stroke="var(--warn)" stroke-width="1.2" stroke-linecap="round"/><circle cx="6" cy="9" r=".6" fill="var(--warn)"/></svg>`,
+  err:`<svg viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="4.5" stroke="var(--err)" stroke-width="1"/><line x1="4" y1="4" x2="8" y2="8" stroke="var(--err)" stroke-width="1.2" stroke-linecap="round"/><line x1="8" y1="4" x2="4" y2="8" stroke="var(--err)" stroke-width="1.2" stroke-linecap="round"/></svg>`,
+};
 
-// BUILD LETTER HTML
-function buildLetter(title, content, time) {
-  const paras = content.split('\n\n').filter(p=>p.trim());
-  return `<div class="letter-head">${title}</div>${paras.map(p=>`<p>${p}</p>`).join('')}<div class="letter-sig"><strong style="color:var(--amber)">BISXP Enterprise AI</strong><br><span style="font-size:11px;color:var(--muted)">Generated in ${time}s · BISXP AI Suite</span></div>`;
+function setDot(n, state, tagText, tagClass){
+  const d=document.getElementById('dot-'+n);
+  d.className='step-dot '+state;
+  d.innerHTML=ICONS[state]||ICONS.idle;
+  const t=document.getElementById('tag-'+n);
+  t.className='step-tag tag-'+tagClass;
+  t.textContent=tagText;
+  const ln=document.getElementById('ln-'+n);
+  if(ln && (state==='ok'||state==='warn')) ln.classList.add('lit');
 }
-
-// CLAUDE API CALL
-async function callClaude(prompt) {
-  const r = await fetch(API_URL, {
-    method:'POST',
-    headers:{'Content-Type':'application/json'},
-    body: JSON.stringify({messages:[{role:'user',content:prompt}]})
-  });
-  const d = await r.json();
-  return JSON.parse(d.content[0].text.replace(/```json|```/g,'').trim());
-}
-
-// ═══ DEMO 1: MERCHANT ONBOARDING ═══
-async function runDemo1() {
-  const btn = document.getElementById('d1-btn');
-  btn.disabled = true; btn.textContent = 'Analyzing...';
-  const t0 = Date.now();
-  showLoad('d1');
-  const [name,type,country,rev,vol,age] = ['d1-name','d1-type','d1-country','d1-rev','d1-vol','d1-age'].map(id=>document.getElementById(id).value);
-  const stepsP = animateSteps('d1',5);
-  try {
-    const result = await callClaude(`You are a merchant onboarding risk analyst. Analyze this merchant and respond ONLY with JSON:
-Merchant: ${name}, Type: ${type}, Country: ${country}, Revenue: ${rev}, Volume: ${vol}, Age: ${age}
-JSON: {"score":<0-100>,"recommendation":"<Approve|Conditional Approval|Review Required|Reject>","recDetail":"<one sentence>","checks":[{"status":"<pass|warn|fail>","title":"<name>","detail":"<finding>"},{"status":"<pass|warn|fail>","title":"<name>","detail":"<finding>"},{"status":"<pass|warn|fail>","title":"<name>","detail":"<finding>"},{"status":"<pass|warn|fail>","title":"<name>","detail":"<finding>"},{"status":"<pass|warn|fail>","title":"<name>","detail":"<finding>"}],"letter":"<2-3 paragraph professional decision letter to merchant>"}`);
-    await stepsP;
-    const elapsed = ((Date.now()-t0)/1000).toFixed(1);
-    const score = result.score;
-    const color = score>70?'#22C55E':score>40?'#F59E0B':'#EF4444';
-    const offset = 188.5 - (score/100)*188.5;
-    document.getElementById('d1-arc').style.strokeDashoffset = offset;
-    document.getElementById('d1-arc').style.stroke = color;
-    document.getElementById('d1-score').textContent = score;
-    document.getElementById('d1-score').style.fill = color;
-    document.getElementById('d1-rec-title').textContent = result.recommendation;
-    document.getElementById('d1-rec-desc').textContent = result.recDetail;
-    document.getElementById('d1-checks').innerHTML = buildChecks(result.checks);
-    const icon = result.recommendation.includes('Approve')?'✅':result.recommendation.includes('Review')?'⚠️':'❌';
-    document.getElementById('d1-rec').textContent = `${icon} ${result.recommendation}`;
-    document.getElementById('d1-letter-body').innerHTML = buildLetter(`${result.recommendation} — ${name}`, result.letter, elapsed);
-    document.getElementById('d1-letter').classList.add('on');
-    document.getElementById('d1-new-name').textContent = name;
-    document.getElementById('d1-new-time').textContent = elapsed+'s';
-    document.getElementById('d1-new-status').textContent = result.recommendation.includes('Approve')?'✓ Done':'⏳ Pending';
-    document.getElementById('d1-new-row').style.display='';
-    document.getElementById('d1-time').textContent = elapsed+'s';
-    document.getElementById('d1-cnt').textContent = parseInt(document.getElementById('d1-cnt').textContent)+1;
-    showResult('d1');
-  } catch(e) { await stepsP; showResult('d1'); toast('Demo Mode','Running with sample data — API key needed for live AI.'); }
-  btn.disabled=false; btn.textContent='⚡ Run AI Analysis';
+function showRC(n){ document.getElementById('rc-'+n).classList.add('show'); }
+function showHG(n){ document.getElementById('hg-'+n).classList.add('show'); }
+function hideHG(n){ document.getElementById('hg-'+n).classList.remove('show'); }
+function setTime(n,ms){ document.getElementById('t-'+n).textContent=(ms/1000).toFixed(1)+'s'; }
+function setTxt(n,txt){ document.getElementById('txt-'+n).textContent=txt; }
+function setChips(id,arr){
+  const el=document.getElementById(id);
+  if(!el) return;
+  el.innerHTML=arr.map(c=>`<div class="chip"><div class="chip-l">${c.l}</div><div class="chip-v ${c.cl||''}">${c.v}</div></div>`).join('');
 }
 
-// ═══ DEMO 2: DISPUTE RESOLUTION ═══
-async function runDemo2() {
-  const btn = document.getElementById('d2-btn');
-  btn.disabled=true; btn.textContent='Analyzing...';
-  const t0 = Date.now();
-  showLoad('d2');
-  const [txid,type,amt,date,mcc,loc,stmt] = ['d2-txid','d2-type','d2-amt','d2-date','d2-mcc','d2-loc','d2-stmt'].map(id=>document.getElementById(id).value);
-  const stepsP = animateSteps('d2',5,600);
-  try {
-    const result = await callClaude(`You are a payment dispute analyst. Analyze this chargeback dispute and respond ONLY with JSON:
-Transaction: ${txid}, Type: ${type}, Amount: ${amt}, Date: ${date}, Merchant: ${mcc}, Location: ${loc}
-Cardholder says: "${stmt}"
-JSON: {"liability":"<Cardholder Favored|Merchant Favored|Further Review>","liabilityDetail":"<one sentence>","evidence":"<2-3 sentences summarizing key evidence points>","checks":[{"status":"<pass|warn|fail>","title":"<evidence point>","detail":"<specific finding>"},{"status":"<pass|warn|fail>","title":"<evidence point>","detail":"<specific finding>"},{"status":"<pass|warn|fail>","title":"<evidence point>","detail":"<specific finding>"},{"status":"<pass|warn|fail>","title":"<evidence point>","detail":"<specific finding>"}],"letter":"<2 paragraph resolution letter to cardholder>"}`);
-    await stepsP;
-    const elapsed = ((Date.now()-t0)/1000).toFixed(1);
-    const icon = result.liability.includes('Cardholder')?'✅':result.liability.includes('Further')?'⚠️':'❌';
-    document.getElementById('d2-liability').textContent = `${icon} ${result.liability} — ${result.liabilityDetail}`;
-    document.getElementById('d2-checks').innerHTML = buildChecks(result.checks);
-    document.getElementById('d2-evidence').textContent = result.evidence;
-    document.getElementById('d2-letter-body').innerHTML = buildLetter(`Dispute Resolution — ${txid}`, result.letter, elapsed);
-    document.getElementById('d2-letter').classList.add('on');{const lb=document.getElementById('d2-letter-time');if(lb)lb.textContent='Generated in '+elapsed+'s';}
-    showResult('d2');
-  } catch(e) { await stepsP; showResult('d2'); }
-  btn.disabled=false; btn.textContent='⚡ Analyze Dispute';
+async function callClaude(system, user){
+  const r=await fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:MODEL,max_tokens:1000,system,messages:[{role:'user',content:user}]})});
+  if(!r.ok) throw new Error('API '+r.status);
+  const d=await r.json();
+  return (d.content?.find(b=>b.type==='text')?.text||'').trim();
+}
+function parseJ(txt){
+  try{return JSON.parse(txt.replace(/```json\n?/g,'').replace(/```\n?/g,'').trim());}catch{return null;}
 }
 
-// ═══ DEMO 3: COMPLIANCE ═══
-async function runDemo3() {
-  const btn = document.getElementById('d3-btn');
-  btn.disabled=true; btn.textContent='Analyzing...';
-  const t0 = Date.now();
-  showLoad('d3');
-  const [name,juris,date,penalty,text] = ['d3-name','d3-juris','d3-date','d3-penalty','d3-text'].map(id=>document.getElementById(id).value);
-  const stepsP = animateSteps('d3',5,650);
-  try {
-    const result = await callClaude(`You are a regulatory compliance analyst at a global payment network. Analyze this regulation and respond ONLY with JSON:
-Regulation: ${name}, Jurisdiction: ${juris}, Effective: ${date}, Penalty: ${penalty}
-Text: "${text}"
-JSON: {"status":"<Compliant|Partial Gap|Critical Gap>","statusDetail":"<one sentence>","checks":[{"status":"<pass|warn|fail>","title":"<workflow or system affected>","detail":"<specific gap or confirmation>"},{"status":"<pass|warn|fail>","title":"<workflow or system affected>","detail":"<specific gap or confirmation>"},{"status":"<pass|warn|fail>","title":"<workflow or system affected>","detail":"<specific gap or confirmation>"},{"status":"<pass|warn|fail>","title":"<workflow or system affected>","detail":"<specific gap or confirmation>"},{"status":"<pass|warn|fail>","title":"<workflow or system affected>","detail":"<specific gap or confirmation>"}],"plan":"<3 paragraph remediation plan with specific steps, owners, and timeline>"}`);
-    await stepsP;
-    const elapsed = ((Date.now()-t0)/1000).toFixed(1);
-    const icon = result.status==='Compliant'?'✅':result.status.includes('Partial')?'⚠️':'🚨';
-    document.getElementById('d3-status').textContent = `${icon} ${result.status} — ${result.statusDetail}`;
-    document.getElementById('d3-checks').innerHTML = buildChecks(result.checks);
-    document.getElementById('d3-letter-body').innerHTML = buildLetter(`Compliance Remediation Plan — ${name}`, result.plan, elapsed);
-    document.getElementById('d3-letter').classList.add('on');{const lb=document.getElementById('d3-letter-time');if(lb)lb.textContent='Generated in '+elapsed+'s';}
-    showResult('d3');
-  } catch(e) { await stepsP; showResult('d3'); }
-  btn.disabled=false; btn.textContent='⚡ Analyze Compliance Gap';
+// Human decision: returns a promise that resolves when human clicks
+let humanResolvers = {};
+function waitForHuman(gate){
+  return new Promise(res=>{ humanResolvers[gate]=res; });
+}
+function humanDecide(gate, choice){
+  hideHG(gate);
+  if(humanResolvers[gate]){ humanResolvers[gate](choice); delete humanResolvers[gate]; }
 }
 
-// ═══ DEMO 4: FRAUD ═══
-async function runDemo4() {
-  const btn = document.getElementById('d4-btn');
-  btn.disabled=true; btn.textContent='Investigating...';
-  const t0 = Date.now();
-  showLoad('d4');
-  const [id,type,amt,score,age,txns,pattern] = ['d4-id','d4-type','d4-amt','d4-score','d4-age','d4-txns','d4-pattern'].map(el=>document.getElementById(el).value);
-  const stepsP = animateSteps('d4',5,600);
-  try {
-    const result = await callClaude(`You are a fraud investigator at a global payment network. Analyze this fraud alert and respond ONLY with JSON:
-Alert: ${id}, Type: ${type}, Amount: ${amt}, Risk Score: ${score}, Account Age: ${age}, Recent Activity: ${txns}
-Pattern: "${pattern}"
-JSON: {"verdict":"<Confirmed Fraud|Likely Fraud|Suspicious|Likely Legitimate>","verdictDetail":"<one sentence>","sarRequired":<true|false>,"checks":[{"status":"<pass|warn|fail>","title":"<fraud indicator>","detail":"<specific finding>"},{"status":"<pass|warn|fail>","title":"<fraud indicator>","detail":"<specific finding>"},{"status":"<pass|warn|fail>","title":"<fraud indicator>","detail":"<specific finding>"},{"status":"<pass|warn|fail>","title":"<fraud indicator>","detail":"<specific finding>"},{"status":"<pass|warn|fail>","title":"<fraud indicator>","detail":"<specific finding>"}],"sarDraft":"<2 paragraph Suspicious Activity Report draft if sarRequired is true, otherwise write a 2 paragraph case summary>"}`);
-    await stepsP;
-    const elapsed = ((Date.now()-t0)/1000).toFixed(1);
-    const icon = result.verdict.includes('Confirmed')?'🚨':result.verdict.includes('Likely F')?'⚠️':'🔍';
-    document.getElementById('d4-verdict').textContent = `${icon} ${result.verdict} — ${result.verdictDetail}`;
-    document.getElementById('d4-checks').innerHTML = buildChecks(result.checks);
-    const sarTitle = result.sarRequired ? `Suspicious Activity Report Draft — ${id}` : `Case Summary — ${id}`;
-    document.getElementById('d4-letter-body').innerHTML = buildLetter(sarTitle, result.sarDraft, elapsed);
-    document.getElementById('d4-letter').classList.add('on');{const lb=document.getElementById('d4-letter-time');if(lb)lb.textContent='Generated in '+elapsed+'s';}
-    showResult('d4');
-  } catch(e) { await stepsP; showResult('d4'); }
-  btn.disabled=false; btn.textContent='⚡ Investigate Alert';
-}
+async function runPipeline(){
+  if(pipelineRunning) return;
+  pipelineRunning=true;
 
-// ═══ DEMO 5: PARTNER BANK ═══
-async function runDemo5() {
-  const btn = document.getElementById('d5-btn');
-  btn.disabled=true; btn.textContent='Reviewing...';
-  const t0 = Date.now();
-  showLoad('d5');
-  const [name,country,assets,age,reg,rating,program] = ['d5-name','d5-country','d5-assets','d5-age','d5-reg','d5-rating','d5-program'].map(id=>document.getElementById(id).value);
-  const stepsP = animateSteps('d5',5,700);
-  try {
-    const result = await callClaude(`You are a partnership analyst at a global payment network reviewing a bank application to become an issuing partner. Respond ONLY with JSON:
-Bank: ${name}, Country: ${country}, Assets: ${assets}, Years: ${age}, Regulator: ${reg}, Rating: ${rating}
-Program: "${program}"
-JSON: {"score":<0-100>,"recommendation":"<Approve|Conditional Approval|Further Due Diligence|Decline>","recDetail":"<one sentence>","checks":[{"status":"<pass|warn|fail>","title":"<due diligence area>","detail":"<specific finding>"},{"status":"<pass|warn|fail>","title":"<due diligence area>","detail":"<specific finding>"},{"status":"<pass|warn|fail>","title":"<due diligence area>","detail":"<specific finding>"},{"status":"<pass|warn|fail>","title":"<due diligence area>","detail":"<specific finding>"},{"status":"<pass|warn|fail>","title":"<due diligence area>","detail":"<specific finding>"}],"terms":"<3 paragraph partnership terms and conditions summary, including volume commitments, fee structure, compliance requirements, and next steps>"}`);
-    await stepsP;
-    const elapsed = ((Date.now()-t0)/1000).toFixed(1);
-    const score = result.score;
-    const color = score>70?'#22C55E':score>40?'#F59E0B':'#EF4444';
-    const offset = 188.5 - (score/100)*188.5;
-    document.getElementById('d5-arc').style.strokeDashoffset = offset;
-    document.getElementById('d5-arc').style.stroke = color;
-    document.getElementById('d5-score').textContent = score;
-    document.getElementById('d5-score').style.fill = color;
-    document.getElementById('d5-rec-title').textContent = result.recommendation;
-    document.getElementById('d5-rec-desc').textContent = result.recDetail;
-    document.getElementById('d5-checks').innerHTML = buildChecks(result.checks);
-    const icon = result.recommendation.includes('Approve')?'✅':result.recommendation.includes('Conditional')?'⚠️':result.recommendation.includes('Further')?'🔍':'❌';
-    document.getElementById('d5-rec').textContent = `${icon} ${result.recommendation}`;
-    document.getElementById('d5-letter-body').innerHTML = buildLetter(`Partnership Terms — ${name}`, result.terms, elapsed);
-    document.getElementById('d5-letter').classList.add('on');{const lb=document.getElementById('d5-letter-time');if(lb)lb.textContent='Generated in '+elapsed+'s';}
-    showResult('d5');
-  } catch(e) { await stepsP; showResult('d5'); }
-  btn.disabled=false; btn.textContent='⚡ Review Application';
-}
+  const btn=document.getElementById('run-btn');
+  btn.disabled=true; btn.textContent='Running…';
 
-function handleAction(btn, title, msg) {
-  toast(title, msg);
-  btn.closest('.act-btns').querySelectorAll('.act-btn').forEach(b => {
-    b.disabled = true;
-    b.style.opacity = '0.4';
-    b.style.cursor = 'not-allowed';
-  });
-  const actBtns = btn.closest('.act-btns');
-  if (actBtns && !actBtns.nextElementSibling?.classList?.contains('action-conf')) {
-    const conf = document.createElement('div');
-    conf.className = 'action-conf';
-    conf.style.cssText = 'font-size:11px;color:var(--muted);text-align:center;margin-top:8px;padding-top:8px;border-top:1px solid var(--border)';
-    conf.innerHTML = 'Action recorded \u00b7 ' + new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'}) +
-      '<br><button onclick="resetDemo(this)" style="margin-top:8px;width:100%;padding:8px;background:transparent;border:1px solid var(--border);border-radius:7px;color:var(--muted);font-family:Outfit,sans-serif;font-size:11px;cursor:pointer;transition:all .2s">\u21ba Reset Demo</button>';
-    actBtns.after(conf);
+  // Reset
+  STATE={};
+  for(let i=1;i<=8;i++){
+    setDot(i,'idle','IDLE','idle');
+    ['rc-','hg-'].forEach(p=>{const el=document.getElementById(p+i);if(el){el.classList.remove('show');}});
+    ['txt-','doc-'].forEach(p=>{const el=document.getElementById(p+i);if(el)el.textContent='';});
+    ['ch-','hg-2-chips','hg-4-chips'].forEach(p=>{const el=document.getElementById(p+(Number.isNaN(+p.slice(-1))?'':i));if(el)el.innerHTML='';});
+    const ln=document.getElementById('ln-'+i);
+    if(ln)ln.classList.remove('lit');
   }
-}
-function resetDemo(el) {
-  const section = el.closest('.demo-section') || el.closest('.main');
-  if (!section) return;
-  section.querySelectorAll('.act-btn').forEach(b => { b.disabled = false; b.style.opacity = ''; b.style.cursor = ''; });
-  section.querySelectorAll('.action-conf').forEach(e => e.remove());
+  document.getElementById('hg-2-memo').textContent='';
+  document.getElementById('summary').classList.remove('show');
+
+  const name=document.getElementById('biz-name').value.trim()||'Unknown Corp';
+  const type=document.getElementById('biz-type').value;
+  const country=document.getElementById('biz-country').value;
+  const vol=parseInt(document.getElementById('biz-vol').value)||100000;
+  const desc=document.getElementById('biz-desc').value.trim();
+  const fmtVol=new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',maximumFractionDigits:0}).format(vol);
+  const ctx=`Business: ${name} | Type: ${type} | Country: ${country} | Monthly Volume: ${fmtVol} | Description: ${desc}`;
+  const pStart=Date.now();
+
+  try {
+
+  // ── S1: Intake ─────────────────────────────────────────────────────────────
+  setDot(1,'run','PROCESSING','run');
+  const t1=Date.now();
+  const r1=await callClaude(
+    `You are a payment operations analyst performing merchant application intake. Respond ONLY with valid JSON, no markdown fences, no preamble. Schema: {"summary":"2-3 sentence intake narrative","case_id":"CASE-XXXXXX format","completeness_score":number_0_to_100,"risk_tier_initial":"LOW|MEDIUM|HIGH|VERY_HIGH","mcc_code":"4-digit","mcc_desc":"MCC description","flags":["array 0-3 items"]}`,
+    `Intake for: ${ctx}`
+  );
+  const d1=parseJ(r1)||{summary:r1,case_id:'CASE-'+Math.random().toString(36).slice(2,8).toUpperCase(),risk_tier_initial:'MEDIUM',mcc_code:'7372',mcc_desc:'Computer Programming',completeness_score:85,flags:[]};
+  STATE.intake=d1;
+  setTime(1,Date.now()-t1); setTxt(1,d1.summary||r1); showRC(1);
+  setChips('ch-1',[
+    {l:'Case ID',v:d1.case_id,cl:'amber'},
+    {l:'MCC',v:d1.mcc_code+' · '+d1.mcc_desc,cl:''},
+    {l:'Completeness',v:(d1.completeness_score||'—')+'%',cl:'ok'},
+    {l:'Initial Tier',v:d1.risk_tier_initial,cl:d1.risk_tier_initial==='LOW'?'ok':d1.risk_tier_initial==='MEDIUM'?'warn':'err'},
+  ]);
+  setDot(1, d1.flags?.length?'warn':'ok', d1.flags?.length?'FLAGS':'OK', d1.flags?.length?'warn':'ok');
+
+  // ── S2: Sanctions ──────────────────────────────────────────────────────────
+  setDot(2,'run','SCREENING','run');
+  const t2=Date.now();
+  const r2=await callClaude(
+    `You are a compliance analyst running AML/sanctions screening. Be realistic: Iran, Russia, North Korea, Syria trigger MATCH or BLOCKED. Gambling/firearms in certain jurisdictions flag. Respond ONLY valid JSON no fences. Schema: {"summary":"2-3 sentence narrative","ofac":"CLEAR|POTENTIAL_MATCH|MATCH","eu_list":"CLEAR|POTENTIAL_MATCH|MATCH","fincen":"CLEAR|FLAGGED","pep":"CLEAR|FLAGGED","registry":"VERIFIED|UNVERIFIED|FLAGGED","overall":"CLEAR|ENHANCED_DUE_DILIGENCE|BLOCKED","risk_indicators":["array"],"analyst_memo":"3-4 sentence memo written for a human compliance officer summarising findings and recommendation"}`,
+    `Screen: ${ctx}\nIntake: ${JSON.stringify(d1)}`
+  );
+  const d2=parseJ(r2)||{summary:r2,ofac:'CLEAR',eu_list:'CLEAR',fincen:'CLEAR',pep:'CLEAR',registry:'VERIFIED',overall:'CLEAR',analyst_memo:r2};
+  STATE.sanctions=d2;
+  setTime(2,Date.now()-t2); setTxt(2,d2.summary||r2); showRC(2);
+  setChips('ch-2',[
+    {l:'OFAC',v:d2.ofac,cl:d2.ofac==='CLEAR'?'ok':'err'},
+    {l:'EU List',v:d2.eu_list,cl:d2.eu_list==='CLEAR'?'ok':'err'},
+    {l:'FinCEN',v:d2.fincen,cl:d2.fincen==='CLEAR'?'ok':'warn'},
+    {l:'Overall',v:d2.overall,cl:d2.overall==='CLEAR'?'ok':d2.overall==='ENHANCED_DUE_DILIGENCE'?'warn':'err'},
+  ]);
+
+  // Human gate 2 — sanctions sign-off
+  const sanctionsColor=d2.overall==='CLEAR'?'ok':d2.overall==='ENHANCED_DUE_DILIGENCE'?'warn':'err';
+  setDot(2,'wait','AWAITING SIGN-OFF','wait');
+  document.getElementById('hg-2-memo').textContent=d2.analyst_memo||d2.summary;
+  setChips('hg-2-chips',[
+    {l:'OFAC',v:d2.ofac,cl:d2.ofac==='CLEAR'?'ok':'err'},
+    {l:'EU List',v:d2.eu_list,cl:d2.eu_list==='CLEAR'?'ok':'err'},
+    {l:'FinCEN',v:d2.fincen,cl:d2.fincen==='CLEAR'?'ok':'warn'},
+    {l:'Overall result',v:d2.overall,cl:sanctionsColor},
+  ]);
+  showHG(2);
+  const s2choice=await waitForHuman(2);
+
+  if(s2choice==='block'){
+    setDot(2,'err','BLOCKED','err');
+    document.getElementById('sum-title').textContent='Application Blocked';
+    document.getElementById('sum-sub').textContent=`Blocked at sanctions screening. ${d2.summary}`;
+    document.getElementById('summary').classList.add('show');
+    btn.disabled=false; btn.textContent='Run Again'; pipelineRunning=false; return;
+  }
+  STATE.sanctionsDecision=s2choice;
+  setDot(2, s2choice==='edd'?'warn':'ok', s2choice==='edd'?'EDD FLAGGED':'CLEARED', s2choice==='edd'?'warn':'ok');
+
+  // ── S3: Risk ───────────────────────────────────────────────────────────────
+  setDot(3,'run','SCORING','run');
+  const t3=Date.now();
+  const r3=await callClaude(
+    `You are a financial risk analyst building a merchant risk scorecard. High-risk MCCs (gambling, firearms, cannabis, adult) and sanctions-flagged countries score higher. Respond ONLY valid JSON no fences. Schema: {"summary":"2-3 sentence risk narrative with specifics","score":number_0_to_100,"rating":"LOW|MEDIUM|HIGH|VERY_HIGH","industry_fraud_rate":"like 0.12%","chargeback_exposure":"LOW|MEDIUM|HIGH","volume_credibility":"PLAUSIBLE|INFLATED|SUSPICIOUS","reserve_pct":number_0_to_10,"factors":[{"name":"factor","impact":"POSITIVE|NEGATIVE|NEUTRAL","note":"brief"}]}`,
+    `Merchant: ${ctx}\nIntake: ${JSON.stringify(d1)}\nSanctions: ${JSON.stringify(d2)}\nCompliance decision: ${s2choice}`
+  );
+  const d3=parseJ(r3)||{summary:r3,score:45,rating:'MEDIUM',industry_fraud_rate:'0.18%',chargeback_exposure:'MEDIUM',volume_credibility:'PLAUSIBLE',reserve_pct:2};
+  STATE.risk=d3;
+  setTime(3,Date.now()-t3); setTxt(3,d3.summary||r3); showRC(3);
+  const scoreColor=d3.score<30?'ok':d3.score<60?'warn':'err';
+  setChips('ch-3',[
+    {l:'Risk Score',v:(d3.score||'—')+' / 100',cl:scoreColor},
+    {l:'Rating',v:d3.rating,cl:scoreColor},
+    {l:'Fraud Rate (industry)',v:d3.industry_fraud_rate||'—'},
+    {l:'CB Exposure',v:d3.chargeback_exposure||'—',cl:d3.chargeback_exposure==='LOW'?'ok':d3.chargeback_exposure==='HIGH'?'err':'warn'},
+    {l:'Vol. Credibility',v:d3.volume_credibility||'—',cl:d3.volume_credibility==='PLAUSIBLE'?'ok':'warn'},
+    {l:'Reserve Rec.',v:(d3.reserve_pct||'—')+'%',cl:'amber'},
+  ]);
+  setDot(3,d3.rating==='HIGH'||d3.rating==='VERY_HIGH'?'warn':'ok',d3.rating==='HIGH'||d3.rating==='VERY_HIGH'?'HIGH RISK':'SCORED',d3.rating==='HIGH'||d3.rating==='VERY_HIGH'?'warn':'ok');
+
+  // ── S4: Underwriting ───────────────────────────────────────────────────────
+  setDot(4,'run','DRAFTING MEMO','run');
+  const t4=Date.now();
+  const r4=await callClaude(
+    `You are an AI underwriting system drafting a recommendation memo for a human underwriter. VERY_HIGH risk or sanctions matches = recommend DECLINE. HIGH risk from legitimate regulated industries = recommend CONDITIONAL. Respond ONLY valid JSON no fences. Schema: {"recommendation":"APPROVE|CONDITIONAL|DECLINE","rationale":"3-4 sentence underwriting rationale citing specific factors","monthly_limit":number_usd,"reserve_pct":number,"reserve_type":"ROLLING|FIXED|NONE","hold_days":number,"fee_rate":number_like_2.9,"tx_fee_cents":number,"conditions":["specific conditions if conditional"],"review_trigger":"measurable early-review trigger"}`,
+    `Merchant: ${ctx}\nIntake: ${JSON.stringify(d1)}\nSanctions: ${JSON.stringify(d2)}\nRisk: ${JSON.stringify(d3)}\nSanctions decision: ${s2choice}`
+  );
+  const d4=parseJ(r4)||{recommendation:'CONDITIONAL',rationale:r4,monthly_limit:vol,reserve_pct:3,reserve_type:'ROLLING',hold_days:90,fee_rate:2.9,tx_fee_cents:30,conditions:[]};
+  STATE.uw=d4;
+  setTime(4,Date.now()-t4); setTxt(4,d4.rationale||r4); showRC(4);
+  const lim=d4.monthly_limit?new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',maximumFractionDigits:0}).format(d4.monthly_limit):'—';
+  const decCol=d4.recommendation==='APPROVE'?'ok':d4.recommendation==='CONDITIONAL'?'warn':'err';
+  setChips('ch-4',[
+    {l:'AI Recommendation',v:d4.recommendation,cl:decCol},
+    {l:'Monthly Limit',v:lim,cl:'amber'},
+    {l:'Reserve',v:(d4.reserve_pct||'—')+'% '+d4.reserve_type,cl:d4.reserve_pct>5?'warn':''},
+    {l:'Pricing',v:(d4.fee_rate||'—')+'% + '+(d4.tx_fee_cents||'—')+'¢'},
+  ]);
+
+  // Human gate 4 — underwriting decision
+  setDot(4,'wait','AWAITING DECISION','wait');
+  setChips('hg-4-chips',[
+    {l:'AI Recommendation',v:d4.recommendation,cl:decCol},
+    {l:'Approved Limit',v:lim,cl:'amber'},
+    {l:'Reserve Required',v:(d4.reserve_pct||'—')+'% '+d4.reserve_type,cl:'warn'},
+    {l:'Pricing',v:(d4.fee_rate||'—')+'% + '+(d4.tx_fee_cents||'—')+'¢'},
+    {l:'Risk Score',v:(d3.score||'—')+'/100',cl:scoreColor},
+    {l:'Rating',v:d3.rating,cl:scoreColor},
+  ]);
+  showHG(4);
+  const s4choice=await waitForHuman(4);
+
+  if(s4choice==='decline'){
+    setDot(4,'err','DECLINED','err');
+    document.getElementById('sum-title').textContent='Application Declined';
+    document.getElementById('sum-sub').textContent=`Declined at underwriting. ${d4.rationale}`;
+    document.getElementById('summary').classList.add('show');
+    btn.disabled=false; btn.textContent='Run Again'; pipelineRunning=false; return;
+  }
+  STATE.uwDecision=s4choice;
+  const uwLabel=s4choice==='approve'?'APPROVED':s4choice==='conditional'?'CONDITIONAL':'DECLINED';
+  setDot(4,s4choice==='approve'?'ok':'warn',uwLabel,s4choice==='approve'?'ok':'warn');
+
+  // ── S5: Contract ───────────────────────────────────────────────────────────
+  setDot(5,'run','DRAFTING CONTRACT','run');
+  const t5=Date.now();
+  const r5=await callClaude(
+    `You are a legal contract generation system. Generate a realistic merchant processing agreement excerpt. Fill ALL values from underwriting — no placeholders. Respond ONLY valid JSON no fences. Schema: {"summary":"1-2 sentence summary","contract_text":"A 220-word realistic contract excerpt covering: parties, processing limit, fee schedule, reserve clause, 90-day review, governing law, termination. Use actual approved values."}`,
+    `Merchant: ${ctx}\nApproved terms: ${JSON.stringify(d4)}\nUnderwriter decision: ${s4choice}\nDate: ${new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'})}`
+  );
+  const d5=parseJ(r5)||{summary:r5,contract_text:r5};
+  STATE.contract=d5;
+  setTime(5,Date.now()-t5); setTxt(5,d5.summary||''); showRC(5);
+  const doc5=document.getElementById('doc-5');
+  doc5.textContent=d5.contract_text||r5; doc5.style.display='block';
+
+  // Human gate 5 — contract review
+  setDot(5,'wait','AWAITING REVIEW','wait');
+  showHG(5);
+  const s5choice=await waitForHuman(5);
+  STATE.contractDecision=s5choice;
+  setDot(5,s5choice==='send'?'ok':'warn',s5choice==='send'?'SENT FOR E-SIG':'REDLINE REQUESTED',s5choice==='send'?'ok':'warn');
+
+  // ── S6: Portal ─────────────────────────────────────────────────────────────
+  setDot(6,'run','PROVISIONING','run');
+  const t6=Date.now();
+  const r6=await callClaude(
+    `You are a merchant portal provisioning system. Generate realistic-looking but clearly fictional credentials. Respond ONLY valid JSON no fences. Schema: {"summary":"1-2 sentence summary","manifest":"Realistic provisioning manifest showing: Merchant ID (MID_XXXXXXXXXX), Live Public Key (pk_live_...32 chars), Secret Key (sk_live_... show first 8 then ****), Webhook URL, Dashboard URL, Settlement account ref, Processing currencies, Card networks enabled, Integration: REST API v2"}`,
+    `Merchant: ${ctx}\nCase: ${d1.case_id}\nApproved terms: ${JSON.stringify(d4)}`
+  );
+  const d6=parseJ(r6)||{summary:r6,manifest:r6};
+  STATE.provisioning=d6;
+  setTime(6,Date.now()-t6); setTxt(6,d6.summary||''); showRC(6);
+  const doc6=document.getElementById('doc-6');
+  doc6.textContent=d6.manifest||r6; doc6.style.display='block';
+  setDot(6,'ok','LIVE','ok');
+
+  // ── S7: Fraud rules ────────────────────────────────────────────────────────
+  setDot(7,'run','CONFIGURING','run');
+  const t7=Date.now();
+  const r7=await callClaude(
+    `You are a fraud prevention engine generating monitoring rules. Base all thresholds on the specific business type, volume, risk tier, and country. Be specific — no generic values. Respond ONLY valid JSON no fences. Schema: {"summary":"1-2 sentence summary","rule_config":"Specific fraud rule config: single tx limit ($), hourly velocity cap (count + $), daily velocity cap, 3DS requirement threshold ($), card-not-present policy, international card policy, chargeback alert at (%), velocity spike alert, business-type specific rules (2-3 rules tailored to this merchant)"}`,
+    `Merchant: ${ctx}\nRisk: ${JSON.stringify(d3)}\nApproved terms: ${JSON.stringify(d4)}`
+  );
+  const d7=parseJ(r7)||{summary:r7,rule_config:r7};
+  STATE.fraud=d7;
+  setTime(7,Date.now()-t7); setTxt(7,d7.summary||''); showRC(7);
+  const doc7=document.getElementById('doc-7');
+  doc7.textContent=d7.rule_config||r7; doc7.style.display='block';
+  setDot(7,'ok','ACTIVE','ok');
+
+  // ── S8: Account setup ──────────────────────────────────────────────────────
+  setDot(8,'run','SCHEDULING','run');
+  const today=new Date();
+  const d30=new Date(today); d30.setDate(d30.getDate()+30);
+  const d60=new Date(today); d60.setDate(d60.getDate()+60);
+  const d90=new Date(today); d90.setDate(d90.getDate()+90);
+  const fmtD=d=>d.toLocaleDateString('en-US',{year:'numeric',month:'short',day:'numeric'});
+  const t8=Date.now();
+  const r8=await callClaude(
+    `You are an account management system. Respond ONLY valid JSON no fences. Schema: {"summary":"1-2 sentence summary","am_name":"realistic full name","am_tier":"STANDARD|PREMIUM|ENTERPRISE","review_30":"specific focus for 30-day review","review_60":"specific focus for 60-day review","review_90":"specific focus for 90-day review","escalation_trigger":"measurable condition triggering early review"}`,
+    `Merchant: ${ctx}\nRisk: ${d3.rating}\nDecision: ${s4choice}\nDates: 30d=${fmtD(d30)}, 60d=${fmtD(d60)}, 90d=${fmtD(d90)}`
+  );
+  const d8=parseJ(r8)||{summary:r8,am_name:'Account Team',am_tier:'STANDARD'};
+  STATE.account=d8;
+  setTime(8,Date.now()-t8); setTxt(8,d8.summary||r8); showRC(8);
+  const amTier=d8.am_tier||'STANDARD';
+  setChips('ch-8',[
+    {l:'Account Manager',v:d8.am_name||'—',cl:'amber'},
+    {l:'AM Tier',v:amTier,cl:amTier==='ENTERPRISE'?'ok':''},
+    {l:'30-Day Review',v:fmtD(d30)},
+    {l:'60-Day Review',v:fmtD(d60)},
+    {l:'90-Day Review',v:fmtD(d90)},
+  ]);
+  setDot(8,'ok','COMPLETE','ok');
+
+  // ── Summary ────────────────────────────────────────────────────────────────
+  const totalMs=Date.now()-pStart;
+  const finalDec=s4choice==='approve'?'APPROVED':'CONDITIONAL';
+  const sumEl=document.getElementById('summary');
+  document.getElementById('sum-title').textContent=`${name} — Merchant Live`;
+  document.getElementById('sum-sub').textContent=`Pipeline completed. ${s4choice==='approve'?'Fully approved.':'Approved with conditions.'} Contract ${s5choice==='send'?'sent for e-signature':'flagged for redline.'} Account provisioned and monitoring active.`;
+  document.getElementById('sum-chips').innerHTML=[
+    {l:'Decision',v:finalDec,cl:finalDec==='APPROVED'?'ok':'warn'},
+    {l:'Risk Rating',v:d3.rating,cl:scoreColor},
+    {l:'Reserve',v:(d4.reserve_pct||'—')+'% '+d4.reserve_type,cl:'amber'},
+    {l:'Monthly Limit',v:lim,cl:'amber'},
+    {l:'Case ID',v:d1.case_id,cl:'info'},
+    {l:'Account Manager',v:d8.am_name||'—'},
+  ].map(c=>`<div class="s-chip"><span>${c.l}</span><strong style="color:var(--${c.cl||'cream'})">${c.v}</strong></div>`).join('');
+  document.getElementById('sum-time').textContent=`8 steps · ${(totalMs/1000).toFixed(1)}s wall-clock · 3 human decisions captured · ${new Date().toLocaleString()}`;
+  sumEl.classList.add('show');
+
+  } catch(err){
+    console.error(err);
+    for(let i=1;i<=8;i++){
+      const tag=document.getElementById('tag-'+i);
+      if(tag&&(tag.textContent.includes('ING')||tag.textContent.includes('DRAFT'))){
+        setDot(i,'err','ERROR','err');
+        setTxt(i,'Error: '+err.message+'. Check /api/ai is reachable and ANTHROPIC_API_KEY is set.');
+        showRC(i); break;
+      }
+    }
+  }
+
+  btn.disabled=false; btn.textContent='Run Again'; pipelineRunning=false;
 }
 </script>
 </body>
