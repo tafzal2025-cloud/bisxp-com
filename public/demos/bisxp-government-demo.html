@@ -291,9 +291,7 @@ function sw(n){document.querySelectorAll('.db').forEach((b,i)=>b.classList.toggl
 function now(){return new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit',second:'2-digit'});}
 function ms(t){return((Date.now()-t)/1000).toFixed(1)+'s';}
 async function ai(sys,usr){const r=await fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:MODEL,max_tokens:900,system:sys,messages:[{role:'user',content:usr}]})});if(!r.ok)throw new Error('API '+r.status);const d=await r.json();return(d.content?.find(b=>b.type==='text')?.text||'').trim();}
-function pj(t){try{return JSON.parse(t.replace(/```json
-?/g,'').replace(/```
-?/g,'').trim());}catch{return null;}}
+function pj(t){try{return JSON.parse(t.replace(/```json\n?/g,'').replace(/```\n?/g,'').trim());}catch{return null;}}
 function stepA(n){const el=document.getElementById('s0-'+n);if(!el)return;el.className='step active';el.querySelector('.step-d').innerHTML='<div class="spin"></div>';}
 function stepD(n,txt,badge,t){const el=document.getElementById('s0-'+n);if(!el)return;el.className='step done';el.querySelector('.step-d').textContent='✓';const out=document.getElementById('o0-'+n);if(!out)return;const bc={OK:'sb-ok',APPROVED:'sb-ok',COMPLETE:'sb-ok',CLEAR:'sb-ok',GENERATED:'sb-ac',WARNING:'sb-wn',FLAGGED:'sb-er'};const bt={OK:'OK',APPROVED:'Approved',COMPLETE:'Complete',CLEAR:'Clear',GENERATED:'Generated',WARNING:'Warning',FLAGGED:'Flagged'}[badge]||'Done';out.innerHTML=txt+'<span class="sbadge '+(bc[badge]||'sb-ok')+'">'+bt+'</span>'+(t?'<span class="step-ti">'+t+'</span>':'');out.style.display='block';}
 function stepW(n){const el=document.getElementById('s0-'+n);if(el)el.className='step wait';}
