@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,62 +8,149 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-:root{--obs:#08080A;--ch:#131318;--st:#1E1E28;--cr:#F0EBE0;--wh:#FAFAF8;--mu:#70707A;--mu2:#9090A0;--am:#D4A843;--bd:rgba(255,255,255,0.08);--bds:rgba(255,255,255,0.15);}
+
+/* ── THEME VARIABLES ────────────────────────────────────────── */
+[data-theme="dark"]{
+  --bg:#08080A;--ch:#131318;--st:#1E1E28;--st2:#252532;
+  --cr:#F0EBE0;--wh:#FAFAF8;--mu:#70707A;--mu2:#9090A0;
+  --am:#D4A843;--am2:rgba(212,168,67,0.12);--am3:rgba(212,168,67,0.25);
+  --bd:rgba(255,255,255,0.08);--bds:rgba(255,255,255,0.15);
+  --card-bg:#131318;--card-border:rgba(255,255,255,0.08);
+  --feat-bg:#131318;--flow-bg:#1E1E28;
+  --grid-line:rgba(212,168,67,0.015);
+  --shadow:0 14px 40px rgba(0,0,0,0.4);
+  --text-inv:#08080A;
+}
+[data-theme="arctic"]{
+  --bg:#F8F7F4;--ch:#FFFFFF;--st:#F0EEE8;--st2:#E8E5DC;
+  --cr:#1A1A1A;--wh:#0A0A0A;--mu:#888880;--mu2:#666660;
+  --am:#B8872A;--am2:rgba(184,135,42,0.08);--am3:rgba(184,135,42,0.2);
+  --bd:rgba(0,0,0,0.08);--bds:rgba(0,0,0,0.18);
+  --card-bg:#FFFFFF;--card-border:rgba(0,0,0,0.08);
+  --feat-bg:#FFFFFF;--flow-bg:#F0EEE8;
+  --grid-line:rgba(184,135,42,0.04);
+  --shadow:0 14px 40px rgba(0,0,0,0.08);
+  --text-inv:#FFFFFF;
+}
+[data-theme="signal"]{
+  --bg:#050508;--ch:#0D0D14;--st:#12121C;--st2:#181824;
+  --cr:#E8E4FF;--wh:#F0EEFF;--mu:#6060A0;--mu2:#8080B8;
+  --am:#A855F7;--am2:rgba(168,85,247,0.12);--am3:rgba(168,85,247,0.3);
+  --bd:rgba(168,85,247,0.12);--bds:rgba(168,85,247,0.25);
+  --card-bg:#0D0D14;--card-border:rgba(168,85,247,0.15);
+  --feat-bg:#0D0D14;--flow-bg:#12121C;
+  --grid-line:rgba(168,85,247,0.025);
+  --shadow:0 14px 40px rgba(168,85,247,0.15);
+  --text-inv:#050508;
+}
+
 html{scroll-behavior:smooth}
-body{background:var(--obs);color:var(--cr);font-family:"Outfit",sans-serif;font-weight:300;min-height:100vh}
-body::before{content:"";position:fixed;inset:0;background-image:linear-gradient(rgba(212,168,67,0.015) 1px,transparent 1px),linear-gradient(90deg,rgba(212,168,67,0.015) 1px,transparent 1px);background-size:56px 56px;pointer-events:none;z-index:0}
-.hdr{position:sticky;top:0;z-index:200;background:rgba(8,8,10,0.96);backdrop-filter:blur(24px);border-bottom:1px solid var(--bd);padding:0 32px;height:56px;display:flex;align-items:center;justify-content:space-between}
+body{background:var(--bg);color:var(--cr);font-family:"Outfit",sans-serif;font-weight:300;min-height:100vh;transition:background .4s,color .4s}
+body::before{content:"";position:fixed;inset:0;background-image:linear-gradient(var(--grid-line) 1px,transparent 1px),linear-gradient(90deg,var(--grid-line) 1px,transparent 1px);background-size:56px 56px;pointer-events:none;z-index:0}
+
+/* ── HEADER ─────────────────────────────────────────────────── */
+.hdr{position:sticky;top:0;z-index:200;background:rgba(var(--bg-rgb,8,8,10),0.96);backdrop-filter:blur(24px);border-bottom:1px solid var(--bd);padding:0 32px;height:56px;display:flex;align-items:center;justify-content:space-between;transition:background .4s,border-color .4s}
+[data-theme="arctic"] .hdr{background:rgba(248,247,244,0.96)}
+[data-theme="signal"] .hdr{background:rgba(5,5,8,0.96)}
 .logo{font-family:"Cormorant Garamond",serif;font-size:20px;font-weight:600;letter-spacing:2px;text-decoration:none;color:var(--wh)}.logo span{color:var(--am)}
-.hdr-cta{background:var(--am);color:var(--obs);border:none;border-radius:6px;font-size:12px;font-weight:600;padding:7px 18px;cursor:pointer;font-family:"Outfit",sans-serif;text-decoration:none;display:inline-block}
+.hdr-right{display:flex;align-items:center;gap:10px}
+.hdr-cta{background:var(--am);color:var(--text-inv);border:none;border-radius:6px;font-size:12px;font-weight:600;padding:7px 18px;cursor:pointer;font-family:"Outfit",sans-serif;text-decoration:none;display:inline-block;transition:all .3s}
+
+/* ── THEME SWITCHER ──────────────────────────────────────────── */
+.theme-sw{display:flex;gap:4px;background:var(--st);border:1px solid var(--bd);border-radius:8px;padding:3px}
+.th{width:28px;height:22px;border-radius:5px;cursor:pointer;border:2px solid transparent;transition:all .2s;position:relative}
+.th:hover{transform:scale(1.1)}
+.th.active{border-color:var(--am)}
+.th-dark{background:linear-gradient(135deg,#08080A 50%,#D4A843 50%)}
+.th-arctic{background:linear-gradient(135deg,#F8F7F4 50%,#B8872A 50%)}
+.th-signal{background:linear-gradient(135deg,#050508 50%,#A855F7 50%)}
+.th-label{position:absolute;bottom:-18px;left:50%;transform:translateX(-50%);font-size:8px;color:var(--mu);white-space:nowrap;font-family:"JetBrains Mono",monospace;opacity:0;transition:opacity .15s;pointer-events:none}
+.th:hover .th-label{opacity:1}
+
+/* ── MAIN LAYOUT ─────────────────────────────────────────────── */
 main{position:relative;z-index:1;max-width:1000px;margin:0 auto;padding:0 28px 80px}
-.hero{padding:72px 0 48px;border-bottom:1px solid var(--bd);margin-bottom:48px}
-.hero-eye{font-size:9px;font-weight:500;text-transform:uppercase;letter-spacing:.22em;color:var(--am);margin-bottom:12px;font-family:"JetBrains Mono",monospace}
-.hero h1{font-family:"Cormorant Garamond",serif;font-size:clamp(40px,6vw,68px);font-weight:300;color:var(--wh);line-height:1.02;margin-bottom:16px}
+
+/* ── HERO ────────────────────────────────────────────────────── */
+.hero{padding:72px 0 52px;border-bottom:1px solid var(--bd);margin-bottom:52px;transition:border-color .4s}
+.hero-eye{font-size:9px;font-weight:500;text-transform:uppercase;letter-spacing:.22em;color:var(--am);margin-bottom:14px;font-family:"JetBrains Mono",monospace}
+.hero h1{font-family:"Cormorant Garamond",serif;font-size:clamp(44px,7vw,76px);font-weight:300;color:var(--wh);line-height:1.0;margin-bottom:18px;transition:color .4s}
 .hero h1 em{color:var(--am);font-style:italic}
-.hero-sub{font-size:14px;color:var(--mu2);max-width:560px;line-height:1.8;margin-bottom:32px}
-.stats{display:flex;gap:32px;flex-wrap:wrap}
-.stat strong{font-family:"JetBrains Mono",monospace;font-size:28px;color:var(--am);display:block;line-height:1}
-.stat span{font-size:10px;color:var(--mu);text-transform:uppercase;letter-spacing:.08em;margin-top:4px;display:block}
-.section-eye{font-size:9px;font-weight:500;text-transform:uppercase;letter-spacing:.2em;color:var(--am);margin-bottom:16px;font-family:"JetBrains Mono",monospace}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-bottom:56px}
-@media(max-width:600px){.grid{grid-template-columns:1fr}}
-.card{background:var(--ch);border:1px solid var(--bd);border-radius:14px;padding:26px 24px;text-decoration:none;transition:all .22s;position:relative;overflow:hidden;display:block}
-.card::before{content:"";position:absolute;inset:0;opacity:0;transition:opacity .22s}
-.card:hover{border-color:var(--bds);transform:translateY(-3px);box-shadow:0 14px 36px rgba(0,0,0,0.32)}.card:hover::before{opacity:1}
-.card-num{font-family:"JetBrains Mono",monospace;font-size:10px;color:var(--mu);margin-bottom:10px;letter-spacing:.06em}
-.card-icon{font-size:30px;margin-bottom:10px;display:block}
-.card-title{font-family:"Cormorant Garamond",serif;font-size:21px;font-weight:400;color:var(--wh);margin-bottom:7px;line-height:1.2}
-.card-sub{font-size:11px;color:var(--mu2);line-height:1.65;margin-bottom:14px}
-.card-tag{display:inline-flex;align-items:center;font-size:10px;font-weight:600;padding:3px 10px;border-radius:20px;text-transform:uppercase;letter-spacing:.04em;margin-bottom:8px}
+.hero-sub{font-size:14px;color:var(--mu2);max-width:560px;line-height:1.85;margin-bottom:36px}
+.stats{display:flex;gap:40px;flex-wrap:wrap}
+.stat strong{font-family:"JetBrains Mono",monospace;font-size:32px;color:var(--am);display:block;line-height:1;margin-bottom:4px}
+.stat span{font-size:10px;color:var(--mu);text-transform:uppercase;letter-spacing:.1em}
+
+/* ── FEATURED ────────────────────────────────────────────────── */
+.featured{background:var(--feat-bg);border:1px solid var(--bd);border-radius:16px;padding:32px;margin-bottom:52px;transition:all .4s}
+[data-theme="dark"] .featured{background:linear-gradient(135deg,var(--ch),var(--st))}
+[data-theme="signal"] .featured{background:linear-gradient(135deg,var(--ch),#0D0820);border-color:rgba(168,85,247,0.2)}
+.feat-eye{font-size:9px;font-weight:500;text-transform:uppercase;letter-spacing:.2em;color:var(--am);margin-bottom:14px;font-family:"JetBrains Mono",monospace;display:flex;align-items:center;gap:6px}
+.feat-eye::before{content:"";width:20px;height:1px;background:var(--am);display:inline-block}
+.feat-title{font-family:"Cormorant Garamond",serif;font-size:clamp(20px,3vw,30px);font-weight:300;color:var(--wh);margin-bottom:8px;line-height:1.2}
+.feat-sub{font-size:12px;color:var(--mu2);line-height:1.75;margin-bottom:24px;max-width:600px}
+.feat-stats{display:flex;gap:28px;flex-wrap:wrap;margin-bottom:28px;padding-bottom:24px;border-bottom:1px solid var(--bd)}
+.fs{text-align:left}
+.fs strong{font-family:"JetBrains Mono",monospace;font-size:22px;color:var(--am);display:block;margin-bottom:2px}
+.fs span{font-size:9px;color:var(--mu);text-transform:uppercase;letter-spacing:.06em}
+.flows{display:flex;flex-direction:column;gap:5px}
+.flow{background:var(--flow-bg);border:1px solid var(--bd);border-radius:8px;padding:11px 15px;display:grid;grid-template-columns:28px 1fr auto;align-items:center;gap:10px;text-decoration:none;transition:all .18s}
+.flow:hover{border-color:var(--am3);transform:translateX(3px);background:var(--st2)}
+.flow-icon{font-size:15px;text-align:center}
+.flow-text{font-size:12px;color:var(--cr);line-height:1.3}
+.flow-text strong{color:var(--am);font-weight:500}
+.flow-arr{font-size:13px;color:var(--am);font-weight:600;opacity:0;transition:opacity .18s}
+.flow:hover .flow-arr{opacity:1}
+.flow-tag{font-size:9px;font-family:"JetBrains Mono",monospace;color:var(--mu);background:var(--st);padding:2px 7px;border-radius:3px;white-space:nowrap}
+
+/* ── CARDS GRID ──────────────────────────────────────────────── */
+.section-eye{font-size:9px;font-weight:500;text-transform:uppercase;letter-spacing:.2em;color:var(--am);margin-bottom:20px;font-family:"JetBrains Mono",monospace;display:flex;align-items:center;gap:8px}
+.section-eye::after{content:"";flex:1;height:1px;background:var(--bd)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:18px;margin-bottom:56px}
+@media(max-width:640px){.grid{grid-template-columns:1fr}}
+.card{background:var(--card-bg);border:1px solid var(--card-border);border-radius:16px;padding:28px 26px;text-decoration:none;transition:all .22s;position:relative;overflow:hidden;display:block;box-shadow:0 2px 12px rgba(0,0,0,0.1)}
+.card::after{content:"";position:absolute;inset:0;background:linear-gradient(135deg,var(--am2),transparent);opacity:0;transition:opacity .22s;pointer-events:none}
+.card:hover{border-color:var(--am3);transform:translateY(-4px);box-shadow:var(--shadow)}
+.card:hover::after{opacity:1}
+.card-num{font-family:"JetBrains Mono",monospace;font-size:10px;color:var(--mu);margin-bottom:12px;letter-spacing:.06em}
+.card-icon{font-size:32px;margin-bottom:12px;display:block;line-height:1}
+.card-title{font-family:"Cormorant Garamond",serif;font-size:22px;font-weight:400;color:var(--wh);margin-bottom:8px;line-height:1.2;transition:color .4s}
+.card-sub{font-size:11px;color:var(--mu2);line-height:1.7;margin-bottom:16px}
+.card-tag{display:inline-flex;align-items:center;font-size:10px;font-weight:600;padding:4px 12px;border-radius:20px;text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px}
 .card-beats{font-size:10px;color:var(--mu)}
 .card-beats strong{color:var(--am)}
-.card-arrow{position:absolute;top:22px;right:20px;font-size:15px;color:var(--mu);transition:all .2s}
-.card:hover .card-arrow{transform:translateX(4px)}
-.featured{background:var(--ch);border:1px solid var(--bd);border-radius:14px;padding:28px 28px 24px;margin-bottom:56px}
-.feat-eye{font-size:9px;font-weight:500;text-transform:uppercase;letter-spacing:.2em;color:var(--am);margin-bottom:12px;font-family:"JetBrains Mono",monospace}
-.feat-title{font-family:"Cormorant Garamond",serif;font-size:clamp(20px,3vw,28px);font-weight:300;color:var(--wh);margin-bottom:6px}
-.feat-sub{font-size:12px;color:var(--mu2);line-height:1.7;margin-bottom:20px;max-width:580px}
-.feat-stats{display:flex;gap:24px;flex-wrap:wrap;margin-bottom:20px}
-.fs{text-align:center}
-.fs strong{font-family:"JetBrains Mono",monospace;font-size:18px;color:var(--am);display:block}
-.fs span{font-size:9px;color:var(--mu);text-transform:uppercase;letter-spacing:.05em}
-.flows{display:flex;flex-direction:column;gap:6px}
-.flow{background:var(--st);border:1px solid var(--bd);border-radius:7px;padding:9px 13px;display:flex;align-items:center;gap:10px;font-size:11px;color:var(--cr)}
-.flow-icon{font-size:14px;flex-shrink:0;width:22px;text-align:center}
-.flow-arrow{color:var(--am);font-weight:600;font-size:13px;flex-shrink:0}
-.flow-text{flex:1;line-height:1.4}
-.flow-tag{font-size:9px;font-family:"JetBrains Mono",monospace;color:var(--mu);flex-shrink:0}
-.banner{background:var(--st);border:1px solid var(--bd);border-radius:14px;padding:36px 36px;text-align:center;margin-top:8px}
-.banner h2{font-family:"Cormorant Garamond",serif;font-size:clamp(22px,3.5vw,32px);font-weight:300;color:var(--wh);margin-bottom:10px}
-.banner p{font-size:13px;color:var(--mu2);max-width:560px;margin:0 auto 24px;line-height:1.75}
-.cta{display:inline-block;background:var(--am);color:var(--obs);border-radius:8px;padding:12px 30px;font-size:13px;font-weight:600;text-decoration:none;font-family:"Outfit",sans-serif}
+.card-arrow{position:absolute;top:24px;right:22px;width:28px;height:28px;border-radius:50%;background:var(--am2);display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--am);transition:all .2s}
+.card:hover .card-arrow{background:var(--am);color:var(--text-inv);transform:translateX(2px)}
+
+/* ── BANNER ──────────────────────────────────────────────────── */
+.banner{background:var(--st);border:1px solid var(--bd);border-radius:16px;padding:48px 40px;text-align:center;position:relative;overflow:hidden;transition:all .4s}
+[data-theme="dark"] .banner{background:linear-gradient(135deg,#131318,#1E1E28)}
+[data-theme="signal"] .banner{background:linear-gradient(135deg,#0D0820,#12121C);border-color:rgba(168,85,247,0.2)}
+.banner::before{content:"";position:absolute;top:-40px;right:-40px;width:200px;height:200px;border-radius:50%;background:var(--am2);pointer-events:none}
+.banner h2{font-family:"Cormorant Garamond",serif;font-size:clamp(26px,4vw,40px);font-weight:300;color:var(--wh);margin-bottom:12px;position:relative}
+.banner p{font-size:13px;color:var(--mu2);max-width:560px;margin:0 auto 28px;line-height:1.8;position:relative}
+.cta{display:inline-block;background:var(--am);color:var(--text-inv);border-radius:8px;padding:14px 34px;font-size:14px;font-weight:600;text-decoration:none;font-family:"Outfit",sans-serif;transition:all .2s;position:relative}
+.cta:hover{filter:brightness(1.1);transform:translateY(-1px)}
 </style>
 </head>
 <body>
 <header class="hdr">
   <a class="logo" href="/">BIS<span>XP</span></a>
-  <a class="hdr-cta" href="https://bisxp.com/#contact">Book Assessment &rarr;</a>
+  <div class="hdr-right">
+    <div class="theme-sw" title="Switch theme">
+      <div class="th th-dark active" onclick="setTheme('dark')" title="Obsidian">
+        <span class="th-label">Obsidian</span>
+      </div>
+      <div class="th th-arctic" onclick="setTheme('arctic')" title="Arctic">
+        <span class="th-label">Arctic</span>
+      </div>
+      <div class="th th-signal" onclick="setTheme('signal')" title="Signal">
+        <span class="th-label">Signal</span>
+      </div>
+    </div>
+    <a class="hdr-cta" href="https://bisxp.com/#contact">Book Assessment &rarr;</a>
+  </div>
 </header>
+
 <main>
   <div class="hero">
     <div class="hero-eye">BISXP Enterprise &middot; AI Demo Library</div>
@@ -77,9 +164,8 @@ main{position:relative;z-index:1;max-width:1000px;margin:0 auto;padding:0 28px 8
     </div>
   </div>
 
-  <!-- FEATURED WORKFLOWS -->
   <div class="featured">
-    <div class="feat-eye">&#10022; Featured &mdash; End-to-End Workflows</div>
+    <div class="feat-eye">Featured &mdash; End-to-End Workflows</div>
     <div class="feat-title">Watch AI orchestrate complete multi-step processes &mdash; from first input to final resolution.</div>
     <p class="feat-sub">Every stage runs live Claude AI. Pipeline pauses at human-judgment steps &mdash; compliance sign-off, underwriting, clinical decisions &mdash; then resumes. This is what production looks like.</p>
     <div class="feat-stats">
@@ -91,69 +177,78 @@ main{position:relative;z-index:1;max-width:1000px;margin:0 auto;padding:0 28px 8
     <div class="flows">
       <a class="flow" href="bisxp-mastercard-demo.html">
         <span class="flow-icon">🏦</span>
-        <span class="flow-text">Merchant Application <span class="flow-arrow">&rarr;</span> Active &amp; Processing</span>
+        <span class="flow-text">Merchant Application <strong>&rarr;</strong> Active &amp; Processing</span>
         <span class="flow-tag">Financial</span>
+        <span class="flow-arr">&rarr;</span>
       </a>
       <a class="flow" href="bisxp-mastercard-demo.html">
         <span class="flow-icon">⚖️</span>
-        <span class="flow-text">Chargeback Filed <span class="flow-arrow">&rarr;</span> Rebuttal Submitted</span>
+        <span class="flow-text">Chargeback Filed <strong>&rarr;</strong> Rebuttal Submitted</span>
         <span class="flow-tag">Financial</span>
+        <span class="flow-arr">&rarr;</span>
       </a>
       <a class="flow" href="bisxp-mastercard-demo.html">
         <span class="flow-icon">📋</span>
-        <span class="flow-text">Regulatory Change <span class="flow-arrow">&rarr;</span> Remediation Plan Active</span>
+        <span class="flow-text">Regulatory Change <strong>&rarr;</strong> Remediation Plan Active</span>
         <span class="flow-tag">Financial</span>
+        <span class="flow-arr">&rarr;</span>
       </a>
       <a class="flow" href="bisxp-healthcare-demo.html">
         <span class="flow-icon">🏥</span>
-        <span class="flow-text">Prior Auth Request <span class="flow-arrow">&rarr;</span> Treatment Scheduled</span>
+        <span class="flow-text">Prior Auth Request <strong>&rarr;</strong> Treatment Scheduled</span>
         <span class="flow-tag">Healthcare</span>
+        <span class="flow-arr">&rarr;</span>
       </a>
       <a class="flow" href="bisxp-healthcare-demo.html">
         <span class="flow-icon">🩺</span>
-        <span class="flow-text">Provider Application <span class="flow-arrow">&rarr;</span> Privileges Granted</span>
+        <span class="flow-text">Provider Application <strong>&rarr;</strong> Privileges Granted</span>
         <span class="flow-tag">Healthcare</span>
+        <span class="flow-arr">&rarr;</span>
       </a>
       <a class="flow" href="bisxp-insurance-demo.html">
         <span class="flow-icon">🛡️</span>
-        <span class="flow-text">FNOL Filed <span class="flow-arrow">&rarr;</span> Settlement Authorized</span>
+        <span class="flow-text">FNOL Filed <strong>&rarr;</strong> Settlement Authorized</span>
         <span class="flow-tag">Insurance</span>
+        <span class="flow-arr">&rarr;</span>
       </a>
       <a class="flow" href="bisxp-government-demo.html">
         <span class="flow-icon">🏛️</span>
-        <span class="flow-text">Permit Application <span class="flow-arrow">&rarr;</span> Certificate of Occupancy</span>
+        <span class="flow-text">Permit Application <strong>&rarr;</strong> Certificate of Occupancy</span>
         <span class="flow-tag">Government</span>
+        <span class="flow-arr">&rarr;</span>
       </a>
       <a class="flow" href="bisxp-customer-service-demo.html">
         <span class="flow-icon">🎯</span>
-        <span class="flow-text">P1 Incident Contact <span class="flow-arrow">&rarr;</span> Resolved &amp; Retained</span>
+        <span class="flow-text">P1 Incident Contact <strong>&rarr;</strong> Resolved &amp; Retained</span>
         <span class="flow-tag">Customer Service</span>
+        <span class="flow-arr">&rarr;</span>
       </a>
       <a class="flow" href="bisxp-customer-service-demo.html">
         <span class="flow-icon">📉</span>
-        <span class="flow-text">Churn Signal Detected <span class="flow-arrow">&rarr;</span> CSM Save Play Active</span>
+        <span class="flow-text">Churn Signal Detected <strong>&rarr;</strong> CSM Save Play Active</span>
         <span class="flow-tag">Customer Service</span>
+        <span class="flow-arr">&rarr;</span>
       </a>
       <a class="flow" href="bisxp-customer-service-demo.html">
         <span class="flow-icon">📚</span>
-        <span class="flow-text">Ticket Cluster Identified <span class="flow-arrow">&rarr;</span> KB Article Live</span>
+        <span class="flow-text">Ticket Cluster Identified <strong>&rarr;</strong> KB Article Live</span>
         <span class="flow-tag">Customer Service</span>
+        <span class="flow-arr">&rarr;</span>
       </a>
     </div>
   </div>
 
-  <!-- VERTICAL CARDS -->
   <div class="section-eye">Select Your Industry</div>
   <div class="grid">
 
-    <a class="card" href="bisxp-mastercard-demo.html" style="--hover-c:rgba(212,168,67,0.04)">
+    <a class="card" href="bisxp-mastercard-demo.html">
       <span class="card-num">01</span>
       <span class="card-icon">🏦</span>
       <div class="card-title">Financial Services</div>
       <p class="card-sub">Merchant onboarding with sanctions screening, chargeback dispute resolution, regulatory compliance monitoring. Three human gates on the most compliance-critical workflow.</p>
-      <span class="card-tag" style="background:rgba(212,168,67,0.12);color:#D4A843;border:1px solid rgba(212,168,67,0.2)">3 Workflows</span>
+      <span class="card-tag" style="background:rgba(212,168,67,0.12);color:#D4A843;border:1px solid rgba(212,168,67,0.25)">3 Workflows</span>
       <div class="card-beats">Beats: <strong>Appian &middot; Pega &middot; Salesforce</strong></div>
-      <span class="card-arrow">→</span>
+      <span class="card-arrow">&rarr;</span>
     </a>
 
     <a class="card" href="bisxp-healthcare-demo.html">
@@ -161,9 +256,9 @@ main{position:relative;z-index:1;max-width:1000px;margin:0 auto;padding:0 28px 8
       <span class="card-icon">🏥</span>
       <div class="card-title">Healthcare</div>
       <p class="card-sub">Prior auth, provider credentialing, HIPAA compliance, clinical trial enrollment, adverse event reporting. Every clinical decision gate preserved for regulatory compliance.</p>
-      <span class="card-tag" style="background:rgba(14,165,160,0.1);color:#0EA5A0;border:1px solid rgba(14,165,160,0.2)">5 Workflows</span>
+      <span class="card-tag" style="background:rgba(14,165,160,0.12);color:#0EA5A0;border:1px solid rgba(14,165,160,0.25)">5 Workflows</span>
       <div class="card-beats">Beats: <strong>Appian &middot; ServiceNow &middot; Epic</strong></div>
-      <span class="card-arrow">→</span>
+      <span class="card-arrow">&rarr;</span>
     </a>
 
     <a class="card" href="bisxp-insurance-demo.html">
@@ -171,9 +266,9 @@ main{position:relative;z-index:1;max-width:1000px;margin:0 auto;padding:0 28px 8
       <span class="card-icon">🛡️</span>
       <div class="card-title">Insurance</div>
       <p class="card-sub">Full claims lifecycle from first notice of loss to payment authorized. Fraud investigator clears before liability assessment. Adjuster approves final settlement amount.</p>
-      <span class="card-tag" style="background:rgba(129,140,248,0.1);color:#818CF8;border:1px solid rgba(129,140,248,0.2)">1 Workflow</span>
+      <span class="card-tag" style="background:rgba(129,140,248,0.12);color:#818CF8;border:1px solid rgba(129,140,248,0.25)">1 Workflow</span>
       <div class="card-beats">Beats: <strong>Pega &middot; Guidewire &middot; Salesforce</strong></div>
-      <span class="card-arrow">→</span>
+      <span class="card-arrow">&rarr;</span>
     </a>
 
     <a class="card" href="bisxp-government-demo.html">
@@ -181,19 +276,19 @@ main{position:relative;z-index:1;max-width:1000px;margin:0 auto;padding:0 28px 8
       <span class="card-icon">🏛️</span>
       <div class="card-title">Government</div>
       <p class="card-sub">Building permit application to Certificate of Occupancy. AI handles completeness, zoning, and code review. Licensed plan checker and inspector sign-off preserved as legal requirements.</p>
-      <span class="card-tag" style="background:rgba(45,212,191,0.1);color:#2DD4BF;border:1px solid rgba(45,212,191,0.2)">1 Workflow</span>
+      <span class="card-tag" style="background:rgba(45,212,191,0.12);color:#2DD4BF;border:1px solid rgba(45,212,191,0.25)">1 Workflow</span>
       <div class="card-beats">Beats: <strong>ServiceNow &middot; Appian Gov &middot; Tyler</strong></div>
-      <span class="card-arrow">→</span>
+      <span class="card-arrow">&rarr;</span>
     </a>
 
     <a class="card" href="bisxp-customer-service-demo.html">
       <span class="card-num">05</span>
       <span class="card-icon">🎯</span>
       <div class="card-title">Customer Service</div>
-      <p class="card-sub">P1 incident resolution with postmortem and SLA credits. Churn prediction with CSM save plays. Knowledge base generation with SME review gate before publishing.</p>
-      <span class="card-tag" style="background:rgba(236,72,153,0.1);color:#EC4899;border:1px solid rgba(236,72,153,0.2)">3 Workflows</span>
+      <p class="card-sub">P1 incident resolution with blameless postmortem and SLA credits. Churn prediction with CSM save plays. Knowledge base generation with SME review gate before publishing.</p>
+      <span class="card-tag" style="background:rgba(236,72,153,0.12);color:#EC4899;border:1px solid rgba(236,72,153,0.25)">3 Workflows</span>
       <div class="card-beats">Beats: <strong>Zendesk &middot; Salesforce &middot; Intercom</strong></div>
-      <span class="card-arrow">→</span>
+      <span class="card-arrow">&rarr;</span>
     </a>
 
   </div>
@@ -204,5 +299,17 @@ main{position:relative;z-index:1;max-width:1000px;margin:0 auto;padding:0 28px 8
     <a class="cta" href="https://bisxp.com/#contact">Book a Free 30-Minute Assessment &rarr;</a>
   </div>
 </main>
+
+<script>
+function setTheme(t){
+  document.documentElement.setAttribute('data-theme',t);
+  document.querySelectorAll('.th').forEach(el=>el.classList.remove('active'));
+  document.querySelector('.th-'+t).classList.add('active');
+  localStorage.setItem('bisxp-theme',t);
+}
+// Restore saved theme
+const saved=localStorage.getItem('bisxp-theme');
+if(saved)setTheme(saved);
+</script>
 </body>
 </html>
