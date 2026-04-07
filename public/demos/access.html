@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>BISXP — Client Demo Access</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#08080A;display:flex;align-items:center;justify-content:center;min-height:100vh;font-family:system-ui,-apple-system,sans-serif;margin:0}
+.card{background:#131318;border:1px solid rgba(212,168,67,0.2);border-radius:4px;padding:48px;width:100%;max-width:400px;box-sizing:border-box}
+.logo{font-size:28px;letter-spacing:4px;color:#F0EBE0;margin-bottom:32px;display:block;font-weight:600}
+.logo span{color:#D4A843}
+h1{font-size:22px;font-weight:500;color:#F0EBE0;margin:0 0 8px}
+p.sub{font-size:13px;color:#70707A;line-height:1.65;margin:0 0 32px}
+input{width:100%;background:#08080A;border:1px solid rgba(212,168,67,0.2);color:#F0EBE0;padding:12px 16px;font-size:15px;outline:none;box-sizing:border-box;margin-bottom:16px;font-family:inherit;border-radius:0}
+input:focus{border-color:#D4A843}
+button{width:100%;background:#D4A843;color:#08080A;border:none;padding:14px;font-size:12px;font-weight:600;letter-spacing:3px;text-transform:uppercase;cursor:pointer;font-family:inherit;border-radius:0}
+button:hover{background:#F0C060}
+.error{font-size:13px;color:#e57373;margin-top:12px;display:none}
+.footer-note{font-size:11px;color:#70707A;text-align:center;margin-top:24px}
+</style>
+</head>
+<body>
+<div class="card">
+  <span class="logo">BISX<span>P</span></span>
+  <h1>Client Demo Access</h1>
+  <p class="sub">These demos are shared with clients during active engagements. Enter your access code to continue.</p>
+  <form onsubmit="return checkAccess()">
+    <input type="password" id="code" placeholder="Access code" autocomplete="off">
+    <button type="submit">Enter</button>
+  </form>
+  <div class="error" id="err">Incorrect access code. Contact hello@bisxp.com to request access.</div>
+  <div class="footer-note">BISXP Enterprise Demo Suite</div>
+</div>
+<script>
+if(sessionStorage.getItem('bisxp_demo_access')==='true'){window.location.replace('/demos/bisxp-demo-index.html');}
+function checkAccess(){
+  var code=document.getElementById('code').value;
+  if(code==='BISXP2026'){
+    sessionStorage.setItem('bisxp_demo_access','true');
+    window.location.replace('/demos/bisxp-demo-index.html');
+  }else{
+    document.getElementById('err').style.display='block';
+  }
+  return false;
+}
+</script>
+</body>
+</html>
