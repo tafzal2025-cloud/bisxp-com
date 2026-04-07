@@ -912,7 +912,7 @@ export default function HomePage() {
           .stats-grid { grid-template-columns: repeat(2, 1fr); }
           .stat-item:nth-child(2)::after { display: none; }
           .acronym-grid { grid-template-columns: 1fr; }
-          .portfolio-grid { grid-template-columns: 1fr; }
+          .portfolio-grid { grid-template-columns: 1fr !important; }
           .services-grid { grid-template-columns: 1fr; }
           .process-steps {
             grid-template-columns: 1fr;
@@ -1003,9 +1003,9 @@ export default function HomePage() {
       <div className="stats-bar">
         <div className="stats-grid">
           <div className="stat-item">
-            <span className="stat-number">2</span>
-            <span className="stat-label">Live marketplaces</span>
-            <span className="stat-sub">Built and deployed</span>
+            <span className="stat-number">3</span>
+            <span className="stat-label">Marketplaces in development</span>
+            <span className="stat-sub">Launching in 8–12 weeks</span>
           </div>
           <div className="stat-item">
             <span className="stat-number">8 wks</span>
@@ -1041,9 +1041,9 @@ export default function HomePage() {
             <div className="acronym-card">
               <span className="acronym-ghost">I</span>
               <span className="acronym-letter">I —</span>
-              <span className="acronym-word">Ignite</span>
+              <span className="acronym-word">Implement</span>
               <p className="acronym-desc">
-                We spark momentum — aligning your team, activating systems, and getting the right things moving.
+                We turn blueprints into working software — shipped, deployed, and live. Not wireframes. Not prototypes. Production.
               </p>
             </div>
             <div className="acronym-card">
@@ -1071,63 +1071,64 @@ export default function HomePage() {
         <div className="container">
           <span className="section-eyebrow">Our Work</span>
           <h2 className="section-heading">Built by BISXP</h2>
-          <div className="portfolio-grid">
+          <div className="portfolio-grid" style={{ gridTemplateColumns: 'repeat(3, 1fr)' }}>
             {/* TABRO */}
             <div className="portfolio-card">
               <div>
-                <p className="portfolio-eyebrow">India · Venue Marketplace</p>
+                <p className="portfolio-eyebrow">INDIA · VENUE & EVENTS MARKETPLACE</p>
                 <h3 className="portfolio-title">TABRO.IN</h3>
               </div>
               <p className="portfolio-desc">
-                End-to-end event venue marketplace for Hyderabad. Five open lawns, indoor halls, sports facilities, overnight stays. Owner portals, social feed, enquiry pipeline, tiered subscriptions.
+                End-to-end venue and events marketplace for Hyderabad. Connecting celebration venues, caterers, decorators, and photographers with families planning weddings, receptions, and corporate events. Owner portals, social feed, enquiry CRM, and tiered subscriptions.
               </p>
               <div className="portfolio-tags">
-                {['Next.js', 'Supabase', 'Vercel', 'Stripe', 'Claude AI'].map((t) => (
+                {['Next.js', 'Supabase', 'Vercel', 'Claude AI'].map((t) => (
                   <span key={t} className="portfolio-tag">{t}</span>
                 ))}
               </div>
-              <a
-                href="https://tabro.in"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="portfolio-link"
-              >
-                tabro.in →
-              </a>
-              <p className="portfolio-stat-strip">Premium venues · Owner portals · Social feed</p>
+              <span style={{ fontSize: '11px', letterSpacing: '2px', textTransform: 'uppercase' as const, color: 'var(--amber)', opacity: 0.8 }}>· In Development · Launching 2026</span>
             </div>
 
             {/* TheUnitedSports */}
             <div className="portfolio-card">
               <div>
-                <p className="portfolio-eyebrow">USA + Canada · Sports Marketplace</p>
+                <p className="portfolio-eyebrow">USA + CANADA · SPORTS MARKETPLACE</p>
                 <h3 className="portfolio-title">TheUnitedSports</h3>
               </div>
               <p className="portfolio-desc">
-                Cricket-first sports marketplace for the North American diaspora. Academies, coaches, grounds, gear vendors, leagues — all in one platform with social feed and influencer programme.
+                Sport-agnostic marketplace connecting athletes, coaches, academies, grounds, gear vendors, and leagues across North America. Cricket-first beachhead with infrastructure built to scale to every sport and every market.
               </p>
               <div className="portfolio-tags">
-                {['Next.js', 'Supabase', 'AWS', 'Stripe', 'Claude AI'].map((t) => (
+                {['Next.js', 'Supabase', 'AWS', 'Claude AI'].map((t) => (
                   <span key={t} className="portfolio-tag">{t}</span>
                 ))}
               </div>
-              <a
-                href="https://theunitedsports.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="portfolio-link"
-              >
-                theunitedsports.com →
-              </a>
-              <p className="portfolio-stat-strip">Cricket · Soccer · Kabaddi · All sports</p>
+              <span style={{ fontSize: '11px', letterSpacing: '2px', textTransform: 'uppercase' as const, color: 'var(--amber)', opacity: 0.8 }}>· In Development · Launching 2026</span>
+            </div>
+
+            {/* CareGrid */}
+            <div className="portfolio-card">
+              <div>
+                <p className="portfolio-eyebrow">USA + CANADA · HEALTHCARE MARKETPLACE</p>
+                <h3 className="portfolio-title">CareGrid</h3>
+              </div>
+              <p className="portfolio-desc">
+                Verified healthcare provider directory with insurance network filtering at its core. Patients find in-network doctors, clinics, and specialists by insurance plan, specialty, and location — solving the broken insurance directory problem that affects every American with health insurance.
+              </p>
+              <div className="portfolio-tags">
+                {['Next.js', 'Supabase', 'Vercel', 'Claude AI'].map((t) => (
+                  <span key={t} className="portfolio-tag">{t}</span>
+                ))}
+              </div>
+              <span style={{ fontSize: '11px', letterSpacing: '2px', textTransform: 'uppercase' as const, color: 'var(--amber)', opacity: 0.8 }}>· In Development · Launching 2026</span>
             </div>
           </div>
 
           {/* Callout strip */}
           <div className="portfolio-callout">
             <p>
-              Your marketplace could be next. We've done this twice.<br />
-              We know exactly how to do it again.
+              Three world-class marketplaces. One proven platform pattern.<br />
+              Your vertical could be next.
             </p>
             <a href="#contact" className="btn-amber">Let's Talk</a>
           </div>
@@ -1142,34 +1143,30 @@ export default function HomePage() {
           <div className="services-grid">
             <div className="service-card">
               <span className="service-icon">◈</span>
-              <h3 className="service-title">Marketplace Starter</h3>
-              <span className="service-price">8 weeks · From $25,000</span>
+              <h3 className="service-title">Marketplace Build</h3>
               <p className="service-desc">
-                A complete two-sided marketplace — listings, owner portals, enquiry system, payments, and social feed. Built on our proven pattern. Deployed and live.
+                We build your two-sided marketplace from the ground up — listings, owner portals, enquiry system, payments, social feed, and admin dashboard. Deployed and live, not handed off half-finished.
               </p>
             </div>
             <div className="service-card">
               <span className="service-icon">⬡</span>
-              <h3 className="service-title">Marketplace Pro</h3>
-              <span className="service-price">12 weeks · From $50,000</span>
+              <h3 className="service-title">AI Integration</h3>
               <p className="service-desc">
-                Everything in Starter plus Claude AI integration — intelligent search, automated matching, AI-powered listing descriptions, and custom features for your vertical.
+                We embed Claude AI into your product — intelligent search, automated matching, AI-generated listing descriptions, and workflow automation. The same AI layer powering our own marketplaces.
               </p>
             </div>
             <div className="service-card">
               <span className="service-icon">◎</span>
-              <h3 className="service-title">SaaS Platform</h3>
-              <span className="service-price">10–16 weeks · Custom</span>
+              <h3 className="service-title">SaaS Product</h3>
               <p className="service-desc">
-                Custom SaaS product built with the full BISXP stack. Auth, subscriptions, multi-tenant portals, admin dashboards, API integrations. Production-grade from day one.
+                Custom SaaS products built on the full BISXP stack — auth, subscriptions, multi-tenant portals, admin dashboards, and API integrations. Production-grade architecture from day one.
               </p>
             </div>
             <div className="service-card">
               <span className="service-icon">△</span>
-              <h3 className="service-title">Digital Transformation Retainer</h3>
-              <span className="service-price">Ongoing · From $5,000/mo</span>
+              <h3 className="service-title">Ongoing Partnership</h3>
               <p className="service-desc">
-                Embedded technical partner for businesses that need continuous delivery — new features, AWS migration, AI integration, performance, and strategic guidance.
+                An embedded technical partner for businesses that need continuous delivery — new features, infrastructure scaling, AI integration, and strategic guidance as your product grows.
               </p>
             </div>
           </div>
@@ -1367,7 +1364,7 @@ export default function HomePage() {
         <div className="footer-grid">
           <div>
             <span className="footer-logo">BISX<span>P</span></span>
-            <p className="footer-tagline">Blueprint. Ignite. Scale. Xperience.</p>
+            <p className="footer-tagline">Blueprint. Implement. Scale. Xperience.</p>
           </div>
           <div>
             <div className="footer-links">
