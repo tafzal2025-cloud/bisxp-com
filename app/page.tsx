@@ -378,6 +378,7 @@ export default function HomePage() {
           position: relative;
           overflow: hidden;
           border-left: 3px solid transparent;
+          border-top: 1px solid rgba(212,168,67,0.15);
           transition: border-color 0.3s;
         }
         .acronym-card:hover { border-left-color: var(--amber); }
@@ -395,9 +396,9 @@ export default function HomePage() {
           user-select: none;
         }
         .acronym-letter {
-          font-family: 'Cormorant Garamond', serif;
+          font-family: 'Inter', system-ui, sans-serif;
           font-size: 13px;
-          font-weight: 600;
+          font-weight: 500;
           letter-spacing: 4px;
           text-transform: uppercase;
           color: var(--amber);

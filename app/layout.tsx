@@ -33,8 +33,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <style>{`
           :root {
             --obsidian: #0F0F12;
-            --charcoal: #17171D;
-            --steel: #1E1E26;
+            --charcoal: #1C1C24;
+            --steel: #222230;
             --amber: #D4A843;
             --amber-bright: #F0C060;
             --amber-dim: rgba(212,168,67,0.12);
