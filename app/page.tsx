@@ -1446,7 +1446,7 @@ export default function HomePage() {
       </section>
 
       {/* ── BISXP METHOD ── */}
-      <section className="method-section">
+      <section className="method-section" style={{ display: 'none' }}>
         <div className="method-grid">
           <div>
             <span className="section-eyebrow">The BISXP Method</span>
