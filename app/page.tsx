@@ -334,13 +334,15 @@ export default function HomePage() {
           background: var(--border-strong);
         }
         .stat-number {
-          font-family: 'Cormorant Garamond', serif;
+          font-family: 'Outfit', sans-serif;
           font-size: 52px;
           font-weight: 300;
           color: var(--amber);
           line-height: 1;
           display: block;
           margin-bottom: 8px;
+          font-variant-numeric: tabular-nums;
+          letter-spacing: -0.02em;
         }
         .stat-label {
           font-family: 'Outfit', sans-serif;
@@ -1115,8 +1117,12 @@ export default function HomePage() {
             gap: 40px;
           }
           .process-steps::before { display: none; }
-          .process-step { padding: 0; border-left: 2px solid var(--border-strong); padding-left: 24px; }
-          .process-number { background: transparent; }
+          .process-step { padding: 0; border-left: 2px solid var(--border-strong); padding-left: 24px; padding-right: 0; }
+          .process-step:first-child { padding-left: 24px; }
+          .process-step:last-child { padding-right: 0; }
+          .process-number { background: transparent; font-size: 40px; margin-bottom: 14px; }
+          .process-title { font-size: 13px; letter-spacing: 0.5px; margin-bottom: 10px; }
+          .process-desc { font-size: 13px; line-height: 1.65; }
           .contact-grid { grid-template-columns: 1fr; gap: 48px; }
           .footer-grid { grid-template-columns: 1fr; gap: 32px; }
           .footer-contact { align-items: flex-start; }
@@ -1198,7 +1204,6 @@ export default function HomePage() {
           </div>
         </div>
         <div className="scroll-indicator">
-          <span>Scroll</span>
           <div className="scroll-line" />
         </div>
       </section>
@@ -1209,12 +1214,12 @@ export default function HomePage() {
           <div className="stat-item">
             <span className="stat-number">4</span>
             <span className="stat-label">Marketplaces in development</span>
-            <span className="stat-sub">Launching in 8–12 weeks</span>
+            <span className="stat-sub">Launching in 2026</span>
           </div>
           <div className="stat-item">
-            <span className="stat-number">8 wks</span>
-            <span className="stat-label">Average build time</span>
-            <span className="stat-sub">Idea to production</span>
+            <span className="stat-number">25 yrs</span>
+            <span className="stat-label">Combined experience</span>
+            <span className="stat-sub">Microsoft · AWS · Enterprise AI</span>
           </div>
           <div className="stat-item">
             <span className="stat-number">3</span>
