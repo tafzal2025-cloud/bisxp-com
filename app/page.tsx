@@ -1316,7 +1316,7 @@ export default function HomePage() {
               <p className="portfolio-desc">
                 Verified healthcare provider directory with insurance network filtering at its core. Patients find in-network doctors, clinics, and specialists by insurance plan, specialty, and location — solving the broken insurance directory problem that affects every American with health insurance.
               </p>
-              <span className="portfolio-market">Providers · Insurance Filtering · US + Canada</span>
+              <span className="portfolio-market">Providers · Insurance Filtering · United States</span>
               <span style={{ fontSize: '11px', letterSpacing: '2px', textTransform: 'uppercase' as const, color: 'var(--amber)', opacity: 0.8 }}>· In Development · Launching 2026</span>
             </div>
 
