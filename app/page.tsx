@@ -910,6 +910,95 @@ export default function HomePage() {
           50% { box-shadow: 0 4px 32px rgba(212,168,67,0.65), 0 0 0 8px rgba(212,168,67,0.1); }
         }
 
+        /* ── TEAM ── */
+        .team-section {
+          background: var(--charcoal);
+          padding: 100px 40px;
+          border-top: 1px solid var(--border);
+        }
+        .team-grid {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 48px;
+          max-width: 1200px;
+          margin: 0 auto;
+        }
+        .team-card {
+          display: flex;
+          flex-direction: column;
+          gap: 20px;
+        }
+        .team-photo {
+          width: 100%;
+          aspect-ratio: 3/2;
+          background: var(--steel);
+          border: 1px solid var(--border);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          position: relative;
+          overflow: hidden;
+        }
+        .team-photo-placeholder {
+          font-family: 'Outfit', sans-serif;
+          font-size: 10px;
+          font-weight: 400;
+          letter-spacing: 3px;
+          text-transform: uppercase;
+          color: var(--muted);
+          opacity: 0.4;
+        }
+        .team-photo-initials {
+          position: absolute;
+          font-family: 'Cormorant Garamond', serif;
+          font-size: 72px;
+          font-weight: 300;
+          color: var(--amber);
+          opacity: 0.12;
+          user-select: none;
+        }
+        .team-name {
+          font-family: 'Cormorant Garamond', serif;
+          font-size: 36px;
+          font-weight: 300;
+          color: var(--cream);
+          line-height: 1;
+          margin: 0;
+        }
+        .team-title {
+          font-family: 'Outfit', sans-serif;
+          font-size: 11px;
+          font-weight: 500;
+          letter-spacing: 3px;
+          text-transform: uppercase;
+          color: var(--amber);
+          margin-top: -8px;
+        }
+        .team-bio {
+          font-family: 'Outfit', sans-serif;
+          font-size: 14px;
+          font-weight: 300;
+          color: var(--muted);
+          line-height: 1.8;
+        }
+        .team-bio p {
+          margin-bottom: 16px;
+        }
+        .team-bio p:last-child {
+          margin-bottom: 0;
+        }
+        .team-patent {
+          font-family: 'Outfit', sans-serif;
+          font-size: 11px;
+          font-weight: 400;
+          letter-spacing: 2px;
+          text-transform: uppercase;
+          color: var(--amber);
+          opacity: 0.6;
+          padding-top: 16px;
+          border-top: 1px solid var(--border);
+        }
+
         /* ── RESEARCH & SECURITY ── */
         .rs-section {
           background: var(--obsidian);
@@ -1049,6 +1138,8 @@ export default function HomePage() {
           .rs-card { padding: 36px 28px; }
           .rs-cta { padding: 40px 28px; }
           .rs-cta h3 { font-size: 26px; }
+          .team-grid { grid-template-columns: 1fr; gap: 64px; }
+          .team-section { padding: 72px 24px; }
         }
         @media (max-width: 600px) {
           .hero-headline { font-size: 40px; }
@@ -1056,6 +1147,7 @@ export default function HomePage() {
           .stats-grid { grid-template-columns: repeat(2, 1fr); }
           .stat-item::after { display: none; }
           .wa-fab { bottom: 20px; right: 20px; }
+          .team-name { font-size: 28px; }
         }
       `}</style>
 
@@ -1531,6 +1623,76 @@ export default function HomePage() {
                 </button>
               </form>
             )}
+          </div>
+        </div>
+      </section>
+
+      {/* ── TEAM ── */}
+      <section className="team-section">
+        <div className="container">
+          <span className="section-eyebrow">The Team</span>
+          <h2 className="section-heading" style={{ marginBottom: '64px' }}>
+            The people behind the work
+          </h2>
+          <div className="team-grid">
+
+            {/* Tharif Afzal */}
+            <div className="team-card">
+              <div className="team-photo">
+                <span className="team-photo-initials">TA</span>
+                <span className="team-photo-placeholder">Photo coming soon</span>
+              </div>
+              <div>
+                <h3 className="team-name">Tharif Afzal</h3>
+                <p className="team-title">Founder &amp; CEO</p>
+              </div>
+              <div className="team-bio">
+                <p>
+                  Tharif Afzal built the data infrastructure that enterprise AI runs on. Now he&apos;s building the AI-native platforms that put it to work.
+                </p>
+                <p>
+                  His path to BISXP runs through 25 years at the centre of two hyperscalers. At Microsoft, he grew from debugging .NET internals to leading cloud modernisation programs that became reference architectures for Azure enterprise adoption — 16 years of progressive leadership across developer support, engineering management, and large-scale migrations that shaped how enterprises moved to the cloud.
+                </p>
+                <p>
+                  At AWS, he led engineering for Amazon AppFlow and AWS Glue Streaming — the services enterprises depend on to move, transform, and stream data at scale. Under his leadership, the team launched Zero ETL integrations for the top eight SaaS platforms including Salesforce, SAP, and ServiceNow, and built DynamoDB ingestion into modern data lakes with Apache Iceberg on native S3 and S3 Tables. That work produced US Patent 11435871 for workflow execution architecture — a direct outcome of designing systems that had to be reliable under real production load. These are not supporting services. They are the pipelines that power enterprise AI workloads today.
+                </p>
+                <p>
+                  That vantage point — building highly scalable distributed systems and watching what breaks and why — is what BISXP is built on. The conviction is straightforward: the same architectural discipline that makes hyperscale systems reliable can be applied to build AI-native products faster, and with more precision, than traditional development allows.
+                </p>
+                <p>
+                  At BISXP, Tharif leads strategy, product architecture, and every client engagement. The builder who stays until it works.
+                </p>
+              </div>
+              <span className="team-patent">US Patent 11435871 · Workflow Execution Architecture</span>
+            </div>
+
+            {/* Amtul Baseer Ifra */}
+            <div className="team-card">
+              <div className="team-photo">
+                <span className="team-photo-initials">AI</span>
+                <span className="team-photo-placeholder">Photo coming soon</span>
+              </div>
+              <div>
+                <h3 className="team-name">Amtul Baseer Ifra</h3>
+                <p className="team-title">Director, Agentic AI Security &amp; Research</p>
+              </div>
+              <div className="team-bio">
+                <p>
+                  Amtul Baseer Ifra leads BISXP&apos;s agentic AI security research — the work that answers a question most AI teams haven&apos;t thought to ask yet: when your AI agents start talking to each other at scale, who is checking that they can be trusted?
+                </p>
+                <p>
+                  Her path to that question began with federated learning — a technique that lets distributed systems collaborate on a shared intelligence model without centralising sensitive data. She applied it to one of the harder problems in distributed security: detecting DDoS attacks across networked environments while keeping every node&apos;s data private. The system worked. The research was published and peer-reviewed. And it established the instinct that runs through everything she builds — security that protects without surveillance, intelligence that works without exposure.
+                </p>
+                <p>
+                  ZeroMesh is the next expression of that instinct. A zero-trust security layer for autonomous multi-agent systems, built on the Agentic Zero Trust Protocol (AZTP). When one agent in an implicitly trusted network is compromised, the blast radius is the entire system. ZeroMesh changes that — real-time trust recalibration, behavioral anomaly detection, and rule-based policy enforcement between agents, designed to integrate with existing frameworks like LangChain, AutoGen, and CrewAI without requiring teams to restructure what they&apos;ve already built.
+                </p>
+                <p>
+                  At BISXP, she partners directly with the CEO on the agentic AI security product roadmap — from the ZeroMesh research layer through to BISXP Security, a modular platform for enterprise teams navigating the shift to autonomous AI operations. She leads BISXP India, where that future is being built from the ground up.
+                </p>
+              </div>
+              <span className="team-patent">IEEE Paper Submitted · August 2025 · ZeroMesh: Agentic Zero Trust Protocol</span>
+            </div>
+
           </div>
         </div>
       </section>
