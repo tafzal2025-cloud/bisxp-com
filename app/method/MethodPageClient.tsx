@@ -41,44 +41,44 @@ export default function MethodPageClient() {
         .m-nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 400; letter-spacing: 4px; color: var(--cream); text-decoration: none; }
         .m-nav-logo span { color: var(--amber); }
         .m-nav-links { display: flex; gap: 24px; list-style: none; }
-        .m-nav-links a { font-family: 'Outfit', sans-serif; font-size: 13px; font-weight: 400; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); transition: color 0.2s; text-decoration: none; }
+        .m-nav-links a { font-family: 'Inter', system-ui, sans-serif; font-size: 13px; font-weight: 400; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); transition: color 0.2s; text-decoration: none; }
         .m-nav-links a:hover { color: var(--cream); }
         .m-section { padding: 100px 40px; max-width: 900px; margin: 0 auto; }
         .m-hero { padding-top: 172px; padding-bottom: 60px; border-bottom: 1px solid var(--border); margin-bottom: 60px; }
-        .m-eyebrow { font-family: 'Outfit', sans-serif; font-size: 10px; font-weight: 500; letter-spacing: 5px; text-transform: uppercase; color: var(--amber); margin-bottom: 16px; display: block; }
+        .m-eyebrow { font-family: 'Inter', system-ui, sans-serif; font-size: 10px; font-weight: 500; letter-spacing: 5px; text-transform: uppercase; color: var(--amber); margin-bottom: 16px; display: block; }
         .m-h1 { font-family: 'Cormorant Garamond', serif; font-size: 64px; font-weight: 300; color: var(--cream); line-height: 1.05; margin-bottom: 24px; }
         .m-h1 em { color: var(--amber-bright); font-style: italic; }
         .m-h2 { font-family: 'Cormorant Garamond', serif; font-size: 40px; font-weight: 300; color: var(--cream); margin-bottom: 20px; line-height: 1.1; }
-        .m-p { font-family: 'Outfit', sans-serif; font-size: 16px; font-weight: 300; color: var(--muted); line-height: 1.8; margin-bottom: 24px; }
+        .m-p { font-family: 'Inter', system-ui, sans-serif; font-size: 16px; font-weight: 300; color: var(--muted); line-height: 1.8; margin-bottom: 24px; }
         .m-stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; margin: 40px 0; }
         .m-stat { background: var(--charcoal); padding: 28px; text-align: center; }
-        .m-stat strong { font-family: 'Cormorant Garamond', serif; font-size: 36px; font-weight: 300; color: var(--amber); display: block; margin-bottom: 4px; }
-        .m-stat span { font-family: 'Outfit', sans-serif; font-size: 11px; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; }
+        .m-stat strong { font-family: 'DM Sans', system-ui, sans-serif; font-size: 36px; font-weight: 300; color: var(--amber); display: block; margin-bottom: 4px; font-variant-numeric: tabular-nums; }
+        .m-stat span { font-family: 'Inter', system-ui, sans-serif; font-size: 11px; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; }
         .m-day { background: var(--charcoal); padding: 40px; margin-bottom: 2px; }
-        .m-day-num { font-family: 'Outfit', sans-serif; font-size: 10px; font-weight: 500; letter-spacing: 4px; text-transform: uppercase; color: var(--amber); margin-bottom: 12px; display: block; }
+        .m-day-num { font-family: 'Inter', system-ui, sans-serif; font-size: 10px; font-weight: 500; letter-spacing: 4px; text-transform: uppercase; color: var(--amber); margin-bottom: 12px; display: block; }
         .m-day h3 { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 300; color: var(--cream); margin-bottom: 12px; }
-        .m-day p { font-family: 'Outfit', sans-serif; font-size: 14px; font-weight: 300; color: var(--muted); line-height: 1.7; }
+        .m-day p { font-family: 'Inter', system-ui, sans-serif; font-size: 14px; font-weight: 300; color: var(--muted); line-height: 1.7; }
         .m-del-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin: 32px 0; }
         .m-del { background: var(--charcoal); padding: 28px; }
-        .m-del h4 { font-family: 'Outfit', sans-serif; font-size: 14px; font-weight: 500; color: var(--cream); margin-bottom: 8px; }
-        .m-del p { font-family: 'Outfit', sans-serif; font-size: 13px; font-weight: 300; color: var(--muted); line-height: 1.6; }
+        .m-del h4 { font-family: 'Inter', system-ui, sans-serif; font-size: 14px; font-weight: 500; color: var(--cream); margin-bottom: 8px; }
+        .m-del p { font-family: 'Inter', system-ui, sans-serif; font-size: 13px; font-weight: 300; color: var(--muted); line-height: 1.6; }
         .m-form { background: var(--charcoal); padding: 48px; border: 1px solid var(--border); margin-top: 40px; }
         .m-form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 20px; }
-        .m-form-label { font-family: 'Outfit', sans-serif; font-size: 11px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); }
-        .m-form-input, .m-form-textarea { background: var(--obsidian); border: 1px solid var(--border); color: var(--cream); font-family: 'Outfit', sans-serif; font-size: 15px; font-weight: 300; padding: 14px 16px; outline: none; transition: border-color 0.2s; width: 100%; }
+        .m-form-label { font-family: 'Inter', system-ui, sans-serif; font-size: 11px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); }
+        .m-form-input, .m-form-textarea { background: var(--obsidian); border: 1px solid var(--border); color: var(--cream); font-family: 'Inter', system-ui, sans-serif; font-size: 15px; font-weight: 300; padding: 14px 16px; outline: none; transition: border-color 0.2s; width: 100%; }
         .m-form-input:focus, .m-form-textarea:focus { border-color: var(--amber); }
         .m-form-textarea { resize: vertical; min-height: 120px; }
-        .m-form-submit { width: 100%; padding: 16px; background: var(--amber); color: var(--obsidian); font-family: 'Outfit', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; border: none; cursor: pointer; transition: background 0.2s; }
+        .m-form-submit { width: 100%; padding: 16px; background: var(--amber); color: var(--obsidian); font-family: 'Inter', system-ui, sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; border: none; cursor: pointer; transition: background 0.2s; }
         .m-form-submit:hover:not(:disabled) { background: var(--amber-bright); }
         .m-form-submit:disabled { opacity: 0.7; cursor: not-allowed; }
-        .m-form-error { font-family: 'Outfit', sans-serif; font-size: 13px; color: #e57373; margin-bottom: 16px; padding: 12px 16px; background: rgba(229,115,115,0.1); border: 1px solid rgba(229,115,115,0.3); }
+        .m-form-error { font-family: 'Inter', system-ui, sans-serif; font-size: 13px; color: #e57373; margin-bottom: 16px; padding: 12px 16px; background: rgba(229,115,115,0.1); border: 1px solid rgba(229,115,115,0.3); }
         .m-form-success { padding: 40px; text-align: center; border: 1px solid var(--border-strong); background: var(--amber-dim); }
         .m-form-success h3 { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 300; color: var(--cream); margin-bottom: 12px; }
-        .m-form-success p { font-family: 'Outfit', sans-serif; font-size: 14px; color: var(--muted); line-height: 1.7; }
+        .m-form-success p { font-family: 'Inter', system-ui, sans-serif; font-size: 14px; color: var(--muted); line-height: 1.7; }
         .m-footer { border-top: 1px solid var(--border); padding: 40px; text-align: center; }
-        .m-footer p { font-family: 'Outfit', sans-serif; font-size: 12px; color: var(--muted); letter-spacing: 1px; }
+        .m-footer p { font-family: 'Inter', system-ui, sans-serif; font-size: 12px; color: var(--muted); letter-spacing: 1px; }
         .m-footer a { color: var(--amber); text-decoration: none; }
-        .m-btn-amber { font-family: 'Outfit', sans-serif; font-size: 11px; font-weight: 500; letter-spacing: 3px; text-transform: uppercase; padding: 14px 32px; background: var(--amber); color: var(--obsidian); border: none; cursor: pointer; transition: background 0.2s; text-decoration: none; display: inline-block; }
+        .m-btn-amber { font-family: 'Inter', system-ui, sans-serif; font-size: 11px; font-weight: 500; letter-spacing: 3px; text-transform: uppercase; padding: 14px 32px; background: var(--amber); color: var(--obsidian); border: none; cursor: pointer; transition: background 0.2s; text-decoration: none; display: inline-block; }
         .m-btn-amber:hover { background: var(--amber-bright); }
         @media (max-width: 900px) {
           .m-nav { padding: 0 24px; }

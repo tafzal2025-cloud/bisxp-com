@@ -27,22 +27,25 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
-          href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&family=DM+Sans:wght@300;400;500;600&display=swap"
           rel="stylesheet"
         />
         <style>{`
           :root {
-            --obsidian: #08080A;
-            --charcoal: #131318;
+            --obsidian: #0F0F12;
+            --charcoal: #17171D;
             --steel: #1E1E26;
             --amber: #D4A843;
             --amber-bright: #F0C060;
-            --amber-dim: rgba(212,168,67,0.15);
+            --amber-dim: rgba(212,168,67,0.12);
             --cream: #F0EBE0;
             --white: #FAFAF8;
-            --muted: #70707A;
+            --muted: #8A8A94;
             --border: rgba(212,168,67,0.12);
             --border-strong: rgba(212,168,67,0.3);
+            --font-display: 'Cormorant Garamond', Georgia, serif;
+            --font-body: 'Inter', system-ui, sans-serif;
+            --font-numeral: 'DM Sans', system-ui, sans-serif;
           }
 
           *, *::before, *::after {
@@ -60,7 +63,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             overflow-x: hidden;
             background: var(--obsidian);
             color: var(--cream);
-            font-family: 'Outfit', sans-serif;
+            font-family: var(--font-body);
             font-weight: 400;
             line-height: 1.6;
             -webkit-font-smoothing: antialiased;
@@ -80,11 +83,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             cursor: pointer;
             border: none;
             background: none;
-            font-family: 'Outfit', sans-serif;
+            font-family: var(--font-body);
           }
 
           input, textarea, select {
-            font-family: 'Outfit', sans-serif;
+            font-family: var(--font-body);
           }
         `}</style>
       </head>

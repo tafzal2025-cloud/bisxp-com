@@ -99,7 +99,7 @@ export default function HomePage() {
           list-style: none;
         }
         .nav-links a {
-          font-family: 'Outfit', sans-serif;
+          font-family: 'Inter', system-ui, sans-serif;
           font-size: 13px;
           font-weight: 400;
           letter-spacing: 2px;
@@ -109,7 +109,7 @@ export default function HomePage() {
         }
         .nav-links a:hover { color: var(--cream); }
         .nav-cta {
-          font-family: 'Outfit', sans-serif;
+          font-family: 'Inter', system-ui, sans-serif;
           font-size: 11px;
           font-weight: 500;
           letter-spacing: 3px;
@@ -152,7 +152,7 @@ export default function HomePage() {
         }
         .mobile-nav-drawer.open { display: flex; }
         .mobile-nav-drawer a {
-          font-family: 'Outfit', sans-serif;
+          font-family: 'Inter', system-ui, sans-serif;
           font-size: 14px;
           letter-spacing: 2px;
           text-transform: uppercase;
@@ -167,7 +167,7 @@ export default function HomePage() {
           width: 100%;
           height: 100vh;
           min-height: 600px;
-          background: var(--obsidian);
+          background: radial-gradient(ellipse at 50% 40%, #1A1A22 0%, var(--obsidian) 65%);
           display: flex;
           align-items: center;
           justify-content: center;
@@ -181,7 +181,7 @@ export default function HomePage() {
           max-width: 780px;
         }
         .hero-eyebrow {
-          font-family: 'Outfit', sans-serif;
+          font-family: 'Inter', system-ui, sans-serif;
           font-size: 10px;
           font-weight: 500;
           letter-spacing: 6px;
@@ -203,7 +203,7 @@ export default function HomePage() {
           font-style: italic;
         }
         .hero-sub {
-          font-family: 'Outfit', sans-serif;
+          font-family: 'Inter', system-ui, sans-serif;
           font-size: 18px;
           font-weight: 300;
           color: var(--muted);
@@ -218,7 +218,7 @@ export default function HomePage() {
           flex-wrap: wrap;
         }
         .btn-amber {
-          font-family: 'Outfit', sans-serif;
+          font-family: 'Inter', system-ui, sans-serif;
           font-size: 11px;
           font-weight: 500;
           letter-spacing: 3px;
@@ -234,7 +234,7 @@ export default function HomePage() {
         }
         .btn-amber:hover { background: var(--amber-bright); }
         .btn-ghost {
-          font-family: 'Outfit', sans-serif;
+          font-family: 'Inter', system-ui, sans-serif;
           font-size: 11px;
           font-weight: 500;
           letter-spacing: 3px;
@@ -261,7 +261,7 @@ export default function HomePage() {
           z-index: 10;
         }
         .scroll-indicator span {
-          font-family: 'Outfit', sans-serif;
+          font-family: 'Inter', system-ui, sans-serif;
           font-size: 9px;
           letter-spacing: 3px;
           text-transform: uppercase;
@@ -283,7 +283,7 @@ export default function HomePage() {
           padding: 100px 40px;
         }
         .section-eyebrow {
-          font-family: 'Outfit', sans-serif;
+          font-family: 'Inter', system-ui, sans-serif;
           font-size: 10px;
           font-weight: 500;
           letter-spacing: 5px;
@@ -334,7 +334,7 @@ export default function HomePage() {
           background: var(--border-strong);
         }
         .stat-number {
-          font-family: 'Outfit', sans-serif;
+          font-family: 'DM Sans', system-ui, sans-serif;
           font-size: 52px;
           font-weight: 300;
           color: var(--amber);
@@ -342,10 +342,11 @@ export default function HomePage() {
           display: block;
           margin-bottom: 8px;
           font-variant-numeric: tabular-nums;
+          font-feature-settings: "tnum";
           letter-spacing: -0.02em;
         }
         .stat-label {
-          font-family: 'Outfit', sans-serif;
+          font-family: 'Inter', system-ui, sans-serif;
           font-size: 14px;
           font-weight: 500;
           color: var(--cream);
@@ -353,7 +354,7 @@ export default function HomePage() {
           margin-bottom: 4px;
         }
         .stat-sub {
-          font-family: 'Outfit', sans-serif;
+          font-family: 'Inter', system-ui, sans-serif;
           font-size: 12px;
           color: var(--muted);
           display: block;
@@ -412,7 +413,7 @@ export default function HomePage() {
           margin-bottom: 16px;
         }
         .acronym-desc {
-          font-family: 'Outfit', sans-serif;
+          font-family: 'Inter', system-ui, sans-serif;
           font-size: 14px;
           font-weight: 300;
           color: var(--muted);
@@ -443,7 +444,7 @@ export default function HomePage() {
         }
         .portfolio-card:hover { background: #22222C; }
         .portfolio-eyebrow {
-          font-family: 'Outfit', sans-serif;
+          font-family: 'Inter', system-ui, sans-serif;
           font-size: 10px;
           font-weight: 500;
           letter-spacing: 4px;
@@ -458,7 +459,7 @@ export default function HomePage() {
           line-height: 1;
         }
         .portfolio-desc {
-          font-family: 'Outfit', sans-serif;
+          font-family: 'Inter', system-ui, sans-serif;
           font-size: 15px;
           font-weight: 300;
           color: var(--muted);
@@ -470,7 +471,7 @@ export default function HomePage() {
           gap: 8px;
         }
         .portfolio-tag {
-          font-family: 'Outfit', sans-serif;
+          font-family: 'Inter', system-ui, sans-serif;
           font-size: 11px;
           font-weight: 400;
           letter-spacing: 1px;
@@ -479,7 +480,7 @@ export default function HomePage() {
           padding: 4px 12px;
         }
         .portfolio-market {
-          font-family: 'Outfit', sans-serif;
+          font-family: 'Inter', system-ui, sans-serif;
           font-size: 12px;
           font-weight: 400;
           letter-spacing: 2px;
@@ -487,7 +488,7 @@ export default function HomePage() {
           text-transform: uppercase;
         }
         .portfolio-link {
-          font-family: 'Outfit', sans-serif;
+          font-family: 'Inter', system-ui, sans-serif;
           font-size: 13px;
           font-weight: 500;
           color: var(--amber);
@@ -500,7 +501,7 @@ export default function HomePage() {
         }
         .portfolio-link:hover { color: var(--amber-bright); }
         .portfolio-stat-strip {
-          font-family: 'Outfit', sans-serif;
+          font-family: 'Inter', system-ui, sans-serif;
           font-size: 11px;
           font-weight: 400;
           letter-spacing: 2px;
@@ -561,7 +562,7 @@ export default function HomePage() {
           margin-bottom: 8px;
         }
         .service-price {
-          font-family: 'Outfit', sans-serif;
+          font-family: 'Inter', system-ui, sans-serif;
           font-size: 11px;
           font-weight: 500;
           letter-spacing: 2px;
@@ -571,7 +572,7 @@ export default function HomePage() {
           display: block;
         }
         .service-desc {
-          font-family: 'Outfit', sans-serif;
+          font-family: 'Inter', system-ui, sans-serif;
           font-size: 14px;
           font-weight: 300;
           color: var(--muted);
@@ -621,7 +622,7 @@ export default function HomePage() {
           padding-right: 16px;
         }
         .process-title {
-          font-family: 'Outfit', sans-serif;
+          font-family: 'Inter', system-ui, sans-serif;
           font-size: 14px;
           font-weight: 600;
           letter-spacing: 1px;
@@ -631,7 +632,7 @@ export default function HomePage() {
           display: block;
         }
         .process-desc {
-          font-family: 'Outfit', sans-serif;
+          font-family: 'Inter', system-ui, sans-serif;
           font-size: 13px;
           font-weight: 300;
           color: var(--muted);
@@ -648,7 +649,7 @@ export default function HomePage() {
         }
         .marquee-label {
           text-align: center;
-          font-family: 'Outfit', sans-serif;
+          font-family: 'Inter', system-ui, sans-serif;
           font-size: 10px;
           font-weight: 500;
           letter-spacing: 5px;
@@ -667,7 +668,7 @@ export default function HomePage() {
           100% { transform: translateX(-50%); }
         }
         .marquee-tag {
-          font-family: 'Outfit', sans-serif;
+          font-family: 'Inter', system-ui, sans-serif;
           font-size: 13px;
           font-weight: 400;
           color: var(--cream);
@@ -700,7 +701,7 @@ export default function HomePage() {
           line-height: 1.1;
         }
         .contact-left p {
-          font-family: 'Outfit', sans-serif;
+          font-family: 'Inter', system-ui, sans-serif;
           font-size: 16px;
           font-weight: 300;
           color: var(--muted);
@@ -711,7 +712,7 @@ export default function HomePage() {
           display: inline-flex;
           align-items: center;
           gap: 10px;
-          font-family: 'Outfit', sans-serif;
+          font-family: 'Inter', system-ui, sans-serif;
           font-size: 14px;
           font-weight: 500;
           color: var(--amber);
@@ -731,7 +732,7 @@ export default function HomePage() {
           margin-bottom: 20px;
         }
         .form-label {
-          font-family: 'Outfit', sans-serif;
+          font-family: 'Inter', system-ui, sans-serif;
           font-size: 11px;
           font-weight: 500;
           letter-spacing: 2px;
@@ -742,7 +743,7 @@ export default function HomePage() {
           background: var(--obsidian);
           border: 1px solid var(--border);
           color: var(--cream);
-          font-family: 'Outfit', sans-serif;
+          font-family: 'Inter', system-ui, sans-serif;
           font-size: 15px;
           font-weight: 300;
           padding: 14px 16px;
@@ -763,7 +764,7 @@ export default function HomePage() {
           min-height: 140px;
         }
         .form-error {
-          font-family: 'Outfit', sans-serif;
+          font-family: 'Inter', system-ui, sans-serif;
           font-size: 13px;
           color: #e57373;
           margin-bottom: 16px;
@@ -776,7 +777,7 @@ export default function HomePage() {
           padding: 16px;
           background: var(--amber);
           color: var(--obsidian);
-          font-family: 'Outfit', sans-serif;
+          font-family: 'Inter', system-ui, sans-serif;
           font-size: 12px;
           font-weight: 600;
           letter-spacing: 3px;
@@ -801,7 +802,7 @@ export default function HomePage() {
           margin-bottom: 16px;
         }
         .form-success p {
-          font-family: 'Outfit', sans-serif;
+          font-family: 'Inter', system-ui, sans-serif;
           font-size: 15px;
           font-weight: 300;
           color: var(--muted);
@@ -833,7 +834,7 @@ export default function HomePage() {
         }
         .footer-logo span { color: var(--amber); }
         .footer-tagline {
-          font-family: 'Outfit', sans-serif;
+          font-family: 'Inter', system-ui, sans-serif;
           font-size: 12px;
           font-weight: 300;
           letter-spacing: 2px;
@@ -846,7 +847,7 @@ export default function HomePage() {
           align-items: flex-start;
         }
         .footer-links a {
-          font-family: 'Outfit', sans-serif;
+          font-family: 'Inter', system-ui, sans-serif;
           font-size: 13px;
           font-weight: 400;
           letter-spacing: 1px;
@@ -861,7 +862,7 @@ export default function HomePage() {
           align-items: flex-end;
         }
         .footer-contact a {
-          font-family: 'Outfit', sans-serif;
+          font-family: 'Inter', system-ui, sans-serif;
           font-size: 13px;
           font-weight: 400;
           color: var(--muted);
@@ -877,7 +878,7 @@ export default function HomePage() {
           margin: 0 auto;
         }
         .footer-bottom p {
-          font-family: 'Outfit', sans-serif;
+          font-family: 'Inter', system-ui, sans-serif;
           font-size: 12px;
           font-weight: 300;
           color: var(--muted);
@@ -937,16 +938,18 @@ export default function HomePage() {
           text-align: center;
         }
         .method-stat-number {
-          font-family: 'Cormorant Garamond', serif;
+          font-family: 'DM Sans', system-ui, sans-serif;
           font-size: 42px;
           font-weight: 300;
           color: var(--amber);
           display: block;
           line-height: 1;
           margin-bottom: 8px;
+          font-variant-numeric: tabular-nums;
+          font-feature-settings: "tnum";
         }
         .method-stat-label {
-          font-family: 'Outfit', sans-serif;
+          font-family: 'Inter', system-ui, sans-serif;
           font-size: 12px;
           font-weight: 400;
           color: var(--muted);
@@ -984,7 +987,7 @@ export default function HomePage() {
           overflow: hidden;
         }
         .team-photo-placeholder {
-          font-family: 'Outfit', sans-serif;
+          font-family: 'Inter', system-ui, sans-serif;
           font-size: 10px;
           font-weight: 400;
           letter-spacing: 3px;
@@ -994,8 +997,10 @@ export default function HomePage() {
         }
         .team-photo-initials {
           position: absolute;
-          font-family: 'Cormorant Garamond', serif;
+          font-family: 'DM Sans', system-ui, sans-serif;
           font-size: 72px;
+          font-variant-numeric: tabular-nums;
+          font-feature-settings: "tnum";
           font-weight: 300;
           color: var(--amber);
           opacity: 0.12;
@@ -1010,7 +1015,7 @@ export default function HomePage() {
           margin: 0;
         }
         .team-title {
-          font-family: 'Outfit', sans-serif;
+          font-family: 'Inter', system-ui, sans-serif;
           font-size: 11px;
           font-weight: 500;
           letter-spacing: 3px;
@@ -1019,7 +1024,7 @@ export default function HomePage() {
           margin-top: -8px;
         }
         .team-bio {
-          font-family: 'Outfit', sans-serif;
+          font-family: 'Inter', system-ui, sans-serif;
           font-size: 14px;
           font-weight: 300;
           color: var(--muted);
@@ -1032,7 +1037,7 @@ export default function HomePage() {
           margin-bottom: 0;
         }
         .team-patent {
-          font-family: 'Outfit', sans-serif;
+          font-family: 'Inter', system-ui, sans-serif;
           font-size: 11px;
           font-weight: 400;
           letter-spacing: 2px;
@@ -1069,7 +1074,7 @@ export default function HomePage() {
           border-top-color: var(--amber);
         }
         .rs-tag {
-          font-family: 'Outfit', sans-serif;
+          font-family: 'Inter', system-ui, sans-serif;
           font-size: 10px;
           font-weight: 500;
           letter-spacing: 3px;
@@ -1089,7 +1094,7 @@ export default function HomePage() {
           margin: 0;
         }
         .rs-subtitle {
-          font-family: 'Outfit', sans-serif;
+          font-family: 'Inter', system-ui, sans-serif;
           font-size: 11px;
           font-weight: 500;
           letter-spacing: 3px;
@@ -1097,14 +1102,14 @@ export default function HomePage() {
           color: var(--amber);
         }
         .rs-body {
-          font-family: 'Outfit', sans-serif;
+          font-family: 'Inter', system-ui, sans-serif;
           font-size: 14px;
           font-weight: 300;
           color: var(--muted);
           line-height: 1.75;
         }
         .rs-note {
-          font-family: 'Outfit', sans-serif;
+          font-family: 'Inter', system-ui, sans-serif;
           font-size: 11px;
           font-weight: 400;
           letter-spacing: 2px;
@@ -1133,7 +1138,7 @@ export default function HomePage() {
           line-height: 1.3;
         }
         .rs-cta p {
-          font-family: 'Outfit', sans-serif;
+          font-family: 'Inter', system-ui, sans-serif;
           font-size: 15px;
           font-weight: 300;
           color: var(--muted);
@@ -1395,7 +1400,7 @@ export default function HomePage() {
           <span className="section-eyebrow">What We&apos;re Building Next</span>
           <h2 className="section-heading">Research &amp; Security</h2>
           <p style={{
-            fontFamily: "'Outfit', sans-serif",
+            fontFamily: "'Inter', system-ui, sans-serif",
             fontSize: '16px',
             fontWeight: 300,
             color: 'var(--muted)',
@@ -1448,7 +1453,7 @@ export default function HomePage() {
               Learn to build like we build
             </h2>
             <p style={{
-              fontFamily: "'Outfit', sans-serif",
+              fontFamily: "'Inter', system-ui, sans-serif",
               fontSize: '15px',
               fontWeight: 300,
               color: 'var(--muted)',
@@ -1489,7 +1494,7 @@ export default function HomePage() {
           <span className="section-eyebrow">Services</span>
           <h2 className="section-heading">What We Build</h2>
           <p style={{
-            fontFamily: "'Outfit', sans-serif",
+            fontFamily: "'Inter', system-ui, sans-serif",
             fontSize: '14px',
             fontWeight: 300,
             color: 'var(--muted)',
