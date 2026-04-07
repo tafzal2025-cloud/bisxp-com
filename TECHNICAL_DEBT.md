@@ -112,10 +112,24 @@ _Last updated: 2026-04-07 Session 1_
 
 ## Cleared Debt — Session 2 (2026-04-07)
 
-### Supabase project separation — DONE (2026-04-07)
-- **Was**: BISXP.com sharing Supabase project vcyiudixtnmycntywmxa with CareGrid marketplace
-- **Risk**: CareGrid provider data, insurance plans, and admin access mixed with BISXP.com enquiries and auth
-- **Fixed**: New standalone Supabase project ghcxevhmhtuvjzmptvfw created for BISXP.com. CareGrid retains original project untouched. All env vars updated in Vercel, GitHub Secrets, and .env.local. Admin user recreated on new project.
+### 1.1 No test suite — DONE
+- **Was**: Zero tests, no Vitest config
+- **Fixed**: Vitest installed, 8 unit tests (5 POST + 3 PATCH), 1 integration test (skips without env vars)
+
+### 1.2 page.tsx over 500 lines — PARTIAL
+- **Was**: ~1400 lines → now 1828 lines (grew with new sections)
+- **Status**: Still over limit. Priority 1 for Session 3.
+
+### 1.3 No develop branch / CI pipeline — DONE
+- **Was**: All work on master, no CI
+- **Fixed**: develop branch, .github/workflows/ci.yml, PR template
+
+### 1.4 No FEATURE.md process — DONE
+- **Was**: No design gate
+- **Fixed**: FEATURE-TEMPLATE.md + FEATURE-S2-foundation.md created and followed
+
+### Supabase project separation — DONE
+- **Fixed**: New standalone project ghcxevhmhtuvjzmptvfw for BISXP.com
 
 ---
 

@@ -912,6 +912,48 @@ export default function HomePage() {
           50% { box-shadow: 0 4px 32px rgba(212,168,67,0.65), 0 0 0 8px rgba(212,168,67,0.1); }
         }
 
+        /* ── BISXP METHOD ── */
+        .method-section {
+          background: var(--charcoal);
+          padding: 100px 40px;
+          border-top: 1px solid var(--border);
+        }
+        .method-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 60px;
+          max-width: 1200px;
+          margin: 0 auto;
+          align-items: center;
+        }
+        .method-stats {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 2px;
+        }
+        .method-stat {
+          background: var(--steel);
+          padding: 32px;
+          text-align: center;
+        }
+        .method-stat-number {
+          font-family: 'Cormorant Garamond', serif;
+          font-size: 42px;
+          font-weight: 300;
+          color: var(--amber);
+          display: block;
+          line-height: 1;
+          margin-bottom: 8px;
+        }
+        .method-stat-label {
+          font-family: 'Outfit', sans-serif;
+          font-size: 12px;
+          font-weight: 400;
+          color: var(--muted);
+          letter-spacing: 1px;
+          text-transform: uppercase;
+        }
+
         /* ── TEAM ── */
         .team-section {
           background: var(--charcoal);
@@ -1144,6 +1186,8 @@ export default function HomePage() {
           .rs-card { padding: 36px 28px; }
           .rs-cta { padding: 40px 28px; }
           .rs-cta h3 { font-size: 26px; }
+          .method-grid { grid-template-columns: 1fr; gap: 40px; }
+          .method-section { padding: 72px 24px; }
           .team-grid { grid-template-columns: 1fr; gap: 64px; }
           .team-section { padding: 72px 24px; }
         }
@@ -1163,7 +1207,7 @@ export default function HomePage() {
           BISX<span>P</span>
         </a>
         <ul className="nav-links">
-          <li><a href="#work">Work</a></li>
+          <li><a href="#case-studies">Case Studies</a></li>
           <li><a href="#services">Services</a></li>
           <li><a href="#process">Process</a></li>
           <li><a href="#contact">Contact</a></li>
@@ -1180,7 +1224,7 @@ export default function HomePage() {
         </div>
       </nav>
       <div className={`mobile-nav-drawer${mobileNavOpen ? ' open' : ''}`}>
-        <a href="#work" onClick={() => setMobileNavOpen(false)}>Work</a>
+        <a href="#case-studies" onClick={() => setMobileNavOpen(false)}>Case Studies</a>
         <a href="#services" onClick={() => setMobileNavOpen(false)}>Services</a>
         <a href="#process" onClick={() => setMobileNavOpen(false)}>Process</a>
         <a href="#contact" onClick={() => setMobileNavOpen(false)}>Contact</a>
@@ -1200,7 +1244,7 @@ export default function HomePage() {
           </p>
           <div className="hero-ctas">
             <a href="#contact" className="btn-amber">Start a Project</a>
-            <a href="#work" className="btn-ghost">See Our Work</a>
+            <a href="#case-studies" className="btn-ghost">See Our Work</a>
           </div>
         </div>
         <div className="scroll-indicator">
@@ -1276,9 +1320,9 @@ export default function HomePage() {
       </section>
 
       {/* ── PORTFOLIO ── */}
-      <section className="portfolio-section" id="work">
+      <section className="portfolio-section" id="case-studies">
         <div className="container">
-          <span className="section-eyebrow">Our Work</span>
+          <span className="section-eyebrow">Case Studies</span>
           <h2 className="section-heading">Built by BISXP</h2>
           <div className="portfolio-grid">
             {/* TABRO */}
@@ -1391,6 +1435,50 @@ export default function HomePage() {
               We are working with a small number of early partners in enterprise AI security. If you are building autonomous agent systems and need a trust and security layer, we want to hear from you.
             </p>
             <a href="#contact" className="btn-amber">Request Early Access</a>
+          </div>
+        </div>
+      </section>
+
+      {/* ── BISXP METHOD ── */}
+      <section className="method-section">
+        <div className="method-grid">
+          <div>
+            <span className="section-eyebrow">The BISXP Method</span>
+            <h2 className="section-heading" style={{ marginBottom: '20px' }}>
+              Learn to build like we build
+            </h2>
+            <p style={{
+              fontFamily: "'Outfit', sans-serif",
+              fontSize: '15px',
+              fontWeight: 300,
+              color: 'var(--muted)',
+              lineHeight: '1.8',
+              marginBottom: '32px'
+            }}>
+              A 3-day intensive for technical founders and engineering leads who want to ship AI-native products on the BISXP stack. Not a course — a working capstone. You leave with a deployed product, not a certificate.
+            </p>
+            <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' as const }}>
+              <a href="/method" className="btn-amber">Learn More</a>
+              <a href="#contact" className="btn-ghost">Apply Now</a>
+            </div>
+          </div>
+          <div className="method-stats">
+            <div className="method-stat">
+              <span className="method-stat-number">3</span>
+              <span className="method-stat-label">Days intensive</span>
+            </div>
+            <div className="method-stat">
+              <span className="method-stat-number">1</span>
+              <span className="method-stat-label">Shipped product</span>
+            </div>
+            <div className="method-stat">
+              <span className="method-stat-number">6</span>
+              <span className="method-stat-label">Max participants</span>
+            </div>
+            <div className="method-stat">
+              <span className="method-stat-number">$0</span>
+              <span className="method-stat-label">Until you ship</span>
+            </div>
           </div>
         </div>
       </section>
@@ -1711,7 +1799,7 @@ export default function HomePage() {
           </div>
           <div>
             <div className="footer-links">
-              <a href="#work">Work</a>
+              <a href="#case-studies">Case Studies</a>
               <a href="#services">Services</a>
               <a href="#process">Process</a>
               <a href="#contact">Contact</a>
