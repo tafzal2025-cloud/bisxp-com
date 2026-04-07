@@ -98,6 +98,65 @@ After every session, add a new observation block below using this template:
 
 ---
 
+## Session 2 — 2026-04-07
+
+### Files created/modified
+- `vitest.config.ts` — Vitest configuration (created)
+- `tests/unit/enquiry-api.test.ts` — 5 unit tests for POST /api/enquiry (created)
+- `tests/unit/enquiry-id-api.test.ts` — 3 unit tests for PATCH /api/enquiry/[id] (created)
+- `tests/integration/enquiry.test.ts` — DB write integration test, skips without env (created)
+- `.github/workflows/ci.yml` — CI pipeline: TypeScript + tests + build (created)
+- `.github/pull_request_template.md` — PR template with SOLID audit (created)
+- `app/page.tsx` — Case Studies rename, Method block, Team section, Research & Security, nav updates (modified, 1828 lines)
+- `app/method/page.tsx` — /method server component with metadata (created)
+- `app/method/MethodPageClient.tsx` — /method client component, 7 sections + apply form (created, 219 lines)
+- `app/demos/page.tsx` — deleted (demos accessed via static HTML only)
+- `app/demos/layout.tsx` — deleted
+- `public/demos/access.html` — password gate, BISXP2026 (created)
+- `public/demos/bisxp-demo-index.html` — auth check + copy fixes (modified)
+- `public/demos/bisxp-mastercard-demo.html` — auth check + hero copy (modified)
+- `public/demos/bisxp-healthcare-demo.html` — auth check + hero copy (modified)
+- `public/demos/bisxp-customer-service-demo.html` — auth check + hero copy (modified)
+- `public/demos/*.html` — auth check added to all remaining demo files (modified)
+- `docs/features/FEATURE-S2-foundation.md` — session feature doc (created)
+- `CLAUDE_CONTEXT.md` — Session 2 updates (modified)
+- `BISXP-CLAUDE.md` — Supabase project separation (modified)
+- `TECHNICAL_DEBT.md` — Supabase separation cleared, Session 2 debt cleared (modified)
+- `SESSION_OBSERVATIONS.md` — this block (modified)
+
+### Test health
+- Tests passing: 8/8
+- New tests added: 8 (5 POST /api/enquiry + 3 PATCH /api/enquiry/[id])
+- Tests removed: 0
+- Integration test: 1 (skipped — requires SUPABASE_TEST_URL)
+
+### Patterns documented
+- **Vitest mock pattern**: Mock next/server, next/headers, @supabase/ssr, @supabase/supabase-js, resend — each with vi.mock() and vi.stubEnv()
+- **Method page split**: Server component (page.tsx) for metadata + client component (MethodPageClient.tsx) for interactive content
+- **Demo password gate**: sessionStorage-based auth with access.html, auth check script at top of body in each demo file
+
+### Gaps identified
+- **page.tsx is 1828 lines** — grew from 1740. Still well above 500-line limit. Priority 1 for Session 3.
+- **No E2E tests** — unit tests cover API routes but no browser testing yet.
+- **bisxp.com domain still not connected** — Shah action.
+
+### Degradation signals
+- [x] File size creep — page.tsx at 1828 lines (critical — needs splitting in Session 3)
+- [ ] Test count decreased? — No, went from 0 to 8
+- [ ] New duplicate code introduced? — Method page has some nav/footer duplication, acceptable for now
+- [ ] CSS hardcoded hex values? — No (all CSS variables)
+- [ ] Console.log left in production code? — No
+- [ ] Missing loading states? — Method apply form has loading state
+- [ ] Mobile not tested? — CSS responsive rules added but not browser-tested
+
+### Suggestions for next session
+- **Priority 1**: Split app/page.tsx into section components — it's now 1828 lines
+- **Priority 2**: E2E tests with Playwright
+- **Priority 3**: Connect bisxp.com domain
+- **Priority 4**: OG image for social sharing
+
+---
+
 _This file is updated by Claude Code at each session end._
 _Each observation block captures the health of the codebase at that point in time._
 _Use degradation signals to catch quality erosion before it compounds._

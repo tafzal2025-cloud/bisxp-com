@@ -77,8 +77,21 @@ app/
     enquiry/route.ts            ✅ POST — save enquiry + send email via Resend
     enquiry/[id]/route.ts       ✅ PATCH — update enquiry status (auth-protected)
     ai/route.ts                 ✅ POST — AI proxy for demo suite (keeps API key server-side)
+  method/
+    page.tsx                    ✅ /method — server component with metadata
+    MethodPageClient.tsx        ✅ /method — 3-day intensive page with apply form
 lib/
   supabase.ts                   ✅ Browser client + helpers
+vitest.config.ts                ✅ Vitest configuration
+tests/
+  unit/
+    enquiry-api.test.ts         ✅ 5 unit tests for POST /api/enquiry
+    enquiry-id-api.test.ts      ✅ 3 unit tests for PATCH /api/enquiry/[id]
+  integration/
+    enquiry.test.ts             ✅ DB write verification (skips without env vars)
+.github/
+  workflows/ci.yml              ✅ CI pipeline — TypeScript + tests + build
+  pull_request_template.md      ✅ PR template with SOLID audit
 proxy.ts                        ✅ Middleware — protects /admin
 .env.local                      ✅ Template (fill values before running)
 .env.example                    ✅ Committed placeholder values
@@ -87,9 +100,7 @@ supabase/
 .claude/
   CLAUDE.md                     ✅ Standing instructions
 CLAUDE_CONTEXT.md               ✅ This file
-  demos/
-    page.tsx                    ✅ Redirect /demos → /demos/index.html
-    layout.tsx                  ✅ Metadata (noindex) for demos route
+  # demos/ route removed in Session 2 — static demos accessed via /demos/access.html
 public/
   demos/
     index.html                  ✅ 8-domain AI demo index (static, noindex)
@@ -107,16 +118,26 @@ public/
 ---
 
 ## Sections Built (app/page.tsx)
-1. ✅ Fixed navbar (logo + nav links + CTA, mobile hamburger)
+1. ✅ Fixed navbar (Case Studies + Services + Process + Contact)
 2. ✅ Hero (Three.js gold octahedron, particles, parallax, CTAs)
-3. ✅ Stats bar (2 marketplaces, 8 wks, 3 countries, 100% hands-on)
-4. ✅ BISXP acronym (Blueprint / Ignite / Scale / Xperience)
-5. ✅ Portfolio — TABRO.IN + TheUnitedSports.com
-6. ✅ Services — 4 tiers with pricing
-7. ✅ Process — 4-step horizontal flow
-8. ✅ Who we work with — CSS marquee
-9. ✅ Enquiry form — full validation, Supabase save, Resend email
-10. ✅ Footer + WhatsApp FAB
+3. ✅ Stats bar (4 marketplaces, 25 yrs, 3 countries, 100% hands-on)
+4. ✅ BISXP acronym (Blueprint / Implement / Scale / Xperience)
+5. ✅ Case Studies — TABRO.IN, TheUnitedSports, CareGrid, MediGrid
+6. ✅ Research & Security — ZeroMesh + BISXP Security
+7. ✅ BISXP Method block — 3-day intensive promo
+8. ✅ Services — 4 cards (no pricing)
+9. ✅ Process — 4-step horizontal flow
+10. ✅ Who we work with — CSS marquee
+11. ✅ Enquiry form — full validation, Supabase save, Resend email
+12. ✅ Team — Tharif Afzal + Amtul Baseer Ifra
+13. ✅ Footer + WhatsApp FAB
+
+## Pages
+- `/` — Homepage (13 sections)
+- `/method` — BISXP Method 3-day intensive (7 sections + apply form)
+- `/admin` — Enquiry dashboard (auth-protected)
+- `/auth/login` — Admin login
+- `/demos/access.html` — Password gate for demo suite (BISXP2026)
 
 ---
 
@@ -128,18 +149,15 @@ public/
 
 ---
 
-## Pending — Session 2+
-- [ ] Fill .env.local with real Supabase + Resend values
-- [ ] Run 001_initial_schema.sql in Supabase SQL Editor
-- [ ] Create admin user in Supabase Dashboard → Authentication
-- [ ] Verify hello@bisxp.com domain in Resend
-- [ ] Push to GitHub (tafzal2025-cloud/bisxp-com) — Shah does this
-- [ ] Configure Vercel deploy with env vars
-- [ ] Test enquiry form end-to-end
-- [ ] Test admin login + status cycling
+## Pending — Session 3+
+- [ ] Split app/page.tsx into section components (1828 lines — over 500-line limit)
+- [ ] Verify hello@bisxp.com domain in Resend (Shah action)
+- [ ] Connect bisxp.com domain in Vercel (Shah action)
 - [ ] SEO: add OG image (1200×630 branded)
 - [ ] Add Google Analytics or Plausible
-- [ ] Consider blog/articles section in Session 2
+- [ ] Add sitemap.xml and robots.txt
+- [ ] Add JSON-LD structured data
+- [ ] E2E Playwright tests
 
 ---
 
