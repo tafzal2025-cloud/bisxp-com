@@ -902,6 +902,105 @@ export default function HomePage() {
           50% { box-shadow: 0 4px 32px rgba(212,168,67,0.65), 0 0 0 8px rgba(212,168,67,0.1); }
         }
 
+        /* ── RESEARCH & SECURITY ── */
+        .rs-section {
+          background: var(--obsidian);
+          padding: 100px 40px;
+          border-top: 1px solid var(--border);
+        }
+        .rs-grid {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 2px;
+          max-width: 1200px;
+          margin: 0 auto 2px;
+        }
+        .rs-card {
+          background: var(--charcoal);
+          padding: 48px;
+          border-top: 3px solid transparent;
+          transition: border-color 0.3s;
+          display: flex;
+          flex-direction: column;
+          gap: 16px;
+        }
+        .rs-card:hover {
+          border-top-color: var(--amber);
+        }
+        .rs-tag {
+          font-family: 'Outfit', sans-serif;
+          font-size: 10px;
+          font-weight: 500;
+          letter-spacing: 3px;
+          text-transform: uppercase;
+          color: var(--amber);
+          border: 1px solid var(--border-strong);
+          padding: 4px 12px;
+          display: inline-block;
+          width: fit-content;
+        }
+        .rs-title {
+          font-family: 'Cormorant Garamond', serif;
+          font-size: 44px;
+          font-weight: 300;
+          color: var(--cream);
+          line-height: 1;
+          margin: 0;
+        }
+        .rs-subtitle {
+          font-family: 'Outfit', sans-serif;
+          font-size: 11px;
+          font-weight: 500;
+          letter-spacing: 3px;
+          text-transform: uppercase;
+          color: var(--amber);
+        }
+        .rs-body {
+          font-family: 'Outfit', sans-serif;
+          font-size: 14px;
+          font-weight: 300;
+          color: var(--muted);
+          line-height: 1.75;
+        }
+        .rs-note {
+          font-family: 'Outfit', sans-serif;
+          font-size: 11px;
+          font-weight: 400;
+          letter-spacing: 2px;
+          text-transform: uppercase;
+          color: var(--amber);
+          opacity: 0.6;
+          margin-top: auto;
+          padding-top: 20px;
+          border-top: 1px solid var(--border);
+        }
+        .rs-cta {
+          max-width: 1200px;
+          margin: 0 auto;
+          background: var(--amber-dim);
+          border: 1px solid var(--border-strong);
+          padding: 52px 48px;
+          text-align: center;
+        }
+        .rs-cta h3 {
+          font-family: 'Cormorant Garamond', serif;
+          font-size: 34px;
+          font-weight: 300;
+          font-style: italic;
+          color: var(--cream);
+          margin-bottom: 16px;
+          line-height: 1.3;
+        }
+        .rs-cta p {
+          font-family: 'Outfit', sans-serif;
+          font-size: 15px;
+          font-weight: 300;
+          color: var(--muted);
+          max-width: 560px;
+          margin: 0 auto 32px;
+          line-height: 1.7;
+        }
+
         /* ── RESPONSIVE ── */
         @media (max-width: 900px) {
           .nav { padding: 0 24px; }
@@ -937,6 +1036,11 @@ export default function HomePage() {
           .service-card { padding: 36px; }
           .portfolio-callout { padding: 40px 28px; }
           .portfolio-callout p { font-size: 22px; }
+          .rs-grid { grid-template-columns: 1fr; }
+          .rs-section { padding: 72px 24px; }
+          .rs-card { padding: 36px 28px; }
+          .rs-cta { padding: 40px 28px; }
+          .rs-cta h3 { font-size: 26px; }
         }
         @media (max-width: 600px) {
           .hero-headline { font-size: 40px; }
@@ -1131,6 +1235,56 @@ export default function HomePage() {
               Your vertical could be next.
             </p>
             <a href="#contact" className="btn-amber">Let's Talk</a>
+          </div>
+        </div>
+      </section>
+
+      {/* ── RESEARCH & SECURITY ── */}
+      <section className="rs-section">
+        <div className="container">
+          <span className="section-eyebrow">What We&apos;re Building Next</span>
+          <h2 className="section-heading">Research &amp; Security</h2>
+          <p style={{
+            fontFamily: "'Outfit', sans-serif",
+            fontSize: '16px',
+            fontWeight: 300,
+            color: 'var(--muted)',
+            maxWidth: '640px',
+            lineHeight: '1.7',
+            marginBottom: '48px',
+            marginTop: '-32px'
+          }}>
+            While we build marketplaces, we are simultaneously working on the next frontier — securing the infrastructure that autonomous AI agents will run on. This is serious research, not a roadmap slide.
+          </p>
+          <div className="rs-grid">
+            {/* ZeroMesh */}
+            <div className="rs-card">
+              <span className="rs-tag">Active Research</span>
+              <h3 className="rs-title">ZeroMesh</h3>
+              <span className="rs-subtitle">Agentic Zero Trust Protocol</span>
+              <p className="rs-body">
+                As AI agents proliferate across enterprise infrastructure, the trust fabric connecting them becomes the new attack surface. ZeroMesh proposes a zero-trust security layer for autonomous multi-agent systems — real-time trust recalibration, behavioral anomaly detection, and rule-based policy enforcement for agent-to-agent communication.
+              </p>
+              <span className="rs-note">IEEE paper submitted · August 2025</span>
+            </div>
+            {/* BISXP Security Platform */}
+            <div className="rs-card">
+              <span className="rs-tag">In Development</span>
+              <h3 className="rs-title">BISXP Security</h3>
+              <span className="rs-subtitle">Zero-Trust Fabric for the Open Web</span>
+              <p className="rs-body">
+                A modular security platform for teams deploying LLM agents, autonomous pipelines, and distributed AI systems. Five integrated modules: Guard (runtime agent protection), Mind (behavioral baselining and drift detection), Policy (adaptive agent governance), Graph (trust relationship visualization), and Console (unified SecOps observability).
+              </p>
+              <span className="rs-note">Research division · BISXP India</span>
+            </div>
+          </div>
+          {/* CTA strip */}
+          <div className="rs-cta">
+            <h3>Interested in early access or research collaboration?</h3>
+            <p>
+              We are working with a small number of early partners in enterprise AI security. If you are building autonomous agent systems and need a trust and security layer, we want to hear from you.
+            </p>
+            <a href="#contact" className="btn-amber">Request Early Access</a>
           </div>
         </div>
       </section>
