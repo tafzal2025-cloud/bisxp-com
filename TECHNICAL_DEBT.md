@@ -110,9 +110,18 @@ _Last updated: 2026-04-07 Session 1_
 
 ---
 
-## Cleared Debt
+## Cleared Debt — Session 2 (2026-04-07)
 
-_Nothing cleared yet — Session 1 was the foundation._
+### Supabase project separation — DONE (2026-04-07)
+- **Was**: BISXP.com sharing Supabase project vcyiudixtnmycntywmxa with CareGrid marketplace
+- **Risk**: CareGrid provider data, insurance plans, and admin access mixed with BISXP.com enquiries and auth
+- **Fixed**: New standalone Supabase project ghcxevhmhtuvjzmptvfw created for BISXP.com. CareGrid retains original project untouched. All env vars updated in Vercel, GitHub Secrets, and .env.local. Admin user recreated on new project.
+
+---
+
+## Cleared Debt — Session 1
+
+_Nothing cleared in Session 1 — it was the foundation._
 
 ---
 

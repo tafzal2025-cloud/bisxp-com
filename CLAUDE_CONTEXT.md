@@ -1,6 +1,6 @@
 # BISXP.COM — Session Brain
 
-**Last Updated:** Session 1 — 2026-03-16
+**Last Updated:** Session 2 — 2026-04-07
 
 ---
 
@@ -41,7 +41,11 @@ Deploy: Vercel (not yet configured)
 ---
 
 ## Database
-Supabase URL: (fill in from env)
+Supabase URL: ghcxevhmhtuvjzmptvfw.supabase.co
+Region: US East
+Note: Separated from CareGrid on 2026-04-07.
+CareGrid retains vcyiudixtnmycntywmxa.supabase.co.
+BISXP.com has its own standalone project.
 
 **Tables:**
 - `enquiries` — contact form submissions. Status: new → contacted → qualified → converted → closed

@@ -334,13 +334,15 @@ export default function HomePage() {
           background: var(--border-strong);
         }
         .stat-number {
-          font-family: 'Cormorant Garamond', serif;
+          font-family: 'Outfit', sans-serif;
           font-size: 52px;
           font-weight: 300;
           color: var(--amber);
           line-height: 1;
           display: block;
           margin-bottom: 8px;
+          font-variant-numeric: tabular-nums;
+          letter-spacing: -0.02em;
         }
         .stat-label {
           font-family: 'Outfit', sans-serif;
@@ -475,6 +477,14 @@ export default function HomePage() {
           color: var(--amber);
           border: 1px solid var(--border-strong);
           padding: 4px 12px;
+        }
+        .portfolio-market {
+          font-family: 'Outfit', sans-serif;
+          font-size: 12px;
+          font-weight: 400;
+          letter-spacing: 2px;
+          color: var(--muted);
+          text-transform: uppercase;
         }
         .portfolio-link {
           font-family: 'Outfit', sans-serif;
@@ -902,6 +912,194 @@ export default function HomePage() {
           50% { box-shadow: 0 4px 32px rgba(212,168,67,0.65), 0 0 0 8px rgba(212,168,67,0.1); }
         }
 
+        /* ── TEAM ── */
+        .team-section {
+          background: var(--charcoal);
+          padding: 100px 40px;
+          border-top: 1px solid var(--border);
+        }
+        .team-grid {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 48px;
+          max-width: 1200px;
+          margin: 0 auto;
+        }
+        .team-card {
+          display: flex;
+          flex-direction: column;
+          gap: 20px;
+        }
+        .team-photo {
+          width: 100%;
+          aspect-ratio: 3/2;
+          background: var(--steel);
+          border: 1px solid var(--border);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          position: relative;
+          overflow: hidden;
+        }
+        .team-photo-placeholder {
+          font-family: 'Outfit', sans-serif;
+          font-size: 10px;
+          font-weight: 400;
+          letter-spacing: 3px;
+          text-transform: uppercase;
+          color: var(--muted);
+          opacity: 0.4;
+        }
+        .team-photo-initials {
+          position: absolute;
+          font-family: 'Cormorant Garamond', serif;
+          font-size: 72px;
+          font-weight: 300;
+          color: var(--amber);
+          opacity: 0.12;
+          user-select: none;
+        }
+        .team-name {
+          font-family: 'Cormorant Garamond', serif;
+          font-size: 36px;
+          font-weight: 300;
+          color: var(--cream);
+          line-height: 1;
+          margin: 0;
+        }
+        .team-title {
+          font-family: 'Outfit', sans-serif;
+          font-size: 11px;
+          font-weight: 500;
+          letter-spacing: 3px;
+          text-transform: uppercase;
+          color: var(--amber);
+          margin-top: -8px;
+        }
+        .team-bio {
+          font-family: 'Outfit', sans-serif;
+          font-size: 14px;
+          font-weight: 300;
+          color: var(--muted);
+          line-height: 1.8;
+        }
+        .team-bio p {
+          margin-bottom: 16px;
+        }
+        .team-bio p:last-child {
+          margin-bottom: 0;
+        }
+        .team-patent {
+          font-family: 'Outfit', sans-serif;
+          font-size: 11px;
+          font-weight: 400;
+          letter-spacing: 2px;
+          text-transform: uppercase;
+          color: var(--amber);
+          opacity: 0.6;
+          padding-top: 16px;
+          border-top: 1px solid var(--border);
+        }
+
+        /* ── RESEARCH & SECURITY ── */
+        .rs-section {
+          background: var(--obsidian);
+          padding: 100px 40px;
+          border-top: 1px solid var(--border);
+        }
+        .rs-grid {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 2px;
+          max-width: 1200px;
+          margin: 0 auto 2px;
+        }
+        .rs-card {
+          background: var(--charcoal);
+          padding: 48px;
+          border-top: 3px solid transparent;
+          transition: border-color 0.3s;
+          display: flex;
+          flex-direction: column;
+          gap: 16px;
+        }
+        .rs-card:hover {
+          border-top-color: var(--amber);
+        }
+        .rs-tag {
+          font-family: 'Outfit', sans-serif;
+          font-size: 10px;
+          font-weight: 500;
+          letter-spacing: 3px;
+          text-transform: uppercase;
+          color: var(--amber);
+          border: 1px solid var(--border-strong);
+          padding: 4px 12px;
+          display: inline-block;
+          width: fit-content;
+        }
+        .rs-title {
+          font-family: 'Cormorant Garamond', serif;
+          font-size: 44px;
+          font-weight: 300;
+          color: var(--cream);
+          line-height: 1;
+          margin: 0;
+        }
+        .rs-subtitle {
+          font-family: 'Outfit', sans-serif;
+          font-size: 11px;
+          font-weight: 500;
+          letter-spacing: 3px;
+          text-transform: uppercase;
+          color: var(--amber);
+        }
+        .rs-body {
+          font-family: 'Outfit', sans-serif;
+          font-size: 14px;
+          font-weight: 300;
+          color: var(--muted);
+          line-height: 1.75;
+        }
+        .rs-note {
+          font-family: 'Outfit', sans-serif;
+          font-size: 11px;
+          font-weight: 400;
+          letter-spacing: 2px;
+          text-transform: uppercase;
+          color: var(--amber);
+          opacity: 0.6;
+          margin-top: auto;
+          padding-top: 20px;
+          border-top: 1px solid var(--border);
+        }
+        .rs-cta {
+          max-width: 1200px;
+          margin: 0 auto;
+          background: var(--amber-dim);
+          border: 1px solid var(--border-strong);
+          padding: 52px 48px;
+          text-align: center;
+        }
+        .rs-cta h3 {
+          font-family: 'Cormorant Garamond', serif;
+          font-size: 34px;
+          font-weight: 300;
+          font-style: italic;
+          color: var(--cream);
+          margin-bottom: 16px;
+          line-height: 1.3;
+        }
+        .rs-cta p {
+          font-family: 'Outfit', sans-serif;
+          font-size: 15px;
+          font-weight: 300;
+          color: var(--muted);
+          max-width: 560px;
+          margin: 0 auto 32px;
+          line-height: 1.7;
+        }
+
         /* ── RESPONSIVE ── */
         @media (max-width: 900px) {
           .nav { padding: 0 24px; }
@@ -912,15 +1110,19 @@ export default function HomePage() {
           .stats-grid { grid-template-columns: repeat(2, 1fr); }
           .stat-item:nth-child(2)::after { display: none; }
           .acronym-grid { grid-template-columns: 1fr; }
-          .portfolio-grid { grid-template-columns: 1fr; }
+          .portfolio-grid { grid-template-columns: 1fr !important; }
           .services-grid { grid-template-columns: 1fr; }
           .process-steps {
             grid-template-columns: 1fr;
             gap: 40px;
           }
           .process-steps::before { display: none; }
-          .process-step { padding: 0; border-left: 2px solid var(--border-strong); padding-left: 24px; }
-          .process-number { background: transparent; }
+          .process-step { padding: 0; border-left: 2px solid var(--border-strong); padding-left: 24px; padding-right: 0; }
+          .process-step:first-child { padding-left: 24px; }
+          .process-step:last-child { padding-right: 0; }
+          .process-number { background: transparent; font-size: 40px; margin-bottom: 14px; }
+          .process-title { font-size: 13px; letter-spacing: 0.5px; margin-bottom: 10px; }
+          .process-desc { font-size: 13px; line-height: 1.65; }
           .contact-grid { grid-template-columns: 1fr; gap: 48px; }
           .footer-grid { grid-template-columns: 1fr; gap: 32px; }
           .footer-contact { align-items: flex-start; }
@@ -937,6 +1139,13 @@ export default function HomePage() {
           .service-card { padding: 36px; }
           .portfolio-callout { padding: 40px 28px; }
           .portfolio-callout p { font-size: 22px; }
+          .rs-grid { grid-template-columns: 1fr; }
+          .rs-section { padding: 72px 24px; }
+          .rs-card { padding: 36px 28px; }
+          .rs-cta { padding: 40px 28px; }
+          .rs-cta h3 { font-size: 26px; }
+          .team-grid { grid-template-columns: 1fr; gap: 64px; }
+          .team-section { padding: 72px 24px; }
         }
         @media (max-width: 600px) {
           .hero-headline { font-size: 40px; }
@@ -944,6 +1153,7 @@ export default function HomePage() {
           .stats-grid { grid-template-columns: repeat(2, 1fr); }
           .stat-item::after { display: none; }
           .wa-fab { bottom: 20px; right: 20px; }
+          .team-name { font-size: 28px; }
         }
       `}</style>
 
@@ -994,7 +1204,6 @@ export default function HomePage() {
           </div>
         </div>
         <div className="scroll-indicator">
-          <span>Scroll</span>
           <div className="scroll-line" />
         </div>
       </section>
@@ -1003,14 +1212,14 @@ export default function HomePage() {
       <div className="stats-bar">
         <div className="stats-grid">
           <div className="stat-item">
-            <span className="stat-number">2</span>
-            <span className="stat-label">Live marketplaces</span>
-            <span className="stat-sub">Built and deployed</span>
+            <span className="stat-number">4</span>
+            <span className="stat-label">Marketplaces in development</span>
+            <span className="stat-sub">Launching in 2026</span>
           </div>
           <div className="stat-item">
-            <span className="stat-number">8 wks</span>
-            <span className="stat-label">Average build time</span>
-            <span className="stat-sub">Idea to production</span>
+            <span className="stat-number">25 yrs</span>
+            <span className="stat-label">Combined experience</span>
+            <span className="stat-sub">Microsoft · AWS · Enterprise AI</span>
           </div>
           <div className="stat-item">
             <span className="stat-number">3</span>
@@ -1041,9 +1250,9 @@ export default function HomePage() {
             <div className="acronym-card">
               <span className="acronym-ghost">I</span>
               <span className="acronym-letter">I —</span>
-              <span className="acronym-word">Ignite</span>
+              <span className="acronym-word">Implement</span>
               <p className="acronym-desc">
-                We spark momentum — aligning your team, activating systems, and getting the right things moving.
+                We turn blueprints into working software — shipped, deployed, and live. Not wireframes. Not prototypes. Production.
               </p>
             </div>
             <div className="acronym-card">
@@ -1075,61 +1284,113 @@ export default function HomePage() {
             {/* TABRO */}
             <div className="portfolio-card">
               <div>
-                <p className="portfolio-eyebrow">India · Venue Marketplace</p>
+                <p className="portfolio-eyebrow">INDIA · VENUE & EVENTS MARKETPLACE</p>
                 <h3 className="portfolio-title">TABRO.IN</h3>
               </div>
               <p className="portfolio-desc">
-                End-to-end event venue marketplace for Hyderabad. Five open lawns, indoor halls, sports facilities, overnight stays. Owner portals, social feed, enquiry pipeline, tiered subscriptions.
+                End-to-end venue and events marketplace for Hyderabad. Connecting celebration venues, caterers, decorators, and photographers with families planning weddings, receptions, and corporate events. Owner portals, social feed, enquiry CRM, and tiered subscriptions.
               </p>
-              <div className="portfolio-tags">
-                {['Next.js', 'Supabase', 'Vercel', 'Stripe', 'Claude AI'].map((t) => (
-                  <span key={t} className="portfolio-tag">{t}</span>
-                ))}
-              </div>
-              <a
-                href="https://tabro.in"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="portfolio-link"
-              >
-                tabro.in →
-              </a>
-              <p className="portfolio-stat-strip">Premium venues · Owner portals · Social feed</p>
+              <span className="portfolio-market">Venues · Vendors · Influencers · India + Global</span>
+              <span style={{ fontSize: '11px', letterSpacing: '2px', textTransform: 'uppercase' as const, color: 'var(--amber)', opacity: 0.8 }}>· In Development · Launching 2026</span>
             </div>
 
             {/* TheUnitedSports */}
             <div className="portfolio-card">
               <div>
-                <p className="portfolio-eyebrow">USA + Canada · Sports Marketplace</p>
+                <p className="portfolio-eyebrow">USA + CANADA · SPORTS MARKETPLACE</p>
                 <h3 className="portfolio-title">TheUnitedSports</h3>
               </div>
               <p className="portfolio-desc">
-                Cricket-first sports marketplace for the North American diaspora. Academies, coaches, grounds, gear vendors, leagues — all in one platform with social feed and influencer programme.
+                Sport-agnostic marketplace connecting athletes, coaches, academies, grounds, gear vendors, and leagues across North America. Cricket-first beachhead with infrastructure built to scale to every sport and every market.
               </p>
-              <div className="portfolio-tags">
-                {['Next.js', 'Supabase', 'AWS', 'Stripe', 'Claude AI'].map((t) => (
-                  <span key={t} className="portfolio-tag">{t}</span>
-                ))}
+              <span className="portfolio-market">Academies · Coaches · Grounds · Leagues · US + Canada</span>
+              <span style={{ fontSize: '11px', letterSpacing: '2px', textTransform: 'uppercase' as const, color: 'var(--amber)', opacity: 0.8 }}>· In Development · Launching 2026</span>
+            </div>
+
+            {/* CareGrid */}
+            <div className="portfolio-card">
+              <div>
+                <p className="portfolio-eyebrow">USA + CANADA · HEALTHCARE MARKETPLACE</p>
+                <h3 className="portfolio-title">CareGrid</h3>
               </div>
-              <a
-                href="https://theunitedsports.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="portfolio-link"
-              >
-                theunitedsports.com →
-              </a>
-              <p className="portfolio-stat-strip">Cricket · Soccer · Kabaddi · All sports</p>
+              <p className="portfolio-desc">
+                Verified healthcare provider directory with insurance network filtering at its core. Patients find in-network doctors, clinics, and specialists by insurance plan, specialty, and location — solving the broken insurance directory problem that affects every American with health insurance.
+              </p>
+              <span className="portfolio-market">Providers · Insurance Filtering · United States</span>
+              <span style={{ fontSize: '11px', letterSpacing: '2px', textTransform: 'uppercase' as const, color: 'var(--amber)', opacity: 0.8 }}>· In Development · Launching 2026</span>
+            </div>
+
+            {/* MediGrid */}
+            <div className="portfolio-card">
+              <div>
+                <p className="portfolio-eyebrow">India · Medical Tourism Marketplace</p>
+                <h3 className="portfolio-title">MediGrid</h3>
+              </div>
+              <p className="portfolio-desc">
+                India&apos;s first purpose-built medical tourism marketplace, starting with a Hyderabad pilot. International patients from the Gulf, Africa, and the UK discover world-class Indian hospitals, compare procedures and costs, and connect with international patient coordinators — all in one place.
+              </p>
+              <span className="portfolio-market">Hospitals · Medical Tourism · Hyderabad → Global</span>
+              <span style={{ fontSize: '11px', letterSpacing: '2px', textTransform: 'uppercase' as const, color: 'var(--amber)', opacity: 0.8 }}>· In Development · Launching 2026</span>
             </div>
           </div>
 
           {/* Callout strip */}
           <div className="portfolio-callout">
             <p>
-              Your marketplace could be next. We've done this twice.<br />
-              We know exactly how to do it again.
+              Four world-class marketplaces. One proven platform pattern.<br />
+              Your vertical could be next.
             </p>
             <a href="#contact" className="btn-amber">Let's Talk</a>
+          </div>
+        </div>
+      </section>
+
+      {/* ── RESEARCH & SECURITY ── */}
+      <section className="rs-section">
+        <div className="container">
+          <span className="section-eyebrow">What We&apos;re Building Next</span>
+          <h2 className="section-heading">Research &amp; Security</h2>
+          <p style={{
+            fontFamily: "'Outfit', sans-serif",
+            fontSize: '16px',
+            fontWeight: 300,
+            color: 'var(--muted)',
+            maxWidth: '640px',
+            lineHeight: '1.7',
+            marginBottom: '48px',
+            marginTop: '-32px'
+          }}>
+            While we build marketplaces, we are simultaneously working on the next frontier — securing the infrastructure that autonomous AI agents will run on. This is serious research, not a roadmap slide.
+          </p>
+          <div className="rs-grid">
+            {/* ZeroMesh */}
+            <div className="rs-card">
+              <span className="rs-tag">Active Research</span>
+              <h3 className="rs-title">ZeroMesh</h3>
+              <span className="rs-subtitle">Agentic Zero Trust Protocol</span>
+              <p className="rs-body">
+                As AI agents proliferate across enterprise infrastructure, the trust fabric connecting them becomes the new attack surface. ZeroMesh proposes a zero-trust security layer for autonomous multi-agent systems — real-time trust recalibration, behavioral anomaly detection, and rule-based policy enforcement for agent-to-agent communication.
+              </p>
+              <span className="rs-note">IEEE paper submitted · August 2025</span>
+            </div>
+            {/* BISXP Security Platform */}
+            <div className="rs-card">
+              <span className="rs-tag">In Development</span>
+              <h3 className="rs-title">BISXP Security</h3>
+              <span className="rs-subtitle">Zero-Trust Fabric for the Open Web</span>
+              <p className="rs-body">
+                A modular security platform for teams deploying LLM agents, autonomous pipelines, and distributed AI systems. Five integrated modules: Guard (runtime agent protection), Mind (behavioral baselining and drift detection), Policy (adaptive agent governance), Graph (trust relationship visualization), and Console (unified SecOps observability).
+              </p>
+              <span className="rs-note">Research division · BISXP India</span>
+            </div>
+          </div>
+          {/* CTA strip */}
+          <div className="rs-cta">
+            <h3>Interested in early access or research collaboration?</h3>
+            <p>
+              We are working with a small number of early partners in enterprise AI security. If you are building autonomous agent systems and need a trust and security layer, we want to hear from you.
+            </p>
+            <a href="#contact" className="btn-amber">Request Early Access</a>
           </div>
         </div>
       </section>
@@ -1139,37 +1400,46 @@ export default function HomePage() {
         <div className="container">
           <span className="section-eyebrow">Services</span>
           <h2 className="section-heading">What We Build</h2>
+          <p style={{
+            fontFamily: "'Outfit', sans-serif",
+            fontSize: '14px',
+            fontWeight: 300,
+            color: 'var(--muted)',
+            maxWidth: '600px',
+            lineHeight: '1.7',
+            marginBottom: '48px',
+            marginTop: '-40px',
+            letterSpacing: '0.3px'
+          }}>
+            Every product we build runs on the same proven platform pattern — architected for Vercel and Supabase at launch, and AWS at scale. The stack evolves with your growth. The pattern doesn&apos;t change.
+          </p>
           <div className="services-grid">
             <div className="service-card">
               <span className="service-icon">◈</span>
-              <h3 className="service-title">Marketplace Starter</h3>
-              <span className="service-price">8 weeks · From $25,000</span>
+              <h3 className="service-title">Marketplace Build</h3>
               <p className="service-desc">
-                A complete two-sided marketplace — listings, owner portals, enquiry system, payments, and social feed. Built on our proven pattern. Deployed and live.
+                We build your two-sided marketplace from the ground up — listings, owner portals, enquiry system, payments, social feed, and admin dashboard. Deployed and live, not handed off half-finished.
               </p>
             </div>
             <div className="service-card">
               <span className="service-icon">⬡</span>
-              <h3 className="service-title">Marketplace Pro</h3>
-              <span className="service-price">12 weeks · From $50,000</span>
+              <h3 className="service-title">AI Integration</h3>
               <p className="service-desc">
-                Everything in Starter plus Claude AI integration — intelligent search, automated matching, AI-powered listing descriptions, and custom features for your vertical.
+                We embed Claude AI into your product — intelligent search, automated matching, AI-generated listing descriptions, and workflow automation. The same AI layer powering our own marketplaces.
               </p>
             </div>
             <div className="service-card">
               <span className="service-icon">◎</span>
-              <h3 className="service-title">SaaS Platform</h3>
-              <span className="service-price">10–16 weeks · Custom</span>
+              <h3 className="service-title">SaaS Product</h3>
               <p className="service-desc">
-                Custom SaaS product built with the full BISXP stack. Auth, subscriptions, multi-tenant portals, admin dashboards, API integrations. Production-grade from day one.
+                Custom SaaS products built on the full BISXP stack — auth, subscriptions, multi-tenant portals, admin dashboards, and API integrations. Production-grade architecture from day one.
               </p>
             </div>
             <div className="service-card">
               <span className="service-icon">△</span>
-              <h3 className="service-title">Digital Transformation Retainer</h3>
-              <span className="service-price">Ongoing · From $5,000/mo</span>
+              <h3 className="service-title">Ongoing Partnership</h3>
               <p className="service-desc">
-                Embedded technical partner for businesses that need continuous delivery — new features, AWS migration, AI integration, performance, and strategic guidance.
+                An embedded technical partner for businesses that need continuous delivery — new features, infrastructure scaling, AI integration, and strategic guidance as your product grows.
               </p>
             </div>
           </div>
@@ -1362,12 +1632,82 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ── TEAM ── */}
+      <section className="team-section">
+        <div className="container">
+          <span className="section-eyebrow">The Team</span>
+          <h2 className="section-heading" style={{ marginBottom: '64px' }}>
+            The people behind the work
+          </h2>
+          <div className="team-grid">
+
+            {/* Tharif Afzal */}
+            <div className="team-card">
+              <div className="team-photo">
+                <span className="team-photo-initials">TA</span>
+                <span className="team-photo-placeholder">Photo coming soon</span>
+              </div>
+              <div>
+                <h3 className="team-name">Tharif Afzal</h3>
+                <p className="team-title">Founder &amp; CEO</p>
+              </div>
+              <div className="team-bio">
+                <p>
+                  Tharif Afzal built the data infrastructure that enterprise AI runs on. Now he&apos;s building the AI-native platforms that put it to work.
+                </p>
+                <p>
+                  His path to BISXP runs through 25 years at the centre of two hyperscalers. At Microsoft, he grew from debugging .NET internals to leading cloud modernisation programs that became reference architectures for Azure enterprise adoption — 16 years of progressive leadership across developer support, engineering management, and large-scale migrations that shaped how enterprises moved to the cloud.
+                </p>
+                <p>
+                  At AWS, he led engineering for Amazon AppFlow and AWS Glue Streaming — the services enterprises depend on to move, transform, and stream data at scale. Under his leadership, the team launched Zero ETL integrations for the top eight SaaS platforms including Salesforce, SAP, and ServiceNow, and built DynamoDB ingestion into modern data lakes with Apache Iceberg on native S3 and S3 Tables. That work produced US Patent 11435871 for workflow execution architecture — a direct outcome of designing systems that had to be reliable under real production load. These are not supporting services. They are the pipelines that power enterprise AI workloads today.
+                </p>
+                <p>
+                  That vantage point — building highly scalable distributed systems and watching what breaks and why — is what BISXP is built on. The conviction is straightforward: the same architectural discipline that makes hyperscale systems reliable can be applied to build AI-native products faster, and with more precision, than traditional development allows.
+                </p>
+                <p>
+                  At BISXP, Tharif leads strategy, product architecture, and every client engagement. The builder who stays until it works.
+                </p>
+              </div>
+              <span className="team-patent">US Patent 11435871 · Workflow Execution Architecture</span>
+            </div>
+
+            {/* Amtul Baseer Ifra */}
+            <div className="team-card">
+              <div className="team-photo">
+                <span className="team-photo-initials">AI</span>
+                <span className="team-photo-placeholder">Photo coming soon</span>
+              </div>
+              <div>
+                <h3 className="team-name">Amtul Baseer Ifra</h3>
+                <p className="team-title">Director, Agentic AI Security &amp; Research</p>
+              </div>
+              <div className="team-bio">
+                <p>
+                  Amtul Baseer Ifra leads BISXP&apos;s agentic AI security research — the work that answers a question most AI teams haven&apos;t thought to ask yet: when your AI agents start talking to each other at scale, who is checking that they can be trusted?
+                </p>
+                <p>
+                  Her path to that question began with federated learning — a technique that lets distributed systems collaborate on a shared intelligence model without centralising sensitive data. She applied it to one of the harder problems in distributed security: detecting DDoS attacks across networked environments while keeping every node&apos;s data private. The system worked. The research was published and peer-reviewed. And it established the instinct that runs through everything she builds — security that protects without surveillance, intelligence that works without exposure.
+                </p>
+                <p>
+                  ZeroMesh is the next expression of that instinct. A zero-trust security layer for autonomous multi-agent systems, built on the Agentic Zero Trust Protocol (AZTP). When one agent in an implicitly trusted network is compromised, the blast radius is the entire system. ZeroMesh changes that — real-time trust recalibration, behavioral anomaly detection, and rule-based policy enforcement between agents, designed to integrate with existing frameworks like LangChain, AutoGen, and CrewAI without requiring teams to restructure what they&apos;ve already built.
+                </p>
+                <p>
+                  At BISXP, she partners directly with the CEO on the agentic AI security product roadmap — from the ZeroMesh research layer through to BISXP Security, a modular platform for enterprise teams navigating the shift to autonomous AI operations. She leads BISXP India, where that future is being built from the ground up.
+                </p>
+              </div>
+              <span className="team-patent">IEEE Paper Submitted · August 2025 · ZeroMesh: Agentic Zero Trust Protocol</span>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
       {/* ── FOOTER ── */}
       <footer className="footer">
         <div className="footer-grid">
           <div>
             <span className="footer-logo">BISX<span>P</span></span>
-            <p className="footer-tagline">Blueprint. Ignite. Scale. Xperience.</p>
+            <p className="footer-tagline">Blueprint. Implement. Scale. Xperience.</p>
           </div>
           <div>
             <div className="footer-links">

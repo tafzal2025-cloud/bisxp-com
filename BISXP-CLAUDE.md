@@ -701,7 +701,7 @@ broken intermediate states.
 
 ### Required environment variables
 ```
-NEXT_PUBLIC_SUPABASE_URL=https://vcyiudixtnmycntywmxa.supabase.co
+NEXT_PUBLIC_SUPABASE_URL=https://ghcxevhmhtuvjzmptvfw.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY=<from Supabase Settings → API>
 SUPABASE_SERVICE_ROLE_KEY=<from Supabase Settings → API — keep secret>
 RESEND_API_KEY=<from BISXP Resend account>
@@ -711,10 +711,12 @@ NEXT_PUBLIC_WHATSAPP_NUMBER=<full number with country code>
 ```
 
 ### Supabase project
-- Project: `bisxp6-cmd's Org`
-- URL: `https://vcyiudixtnmycntywmxa.supabase.co`
+- Project: `bisxp6-cmd` org
+- URL: `https://ghcxevhmhtuvjzmptvfw.supabase.co`
 - Region: US East
-- Admin user: `bisxp6@google.com` (created manually, no trigger needed)
+- Separated from CareGrid: 2026-04-07
+- Admin user: `bisxp6@google.com` (created manually, no trigger)
+- Tables: enquiries, profiles
 
 ### Supabase OAuth redirect URLs
 Configure in Supabase → Authentication → URL Configuration → Redirect URLs:

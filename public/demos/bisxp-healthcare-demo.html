@@ -175,13 +175,13 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 .bva-title{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;color:var(--wh);margin-bottom:5px}
 .bva-sub{font-size:11px;color:var(--mu2);line-height:1.65}
 .bva-hitl{background:var(--st);border:1px solid var(--bd);border-radius:8px;padding:12px 14px;margin-bottom:14px}
-.bva-grid{display:grid;gap:4px}
-.bva-cell{border-radius:6px;padding:8px 4px 6px;text-align:center;font-size:9px;line-height:1.4;font-family:"JetBrains Mono",monospace;font-weight:500;letter-spacing:.02em;transition:all .2s;position:relative}
+.bva-grid{display:flex;flex-direction:row;flex-wrap:wrap;gap:8px;margin-bottom:20px}
+.bva-cell{border-radius:6px;padding:10px 16px;text-align:center;font-size:0.8rem;line-height:1.4;font-family:"JetBrains Mono",monospace;font-weight:500;letter-spacing:.02em;transition:all .2s;position:relative;min-width:100px;flex:1;cursor:pointer;display:flex;flex-direction:column;align-items:center}
 .bva-ai{background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.2);color:rgba(147,197,253,0.85);border-top:3px solid rgba(59,130,246,0.5)}
 .bva-h{background:var(--acd);border:1px solid var(--bdas);color:var(--ac);font-weight:700;border-top:3px solid var(--ac);box-shadow:0 0 12px var(--acd)}
-.bva-toggle{display:flex;gap:6px;margin-bottom:12px}
-.bva-btn{padding:5px 14px;border-radius:6px;border:1px solid var(--bds);background:transparent;color:var(--mu);font-size:11px;cursor:pointer;transition:all .15s;font-family:'Outfit',sans-serif}
-.bva-btn:hover{color:var(--cr)}.bva-on{background:var(--st2);border-color:var(--bds);color:var(--cr)}
+.bva-toggle{display:flex;flex-direction:row;gap:4px;margin:16px 0 12px}
+.bva-btn{padding:8px 18px;border-radius:4px;border:1px solid rgba(255,255,255,0.2);background:transparent;color:rgba(255,255,255,0.6);font-size:0.8rem;font-weight:500;cursor:pointer;transition:all .15s;font-family:'Outfit',sans-serif}
+.bva-btn:hover{color:var(--cr)}.bva-on{background:rgba(255,255,255,0.12);border-color:rgba(255,255,255,0.4);color:#fff}
 .bva-legend{display:flex;gap:14px;margin-bottom:12px;flex-wrap:wrap;font-size:10px;color:var(--mu2)}
 .bva-row{display:grid;grid-template-columns:150px 1fr 90px;align-items:center;gap:8px;margin-bottom:5px}
 @media(max-width:560px){.bva-row{grid-template-columns:100px 1fr 60px}}
@@ -194,6 +194,7 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 </style>
 </head>
 <body>
+<script>if(sessionStorage.getItem('bisxp_demo_access')!=='true'){window.location.replace('/demos/access.html');}</script>
 
 <header class="hdr">
   <a class="logo" href="index.html">BIS<span>XP</span></a>
@@ -214,8 +215,8 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 
 <div class="hero">
   <div class="hero-eye">BISXP Enterprise · Healthcare &amp; Life Sciences</div>
-  <h1 class="hero-h">Healthcare Admin.<br><em>Rebuilt AI-Native.</em></h1>
-  <p class="hero-s">Prior auth, credentialing, HIPAA compliance, clinical trials, adverse events. Every workflow below runs real Claude AI — human clinical judgment preserved at every critical decision point.</p>
+  <h1 class="hero-h">Healthcare &mdash;<br><em>AI-native workflow demos</em></h1>
+  <p class="hero-s">Step through real healthcare workflows &mdash; prior authorization, provider credentialing, HIPAA compliance, clinical trials, and adverse event reporting &mdash; with AI automation and human judgment at the right points.</p>
   <div class="beats">Replaces: <span>Appian · ServiceNow · Epic</span></div>
 </div>
 
@@ -653,7 +654,7 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 
 <footer class="footer">
   <p class="footer-s">Every workflow above took us hours to build. Your Appian or ServiceNow healthcare implementation took months and cost millions.<br>We rebuild it AI-native in 8 weeks — you own the code.</p>
-  <a class="footer-cta" href="https://bisxp.com/#contact">Book a Free Assessment →</a>
+  <a class="footer-cta" href="https://bisxp.com/#contact">Request a tailored demo →</a>
 </footer>
 
 <div class="toast" id="toast-el"><div class="toast-t" id="toast-t"></div><div id="toast-m"></div></div>
