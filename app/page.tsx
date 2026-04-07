@@ -476,6 +476,14 @@ export default function HomePage() {
           border: 1px solid var(--border-strong);
           padding: 4px 12px;
         }
+        .portfolio-market {
+          font-family: 'Outfit', sans-serif;
+          font-size: 12px;
+          font-weight: 400;
+          letter-spacing: 2px;
+          color: var(--muted);
+          text-transform: uppercase;
+        }
         .portfolio-link {
           font-family: 'Outfit', sans-serif;
           font-size: 13px;
@@ -1107,7 +1115,7 @@ export default function HomePage() {
       <div className="stats-bar">
         <div className="stats-grid">
           <div className="stat-item">
-            <span className="stat-number">3</span>
+            <span className="stat-number">4</span>
             <span className="stat-label">Marketplaces in development</span>
             <span className="stat-sub">Launching in 8–12 weeks</span>
           </div>
@@ -1175,7 +1183,7 @@ export default function HomePage() {
         <div className="container">
           <span className="section-eyebrow">Our Work</span>
           <h2 className="section-heading">Built by BISXP</h2>
-          <div className="portfolio-grid" style={{ gridTemplateColumns: 'repeat(3, 1fr)' }}>
+          <div className="portfolio-grid">
             {/* TABRO */}
             <div className="portfolio-card">
               <div>
@@ -1185,11 +1193,7 @@ export default function HomePage() {
               <p className="portfolio-desc">
                 End-to-end venue and events marketplace for Hyderabad. Connecting celebration venues, caterers, decorators, and photographers with families planning weddings, receptions, and corporate events. Owner portals, social feed, enquiry CRM, and tiered subscriptions.
               </p>
-              <div className="portfolio-tags">
-                {['Next.js', 'Supabase', 'Vercel', 'Claude AI'].map((t) => (
-                  <span key={t} className="portfolio-tag">{t}</span>
-                ))}
-              </div>
+              <span className="portfolio-market">Venues · Vendors · Influencers · India + Global</span>
               <span style={{ fontSize: '11px', letterSpacing: '2px', textTransform: 'uppercase' as const, color: 'var(--amber)', opacity: 0.8 }}>· In Development · Launching 2026</span>
             </div>
 
@@ -1202,11 +1206,7 @@ export default function HomePage() {
               <p className="portfolio-desc">
                 Sport-agnostic marketplace connecting athletes, coaches, academies, grounds, gear vendors, and leagues across North America. Cricket-first beachhead with infrastructure built to scale to every sport and every market.
               </p>
-              <div className="portfolio-tags">
-                {['Next.js', 'Supabase', 'AWS', 'Claude AI'].map((t) => (
-                  <span key={t} className="portfolio-tag">{t}</span>
-                ))}
-              </div>
+              <span className="portfolio-market">Academies · Coaches · Grounds · Leagues · US + Canada</span>
               <span style={{ fontSize: '11px', letterSpacing: '2px', textTransform: 'uppercase' as const, color: 'var(--amber)', opacity: 0.8 }}>· In Development · Launching 2026</span>
             </div>
 
@@ -1219,11 +1219,20 @@ export default function HomePage() {
               <p className="portfolio-desc">
                 Verified healthcare provider directory with insurance network filtering at its core. Patients find in-network doctors, clinics, and specialists by insurance plan, specialty, and location — solving the broken insurance directory problem that affects every American with health insurance.
               </p>
-              <div className="portfolio-tags">
-                {['Next.js', 'Supabase', 'Vercel', 'Claude AI'].map((t) => (
-                  <span key={t} className="portfolio-tag">{t}</span>
-                ))}
+              <span className="portfolio-market">Providers · Insurance Filtering · US + Canada</span>
+              <span style={{ fontSize: '11px', letterSpacing: '2px', textTransform: 'uppercase' as const, color: 'var(--amber)', opacity: 0.8 }}>· In Development · Launching 2026</span>
+            </div>
+
+            {/* MediGrid */}
+            <div className="portfolio-card">
+              <div>
+                <p className="portfolio-eyebrow">India · Medical Tourism Marketplace</p>
+                <h3 className="portfolio-title">MediGrid</h3>
               </div>
+              <p className="portfolio-desc">
+                India&apos;s first purpose-built medical tourism marketplace, starting with a Hyderabad pilot. International patients from the Gulf, Africa, and the UK discover world-class Indian hospitals, compare procedures and costs, and connect with international patient coordinators — all in one place.
+              </p>
+              <span className="portfolio-market">Hospitals · Medical Tourism · Hyderabad → Global</span>
               <span style={{ fontSize: '11px', letterSpacing: '2px', textTransform: 'uppercase' as const, color: 'var(--amber)', opacity: 0.8 }}>· In Development · Launching 2026</span>
             </div>
           </div>
@@ -1231,7 +1240,7 @@ export default function HomePage() {
           {/* Callout strip */}
           <div className="portfolio-callout">
             <p>
-              Three world-class marketplaces. One proven platform pattern.<br />
+              Four world-class marketplaces. One proven platform pattern.<br />
               Your vertical could be next.
             </p>
             <a href="#contact" className="btn-amber">Let's Talk</a>
@@ -1294,6 +1303,19 @@ export default function HomePage() {
         <div className="container">
           <span className="section-eyebrow">Services</span>
           <h2 className="section-heading">What We Build</h2>
+          <p style={{
+            fontFamily: "'Outfit', sans-serif",
+            fontSize: '14px',
+            fontWeight: 300,
+            color: 'var(--muted)',
+            maxWidth: '600px',
+            lineHeight: '1.7',
+            marginBottom: '48px',
+            marginTop: '-40px',
+            letterSpacing: '0.3px'
+          }}>
+            Every product we build runs on the same proven platform pattern — architected for Vercel and Supabase at launch, and AWS at scale. The stack evolves with your growth. The pattern doesn&apos;t change.
+          </p>
           <div className="services-grid">
             <div className="service-card">
               <span className="service-icon">◈</span>
