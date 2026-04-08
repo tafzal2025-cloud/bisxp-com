@@ -3,32 +3,12 @@
 import { useState, useEffect, useMemo } from 'react'
 import { useRouter } from 'next/navigation'
 import { createAuthClient } from '@/lib/supabase'
+import ContentEditor from '@/app/components/admin/ContentEditor'
 
 // ─── TYPES ───────────────────────────────────────────────────────────────────
 
-type AdminTab = 'enquiries' | 'content' | 'cms'
-
-interface CmsEntity {
-  id: string
-  [key: string]: unknown
-}
+type AdminTab = 'enquiries' | 'content'
 type EnquiryStatus = 'new' | 'contacted' | 'qualified' | 'converted' | 'closed'
-
-interface SettingRow {
-  key: string
-  value: string
-  label: string
-  section: string
-  sort_order: number
-}
-
-const SECTION_LABELS: Record<string, string> = {
-  hero: 'Hero Section',
-  stats: 'Stats Bar',
-  services: 'Services',
-  process: 'Our Process',
-  contact: 'Contact',
-}
 
 interface Enquiry {
   id: string
@@ -80,13 +60,6 @@ export default function AdminPage() {
   const [updatingId, setUpdatingId] = useState<string | null>(null)
   const [expandedId, setExpandedId] = useState<string | null>(null)
   const [activeTab, setActiveTab] = useState<AdminTab>('enquiries')
-  const [settings, setSettings] = useState<SettingRow[]>([])
-  const [editValues, setEditValues] = useState<Record<string, string>>({})
-  const [savingKey, setSavingKey] = useState<string | null>(null)
-  const [savedKey, setSavedKey] = useState<string | null>(null)
-  const [cmsSection, setCmsSection] = useState<'case-studies' | 'research-cards' | 'team-members' | 'services'>('case-studies')
-  const [cmsData, setCmsData] = useState<CmsEntity[]>([])
-  const [cmsLoading, setCmsLoading] = useState(false)
 
   // Auth check + fetch
   useEffect(() => {
@@ -124,55 +97,6 @@ export default function AdminPage() {
 
     if (!error && data) setEnquiries(data as Enquiry[])
     setLoading(false)
-  }
-
-  async function fetchSettings() {
-    const res = await fetch('/api/admin/settings')
-    if (res.ok) {
-      const data: SettingRow[] = await res.json()
-      setSettings(data)
-      setEditValues(Object.fromEntries(data.map(r => [r.key, r.value])))
-    }
-  }
-
-  async function saveSetting(key: string) {
-    setSavingKey(key)
-    setSavedKey(null)
-    try {
-      const res = await fetch('/api/admin/settings', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ key, value: editValues[key] }),
-      })
-      if (res.ok) {
-        setSavedKey(key)
-        setTimeout(() => setSavedKey(null), 2000)
-      }
-    } finally {
-      setSavingKey(null)
-    }
-  }
-
-  async function fetchCms(section: string) {
-    setCmsLoading(true)
-    const res = await fetch(`/api/admin/cms/${section}`)
-    if (res.ok) setCmsData(await res.json())
-    setCmsLoading(false)
-  }
-
-  async function toggleCmsVisibility(section: string, id: string, current: boolean) {
-    await fetch(`/api/admin/cms/${section}/${id}`, {
-      method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ is_visible: !current }),
-    })
-    fetchCms(section)
-  }
-
-  async function deleteCmsItem(section: string, id: string) {
-    if (!confirm('Delete this item permanently?')) return
-    await fetch(`/api/admin/cms/${section}/${id}`, { method: 'DELETE' })
-    fetchCms(section)
   }
 
   async function cycleStatus(enquiry: Enquiry) {
@@ -470,71 +394,10 @@ export default function AdminPage() {
         }
         .admin-tab:hover { color: var(--cream); }
         .admin-tab.active { color: var(--amber); border-bottom-color: var(--amber); }
-        .content-section { margin-bottom: 32px; }
-        .content-section-title {
-          font-family: 'Cormorant Garamond', serif;
-          font-size: 22px;
-          font-weight: 300;
-          color: var(--cream);
-          margin-bottom: 16px;
-          padding-bottom: 8px;
-          border-bottom: 1px solid var(--border);
-        }
-        .content-field {
-          display: flex;
-          align-items: flex-start;
-          gap: 12px;
-          margin-bottom: 12px;
-          padding: 12px 0;
-        }
-        .content-field-left { flex: 1; display: flex; flex-direction: column; gap: 6px; }
-        .content-label {
-          font-family: 'Inter', system-ui, sans-serif;
-          font-size: 10px;
-          font-weight: 500;
-          letter-spacing: 2px;
-          text-transform: uppercase;
-          color: var(--muted);
-        }
-        .content-input, .content-textarea {
-          background: var(--obsidian);
-          border: 1px solid var(--border);
-          color: var(--cream);
-          font-family: 'Inter', system-ui, sans-serif;
-          font-size: 14px;
-          font-weight: 300;
-          padding: 10px 14px;
-          outline: none;
-          transition: border-color 0.2s;
-          width: 100%;
-        }
-        .content-input:focus, .content-textarea:focus { border-color: var(--amber); }
-        .content-textarea { resize: vertical; min-height: 80px; }
-        .content-save {
-          font-family: 'Inter', system-ui, sans-serif;
-          font-size: 10px;
-          font-weight: 600;
-          letter-spacing: 2px;
-          text-transform: uppercase;
-          color: var(--obsidian);
-          background: var(--amber);
-          border: none;
-          padding: 10px 18px;
-          cursor: pointer;
-          transition: all 0.2s;
-          white-space: nowrap;
-          margin-top: 18px;
-          flex-shrink: 0;
-        }
-        .content-save:hover { background: var(--amber-bright); }
-        .content-save:disabled { opacity: 0.5; cursor: not-allowed; }
-        .content-save.saved { background: #2D7D46; color: #fff; }
         @media (max-width: 768px) {
           .admin-header { padding: 16px 20px; }
           .admin-body { padding: 24px 20px; }
           .admin-user-email { display: none; }
-          .content-field { flex-direction: column; }
-          .content-save { width: 100%; }
         }
       `}</style>
 
@@ -552,8 +415,7 @@ export default function AdminPage() {
           {/* Tabs */}
           <div className="admin-tabs">
             <button className={`admin-tab${activeTab === 'enquiries' ? ' active' : ''}`} onClick={() => setActiveTab('enquiries')}>📋 Enquiries</button>
-            <button className={`admin-tab${activeTab === 'content' ? ' active' : ''}`} onClick={() => { setActiveTab('content'); if (settings.length === 0) fetchSettings() }}>✏️ Content</button>
-            <button className={`admin-tab${activeTab === 'cms' ? ' active' : ''}`} onClick={() => { setActiveTab('cms'); fetchCms(cmsSection) }}>🗂️ CMS</button>
+            <button className={`admin-tab${activeTab === 'content' ? ' active' : ''}`} onClick={() => setActiveTab('content')}>✏️ Content</button>
           </div>
 
           {activeTab === 'enquiries' && (<>
@@ -657,112 +519,8 @@ export default function AdminPage() {
           )}
           </>)}
 
-          {activeTab === 'content' && (
-            <div>
-              <div className="admin-title-row">
-                <h1 className="admin-title">Content Editor</h1>
-              </div>
-              {settings.length === 0 ? (
-                <div className="loading-state">Loading settings…</div>
-              ) : (
-                (() => {
-                  const sections = [...new Set(settings.map(s => s.section))]
-                  return sections.map(section => (
-                    <div className="content-section" key={section}>
-                      <h2 className="content-section-title">{SECTION_LABELS[section] || section}</h2>
-                      {settings.filter(s => s.section === section).map(setting => (
-                        <div className="content-field" key={setting.key}>
-                          <div className="content-field-left">
-                            <label className="content-label">{setting.label}</label>
-                            {(editValues[setting.key] || '').length >= 60 ? (
-                              <textarea
-                                className="content-textarea"
-                                value={editValues[setting.key] || ''}
-                                onChange={e => setEditValues(prev => ({ ...prev, [setting.key]: e.target.value }))}
-                              />
-                            ) : (
-                              <input
-                                className="content-input"
-                                type="text"
-                                value={editValues[setting.key] || ''}
-                                onChange={e => setEditValues(prev => ({ ...prev, [setting.key]: e.target.value }))}
-                              />
-                            )}
-                          </div>
-                          <button
-                            className={`content-save${savedKey === setting.key ? ' saved' : ''}`}
-                            onClick={() => saveSetting(setting.key)}
-                            disabled={savingKey === setting.key}
-                          >
-                            {savingKey === setting.key ? 'Saving…' : savedKey === setting.key ? '✓ Saved' : 'Save'}
-                          </button>
-                        </div>
-                      ))}
-                    </div>
-                  ))
-                })()
-              )}
-            </div>
-          )}
+          {activeTab === 'content' && <ContentEditor />}
 
-          {activeTab === 'cms' && (
-            <div>
-              <div className="admin-title-row">
-                <h1 className="admin-title">CMS</h1>
-              </div>
-              <div className="admin-tabs" style={{ marginBottom: 24 }}>
-                {(['case-studies', 'research-cards', 'team-members', 'services'] as const).map(sec => (
-                  <button key={sec} className={`admin-tab${cmsSection === sec ? ' active' : ''}`}
-                    onClick={() => { setCmsSection(sec); fetchCms(sec) }}>
-                    {sec.replace('-', ' ').replace(/\b\w/g, c => c.toUpperCase())}
-                  </button>
-                ))}
-              </div>
-              {cmsLoading ? (
-                <div className="loading-state">Loading…</div>
-              ) : (
-                <div className="table-wrap">
-                  <table>
-                    <thead>
-                      <tr>
-                        <th>Title / Name</th>
-                        <th>Visible</th>
-                        <th>Order</th>
-                        <th>Actions</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {cmsData.map(item => (
-                        <tr key={item.id}>
-                          <td className="td-name">{(item.title || item.name || item.tag) as string}</td>
-                          <td>
-                            <button
-                              className="status-badge"
-                              style={{
-                                background: item.is_visible ? '#22C55E22' : '#EF444422',
-                                color: item.is_visible ? '#22C55E' : '#EF4444',
-                                border: `1px solid ${item.is_visible ? '#22C55E44' : '#EF444444'}`,
-                              }}
-                              onClick={() => toggleCmsVisibility(cmsSection, item.id, item.is_visible as boolean)}
-                            >
-                              {item.is_visible ? 'Visible' : 'Hidden'}
-                            </button>
-                          </td>
-                          <td className="td-date">{item.sort_order as number}</td>
-                          <td>
-                            <button className="expand-btn" style={{ color: '#EF4444', borderColor: '#EF444444' }}
-                              onClick={() => deleteCmsItem(cmsSection, item.id)}>
-                              Delete
-                            </button>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              )}
-            </div>
-          )}
         </div>
       </div>
     </>
