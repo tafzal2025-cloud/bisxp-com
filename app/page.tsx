@@ -3,6 +3,7 @@
 import dynamic from 'next/dynamic'
 import { useState, useRef, useEffect, FormEvent } from 'react'
 import type { Settings } from '@/lib/settings'
+import type { CaseStudy, ResearchCard, TeamMember, Service } from '@/lib/cms'
 
 const HeroCanvas = dynamic(() => import('./components/HeroCanvas'), { ssr: false })
 
@@ -36,9 +37,17 @@ export default function HomePage() {
   const [formError, setFormError] = useState('')
   const formRef = useRef<HTMLFormElement>(null)
   const [s, setS] = useState<Settings>({})
+  const [caseStudies, setCaseStudies] = useState<CaseStudy[]>([])
+  const [researchCards, setResearchCards] = useState<ResearchCard[]>([])
+  const [teamMembers, setTeamMembers] = useState<TeamMember[]>([])
+  const [services, setServices] = useState<Service[]>([])
 
   useEffect(() => {
     fetch('/api/settings').then(r => r.json()).then(setS).catch(() => {})
+    fetch('/api/cms/case-studies').then(r => r.json()).then(setCaseStudies).catch(() => {})
+    fetch('/api/cms/research-cards').then(r => r.json()).then(setResearchCards).catch(() => {})
+    fetch('/api/cms/team-members').then(r => r.json()).then(setTeamMembers).catch(() => {})
+    fetch('/api/cms/services').then(r => r.json()).then(setServices).catch(() => {})
   }, [])
 
   const updateField = (field: keyof FormData) => (
@@ -1516,34 +1525,18 @@ export default function HomePage() {
             Every product we build runs on the same proven platform pattern — architected for Vercel and Supabase at launch, and AWS at scale. The stack evolves with your growth. The pattern doesn&apos;t change.
           </p>
           <div className="services-grid">
-            <div className="service-card">
-              <span className="service-icon">◈</span>
-              <h3 className="service-title">{s.service_1_title || 'Marketplace Build'}</h3>
-              <p className="service-desc">
-                {s.service_1_desc || 'We build your two-sided marketplace from the ground up \u2014 listings, owner portals, enquiry system, payments, social feed, and admin dashboard. Deployed and live, not handed off half-finished.'}
-              </p>
-            </div>
-            <div className="service-card">
-              <span className="service-icon">⬡</span>
-              <h3 className="service-title">{s.service_2_title || 'AI Integration'}</h3>
-              <p className="service-desc">
-                {s.service_2_desc || 'We embed Claude AI into your product \u2014 intelligent search, automated matching, AI-generated listing descriptions, and workflow automation. The same AI layer powering our own marketplaces.'}
-              </p>
-            </div>
-            <div className="service-card">
-              <span className="service-icon">◎</span>
-              <h3 className="service-title">{s.service_3_title || 'SaaS Product'}</h3>
-              <p className="service-desc">
-                {s.service_3_desc || 'Custom SaaS products built on the full BISXP stack \u2014 auth, subscriptions, multi-tenant portals, admin dashboards, and API integrations. Production-grade architecture from day one.'}
-              </p>
-            </div>
-            <div className="service-card">
-              <span className="service-icon">△</span>
-              <h3 className="service-title">{s.service_4_title || 'Ongoing Partnership'}</h3>
-              <p className="service-desc">
-                {s.service_4_desc || 'An embedded technical partner for businesses that need continuous delivery \u2014 new features, infrastructure scaling, AI integration, and strategic guidance as your product grows.'}
-              </p>
-            </div>
+            {(services.length > 0 ? services : [
+              { id: '1', icon: '◈', title: s.service_1_title || 'Marketplace Build', description: s.service_1_desc || 'We build your two-sided marketplace from the ground up.', sort_order: 1, is_visible: true },
+              { id: '2', icon: '⬡', title: s.service_2_title || 'AI Integration', description: s.service_2_desc || 'We embed Claude AI into your product.', sort_order: 2, is_visible: true },
+              { id: '3', icon: '◎', title: s.service_3_title || 'SaaS Product', description: s.service_3_desc || 'Custom SaaS products built on the full BISXP stack.', sort_order: 3, is_visible: true },
+              { id: '4', icon: '△', title: s.service_4_title || 'Ongoing Partnership', description: s.service_4_desc || 'An embedded technical partner for continuous delivery.', sort_order: 4, is_visible: true },
+            ]).map(svc => (
+              <div className="service-card" key={svc.id}>
+                <span className="service-icon">{svc.icon}</span>
+                <h3 className="service-title">{svc.title}</h3>
+                <p className="service-desc">{svc.description}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>

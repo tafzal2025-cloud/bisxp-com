@@ -1,6 +1,6 @@
 # BISXP.COM — Session Brain
 
-**Last Updated:** Session 3 — 2026-04-07
+**Last Updated:** Session 4 — 2026-04-07
 
 ---
 
@@ -50,7 +50,11 @@ BISXP.com has its own standalone project.
 **Tables:**
 - `enquiries` — contact form submissions. Status: new → contacted → qualified → converted → closed
 - `profiles` — admin users (auto-created via trigger when auth user is created)
-- `bisxp_settings` — key/value store for editable homepage content (30 keys across hero, stats, services, process, contact)
+- `bisxp_settings` — key/value store for editable homepage content (30+ keys across hero, stats, services, process, contact, visibility)
+- `bisxp_case_studies` — dynamic case study cards (CRUD from admin)
+- `bisxp_research_cards` — dynamic research/security cards (CRUD from admin)
+- `bisxp_team_members` — dynamic team member profiles (CRUD from admin)
+- `bisxp_services` — dynamic service cards (CRUD from admin)
 
 **Run this SQL in Supabase Dashboard → SQL Editor:**
 See `supabase/migrations/001_initial_schema.sql`
@@ -80,12 +84,20 @@ app/
     ai/route.ts                 ✅ POST — AI proxy for demo suite (keeps API key server-side)
     settings/route.ts           ✅ GET — public settings (key/value map)
     admin/settings/route.ts     ✅ GET + POST — auth-protected settings editor
+    cms/case-studies/route.ts   ✅ GET — public case studies
+    cms/research-cards/route.ts ✅ GET — public research cards
+    cms/team-members/route.ts   ✅ GET — public team members
+    cms/services/route.ts       ✅ GET — public services
+    admin/cms/*/route.ts        ✅ GET + POST — admin CRUD for all 4 CMS tables
+    admin/cms/*/[id]/route.ts   ✅ PATCH + DELETE — admin update/delete for all 4 CMS tables
   method/
     page.tsx                    ✅ /method — server component with metadata
     MethodPageClient.tsx        ✅ /method — 3-day intensive page with apply form
 lib/
   supabase.ts                   ✅ Browser client + helpers
   settings.ts                   ✅ getSettings() — server-side settings fetch
+  cms.ts                        ✅ getCaseStudies, getResearchCards, getTeamMembers, getServices
+  admin-auth.ts                 ✅ getAuthUser() — shared admin auth helper
 vitest.config.ts                ✅ Vitest configuration
 tests/
   unit/

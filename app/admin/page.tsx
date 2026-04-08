@@ -6,7 +6,12 @@ import { createAuthClient } from '@/lib/supabase'
 
 // ─── TYPES ───────────────────────────────────────────────────────────────────
 
-type AdminTab = 'enquiries' | 'content'
+type AdminTab = 'enquiries' | 'content' | 'cms'
+
+interface CmsEntity {
+  id: string
+  [key: string]: unknown
+}
 type EnquiryStatus = 'new' | 'contacted' | 'qualified' | 'converted' | 'closed'
 
 interface SettingRow {
@@ -79,6 +84,9 @@ export default function AdminPage() {
   const [editValues, setEditValues] = useState<Record<string, string>>({})
   const [savingKey, setSavingKey] = useState<string | null>(null)
   const [savedKey, setSavedKey] = useState<string | null>(null)
+  const [cmsSection, setCmsSection] = useState<'case-studies' | 'research-cards' | 'team-members' | 'services'>('case-studies')
+  const [cmsData, setCmsData] = useState<CmsEntity[]>([])
+  const [cmsLoading, setCmsLoading] = useState(false)
 
   // Auth check + fetch
   useEffect(() => {
@@ -143,6 +151,28 @@ export default function AdminPage() {
     } finally {
       setSavingKey(null)
     }
+  }
+
+  async function fetchCms(section: string) {
+    setCmsLoading(true)
+    const res = await fetch(`/api/admin/cms/${section}`)
+    if (res.ok) setCmsData(await res.json())
+    setCmsLoading(false)
+  }
+
+  async function toggleCmsVisibility(section: string, id: string, current: boolean) {
+    await fetch(`/api/admin/cms/${section}/${id}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ is_visible: !current }),
+    })
+    fetchCms(section)
+  }
+
+  async function deleteCmsItem(section: string, id: string) {
+    if (!confirm('Delete this item permanently?')) return
+    await fetch(`/api/admin/cms/${section}/${id}`, { method: 'DELETE' })
+    fetchCms(section)
   }
 
   async function cycleStatus(enquiry: Enquiry) {
@@ -523,6 +553,7 @@ export default function AdminPage() {
           <div className="admin-tabs">
             <button className={`admin-tab${activeTab === 'enquiries' ? ' active' : ''}`} onClick={() => setActiveTab('enquiries')}>📋 Enquiries</button>
             <button className={`admin-tab${activeTab === 'content' ? ' active' : ''}`} onClick={() => { setActiveTab('content'); if (settings.length === 0) fetchSettings() }}>✏️ Content</button>
+            <button className={`admin-tab${activeTab === 'cms' ? ' active' : ''}`} onClick={() => { setActiveTab('cms'); fetchCms(cmsSection) }}>🗂️ CMS</button>
           </div>
 
           {activeTab === 'enquiries' && (<>
@@ -670,6 +701,65 @@ export default function AdminPage() {
                     </div>
                   ))
                 })()
+              )}
+            </div>
+          )}
+
+          {activeTab === 'cms' && (
+            <div>
+              <div className="admin-title-row">
+                <h1 className="admin-title">CMS</h1>
+              </div>
+              <div className="admin-tabs" style={{ marginBottom: 24 }}>
+                {(['case-studies', 'research-cards', 'team-members', 'services'] as const).map(sec => (
+                  <button key={sec} className={`admin-tab${cmsSection === sec ? ' active' : ''}`}
+                    onClick={() => { setCmsSection(sec); fetchCms(sec) }}>
+                    {sec.replace('-', ' ').replace(/\b\w/g, c => c.toUpperCase())}
+                  </button>
+                ))}
+              </div>
+              {cmsLoading ? (
+                <div className="loading-state">Loading…</div>
+              ) : (
+                <div className="table-wrap">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Title / Name</th>
+                        <th>Visible</th>
+                        <th>Order</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {cmsData.map(item => (
+                        <tr key={item.id}>
+                          <td className="td-name">{(item.title || item.name || item.tag) as string}</td>
+                          <td>
+                            <button
+                              className="status-badge"
+                              style={{
+                                background: item.is_visible ? '#22C55E22' : '#EF444422',
+                                color: item.is_visible ? '#22C55E' : '#EF4444',
+                                border: `1px solid ${item.is_visible ? '#22C55E44' : '#EF444444'}`,
+                              }}
+                              onClick={() => toggleCmsVisibility(cmsSection, item.id, item.is_visible as boolean)}
+                            >
+                              {item.is_visible ? 'Visible' : 'Hidden'}
+                            </button>
+                          </td>
+                          <td className="td-date">{item.sort_order as number}</td>
+                          <td>
+                            <button className="expand-btn" style={{ color: '#EF4444', borderColor: '#EF444444' }}
+                              onClick={() => deleteCmsItem(cmsSection, item.id)}>
+                              Delete
+                            </button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
               )}
             </div>
           )}
