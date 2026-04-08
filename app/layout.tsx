@@ -32,17 +32,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
         <style>{`
           :root {
-            --obsidian: #0F0F12;
-            --charcoal: #1C1C24;
-            --steel: #222230;
+            --obsidian: #1B1F2E;
+            --charcoal: #232840;
+            --steel: #2A3050;
             --amber: #D4A843;
             --amber-bright: #F0C060;
             --amber-dim: rgba(212,168,67,0.12);
-            --cream: #F0EBE0;
-            --white: #FAFAF8;
-            --muted: #8A8A94;
-            --border: rgba(212,168,67,0.12);
-            --border-strong: rgba(212,168,67,0.3);
+            --cream: #F0EDF8;
+            --white: #F8F6FF;
+            --muted: #8892AA;
+            --border: rgba(255,255,255,0.06);
+            --border-strong: rgba(212,168,67,0.35);
             --font-display: 'Cormorant Garamond', Georgia, serif;
             --font-body: 'Inter', system-ui, sans-serif;
             --font-numeral: 'DM Sans', system-ui, sans-serif;

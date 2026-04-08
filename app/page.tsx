@@ -1012,17 +1012,17 @@ export default function HomePage() {
           font-size: 36px;
           font-weight: 300;
           color: var(--cream);
-          line-height: 1;
+          line-height: 1.15;
           margin: 0;
         }
         .team-title {
           font-family: 'Inter', system-ui, sans-serif;
-          font-size: 11px;
+          font-size: 10px;
           font-weight: 500;
-          letter-spacing: 3px;
+          letter-spacing: 2px;
           text-transform: uppercase;
           color: var(--amber);
-          margin-top: -8px;
+          margin-top: 8px;
         }
         .team-bio {
           font-family: 'Inter', system-ui, sans-serif;
@@ -1196,6 +1196,9 @@ export default function HomePage() {
           .method-section { padding: 72px 24px; }
           .team-grid { grid-template-columns: 1fr; gap: 64px; }
           .team-section { padding: 72px 24px; }
+          .team-name { font-size: 28px; }
+          .team-title { margin-top: 8px; letter-spacing: 1.5px; font-size: 10px; line-height: 1.6; }
+          .team-card { gap: 16px; }
         }
         @media (max-width: 600px) {
           .hero-headline { font-size: 40px; }
@@ -1203,7 +1206,6 @@ export default function HomePage() {
           .stats-grid { grid-template-columns: repeat(2, 1fr); }
           .stat-item::after { display: none; }
           .wa-fab { bottom: 20px; right: 20px; }
-          .team-name { font-size: 28px; }
         }
       `}</style>
 
@@ -1741,7 +1743,7 @@ export default function HomePage() {
                 <span className="team-photo-initials">TA</span>
                 <span className="team-photo-placeholder">Photo coming soon</span>
               </div>
-              <div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                 <h3 className="team-name">Tharif Afzal</h3>
                 <p className="team-title">Founder &amp; CEO</p>
               </div>
@@ -1771,7 +1773,7 @@ export default function HomePage() {
                 <span className="team-photo-initials">AI</span>
                 <span className="team-photo-placeholder">Photo coming soon</span>
               </div>
-              <div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                 <h3 className="team-name">Amtul Baseer Ifra</h3>
                 <p className="team-title">Director, Agentic AI Security &amp; Research</p>
               </div>
