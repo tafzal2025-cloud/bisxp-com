@@ -1,7 +1,8 @@
 'use client'
 
 import dynamic from 'next/dynamic'
-import { useState, useRef, FormEvent } from 'react'
+import { useState, useRef, useEffect, FormEvent } from 'react'
+import type { Settings } from '@/lib/settings'
 
 const HeroCanvas = dynamic(() => import('./components/HeroCanvas'), { ssr: false })
 
@@ -34,6 +35,11 @@ export default function HomePage() {
   const [formState, setFormState] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
   const [formError, setFormError] = useState('')
   const formRef = useRef<HTMLFormElement>(null)
+  const [s, setS] = useState<Settings>({})
+
+  useEffect(() => {
+    fetch('/api/settings').then(r => r.json()).then(setS).catch(() => {})
+  }, [])
 
   const updateField = (field: keyof FormData) => (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
@@ -1244,11 +1250,11 @@ export default function HomePage() {
         <div className="hero-content">
           <span className="hero-eyebrow">AI-Native Technology Consultancy</span>
           <h1 className="hero-headline">
-            We don't just advise.<br />
-            <em>We build.</em>
+            {s.hero_headline || "We don\u2019t just advise."}<br />
+            <em>{s.hero_headline_em || 'We build.'}</em>
           </h1>
           <p className="hero-sub">
-            From marketplace blueprint to production-ready platform — in weeks, not months.
+            {s.hero_subheadline || 'From marketplace blueprint to production-ready platform \u2014 in weeks, not months.'}
           </p>
           <div className="hero-ctas">
             <a href="#contact" className="btn-amber">Start a Project</a>
@@ -1264,24 +1270,24 @@ export default function HomePage() {
       <div className="stats-bar">
         <div className="stats-grid">
           <div className="stat-item">
-            <span className="stat-number">4</span>
-            <span className="stat-label">Marketplaces in development</span>
-            <span className="stat-sub">Launching in 2026</span>
+            <span className="stat-number">{s.stat_1_number || '4'}</span>
+            <span className="stat-label">{s.stat_1_label || 'Marketplaces in development'}</span>
+            <span className="stat-sub">{s.stat_1_sub || 'Launching in 2026'}</span>
           </div>
           <div className="stat-item">
-            <span className="stat-number">25 yrs</span>
-            <span className="stat-label">Combined experience</span>
-            <span className="stat-sub">Microsoft · AWS · Enterprise AI</span>
+            <span className="stat-number">{s.stat_2_number || '25 yrs'}</span>
+            <span className="stat-label">{s.stat_2_label || 'Combined experience'}</span>
+            <span className="stat-sub">{s.stat_2_sub || 'Microsoft \u00b7 AWS \u00b7 Enterprise AI'}</span>
           </div>
           <div className="stat-item">
-            <span className="stat-number">3</span>
-            <span className="stat-label">Countries served</span>
-            <span className="stat-sub">India · USA · Canada</span>
+            <span className="stat-number">{s.stat_3_number || '3'}</span>
+            <span className="stat-label">{s.stat_3_label || 'Countries served'}</span>
+            <span className="stat-sub">{s.stat_3_sub || 'India \u00b7 USA \u00b7 Canada'}</span>
           </div>
           <div className="stat-item">
-            <span className="stat-number">100%</span>
-            <span className="stat-label">Hands-on delivery</span>
-            <span className="stat-sub">We stay until it works</span>
+            <span className="stat-number">{s.stat_4_number || '100%'}</span>
+            <span className="stat-label">{s.stat_4_label || 'Hands-on delivery'}</span>
+            <span className="stat-sub">{s.stat_4_sub || 'We stay until it works'}</span>
           </div>
         </div>
       </div>
@@ -1512,30 +1518,30 @@ export default function HomePage() {
           <div className="services-grid">
             <div className="service-card">
               <span className="service-icon">◈</span>
-              <h3 className="service-title">Marketplace Build</h3>
+              <h3 className="service-title">{s.service_1_title || 'Marketplace Build'}</h3>
               <p className="service-desc">
-                We build your two-sided marketplace from the ground up — listings, owner portals, enquiry system, payments, social feed, and admin dashboard. Deployed and live, not handed off half-finished.
+                {s.service_1_desc || 'We build your two-sided marketplace from the ground up \u2014 listings, owner portals, enquiry system, payments, social feed, and admin dashboard. Deployed and live, not handed off half-finished.'}
               </p>
             </div>
             <div className="service-card">
               <span className="service-icon">⬡</span>
-              <h3 className="service-title">AI Integration</h3>
+              <h3 className="service-title">{s.service_2_title || 'AI Integration'}</h3>
               <p className="service-desc">
-                We embed Claude AI into your product — intelligent search, automated matching, AI-generated listing descriptions, and workflow automation. The same AI layer powering our own marketplaces.
+                {s.service_2_desc || 'We embed Claude AI into your product \u2014 intelligent search, automated matching, AI-generated listing descriptions, and workflow automation. The same AI layer powering our own marketplaces.'}
               </p>
             </div>
             <div className="service-card">
               <span className="service-icon">◎</span>
-              <h3 className="service-title">SaaS Product</h3>
+              <h3 className="service-title">{s.service_3_title || 'SaaS Product'}</h3>
               <p className="service-desc">
-                Custom SaaS products built on the full BISXP stack — auth, subscriptions, multi-tenant portals, admin dashboards, and API integrations. Production-grade architecture from day one.
+                {s.service_3_desc || 'Custom SaaS products built on the full BISXP stack \u2014 auth, subscriptions, multi-tenant portals, admin dashboards, and API integrations. Production-grade architecture from day one.'}
               </p>
             </div>
             <div className="service-card">
               <span className="service-icon">△</span>
-              <h3 className="service-title">Ongoing Partnership</h3>
+              <h3 className="service-title">{s.service_4_title || 'Ongoing Partnership'}</h3>
               <p className="service-desc">
-                An embedded technical partner for businesses that need continuous delivery — new features, infrastructure scaling, AI integration, and strategic guidance as your product grows.
+                {s.service_4_desc || 'An embedded technical partner for businesses that need continuous delivery \u2014 new features, infrastructure scaling, AI integration, and strategic guidance as your product grows.'}
               </p>
             </div>
           </div>
@@ -1550,30 +1556,30 @@ export default function HomePage() {
           <div className="process-steps">
             <div className="process-step">
               <span className="process-number">01</span>
-              <span className="process-title">Discovery</span>
+              <span className="process-title">{s.process_1_title || 'Discovery'}</span>
               <p className="process-desc">
-                We learn your business, community, and goals. No templates. No assumptions.
+                {s.process_1_desc || 'We learn your business, community, and goals. No templates. No assumptions.'}
               </p>
             </div>
             <div className="process-step">
               <span className="process-number">02</span>
-              <span className="process-title">Blueprint</span>
+              <span className="process-title">{s.process_2_title || 'Blueprint'}</span>
               <p className="process-desc">
-                A scoped, costed plan. What we build, in what order, and why.
+                {s.process_2_desc || 'A scoped, costed plan. What we build, in what order, and why.'}
               </p>
             </div>
             <div className="process-step">
               <span className="process-number">03</span>
-              <span className="process-title">Execution</span>
+              <span className="process-title">{s.process_3_title || 'Execution'}</span>
               <p className="process-desc">
-                We build alongside you. Weekly demos. Real code. Deployed features.
+                {s.process_3_desc || 'We build alongside you. Weekly demos. Real code. Deployed features.'}
               </p>
             </div>
             <div className="process-step">
               <span className="process-number">04</span>
-              <span className="process-title">Handover</span>
+              <span className="process-title">{s.process_4_title || 'Handover'}</span>
               <p className="process-desc">
-                You own everything. Trained team, documented systems, zero dependency on us.
+                {s.process_4_desc || 'You own everything. Trained team, documented systems, zero dependency on us.'}
               </p>
             </div>
           </div>
@@ -1618,9 +1624,9 @@ export default function HomePage() {
       <section className="contact-section" id="contact">
         <div className="contact-grid">
           <div className="contact-left">
-            <h2>Start a Project</h2>
+            <h2>{s.contact_heading || 'Start a Project'}</h2>
             <p>
-              Tell us what you're building. We'll respond within 24 hours with honest thoughts on how we'd approach it — no pitch, no pressure.
+              {s.contact_subheading || "Tell us what you\u2019re building. We\u2019ll respond within 24 hours with honest thoughts on how we\u2019d approach it \u2014 no pitch, no pressure."}
             </p>
             <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="whatsapp-link">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">

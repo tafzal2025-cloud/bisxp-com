@@ -1,6 +1,6 @@
 # BISXP.COM — Session Brain
 
-**Last Updated:** Session 2 — 2026-04-07
+**Last Updated:** Session 3 — 2026-04-07
 
 ---
 
@@ -50,6 +50,7 @@ BISXP.com has its own standalone project.
 **Tables:**
 - `enquiries` — contact form submissions. Status: new → contacted → qualified → converted → closed
 - `profiles` — admin users (auto-created via trigger when auth user is created)
+- `bisxp_settings` — key/value store for editable homepage content (30 keys across hero, stats, services, process, contact)
 
 **Run this SQL in Supabase Dashboard → SQL Editor:**
 See `supabase/migrations/001_initial_schema.sql`
@@ -77,11 +78,14 @@ app/
     enquiry/route.ts            ✅ POST — save enquiry + send email via Resend
     enquiry/[id]/route.ts       ✅ PATCH — update enquiry status (auth-protected)
     ai/route.ts                 ✅ POST — AI proxy for demo suite (keeps API key server-side)
+    settings/route.ts           ✅ GET — public settings (key/value map)
+    admin/settings/route.ts     ✅ GET + POST — auth-protected settings editor
   method/
     page.tsx                    ✅ /method — server component with metadata
     MethodPageClient.tsx        ✅ /method — 3-day intensive page with apply form
 lib/
   supabase.ts                   ✅ Browser client + helpers
+  settings.ts                   ✅ getSettings() — server-side settings fetch
 vitest.config.ts                ✅ Vitest configuration
 tests/
   unit/
