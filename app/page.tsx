@@ -172,7 +172,7 @@ export default function HomePage() {
 
         /* ── PARTNER STORIES ── */
         .stories-section { background:var(--charcoal);padding:100px 40px }
-        .stories-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,0.06) }
+        .stories-grid { display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:rgba(255,255,255,0.06) }
         .story-card { background:var(--obsidian);padding:48px 36px;display:flex;flex-direction:column;gap:16px }
         .story-eyebrow { font-family:'Inter',system-ui,sans-serif;font-size:10px;font-weight:500;letter-spacing:4px;text-transform:uppercase;color:var(--amber) }
         .story-title { font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:300;color:var(--cream);line-height:1 }
@@ -375,8 +375,9 @@ export default function HomePage() {
           <h2 className="section-heading">Three industries. Three countries.</h2>
           <p className="section-intro">Every platform below runs on the BISXP stack. Different vertical, different geography, same foundation.</p>
           <div className="stories-grid">
-            {caseStudies.map(cs => (
-              <div className="story-card" key={cs.id}>
+            {caseStudies.map((cs, index) => (
+              <div className="story-card" key={cs.id}
+                style={index === 2 ? { gridColumn: '1 / -1', maxWidth: '640px', margin: '0 auto', width: '100%' } : {}}>
                 <span className="story-eyebrow">{cs.eyebrow}</span>
                 <h3 className="story-title">{cs.title}</h3>
                 {cs.problem_quote && <p className="story-quote">{cs.problem_quote}</p>}
@@ -451,7 +452,7 @@ export default function HomePage() {
             <div className="methodology-card">
               <span className="methodology-number">TRACK 02</span>
               <h3 className="methodology-title">{s.methodology_track2_title || 'AI Data Engineering'}</h3>
-              <p className="methodology-body">{s.methodology_track2_body || 'Learn to build the data pipelines and AI workflows that power modern marketplace intelligence.'}</p>
+              <p className="methodology-body">{s.methodology_track2_body || 'The AI-driven data and analytics ecosystem has expanded far beyond pipelines. This track covers the full spectrum \u2014 semantic search and vector databases, RAG architectures, embedding models, real-time streaming for AI features, data quality for model training, feature stores, and the infrastructure that makes AI products work at scale in production.'}</p>
               <span className="methodology-capstone-label">Capstone</span>
               <span className="methodology-capstone">Production AI data pipeline</span>
             </div>
