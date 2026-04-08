@@ -12,17 +12,49 @@ export default function MethodPageClient() {
   const [email, setEmail] = useState('')
   const [message, setMessage] = useState('')
   const [ms, setMs] = useState<Record<string, string>>({})
+  const [errors, setErrors] = useState<Record<string, string>>({})
+  const [touched, setTouched] = useState<Record<string, boolean>>({})
+  const [submitAttempted, setSubmitAttempted] = useState(false)
 
   useEffect(() => {
     fetch('/api/settings').then(r => r.json()).then(setMs).catch(() => {})
   }, [])
 
+  function validateField(fname: string, value: string): string {
+    switch (fname) {
+      case 'name': return value.trim().length < 2 ? 'Full name is required' : ''
+      case 'email': return !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim()) ? 'Please enter a valid email address' : ''
+      case 'message': return value.trim().length < 20 ? 'Please tell us a bit more (at least 20 characters)' : ''
+      default: return ''
+    }
+  }
+
+  function validateAll(): Record<string, string> {
+    const e: Record<string, string> = {}
+    const vals: Record<string, string> = { name, email, message }
+    ;['name', 'email', 'message'].forEach(f => {
+      const err = validateField(f, vals[f])
+      if (err) e[f] = err
+    })
+    return e
+  }
+
+  function handleBlur(field: string) {
+    setTouched(prev => ({ ...prev, [field]: true }))
+    const val = field === 'name' ? name : field === 'email' ? email : message
+    setErrors(prev => ({ ...prev, [field]: validateField(field, val) }))
+  }
+
   async function handleSubmit(e: FormEvent) {
     e.preventDefault()
     setFormError('')
-    if (!name.trim()) return setFormError('Name is required.')
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return setFormError('A valid email is required.')
-    if (!message.trim() || message.trim().length < 20) return setFormError('Tell us a bit more (at least 20 characters).')
+    setSubmitAttempted(true)
+    const errs = validateAll()
+    if (Object.keys(errs).length > 0) {
+      setErrors(errs)
+      setTouched({ name: true, email: true, message: true })
+      return
+    }
 
     setFormState('loading')
     try {
@@ -191,21 +223,33 @@ export default function MethodPageClient() {
           ) : (
             <form onSubmit={handleSubmit} noValidate>
               <div className="m-form-group">
-                <label className="m-form-label">Name *</label>
-                <input className="m-form-input" type="text" value={name} onChange={e => setName(e.target.value)} placeholder="Your full name" />
+                <label className="m-form-label">Name<span style={{ color: '#e74c3c', marginLeft: 3 }}>*</span></label>
+                <input className="m-form-input" type="text" value={name} onChange={e => setName(e.target.value)} onBlur={() => handleBlur('name')} placeholder="Your full name"
+                  style={(touched.name || submitAttempted) && errors.name ? { borderColor: '#e74c3c' } : undefined} />
+                {(touched.name || submitAttempted) && errors.name && (
+                  <span style={{ display: 'block', marginTop: 4, fontSize: 12, color: '#e74c3c', fontFamily: "'Inter', sans-serif" }}>{errors.name}</span>
+                )}
               </div>
               <div className="m-form-group">
-                <label className="m-form-label">Email *</label>
-                <input className="m-form-input" type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="you@company.com" />
+                <label className="m-form-label">Email<span style={{ color: '#e74c3c', marginLeft: 3 }}>*</span></label>
+                <input className="m-form-input" type="email" value={email} onChange={e => setEmail(e.target.value)} onBlur={() => handleBlur('email')} placeholder="you@company.com"
+                  style={(touched.email || submitAttempted) && errors.email ? { borderColor: '#e74c3c' } : undefined} />
+                {(touched.email || submitAttempted) && errors.email && (
+                  <span style={{ display: 'block', marginTop: 4, fontSize: 12, color: '#e74c3c', fontFamily: "'Inter', sans-serif" }}>{errors.email}</span>
+                )}
               </div>
               <div className="m-form-group">
-                <label className="m-form-label">What do you want to build? *</label>
-                <textarea className="m-form-textarea" value={message} onChange={e => setMessage(e.target.value)} placeholder="Describe the product you want to build, your technical background, and your timeline..." />
+                <label className="m-form-label">What do you want to build?<span style={{ color: '#e74c3c', marginLeft: 3 }}>*</span></label>
+                <textarea className="m-form-textarea" value={message} onChange={e => setMessage(e.target.value)} onBlur={() => handleBlur('message')} placeholder="Describe the product you want to build, your technical background, and your timeline..."
+                  style={(touched.message || submitAttempted) && errors.message ? { borderColor: '#e74c3c' } : undefined} />
+                {(touched.message || submitAttempted) && errors.message && (
+                  <span style={{ display: 'block', marginTop: 4, fontSize: 12, color: '#e74c3c', fontFamily: "'Inter', sans-serif" }}>{errors.message}</span>
+                )}
               </div>
               {(formState === 'error' || formError) && (
                 <div className="m-form-error">{formError}</div>
               )}
-              <button type="submit" className="m-form-submit" disabled={formState === 'loading'}>
+              <button type="submit" className="m-form-submit" disabled={formState === 'loading' || (submitAttempted && Object.keys(validateAll()).length > 0)}>
                 {formState === 'loading' ? 'Submitting...' : 'Submit Application'}
               </button>
             </form>

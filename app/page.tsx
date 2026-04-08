@@ -36,6 +36,9 @@ export default function HomePage() {
   const [formState, setFormState] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
   const [formError, setFormError] = useState('')
   const formRef = useRef<HTMLFormElement>(null)
+  const [errors, setErrors] = useState<Record<string, string>>({})
+  const [touched, setTouched] = useState<Record<string, boolean>>({})
+  const [submitAttempted, setSubmitAttempted] = useState(false)
   const [s, setS] = useState<Settings>({})
   const [caseStudies, setCaseStudies] = useState<CaseStudy[]>([])
   const [researchCards, setResearchCards] = useState<ResearchCard[]>([])
@@ -65,16 +68,43 @@ export default function HomePage() {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => setFormData((prev) => ({ ...prev, [field]: e.target.value }))
 
+  function validateField(fname: string, value: string): string {
+    switch (fname) {
+      case 'name': return value.trim().length < 2 ? 'Full name is required' : ''
+      case 'email': return !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim()) ? 'Please enter a valid email address' : ''
+      case 'phone':
+        if (!value.trim()) return ''
+        return !/^\d{10,15}$/.test(value.replace(/[\s\-+()]/g, '')) ? 'Please enter a valid phone number (10\u201315 digits)' : ''
+      case 'message': return value.trim().length < 20 ? 'Message must be at least 20 characters' : ''
+      default: return ''
+    }
+  }
+
+  function validateAll(): Record<string, string> {
+    const e: Record<string, string> = {}
+    ;(['name', 'email', 'phone', 'message'] as const).forEach(f => {
+      const err = validateField(f, formData[f] || '')
+      if (err) e[f] = err
+    })
+    return e
+  }
+
+  function handleBlur(field: string) {
+    setTouched(prev => ({ ...prev, [field]: true }))
+    const val = formData[field as keyof FormData] || ''
+    setErrors(prev => ({ ...prev, [field]: validateField(field, val) }))
+  }
+
   async function handleSubmit(e: FormEvent) {
     e.preventDefault()
     setFormError('')
-
-    // Client-side validation
-    if (!formData.name.trim()) return setFormError('Name is required.')
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-    if (!emailRegex.test(formData.email)) return setFormError('A valid email is required.')
-    if (!formData.message.trim() || formData.message.trim().length < 20)
-      return setFormError('Message must be at least 20 characters.')
+    setSubmitAttempted(true)
+    const errs = validateAll()
+    if (Object.keys(errs).length > 0) {
+      setErrors(errs)
+      setTouched({ name: true, email: true, phone: true, message: true })
+      return
+    }
 
     setFormState('loading')
     try {
@@ -815,6 +845,7 @@ export default function HomePage() {
         }
         .form-submit:hover:not(:disabled) { background: var(--amber-bright); }
         .form-submit:disabled { opacity: 0.7; cursor: not-allowed; }
+        .form-input.has-error, .form-textarea.has-error { border-color: #e74c3c; }
         .form-success {
           padding: 52px;
           text-align: center;
@@ -1604,36 +1635,46 @@ export default function HomePage() {
             ) : (
               <form ref={formRef} onSubmit={handleSubmit} noValidate>
                 <div className="form-group">
-                  <label className="form-label">Name *</label>
+                  <label className="form-label">Name<span style={{ color: '#e74c3c', marginLeft: 3 }}>*</span></label>
                   <input
-                    className="form-input"
+                    className={`form-input${(touched.name || submitAttempted) && errors.name ? ' has-error' : ''}`}
                     type="text"
                     value={formData.name}
                     onChange={updateField('name')}
+                    onBlur={() => handleBlur('name')}
                     placeholder="Your full name"
-                    required
                   />
+                  {(touched.name || submitAttempted) && errors.name && (
+                    <span style={{ display: 'block', marginTop: 4, fontSize: 12, color: '#e74c3c', fontFamily: "'Inter', sans-serif" }}>{errors.name}</span>
+                  )}
                 </div>
                 <div className="form-group">
-                  <label className="form-label">Email *</label>
+                  <label className="form-label">Email<span style={{ color: '#e74c3c', marginLeft: 3 }}>*</span></label>
                   <input
-                    className="form-input"
+                    className={`form-input${(touched.email || submitAttempted) && errors.email ? ' has-error' : ''}`}
                     type="email"
                     value={formData.email}
                     onChange={updateField('email')}
+                    onBlur={() => handleBlur('email')}
                     placeholder="you@company.com"
-                    required
                   />
+                  {(touched.email || submitAttempted) && errors.email && (
+                    <span style={{ display: 'block', marginTop: 4, fontSize: 12, color: '#e74c3c', fontFamily: "'Inter', sans-serif" }}>{errors.email}</span>
+                  )}
                 </div>
                 <div className="form-group">
                   <label className="form-label">Phone</label>
                   <input
-                    className="form-input"
+                    className={`form-input${(touched.phone || submitAttempted) && errors.phone ? ' has-error' : ''}`}
                     type="tel"
                     value={formData.phone}
                     onChange={updateField('phone')}
+                    onBlur={() => handleBlur('phone')}
                     placeholder="+1 234 567 8900"
                   />
+                  {(touched.phone || submitAttempted) && errors.phone && (
+                    <span style={{ display: 'block', marginTop: 4, fontSize: 12, color: '#e74c3c', fontFamily: "'Inter', sans-serif" }}>{errors.phone}</span>
+                  )}
                 </div>
                 <div className="form-group">
                   <label className="form-label">Company / Business Name</label>
@@ -1647,30 +1688,42 @@ export default function HomePage() {
                 </div>
                 <div className="form-group">
                   <label className="form-label">Business Type</label>
-                  <select
-                    className="form-select"
-                    value={formData.business_type}
-                    onChange={updateField('business_type')}
-                  >
-                    <option value="">Select one…</option>
-                    <option value="Marketplace">Marketplace</option>
-                    <option value="SaaS Platform">SaaS Platform</option>
-                    <option value="Digital Transformation">Digital Transformation</option>
-                    <option value="Event/Venue">Event / Venue</option>
-                    <option value="Sports/Community">Sports / Community</option>
-                    <option value="E-commerce">E-commerce</option>
-                    <option value="Other">Other</option>
-                  </select>
+                  <div style={{ position: 'relative' }}>
+                    <input
+                      className="form-input"
+                      list="business-type-options"
+                      name="business_type"
+                      value={formData.business_type || ''}
+                      onChange={e => setFormData(prev => ({ ...prev, business_type: e.target.value }))}
+                      placeholder="Select or type your business type"
+                      autoComplete="off"
+                    />
+                    <datalist id="business-type-options">
+                      <option value="Marketplace" />
+                      <option value="SaaS Platform" />
+                      <option value="AI Integration" />
+                      <option value="Ongoing Partnership" />
+                      <option value="BISXP Method" />
+                      <option value="Digital Transformation" />
+                      <option value="Event / Venue" />
+                      <option value="Sports / Community" />
+                      <option value="E-commerce" />
+                      <option value="Other" />
+                    </datalist>
+                  </div>
                 </div>
                 <div className="form-group">
-                  <label className="form-label">Message * (min 20 characters)</label>
+                  <label className="form-label">Message<span style={{ color: '#e74c3c', marginLeft: 3 }}>*</span> <span style={{ fontWeight: 300, opacity: 0.6 }}>(min 20 characters)</span></label>
                   <textarea
-                    className="form-textarea"
+                    className={`form-textarea${(touched.message || submitAttempted) && errors.message ? ' has-error' : ''}`}
                     value={formData.message}
                     onChange={updateField('message')}
+                    onBlur={() => handleBlur('message')}
                     placeholder="Tell us what you're building, your timeline, and any key requirements…"
-                    required
                   />
+                  {(touched.message || submitAttempted) && errors.message && (
+                    <span style={{ display: 'block', marginTop: 4, fontSize: 12, color: '#e74c3c', fontFamily: "'Inter', sans-serif" }}>{errors.message}</span>
+                  )}
                 </div>
                 {(formState === 'error' || formError) && (
                   <div className="form-error">{formError}</div>
@@ -1678,7 +1731,7 @@ export default function HomePage() {
                 <button
                   type="submit"
                   className="form-submit"
-                  disabled={formState === 'loading'}
+                  disabled={formState === 'loading' || (submitAttempted && Object.keys(validateAll()).length > 0)}
                 >
                   {formState === 'loading' ? 'Sending…' : 'Send Enquiry'}
                 </button>
