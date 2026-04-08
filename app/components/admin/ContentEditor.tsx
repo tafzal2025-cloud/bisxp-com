@@ -43,6 +43,9 @@ export default function ContentEditor() {
   const [openSections, setOpenSections] = useState<Set<string>>(new Set(['visibility']))
   const [cmsData, setCmsData] = useState<Record<string, CmsItem[]>>({})
   const [addForms, setAddForms] = useState<Record<string, Record<string, string>>>({})
+  const [editingItem, setEditingItem] = useState<{ section: string; id: string } | null>(null)
+  const [editItemValues, setEditItemValues] = useState<Record<string, string>>({})
+  const [savingItem, setSavingItem] = useState(false)
   const [loaded, setLoaded] = useState(false)
 
   useEffect(() => {
@@ -108,6 +111,19 @@ export default function ContentEditor() {
     fetchCms(section)
   }
 
+  async function handleCmsEdit(section: string, id: string) {
+    setSavingItem(true)
+    await fetch(`/api/admin/cms/${section}/${id}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(editItemValues),
+    })
+    setSavingItem(false)
+    setEditingItem(null)
+    setEditItemValues({})
+    fetchCms(section)
+  }
+
   if (!loaded) return <div style={{ padding: 40, textAlign: 'center', color: '#888', fontSize: 13, letterSpacing: 2, textTransform: 'uppercase' as const }}>Loading…</div>
 
   return (
@@ -145,6 +161,7 @@ export default function ContentEditor() {
         .ce-card-actions{display:flex;gap:8px;flex-shrink:0;align-items:center}
         .ce-btn-toggle{padding:4px 10px;font-size:10px;font-weight:500;letter-spacing:1px;text-transform:uppercase;border:1px solid var(--gold,#D4A843);color:var(--gold,#D4A843);background:transparent;cursor:pointer;border-radius:2px;font-family:'Inter',sans-serif}
         .ce-btn-toggle.is-hidden{border-color:#ccc;color:#999}
+        .ce-btn-edit{padding:4px 10px;font-size:10px;font-weight:500;letter-spacing:1px;text-transform:uppercase;border:1px solid var(--ink,#111);color:var(--ink,#111);background:transparent;cursor:pointer;border-radius:2px;font-family:'Inter',sans-serif}
         .ce-btn-delete{padding:4px 10px;font-size:10px;font-weight:500;letter-spacing:1px;text-transform:uppercase;border:1px solid #e74c3c;color:#e74c3c;background:transparent;cursor:pointer;border-radius:2px;font-family:'Inter',sans-serif}
         .ce-add-btn{width:100%;padding:10px;background:transparent;border:1px dashed var(--gold,#D4A843);color:var(--gold,#D4A843);font-family:'Inter',sans-serif;font-size:12px;font-weight:500;letter-spacing:1px;cursor:pointer;margin-top:8px;transition:background .2s;border-radius:2px}
         .ce-add-btn:hover{background:rgba(200,150,60,.06)}
@@ -238,33 +255,89 @@ export default function ContentEditor() {
 
               {/* CMS items */}
               {items.map(item => (
-                <div key={item.id} className={`ce-card-item ${!item.is_visible ? 'hidden-item' : ''}`}>
-                  <div style={{ flex: 1, minWidth: 0 }}>
-                    <div className="ce-card-item-title">{(item[sec.nameField] || item.tag || '—') as string}</div>
-                    <div className="ce-card-item-sub">
-                      {item.eyebrow ? `${item.eyebrow} · ` : ''}
-                      {item.icon ? `${item.icon} · ` : ''}
-                      {item.subtitle ? `${item.subtitle} · ` : ''}
-                      Order: {item.sort_order}
+                <div key={item.id} style={{ marginBottom: 8 }}>
+                  <div className={`ce-card-item ${!item.is_visible ? 'hidden-item' : ''}`}>
+                    <div style={{ flex: 1, minWidth: 0 }}>
+                      <div className="ce-card-item-title">{(item[sec.nameField] || item.tag || '—') as string}</div>
+                      <div className="ce-card-item-sub">
+                        {item.eyebrow ? `${item.eyebrow} · ` : ''}
+                        {item.icon ? `${item.icon} · ` : ''}
+                        {item.subtitle ? `${item.subtitle} · ` : ''}
+                        {!item.is_visible ? 'Hidden · ' : ''}
+                        Order: {item.sort_order as number}
+                      </div>
+                    </div>
+                    <div className="ce-card-actions">
+                      <button className="ce-btn-edit"
+                        onClick={() => {
+                          if (editingItem?.id === item.id) {
+                            setEditingItem(null)
+                            setEditItemValues({})
+                          } else {
+                            setEditingItem({ section: sec.id, id: item.id })
+                            const vals: Record<string, string> = {}
+                            sec.addFields.forEach(f => { vals[f] = String(item[f] ?? '') })
+                            setEditItemValues(vals)
+                          }
+                        }}>
+                        {editingItem?.id === item.id ? 'Cancel' : 'Edit'}
+                      </button>
+                      <button className={`ce-btn-toggle ${!item.is_visible ? 'is-hidden' : ''}`}
+                        onClick={() => handleCmsToggle(sec.id, item.id, !item.is_visible)}>
+                        {item.is_visible ? 'Visible' : 'Hidden'}
+                      </button>
+                      <button className="ce-btn-delete" onClick={() => handleCmsDelete(sec.id, item.id)}>Delete</button>
                     </div>
                   </div>
-                  <div className="ce-card-actions">
-                    <button className={`ce-btn-toggle ${!item.is_visible ? 'is-hidden' : ''}`}
-                      onClick={() => handleCmsToggle(sec.id, item.id, !item.is_visible)}>
-                      {item.is_visible ? 'Visible' : 'Hidden'}
-                    </button>
-                    <button className="ce-btn-delete" onClick={() => handleCmsDelete(sec.id, item.id)}>Delete</button>
-                  </div>
+
+                  {editingItem?.id === item.id && (
+                    <div className="ce-add-form" style={{ marginTop: 0, borderTop: 'none', borderRadius: '0 0 2px 2px' }}>
+                      <div className="ce-add-form-title">Editing — {(item[sec.nameField] || item.tag || '') as string}</div>
+                      {sec.addFields.map(field => (
+                        <div key={field} className="ce-field">
+                          <label className="ce-label">{field.replace(/_/g, ' ')}</label>
+                          {['bio', 'body', 'what_we_built', 'problem_quote', 'description', 'ai_layer', 'scale_architecture', 'note', 'subtitle'].includes(field)
+                            ? <textarea className="ce-textarea"
+                                style={{ minHeight: ['bio', 'body', 'what_we_built'].includes(field) ? 140 : 80 }}
+                                value={editItemValues[field] || ''}
+                                onChange={e => setEditItemValues(prev => ({ ...prev, [field]: e.target.value }))} />
+                            : <input className="ce-input" value={editItemValues[field] || ''}
+                                onChange={e => setEditItemValues(prev => ({ ...prev, [field]: e.target.value }))} />
+                          }
+                        </div>
+                      ))}
+                      <div className="ce-add-form-actions">
+                        <button className="ce-btn-save" disabled={savingItem}
+                          onClick={() => handleCmsEdit(sec.id, item.id)}>
+                          {savingItem ? 'Saving…' : 'Save Changes'}
+                        </button>
+                        <button className="ce-btn-cancel"
+                          onClick={() => { setEditingItem(null); setEditItemValues({}) }}>
+                          Cancel
+                        </button>
+                      </div>
+                    </div>
+                  )}
                 </div>
               ))}
 
               {/* Add button */}
-              <button className="ce-add-btn" onClick={() => toggleSection(addKey)}>+ Add {sec.label.replace(/s$/, '')}</button>
+              <button className="ce-add-btn" onClick={() => toggleSection(addKey)}>+ Add {
+                sec.id === 'case-studies' ? 'Case Study' :
+                sec.id === 'research-cards' ? 'Research Card' :
+                sec.id === 'team-members' ? 'Team Member' :
+                sec.id === 'services' ? 'Service' : sec.label
+              }</button>
 
               {/* Add form */}
               {openSections.has(addKey) && (
                 <div className="ce-add-form">
-                  <div className="ce-add-form-title">New {sec.label.replace(/s$/, '')}</div>
+                  <div className="ce-add-form-title">New {
+                    sec.id === 'case-studies' ? 'Case Study' :
+                    sec.id === 'research-cards' ? 'Research Card' :
+                    sec.id === 'team-members' ? 'Team Member' :
+                    sec.id === 'services' ? 'Service' : sec.label
+                  }</div>
                   {sec.addFields.map(field => (
                     <div key={field} className="ce-field">
                       <label className="ce-label">{field.replace(/_/g, ' ')}</label>
