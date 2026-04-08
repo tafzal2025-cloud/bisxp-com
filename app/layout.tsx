@@ -3,16 +3,16 @@ import type { Metadata } from 'next'
 export const metadata: Metadata = {
   metadataBase: new URL('https://bisxp.com'),
   title: {
-    default: 'BISXP — AI-Native Marketplace & SaaS Builders',
+    default: 'BISXP — The Platform for AI-Native Marketplaces',
     template: '%s | BISXP'
   },
-  description: 'We build AI-native marketplaces and SaaS products. Four live platforms across India, USA, and Canada. Blueprint. Implement. Scale. Xperience.',
+  description: 'Build marketplace businesses on production-tested architecture. Three live platforms across India, USA, and healthcare. Solo founders, agencies, and enterprises build on BISXP.',
   keywords: [
-    'marketplace development', 'SaaS development', 'AI integration',
-    'two-sided marketplace', 'marketplace builder', 'BISXP',
-    'AI-native platform', 'marketplace consultancy'
+    'AI marketplace platform', 'marketplace development platform', 'BISXP',
+    'build marketplace', 'two-sided marketplace platform',
+    'AI-native marketplace', 'marketplace SaaS platform', 'marketplace builder'
   ],
-  authors: [{ name: 'BISXP', url: 'https://bisxp.com' }],
+  authors: [{ name: 'Tharif Afzal', url: 'https://bisxp.com' }],
   creator: 'BISXP',
   publisher: 'BISXP',
   robots: { index: true, follow: true, googleBot: { index: true, follow: true } },
@@ -21,14 +21,14 @@ export const metadata: Metadata = {
     locale: 'en_US',
     url: 'https://bisxp.com',
     siteName: 'BISXP',
-    title: 'BISXP — AI-Native Marketplace & SaaS Builders',
-    description: 'We build AI-native marketplaces and SaaS products. Four live platforms across India, USA, and Canada.',
-    images: [{ url: '/api/og', width: 1200, height: 630, alt: "BISXP — We don't just advise. We build." }]
+    title: 'BISXP — The Platform for AI-Native Marketplaces',
+    description: 'Build marketplace businesses on production-tested architecture. Three live platforms. Three countries. One platform.',
+    images: [{ url: '/api/og', width: 1200, height: 630, alt: 'BISXP — The Platform for AI-Native Marketplaces' }]
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'BISXP — AI-Native Marketplace & SaaS Builders',
-    description: 'We build AI-native marketplaces and SaaS products.',
+    title: 'BISXP — The Platform for AI-Native Marketplaces',
+    description: 'Build marketplace businesses on production-tested architecture.',
     images: ['/api/og']
   },
   alternates: { canonical: 'https://bisxp.com' }
@@ -50,12 +50,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             '@context': 'https://schema.org',
             '@type': 'ProfessionalService',
             name: 'BISXP',
-            alternateName: 'Blueprint Implement Scale Xperience',
+            alternateName: 'Blueprint Ignite Scale Xperience',
             url: 'https://bisxp.com',
-            description: 'AI-native marketplace and SaaS development consultancy. We build two-sided marketplaces, AI integrations, and SaaS products.',
-            knowsAbout: ['Marketplace Development', 'SaaS Development', 'AI Integration', 'Two-sided Marketplaces', 'Next.js', 'Supabase'],
+            description: 'AI-native marketplace platform. Build marketplace businesses on production-tested architecture.',
             areaServed: ['US', 'IN', 'CA'],
-            address: { '@type': 'PostalAddress', addressCountry: 'US' },
             founder: { '@type': 'Person', name: 'Tharif Afzal', jobTitle: 'Founder & CEO' }
           }) }}
         />

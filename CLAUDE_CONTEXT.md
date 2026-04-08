@@ -1,6 +1,6 @@
 # BISXP.COM — Session Brain
 
-**Last Updated:** Session 5 — 2026-04-08
+**Last Updated:** Session 5 (platform redesign) — 2026-04-08
 
 ---
 
@@ -118,6 +118,11 @@ proxy.ts                        ✅ Middleware — protects /admin
 .env.example                    ✅ Committed placeholder values
 supabase/
   migrations/001_initial_schema.sql  ✅ Full DB schema
+  migrations/002_bisxp_settings.sql ✅ Settings table + seed
+  migrations/003_bisxp_cms.sql      ✅ 4 CMS tables + seed
+  migrations/004_form_messages.sql  ✅ Form success messages
+  migrations/005_platform_redesign.sql  ✅ Platform section settings
+  migrations/005b_platform_settings_update.sql ✅ Copy updates
 .claude/
   CLAUDE.md                     ✅ Standing instructions
 CLAUDE_CONTEXT.md               ✅ This file
