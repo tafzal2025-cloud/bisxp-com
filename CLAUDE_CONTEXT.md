@@ -1,6 +1,6 @@
 # BISXP.COM — Session Brain
 
-**Last Updated:** Session 4 — 2026-04-07
+**Last Updated:** Session 5 — 2026-04-08
 
 ---
 
@@ -98,6 +98,11 @@ lib/
   settings.ts                   ✅ getSettings() — server-side settings fetch
   cms.ts                        ✅ getCaseStudies, getResearchCards, getTeamMembers, getServices
   admin-auth.ts                 ✅ getAuthUser() — shared admin auth helper
+app/
+  sitemap.ts                    ✅ /sitemap.xml — homepage + /method
+  robots.ts                     ✅ /robots.txt — allow all, disallow /admin /api
+  api/og/route.tsx              ✅ /api/og — Edge OG image with BISXP branding
+  method/layout.tsx             ✅ Method page SEO metadata + OG image
 vitest.config.ts                ✅ Vitest configuration
 tests/
   unit/

@@ -1,23 +1,37 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'BISXP — Blueprint. Ignite. Scale. Xperience.',
-  description:
-    'AI-native consultancy that builds marketplaces and SaaS products. From blueprint to scale.',
+  metadataBase: new URL('https://bisxp.com'),
+  title: {
+    default: 'BISXP — AI-Native Marketplace & SaaS Builders',
+    template: '%s | BISXP'
+  },
+  description: 'We build AI-native marketplaces and SaaS products. Four live platforms across India, USA, and Canada. Blueprint. Implement. Scale. Xperience.',
+  keywords: [
+    'marketplace development', 'SaaS development', 'AI integration',
+    'two-sided marketplace', 'marketplace builder', 'BISXP',
+    'AI-native platform', 'marketplace consultancy'
+  ],
+  authors: [{ name: 'BISXP', url: 'https://bisxp.com' }],
+  creator: 'BISXP',
+  publisher: 'BISXP',
+  robots: { index: true, follow: true, googleBot: { index: true, follow: true } },
   openGraph: {
-    title: 'BISXP — Blueprint. Ignite. Scale. Xperience.',
-    description:
-      'AI-native consultancy that builds marketplaces and SaaS products. From blueprint to scale.',
+    type: 'website',
+    locale: 'en_US',
     url: 'https://bisxp.com',
     siteName: 'BISXP',
-    type: 'website',
+    title: 'BISXP — AI-Native Marketplace & SaaS Builders',
+    description: 'We build AI-native marketplaces and SaaS products. Four live platforms across India, USA, and Canada.',
+    images: [{ url: '/api/og', width: 1200, height: 630, alt: "BISXP — We don't just advise. We build." }]
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'BISXP — Blueprint. Ignite. Scale. Xperience.',
-    description:
-      'AI-native consultancy that builds marketplaces and SaaS products. From blueprint to scale.',
+    title: 'BISXP — AI-Native Marketplace & SaaS Builders',
+    description: 'We build AI-native marketplaces and SaaS products.',
+    images: ['/api/og']
   },
+  alternates: { canonical: 'https://bisxp.com' }
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -29,6 +43,21 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link
           href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&family=DM+Sans:wght@300;400;500;600&display=swap"
           rel="stylesheet"
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'ProfessionalService',
+            name: 'BISXP',
+            alternateName: 'Blueprint Implement Scale Xperience',
+            url: 'https://bisxp.com',
+            description: 'AI-native marketplace and SaaS development consultancy. We build two-sided marketplaces, AI integrations, and SaaS products.',
+            knowsAbout: ['Marketplace Development', 'SaaS Development', 'AI Integration', 'Two-sided Marketplaces', 'Next.js', 'Supabase'],
+            areaServed: ['US', 'IN', 'CA'],
+            address: { '@type': 'PostalAddress', addressCountry: 'US' },
+            founder: { '@type': 'Person', name: 'Tharif Afzal', jobTitle: 'Founder & CEO' }
+          }) }}
         />
         <style>{`
           :root {
