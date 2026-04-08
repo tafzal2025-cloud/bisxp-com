@@ -41,13 +41,24 @@ export default function HomePage() {
   const [researchCards, setResearchCards] = useState<ResearchCard[]>([])
   const [teamMembers, setTeamMembers] = useState<TeamMember[]>([])
   const [services, setServices] = useState<Service[]>([])
+  const [vis, setVis] = useState({ acronym: true, case_studies: true, research: true, services: true, process: true, team: true })
 
   useEffect(() => {
-    fetch('/api/settings').then(r => r.json()).then(setS).catch(() => {})
-    fetch('/api/cms/case-studies').then(r => r.json()).then(setCaseStudies).catch(() => {})
-    fetch('/api/cms/research-cards').then(r => r.json()).then(setResearchCards).catch(() => {})
-    fetch('/api/cms/team-members').then(r => r.json()).then(setTeamMembers).catch(() => {})
-    fetch('/api/cms/services').then(r => r.json()).then(setServices).catch(() => {})
+    fetch('/api/settings').then(r => r.json()).then((data: Settings) => {
+      setS(data)
+      setVis({
+        acronym: data.section_acronym_visible !== 'false',
+        case_studies: data.section_case_studies_visible !== 'false',
+        research: data.section_research_visible !== 'false',
+        services: data.section_services_visible !== 'false',
+        process: data.section_process_visible !== 'false',
+        team: data.section_team_visible !== 'false',
+      })
+    }).catch(() => {})
+    fetch('/api/cms/case-studies').then(r => r.json()).then(d => { if (Array.isArray(d) && d.length > 0) setCaseStudies(d) }).catch(() => {})
+    fetch('/api/cms/research-cards').then(r => r.json()).then(d => { if (Array.isArray(d) && d.length > 0) setResearchCards(d) }).catch(() => {})
+    fetch('/api/cms/team-members').then(r => r.json()).then(d => { if (Array.isArray(d) && d.length > 0) setTeamMembers(d) }).catch(() => {})
+    fetch('/api/cms/services').then(r => r.json()).then(d => { if (Array.isArray(d) && d.length > 0) setServices(d) }).catch(() => {})
   }, [])
 
   const updateField = (field: keyof FormData) => (
@@ -1302,7 +1313,7 @@ export default function HomePage() {
       </div>
 
       {/* ── ACRONYM ── */}
-      <section className="acronym-section">
+      <section className="acronym-section" style={{ display: vis.acronym ? '' : 'none' }}>
         <div className="container">
           <span className="section-eyebrow">What BISXP Stands For</span>
           <div className="acronym-grid">
@@ -1343,62 +1354,28 @@ export default function HomePage() {
       </section>
 
       {/* ── PORTFOLIO ── */}
-      <section className="portfolio-section" id="case-studies">
+      <section className="portfolio-section" id="case-studies" style={{ display: vis.case_studies ? '' : 'none' }}>
         <div className="container">
           <span className="section-eyebrow">Case Studies</span>
           <h2 className="section-heading">Built by BISXP</h2>
           <div className="portfolio-grid">
-            {/* TABRO */}
-            <div className="portfolio-card">
-              <div>
-                <p className="portfolio-eyebrow">INDIA · VENUE & EVENTS MARKETPLACE</p>
-                <h3 className="portfolio-title">TABRO.IN</h3>
+            {caseStudies.map(cs => (
+              <div className="portfolio-card" key={cs.id}>
+                <div>
+                  <p className="portfolio-eyebrow">{cs.eyebrow}</p>
+                  <h3 className="portfolio-title">{cs.title}</h3>
+                </div>
+                {cs.problem_quote && (
+                  <p className="portfolio-desc">{cs.problem_quote}</p>
+                )}
+                {cs.what_we_built && (
+                  <p className="portfolio-desc" style={{ fontSize: '13px' }}>{cs.what_we_built}</p>
+                )}
+                {cs.status_badge && (
+                  <span style={{ fontSize: '11px', letterSpacing: '2px', textTransform: 'uppercase' as const, color: 'var(--amber)', opacity: 0.8 }}>· {cs.status_badge}</span>
+                )}
               </div>
-              <p className="portfolio-desc">
-                End-to-end venue and events marketplace for Hyderabad. Connecting celebration venues, caterers, decorators, and photographers with families planning weddings, receptions, and corporate events. Owner portals, social feed, enquiry CRM, and tiered subscriptions.
-              </p>
-              <span className="portfolio-market">Venues · Vendors · Influencers · India + Global</span>
-              <span style={{ fontSize: '11px', letterSpacing: '2px', textTransform: 'uppercase' as const, color: 'var(--amber)', opacity: 0.8 }}>· In Development · Launching 2026</span>
-            </div>
-
-            {/* TheUnitedSports */}
-            <div className="portfolio-card">
-              <div>
-                <p className="portfolio-eyebrow">USA + CANADA · SPORTS MARKETPLACE</p>
-                <h3 className="portfolio-title">TheUnitedSports</h3>
-              </div>
-              <p className="portfolio-desc">
-                Sport-agnostic marketplace connecting athletes, coaches, academies, grounds, gear vendors, and leagues across North America. Cricket-first beachhead with infrastructure built to scale to every sport and every market.
-              </p>
-              <span className="portfolio-market">Academies · Coaches · Grounds · Leagues · US + Canada</span>
-              <span style={{ fontSize: '11px', letterSpacing: '2px', textTransform: 'uppercase' as const, color: 'var(--amber)', opacity: 0.8 }}>· In Development · Launching 2026</span>
-            </div>
-
-            {/* CareGrid */}
-            <div className="portfolio-card">
-              <div>
-                <p className="portfolio-eyebrow">USA + CANADA · HEALTHCARE MARKETPLACE</p>
-                <h3 className="portfolio-title">CareGrid</h3>
-              </div>
-              <p className="portfolio-desc">
-                Verified healthcare provider directory with insurance network filtering at its core. Patients find in-network doctors, clinics, and specialists by insurance plan, specialty, and location — solving the broken insurance directory problem that affects every American with health insurance.
-              </p>
-              <span className="portfolio-market">Providers · Insurance Filtering · United States</span>
-              <span style={{ fontSize: '11px', letterSpacing: '2px', textTransform: 'uppercase' as const, color: 'var(--amber)', opacity: 0.8 }}>· In Development · Launching 2026</span>
-            </div>
-
-            {/* MediGrid */}
-            <div className="portfolio-card">
-              <div>
-                <p className="portfolio-eyebrow">India · Medical Tourism Marketplace</p>
-                <h3 className="portfolio-title">MediGrid</h3>
-              </div>
-              <p className="portfolio-desc">
-                India&apos;s first purpose-built medical tourism marketplace, starting with a Hyderabad pilot. International patients from the Gulf, Africa, and the UK discover world-class Indian hospitals, compare procedures and costs, and connect with international patient coordinators — all in one place.
-              </p>
-              <span className="portfolio-market">Hospitals · Medical Tourism · Hyderabad → Global</span>
-              <span style={{ fontSize: '11px', letterSpacing: '2px', textTransform: 'uppercase' as const, color: 'var(--amber)', opacity: 0.8 }}>· In Development · Launching 2026</span>
-            </div>
+            ))}
           </div>
 
           {/* Callout strip */}
@@ -1413,7 +1390,7 @@ export default function HomePage() {
       </section>
 
       {/* ── RESEARCH & SECURITY ── */}
-      <section className="rs-section">
+      <section className="rs-section" style={{ display: vis.research ? '' : 'none' }}>
         <div className="container">
           <span className="section-eyebrow">What We&apos;re Building Next</span>
           <h2 className="section-heading">Research &amp; Security</h2>
@@ -1430,26 +1407,15 @@ export default function HomePage() {
             While we build marketplaces, we are simultaneously working on the next frontier — securing the infrastructure that autonomous AI agents will run on. This is serious research, not a roadmap slide.
           </p>
           <div className="rs-grid">
-            {/* ZeroMesh */}
-            <div className="rs-card">
-              <span className="rs-tag">Active Research</span>
-              <h3 className="rs-title">ZeroMesh</h3>
-              <span className="rs-subtitle">Agentic Zero Trust Protocol</span>
-              <p className="rs-body">
-                As AI agents proliferate across enterprise infrastructure, the trust fabric connecting them becomes the new attack surface. ZeroMesh proposes a zero-trust security layer for autonomous multi-agent systems — real-time trust recalibration, behavioral anomaly detection, and rule-based policy enforcement for agent-to-agent communication.
-              </p>
-              <span className="rs-note">IEEE paper submitted · August 2025</span>
-            </div>
-            {/* BISXP Security Platform */}
-            <div className="rs-card">
-              <span className="rs-tag">In Development</span>
-              <h3 className="rs-title">BISXP Security</h3>
-              <span className="rs-subtitle">Zero-Trust Fabric for the Open Web</span>
-              <p className="rs-body">
-                A modular security platform for teams deploying LLM agents, autonomous pipelines, and distributed AI systems. Five integrated modules: Guard (runtime agent protection), Mind (behavioral baselining and drift detection), Policy (adaptive agent governance), Graph (trust relationship visualization), and Console (unified SecOps observability).
-              </p>
-              <span className="rs-note">Research division · BISXP India</span>
-            </div>
+            {researchCards.map(rc => (
+              <div className="rs-card" key={rc.id}>
+                <span className="rs-tag">{rc.tag}</span>
+                <h3 className="rs-title">{rc.title}</h3>
+                <span className="rs-subtitle">{rc.subtitle}</span>
+                <p className="rs-body">{rc.body}</p>
+                <span className="rs-note">{rc.note}</span>
+              </div>
+            ))}
           </div>
           {/* CTA strip */}
           <div className="rs-cta">
@@ -1507,7 +1473,7 @@ export default function HomePage() {
       </section>
 
       {/* ── SERVICES ── */}
-      <section className="services-section" id="services">
+      <section className="services-section" id="services" style={{ display: vis.services ? '' : 'none' }}>
         <div className="container">
           <span className="section-eyebrow">Services</span>
           <h2 className="section-heading">What We Build</h2>
@@ -1542,7 +1508,7 @@ export default function HomePage() {
       </section>
 
       {/* ── PROCESS ── */}
-      <section className="process-section" id="process">
+      <section className="process-section" id="process" style={{ display: vis.process ? '' : 'none' }}>
         <div className="container">
           <span className="section-eyebrow">How We Work</span>
           <h2 className="section-heading">Our Process</h2>
@@ -1728,71 +1694,34 @@ export default function HomePage() {
       </section>
 
       {/* ── TEAM ── */}
-      <section className="team-section">
+      <section className="team-section" style={{ display: vis.team ? '' : 'none' }}>
         <div className="container">
           <span className="section-eyebrow">The Team</span>
           <h2 className="section-heading" style={{ marginBottom: '64px' }}>
             The people behind the work
           </h2>
           <div className="team-grid">
-
-            {/* Tharif Afzal */}
-            <div className="team-card">
-              <div className="team-photo">
-                <span className="team-photo-initials">TA</span>
-                <span className="team-photo-placeholder">Photo coming soon</span>
+            {teamMembers.map(tm => (
+              <div className="team-card" key={tm.id}>
+                <div className="team-photo">
+                  <span className="team-photo-initials">{tm.initials || tm.name.split(' ').map(n => n[0]).join('')}</span>
+                  {tm.photo_url
+                    ? <img src={tm.photo_url} alt={tm.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                    : <span className="team-photo-placeholder">Photo coming soon</span>
+                  }
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                  <h3 className="team-name">{tm.name}</h3>
+                  <p className="team-title">{tm.title}</p>
+                </div>
+                <div className="team-bio">
+                  {tm.bio.split('\n\n').map((p, i) => <p key={i}>{p}</p>)}
+                </div>
+                {tm.credential_label && (
+                  <span className="team-patent">{tm.credential_label}</span>
+                )}
               </div>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                <h3 className="team-name">Tharif Afzal</h3>
-                <p className="team-title">Founder &amp; CEO</p>
-              </div>
-              <div className="team-bio">
-                <p>
-                  Tharif Afzal built the data infrastructure that enterprise AI runs on. Now he&apos;s building the AI-native platforms that put it to work.
-                </p>
-                <p>
-                  His path to BISXP runs through 25 years at the centre of two hyperscalers. At Microsoft, he grew from debugging .NET internals to leading cloud modernisation programs that became reference architectures for Azure enterprise adoption — 16 years of progressive leadership across developer support, engineering management, and large-scale migrations that shaped how enterprises moved to the cloud.
-                </p>
-                <p>
-                  At AWS, he led engineering for Amazon AppFlow and AWS Glue Streaming — the services enterprises depend on to move, transform, and stream data at scale. Under his leadership, the team launched Zero ETL integrations for the top eight SaaS platforms including Salesforce, SAP, and ServiceNow, and built DynamoDB ingestion into modern data lakes with Apache Iceberg on native S3 and S3 Tables. That work produced US Patent 11435871 for workflow execution architecture — a direct outcome of designing systems that had to be reliable under real production load. These are not supporting services. They are the pipelines that power enterprise AI workloads today.
-                </p>
-                <p>
-                  That vantage point — building highly scalable distributed systems and watching what breaks and why — is what BISXP is built on. The conviction is straightforward: the same architectural discipline that makes hyperscale systems reliable can be applied to build AI-native products faster, and with more precision, than traditional development allows.
-                </p>
-                <p>
-                  At BISXP, Tharif leads strategy, product architecture, and every client engagement. The builder who stays until it works.
-                </p>
-              </div>
-              <span className="team-patent">US Patent 11435871 · Workflow Execution Architecture</span>
-            </div>
-
-            {/* Amtul Baseer Ifra */}
-            <div className="team-card">
-              <div className="team-photo">
-                <span className="team-photo-initials">AI</span>
-                <span className="team-photo-placeholder">Photo coming soon</span>
-              </div>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                <h3 className="team-name">Amtul Baseer Ifra</h3>
-                <p className="team-title">Director, Agentic AI Security &amp; Research</p>
-              </div>
-              <div className="team-bio">
-                <p>
-                  Amtul Baseer Ifra leads BISXP&apos;s agentic AI security research — the work that answers a question most AI teams haven&apos;t thought to ask yet: when your AI agents start talking to each other at scale, who is checking that they can be trusted?
-                </p>
-                <p>
-                  Her path to that question began with federated learning — a technique that lets distributed systems collaborate on a shared intelligence model without centralising sensitive data. She applied it to one of the harder problems in distributed security: detecting DDoS attacks across networked environments while keeping every node&apos;s data private. The system worked. The research was published and peer-reviewed. And it established the instinct that runs through everything she builds — security that protects without surveillance, intelligence that works without exposure.
-                </p>
-                <p>
-                  ZeroMesh is the next expression of that instinct. A zero-trust security layer for autonomous multi-agent systems, built on the Agentic Zero Trust Protocol (AZTP). When one agent in an implicitly trusted network is compromised, the blast radius is the entire system. ZeroMesh changes that — real-time trust recalibration, behavioral anomaly detection, and rule-based policy enforcement between agents, designed to integrate with existing frameworks like LangChain, AutoGen, and CrewAI without requiring teams to restructure what they&apos;ve already built.
-                </p>
-                <p>
-                  At BISXP, she partners directly with the CEO on the agentic AI security product roadmap — from the ZeroMesh research layer through to BISXP Security, a modular platform for enterprise teams navigating the shift to autonomous AI operations. She leads BISXP India, where that future is being built from the ground up.
-                </p>
-              </div>
-              <span className="team-patent">IEEE Paper Submitted · August 2025 · ZeroMesh: Agentic Zero Trust Protocol</span>
-            </div>
-
+            ))}
           </div>
         </div>
       </section>
