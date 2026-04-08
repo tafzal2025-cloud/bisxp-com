@@ -1598,13 +1598,8 @@ export default function HomePage() {
           <div className="contact-right">
             {formState === 'success' ? (
               <div className="form-success">
-                <h3>Thank you.</h3>
-                <p>
-                  We'll be in touch within 24 hours. In the meantime, explore our work at{' '}
-                  <a href="https://tabro.in" target="_blank" rel="noopener noreferrer">TABRO.IN</a>
-                  {' '}and{' '}
-                  <a href="https://theunitedsports.com" target="_blank" rel="noopener noreferrer">TheUnitedSports.com</a>.
-                </p>
+                <h3>{s.contact_success_heading || 'Thank you.'}</h3>
+                <p>{s.contact_success_body || "We\u2019ll be in touch within 24 hours. In the meantime, explore our work at TABRO.IN and TheUnitedSports.com."}</p>
               </div>
             ) : (
               <form ref={formRef} onSubmit={handleSubmit} noValidate>

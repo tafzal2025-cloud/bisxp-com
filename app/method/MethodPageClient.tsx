@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, FormEvent } from 'react'
+import { useState, useEffect, FormEvent } from 'react'
 
 const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '917675822722'
 const whatsappLink = `https://wa.me/${whatsappNumber}?text=Hi%20BISXP%2C%20I%27m%20interested%20in%20the%20BISXP%20Method`
@@ -11,6 +11,11 @@ export default function MethodPageClient() {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [message, setMessage] = useState('')
+  const [ms, setMs] = useState<Record<string, string>>({})
+
+  useEffect(() => {
+    fetch('/api/settings').then(r => r.json()).then(setMs).catch(() => {})
+  }, [])
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault()
@@ -180,8 +185,8 @@ export default function MethodPageClient() {
         <div className="m-form">
           {formState === 'success' ? (
             <div className="m-form-success">
-              <h3>Application received.</h3>
-              <p>We&apos;ll review your application and respond within 48 hours.</p>
+              <h3>{ms.method_success_heading || 'Application received.'}</h3>
+              <p>{ms.method_success_body || "We\u2019ll review your application and respond within 48 hours."}</p>
             </div>
           ) : (
             <form onSubmit={handleSubmit} noValidate>

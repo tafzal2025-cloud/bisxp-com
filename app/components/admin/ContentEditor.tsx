@@ -23,6 +23,7 @@ const SETTINGS_SECTIONS = [
   { id: 'stats', label: 'Stats Bar' },
   { id: 'process', label: 'Our Process' },
   { id: 'contact', label: 'Contact' },
+  { id: 'method', label: 'Method Page Form' },
 ]
 
 const CMS_SECTIONS = [
