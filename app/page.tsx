@@ -1,7 +1,9 @@
 'use client'
 
 import dynamic from 'next/dynamic'
-import { useState, useRef, FormEvent } from 'react'
+import { useState, useRef, useEffect, FormEvent } from 'react'
+import type { Settings } from '@/lib/settings'
+import type { CaseStudy, ResearchCard, TeamMember, Service } from '@/lib/cms'
 
 const HeroCanvas = dynamic(() => import('./components/HeroCanvas'), { ssr: false })
 
@@ -34,21 +36,75 @@ export default function HomePage() {
   const [formState, setFormState] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
   const [formError, setFormError] = useState('')
   const formRef = useRef<HTMLFormElement>(null)
+  const [errors, setErrors] = useState<Record<string, string>>({})
+  const [touched, setTouched] = useState<Record<string, boolean>>({})
+  const [submitAttempted, setSubmitAttempted] = useState(false)
+  const [s, setS] = useState<Settings>({})
+  const [caseStudies, setCaseStudies] = useState<CaseStudy[]>([])
+  const [researchCards, setResearchCards] = useState<ResearchCard[]>([])
+  const [teamMembers, setTeamMembers] = useState<TeamMember[]>([])
+  const [services, setServices] = useState<Service[]>([])
+  const [vis, setVis] = useState({ acronym: true, case_studies: true, research: true, services: true, process: true, team: true })
+
+  useEffect(() => {
+    fetch('/api/settings').then(r => r.json()).then((data: Settings) => {
+      setS(data)
+      setVis({
+        acronym: data.section_acronym_visible !== 'false',
+        case_studies: data.section_case_studies_visible !== 'false',
+        research: data.section_research_visible !== 'false',
+        services: data.section_services_visible !== 'false',
+        process: data.section_process_visible !== 'false',
+        team: data.section_team_visible !== 'false',
+      })
+    }).catch(() => {})
+    fetch('/api/cms/case-studies').then(r => r.json()).then(d => { if (Array.isArray(d) && d.length > 0) setCaseStudies(d) }).catch(() => {})
+    fetch('/api/cms/research-cards').then(r => r.json()).then(d => { if (Array.isArray(d) && d.length > 0) setResearchCards(d) }).catch(() => {})
+    fetch('/api/cms/team-members').then(r => r.json()).then(d => { if (Array.isArray(d) && d.length > 0) setTeamMembers(d) }).catch(() => {})
+    fetch('/api/cms/services').then(r => r.json()).then(d => { if (Array.isArray(d) && d.length > 0) setServices(d) }).catch(() => {})
+  }, [])
 
   const updateField = (field: keyof FormData) => (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => setFormData((prev) => ({ ...prev, [field]: e.target.value }))
 
+  function validateField(fname: string, value: string): string {
+    switch (fname) {
+      case 'name': return value.trim().length < 2 ? 'Full name is required' : ''
+      case 'email': return !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim()) ? 'Please enter a valid email address' : ''
+      case 'phone':
+        if (!value.trim()) return ''
+        return !/^\d{10,15}$/.test(value.replace(/[\s\-+()]/g, '')) ? 'Please enter a valid phone number (10\u201315 digits)' : ''
+      case 'message': return value.trim().length < 20 ? 'Message must be at least 20 characters' : ''
+      default: return ''
+    }
+  }
+
+  function validateAll(): Record<string, string> {
+    const e: Record<string, string> = {}
+    ;(['name', 'email', 'phone', 'message'] as const).forEach(f => {
+      const err = validateField(f, formData[f] || '')
+      if (err) e[f] = err
+    })
+    return e
+  }
+
+  function handleBlur(field: string) {
+    setTouched(prev => ({ ...prev, [field]: true }))
+    const val = formData[field as keyof FormData] || ''
+    setErrors(prev => ({ ...prev, [field]: validateField(field, val) }))
+  }
+
   async function handleSubmit(e: FormEvent) {
     e.preventDefault()
     setFormError('')
-
-    // Client-side validation
-    if (!formData.name.trim()) return setFormError('Name is required.')
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-    if (!emailRegex.test(formData.email)) return setFormError('A valid email is required.')
-    if (!formData.message.trim() || formData.message.trim().length < 20)
-      return setFormError('Message must be at least 20 characters.')
+    setSubmitAttempted(true)
+    const errs = validateAll()
+    if (Object.keys(errs).length > 0) {
+      setErrors(errs)
+      setTouched({ name: true, email: true, phone: true, message: true })
+      return
+    }
 
     setFormState('loading')
     try {
@@ -789,6 +845,7 @@ export default function HomePage() {
         }
         .form-submit:hover:not(:disabled) { background: var(--amber-bright); }
         .form-submit:disabled { opacity: 0.7; cursor: not-allowed; }
+        .form-input.has-error, .form-textarea.has-error { border-color: #e74c3c; }
         .form-success {
           padding: 52px;
           text-align: center;
@@ -1244,11 +1301,11 @@ export default function HomePage() {
         <div className="hero-content">
           <span className="hero-eyebrow">AI-Native Technology Consultancy</span>
           <h1 className="hero-headline">
-            We don't just advise.<br />
-            <em>We build.</em>
+            {s.hero_headline || "We don\u2019t just advise."}<br />
+            <em>{s.hero_headline_em || 'We build.'}</em>
           </h1>
           <p className="hero-sub">
-            From marketplace blueprint to production-ready platform — in weeks, not months.
+            {s.hero_subheadline || 'From marketplace blueprint to production-ready platform \u2014 in weeks, not months.'}
           </p>
           <div className="hero-ctas">
             <a href="#contact" className="btn-amber">Start a Project</a>
@@ -1264,30 +1321,30 @@ export default function HomePage() {
       <div className="stats-bar">
         <div className="stats-grid">
           <div className="stat-item">
-            <span className="stat-number">4</span>
-            <span className="stat-label">Marketplaces in development</span>
-            <span className="stat-sub">Launching in 2026</span>
+            <span className="stat-number">{s.stat_1_number || '4'}</span>
+            <span className="stat-label">{s.stat_1_label || 'Marketplaces in development'}</span>
+            <span className="stat-sub">{s.stat_1_sub || 'Launching in 2026'}</span>
           </div>
           <div className="stat-item">
-            <span className="stat-number">25 yrs</span>
-            <span className="stat-label">Combined experience</span>
-            <span className="stat-sub">Microsoft · AWS · Enterprise AI</span>
+            <span className="stat-number">{s.stat_2_number || '25 yrs'}</span>
+            <span className="stat-label">{s.stat_2_label || 'Combined experience'}</span>
+            <span className="stat-sub">{s.stat_2_sub || 'Microsoft \u00b7 AWS \u00b7 Enterprise AI'}</span>
           </div>
           <div className="stat-item">
-            <span className="stat-number">3</span>
-            <span className="stat-label">Countries served</span>
-            <span className="stat-sub">India · USA · Canada</span>
+            <span className="stat-number">{s.stat_3_number || '3'}</span>
+            <span className="stat-label">{s.stat_3_label || 'Countries served'}</span>
+            <span className="stat-sub">{s.stat_3_sub || 'India \u00b7 USA \u00b7 Canada'}</span>
           </div>
           <div className="stat-item">
-            <span className="stat-number">100%</span>
-            <span className="stat-label">Hands-on delivery</span>
-            <span className="stat-sub">We stay until it works</span>
+            <span className="stat-number">{s.stat_4_number || '100%'}</span>
+            <span className="stat-label">{s.stat_4_label || 'Hands-on delivery'}</span>
+            <span className="stat-sub">{s.stat_4_sub || 'We stay until it works'}</span>
           </div>
         </div>
       </div>
 
       {/* ── ACRONYM ── */}
-      <section className="acronym-section">
+      <section className="acronym-section" style={{ display: vis.acronym ? '' : 'none' }}>
         <div className="container">
           <span className="section-eyebrow">What BISXP Stands For</span>
           <div className="acronym-grid">
@@ -1328,62 +1385,28 @@ export default function HomePage() {
       </section>
 
       {/* ── PORTFOLIO ── */}
-      <section className="portfolio-section" id="case-studies">
+      <section className="portfolio-section" id="case-studies" style={{ display: vis.case_studies ? '' : 'none' }}>
         <div className="container">
           <span className="section-eyebrow">Case Studies</span>
           <h2 className="section-heading">Built by BISXP</h2>
           <div className="portfolio-grid">
-            {/* TABRO */}
-            <div className="portfolio-card">
-              <div>
-                <p className="portfolio-eyebrow">INDIA · VENUE & EVENTS MARKETPLACE</p>
-                <h3 className="portfolio-title">TABRO.IN</h3>
+            {caseStudies.map(cs => (
+              <div className="portfolio-card" key={cs.id}>
+                <div>
+                  <p className="portfolio-eyebrow">{cs.eyebrow}</p>
+                  <h3 className="portfolio-title">{cs.title}</h3>
+                </div>
+                {cs.problem_quote && (
+                  <p className="portfolio-desc">{cs.problem_quote}</p>
+                )}
+                {cs.what_we_built && (
+                  <p className="portfolio-desc" style={{ fontSize: '13px' }}>{cs.what_we_built}</p>
+                )}
+                {cs.status_badge && (
+                  <span style={{ fontSize: '11px', letterSpacing: '2px', textTransform: 'uppercase' as const, color: 'var(--amber)', opacity: 0.8 }}>· {cs.status_badge}</span>
+                )}
               </div>
-              <p className="portfolio-desc">
-                End-to-end venue and events marketplace for Hyderabad. Connecting celebration venues, caterers, decorators, and photographers with families planning weddings, receptions, and corporate events. Owner portals, social feed, enquiry CRM, and tiered subscriptions.
-              </p>
-              <span className="portfolio-market">Venues · Vendors · Influencers · India + Global</span>
-              <span style={{ fontSize: '11px', letterSpacing: '2px', textTransform: 'uppercase' as const, color: 'var(--amber)', opacity: 0.8 }}>· In Development · Launching 2026</span>
-            </div>
-
-            {/* TheUnitedSports */}
-            <div className="portfolio-card">
-              <div>
-                <p className="portfolio-eyebrow">USA + CANADA · SPORTS MARKETPLACE</p>
-                <h3 className="portfolio-title">TheUnitedSports</h3>
-              </div>
-              <p className="portfolio-desc">
-                Sport-agnostic marketplace connecting athletes, coaches, academies, grounds, gear vendors, and leagues across North America. Cricket-first beachhead with infrastructure built to scale to every sport and every market.
-              </p>
-              <span className="portfolio-market">Academies · Coaches · Grounds · Leagues · US + Canada</span>
-              <span style={{ fontSize: '11px', letterSpacing: '2px', textTransform: 'uppercase' as const, color: 'var(--amber)', opacity: 0.8 }}>· In Development · Launching 2026</span>
-            </div>
-
-            {/* CareGrid */}
-            <div className="portfolio-card">
-              <div>
-                <p className="portfolio-eyebrow">USA + CANADA · HEALTHCARE MARKETPLACE</p>
-                <h3 className="portfolio-title">CareGrid</h3>
-              </div>
-              <p className="portfolio-desc">
-                Verified healthcare provider directory with insurance network filtering at its core. Patients find in-network doctors, clinics, and specialists by insurance plan, specialty, and location — solving the broken insurance directory problem that affects every American with health insurance.
-              </p>
-              <span className="portfolio-market">Providers · Insurance Filtering · United States</span>
-              <span style={{ fontSize: '11px', letterSpacing: '2px', textTransform: 'uppercase' as const, color: 'var(--amber)', opacity: 0.8 }}>· In Development · Launching 2026</span>
-            </div>
-
-            {/* MediGrid */}
-            <div className="portfolio-card">
-              <div>
-                <p className="portfolio-eyebrow">India · Medical Tourism Marketplace</p>
-                <h3 className="portfolio-title">MediGrid</h3>
-              </div>
-              <p className="portfolio-desc">
-                India&apos;s first purpose-built medical tourism marketplace, starting with a Hyderabad pilot. International patients from the Gulf, Africa, and the UK discover world-class Indian hospitals, compare procedures and costs, and connect with international patient coordinators — all in one place.
-              </p>
-              <span className="portfolio-market">Hospitals · Medical Tourism · Hyderabad → Global</span>
-              <span style={{ fontSize: '11px', letterSpacing: '2px', textTransform: 'uppercase' as const, color: 'var(--amber)', opacity: 0.8 }}>· In Development · Launching 2026</span>
-            </div>
+            ))}
           </div>
 
           {/* Callout strip */}
@@ -1398,7 +1421,7 @@ export default function HomePage() {
       </section>
 
       {/* ── RESEARCH & SECURITY ── */}
-      <section className="rs-section">
+      <section className="rs-section" style={{ display: vis.research ? '' : 'none' }}>
         <div className="container">
           <span className="section-eyebrow">What We&apos;re Building Next</span>
           <h2 className="section-heading">Research &amp; Security</h2>
@@ -1415,26 +1438,15 @@ export default function HomePage() {
             While we build marketplaces, we are simultaneously working on the next frontier — securing the infrastructure that autonomous AI agents will run on. This is serious research, not a roadmap slide.
           </p>
           <div className="rs-grid">
-            {/* ZeroMesh */}
-            <div className="rs-card">
-              <span className="rs-tag">Active Research</span>
-              <h3 className="rs-title">ZeroMesh</h3>
-              <span className="rs-subtitle">Agentic Zero Trust Protocol</span>
-              <p className="rs-body">
-                As AI agents proliferate across enterprise infrastructure, the trust fabric connecting them becomes the new attack surface. ZeroMesh proposes a zero-trust security layer for autonomous multi-agent systems — real-time trust recalibration, behavioral anomaly detection, and rule-based policy enforcement for agent-to-agent communication.
-              </p>
-              <span className="rs-note">IEEE paper submitted · August 2025</span>
-            </div>
-            {/* BISXP Security Platform */}
-            <div className="rs-card">
-              <span className="rs-tag">In Development</span>
-              <h3 className="rs-title">BISXP Security</h3>
-              <span className="rs-subtitle">Zero-Trust Fabric for the Open Web</span>
-              <p className="rs-body">
-                A modular security platform for teams deploying LLM agents, autonomous pipelines, and distributed AI systems. Five integrated modules: Guard (runtime agent protection), Mind (behavioral baselining and drift detection), Policy (adaptive agent governance), Graph (trust relationship visualization), and Console (unified SecOps observability).
-              </p>
-              <span className="rs-note">Research division · BISXP India</span>
-            </div>
+            {researchCards.map(rc => (
+              <div className="rs-card" key={rc.id}>
+                <span className="rs-tag">{rc.tag}</span>
+                <h3 className="rs-title">{rc.title}</h3>
+                <span className="rs-subtitle">{rc.subtitle}</span>
+                <p className="rs-body">{rc.body}</p>
+                <span className="rs-note">{rc.note}</span>
+              </div>
+            ))}
           </div>
           {/* CTA strip */}
           <div className="rs-cta">
@@ -1492,7 +1504,7 @@ export default function HomePage() {
       </section>
 
       {/* ── SERVICES ── */}
-      <section className="services-section" id="services">
+      <section className="services-section" id="services" style={{ display: vis.services ? '' : 'none' }}>
         <div className="container">
           <span className="section-eyebrow">Services</span>
           <h2 className="section-heading">What We Build</h2>
@@ -1510,70 +1522,54 @@ export default function HomePage() {
             Every product we build runs on the same proven platform pattern — architected for Vercel and Supabase at launch, and AWS at scale. The stack evolves with your growth. The pattern doesn&apos;t change.
           </p>
           <div className="services-grid">
-            <div className="service-card">
-              <span className="service-icon">◈</span>
-              <h3 className="service-title">Marketplace Build</h3>
-              <p className="service-desc">
-                We build your two-sided marketplace from the ground up — listings, owner portals, enquiry system, payments, social feed, and admin dashboard. Deployed and live, not handed off half-finished.
-              </p>
-            </div>
-            <div className="service-card">
-              <span className="service-icon">⬡</span>
-              <h3 className="service-title">AI Integration</h3>
-              <p className="service-desc">
-                We embed Claude AI into your product — intelligent search, automated matching, AI-generated listing descriptions, and workflow automation. The same AI layer powering our own marketplaces.
-              </p>
-            </div>
-            <div className="service-card">
-              <span className="service-icon">◎</span>
-              <h3 className="service-title">SaaS Product</h3>
-              <p className="service-desc">
-                Custom SaaS products built on the full BISXP stack — auth, subscriptions, multi-tenant portals, admin dashboards, and API integrations. Production-grade architecture from day one.
-              </p>
-            </div>
-            <div className="service-card">
-              <span className="service-icon">△</span>
-              <h3 className="service-title">Ongoing Partnership</h3>
-              <p className="service-desc">
-                An embedded technical partner for businesses that need continuous delivery — new features, infrastructure scaling, AI integration, and strategic guidance as your product grows.
-              </p>
-            </div>
+            {(services.length > 0 ? services : [
+              { id: '1', icon: '◈', title: s.service_1_title || 'Marketplace Build', description: s.service_1_desc || 'We build your two-sided marketplace from the ground up.', sort_order: 1, is_visible: true },
+              { id: '2', icon: '⬡', title: s.service_2_title || 'AI Integration', description: s.service_2_desc || 'We embed Claude AI into your product.', sort_order: 2, is_visible: true },
+              { id: '3', icon: '◎', title: s.service_3_title || 'SaaS Product', description: s.service_3_desc || 'Custom SaaS products built on the full BISXP stack.', sort_order: 3, is_visible: true },
+              { id: '4', icon: '△', title: s.service_4_title || 'Ongoing Partnership', description: s.service_4_desc || 'An embedded technical partner for continuous delivery.', sort_order: 4, is_visible: true },
+            ]).map(svc => (
+              <div className="service-card" key={svc.id}>
+                <span className="service-icon">{svc.icon}</span>
+                <h3 className="service-title">{svc.title}</h3>
+                <p className="service-desc">{svc.description}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
       {/* ── PROCESS ── */}
-      <section className="process-section" id="process">
+      <section className="process-section" id="process" style={{ display: vis.process ? '' : 'none' }}>
         <div className="container">
           <span className="section-eyebrow">How We Work</span>
           <h2 className="section-heading">Our Process</h2>
           <div className="process-steps">
             <div className="process-step">
               <span className="process-number">01</span>
-              <span className="process-title">Discovery</span>
+              <span className="process-title">{s.process_1_title || 'Discovery'}</span>
               <p className="process-desc">
-                We learn your business, community, and goals. No templates. No assumptions.
+                {s.process_1_desc || 'We learn your business, community, and goals. No templates. No assumptions.'}
               </p>
             </div>
             <div className="process-step">
               <span className="process-number">02</span>
-              <span className="process-title">Blueprint</span>
+              <span className="process-title">{s.process_2_title || 'Blueprint'}</span>
               <p className="process-desc">
-                A scoped, costed plan. What we build, in what order, and why.
+                {s.process_2_desc || 'A scoped, costed plan. What we build, in what order, and why.'}
               </p>
             </div>
             <div className="process-step">
               <span className="process-number">03</span>
-              <span className="process-title">Execution</span>
+              <span className="process-title">{s.process_3_title || 'Execution'}</span>
               <p className="process-desc">
-                We build alongside you. Weekly demos. Real code. Deployed features.
+                {s.process_3_desc || 'We build alongside you. Weekly demos. Real code. Deployed features.'}
               </p>
             </div>
             <div className="process-step">
               <span className="process-number">04</span>
-              <span className="process-title">Handover</span>
+              <span className="process-title">{s.process_4_title || 'Handover'}</span>
               <p className="process-desc">
-                You own everything. Trained team, documented systems, zero dependency on us.
+                {s.process_4_desc || 'You own everything. Trained team, documented systems, zero dependency on us.'}
               </p>
             </div>
           </div>
@@ -1618,9 +1614,9 @@ export default function HomePage() {
       <section className="contact-section" id="contact">
         <div className="contact-grid">
           <div className="contact-left">
-            <h2>Start a Project</h2>
+            <h2>{s.contact_heading || 'Start a Project'}</h2>
             <p>
-              Tell us what you're building. We'll respond within 24 hours with honest thoughts on how we'd approach it — no pitch, no pressure.
+              {s.contact_subheading || "Tell us what you\u2019re building. We\u2019ll respond within 24 hours with honest thoughts on how we\u2019d approach it \u2014 no pitch, no pressure."}
             </p>
             <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="whatsapp-link">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
@@ -1633,47 +1629,52 @@ export default function HomePage() {
           <div className="contact-right">
             {formState === 'success' ? (
               <div className="form-success">
-                <h3>Thank you.</h3>
-                <p>
-                  We'll be in touch within 24 hours. In the meantime, explore our work at{' '}
-                  <a href="https://tabro.in" target="_blank" rel="noopener noreferrer">TABRO.IN</a>
-                  {' '}and{' '}
-                  <a href="https://theunitedsports.com" target="_blank" rel="noopener noreferrer">TheUnitedSports.com</a>.
-                </p>
+                <h3>{s.contact_success_heading || 'Thank you.'}</h3>
+                <p>{s.contact_success_body || "We\u2019ll be in touch within 24 hours. In the meantime, explore our work at TABRO.IN and TheUnitedSports.com."}</p>
               </div>
             ) : (
               <form ref={formRef} onSubmit={handleSubmit} noValidate>
                 <div className="form-group">
-                  <label className="form-label">Name *</label>
+                  <label className="form-label">Name<span style={{ color: '#e74c3c', marginLeft: 3 }}>*</span></label>
                   <input
-                    className="form-input"
+                    className={`form-input${(touched.name || submitAttempted) && errors.name ? ' has-error' : ''}`}
                     type="text"
                     value={formData.name}
                     onChange={updateField('name')}
+                    onBlur={() => handleBlur('name')}
                     placeholder="Your full name"
-                    required
                   />
+                  {(touched.name || submitAttempted) && errors.name && (
+                    <span style={{ display: 'block', marginTop: 4, fontSize: 12, color: '#e74c3c', fontFamily: "'Inter', sans-serif" }}>{errors.name}</span>
+                  )}
                 </div>
                 <div className="form-group">
-                  <label className="form-label">Email *</label>
+                  <label className="form-label">Email<span style={{ color: '#e74c3c', marginLeft: 3 }}>*</span></label>
                   <input
-                    className="form-input"
+                    className={`form-input${(touched.email || submitAttempted) && errors.email ? ' has-error' : ''}`}
                     type="email"
                     value={formData.email}
                     onChange={updateField('email')}
+                    onBlur={() => handleBlur('email')}
                     placeholder="you@company.com"
-                    required
                   />
+                  {(touched.email || submitAttempted) && errors.email && (
+                    <span style={{ display: 'block', marginTop: 4, fontSize: 12, color: '#e74c3c', fontFamily: "'Inter', sans-serif" }}>{errors.email}</span>
+                  )}
                 </div>
                 <div className="form-group">
                   <label className="form-label">Phone</label>
                   <input
-                    className="form-input"
+                    className={`form-input${(touched.phone || submitAttempted) && errors.phone ? ' has-error' : ''}`}
                     type="tel"
                     value={formData.phone}
                     onChange={updateField('phone')}
+                    onBlur={() => handleBlur('phone')}
                     placeholder="+1 234 567 8900"
                   />
+                  {(touched.phone || submitAttempted) && errors.phone && (
+                    <span style={{ display: 'block', marginTop: 4, fontSize: 12, color: '#e74c3c', fontFamily: "'Inter', sans-serif" }}>{errors.phone}</span>
+                  )}
                 </div>
                 <div className="form-group">
                   <label className="form-label">Company / Business Name</label>
@@ -1687,30 +1688,42 @@ export default function HomePage() {
                 </div>
                 <div className="form-group">
                   <label className="form-label">Business Type</label>
-                  <select
-                    className="form-select"
-                    value={formData.business_type}
-                    onChange={updateField('business_type')}
-                  >
-                    <option value="">Select one…</option>
-                    <option value="Marketplace">Marketplace</option>
-                    <option value="SaaS Platform">SaaS Platform</option>
-                    <option value="Digital Transformation">Digital Transformation</option>
-                    <option value="Event/Venue">Event / Venue</option>
-                    <option value="Sports/Community">Sports / Community</option>
-                    <option value="E-commerce">E-commerce</option>
-                    <option value="Other">Other</option>
-                  </select>
+                  <div style={{ position: 'relative' }}>
+                    <input
+                      className="form-input"
+                      list="business-type-options"
+                      name="business_type"
+                      value={formData.business_type || ''}
+                      onChange={e => setFormData(prev => ({ ...prev, business_type: e.target.value }))}
+                      placeholder="Select or type your business type"
+                      autoComplete="off"
+                    />
+                    <datalist id="business-type-options">
+                      <option value="Marketplace" />
+                      <option value="SaaS Platform" />
+                      <option value="AI Integration" />
+                      <option value="Ongoing Partnership" />
+                      <option value="BISXP Method" />
+                      <option value="Digital Transformation" />
+                      <option value="Event / Venue" />
+                      <option value="Sports / Community" />
+                      <option value="E-commerce" />
+                      <option value="Other" />
+                    </datalist>
+                  </div>
                 </div>
                 <div className="form-group">
-                  <label className="form-label">Message * (min 20 characters)</label>
+                  <label className="form-label">Message<span style={{ color: '#e74c3c', marginLeft: 3 }}>*</span> <span style={{ fontWeight: 300, opacity: 0.6 }}>(min 20 characters)</span></label>
                   <textarea
-                    className="form-textarea"
+                    className={`form-textarea${(touched.message || submitAttempted) && errors.message ? ' has-error' : ''}`}
                     value={formData.message}
                     onChange={updateField('message')}
+                    onBlur={() => handleBlur('message')}
                     placeholder="Tell us what you're building, your timeline, and any key requirements…"
-                    required
                   />
+                  {(touched.message || submitAttempted) && errors.message && (
+                    <span style={{ display: 'block', marginTop: 4, fontSize: 12, color: '#e74c3c', fontFamily: "'Inter', sans-serif" }}>{errors.message}</span>
+                  )}
                 </div>
                 {(formState === 'error' || formError) && (
                   <div className="form-error">{formError}</div>
@@ -1718,7 +1731,7 @@ export default function HomePage() {
                 <button
                   type="submit"
                   className="form-submit"
-                  disabled={formState === 'loading'}
+                  disabled={formState === 'loading' || (submitAttempted && Object.keys(validateAll()).length > 0)}
                 >
                   {formState === 'loading' ? 'Sending…' : 'Send Enquiry'}
                 </button>
@@ -1729,71 +1742,34 @@ export default function HomePage() {
       </section>
 
       {/* ── TEAM ── */}
-      <section className="team-section">
+      <section className="team-section" style={{ display: vis.team ? '' : 'none' }}>
         <div className="container">
           <span className="section-eyebrow">The Team</span>
           <h2 className="section-heading" style={{ marginBottom: '64px' }}>
             The people behind the work
           </h2>
           <div className="team-grid">
-
-            {/* Tharif Afzal */}
-            <div className="team-card">
-              <div className="team-photo">
-                <span className="team-photo-initials">TA</span>
-                <span className="team-photo-placeholder">Photo coming soon</span>
+            {teamMembers.map(tm => (
+              <div className="team-card" key={tm.id}>
+                <div className="team-photo">
+                  <span className="team-photo-initials">{tm.initials || tm.name.split(' ').map(n => n[0]).join('')}</span>
+                  {tm.photo_url
+                    ? <img src={tm.photo_url} alt={tm.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                    : <span className="team-photo-placeholder">Photo coming soon</span>
+                  }
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                  <h3 className="team-name">{tm.name}</h3>
+                  <p className="team-title">{tm.title}</p>
+                </div>
+                <div className="team-bio">
+                  {tm.bio.split('\n\n').map((p, i) => <p key={i}>{p}</p>)}
+                </div>
+                {tm.credential_label && (
+                  <span className="team-patent">{tm.credential_label}</span>
+                )}
               </div>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                <h3 className="team-name">Tharif Afzal</h3>
-                <p className="team-title">Founder &amp; CEO</p>
-              </div>
-              <div className="team-bio">
-                <p>
-                  Tharif Afzal built the data infrastructure that enterprise AI runs on. Now he&apos;s building the AI-native platforms that put it to work.
-                </p>
-                <p>
-                  His path to BISXP runs through 25 years at the centre of two hyperscalers. At Microsoft, he grew from debugging .NET internals to leading cloud modernisation programs that became reference architectures for Azure enterprise adoption — 16 years of progressive leadership across developer support, engineering management, and large-scale migrations that shaped how enterprises moved to the cloud.
-                </p>
-                <p>
-                  At AWS, he led engineering for Amazon AppFlow and AWS Glue Streaming — the services enterprises depend on to move, transform, and stream data at scale. Under his leadership, the team launched Zero ETL integrations for the top eight SaaS platforms including Salesforce, SAP, and ServiceNow, and built DynamoDB ingestion into modern data lakes with Apache Iceberg on native S3 and S3 Tables. That work produced US Patent 11435871 for workflow execution architecture — a direct outcome of designing systems that had to be reliable under real production load. These are not supporting services. They are the pipelines that power enterprise AI workloads today.
-                </p>
-                <p>
-                  That vantage point — building highly scalable distributed systems and watching what breaks and why — is what BISXP is built on. The conviction is straightforward: the same architectural discipline that makes hyperscale systems reliable can be applied to build AI-native products faster, and with more precision, than traditional development allows.
-                </p>
-                <p>
-                  At BISXP, Tharif leads strategy, product architecture, and every client engagement. The builder who stays until it works.
-                </p>
-              </div>
-              <span className="team-patent">US Patent 11435871 · Workflow Execution Architecture</span>
-            </div>
-
-            {/* Amtul Baseer Ifra */}
-            <div className="team-card">
-              <div className="team-photo">
-                <span className="team-photo-initials">AI</span>
-                <span className="team-photo-placeholder">Photo coming soon</span>
-              </div>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                <h3 className="team-name">Amtul Baseer Ifra</h3>
-                <p className="team-title">Director, Agentic AI Security &amp; Research</p>
-              </div>
-              <div className="team-bio">
-                <p>
-                  Amtul Baseer Ifra leads BISXP&apos;s agentic AI security research — the work that answers a question most AI teams haven&apos;t thought to ask yet: when your AI agents start talking to each other at scale, who is checking that they can be trusted?
-                </p>
-                <p>
-                  Her path to that question began with federated learning — a technique that lets distributed systems collaborate on a shared intelligence model without centralising sensitive data. She applied it to one of the harder problems in distributed security: detecting DDoS attacks across networked environments while keeping every node&apos;s data private. The system worked. The research was published and peer-reviewed. And it established the instinct that runs through everything she builds — security that protects without surveillance, intelligence that works without exposure.
-                </p>
-                <p>
-                  ZeroMesh is the next expression of that instinct. A zero-trust security layer for autonomous multi-agent systems, built on the Agentic Zero Trust Protocol (AZTP). When one agent in an implicitly trusted network is compromised, the blast radius is the entire system. ZeroMesh changes that — real-time trust recalibration, behavioral anomaly detection, and rule-based policy enforcement between agents, designed to integrate with existing frameworks like LangChain, AutoGen, and CrewAI without requiring teams to restructure what they&apos;ve already built.
-                </p>
-                <p>
-                  At BISXP, she partners directly with the CEO on the agentic AI security product roadmap — from the ZeroMesh research layer through to BISXP Security, a modular platform for enterprise teams navigating the shift to autonomous AI operations. She leads BISXP India, where that future is being built from the ground up.
-                </p>
-              </div>
-              <span className="team-patent">IEEE Paper Submitted · August 2025 · ZeroMesh: Agentic Zero Trust Protocol</span>
-            </div>
-
+            ))}
           </div>
         </div>
       </section>

@@ -157,6 +157,48 @@ After every session, add a new observation block below using this template:
 
 ---
 
+## Session 3 — 2026-04-07
+
+### Files created/modified
+- `supabase/migrations/002_bisxp_settings.sql` — settings table + 30 seed rows (created)
+- `lib/settings.ts` — getSettings() server function (created)
+- `app/api/settings/route.ts` — public GET settings (created)
+- `app/api/admin/settings/route.ts` — auth-protected GET + POST (created)
+- `tests/unit/settings-api.test.ts` — 6 unit tests for settings routes (created)
+- `app/admin/page.tsx` — Content editor tab added (modified)
+- `app/page.tsx` — reads settings with fallbacks for hero, stats, services, process, contact (modified)
+- `docs/features/FEATURE-content-editor.md` — feature doc (created)
+- `CLAUDE_CONTEXT.md` — Session 3 updates (modified)
+- `SESSION_OBSERVATIONS.md` — this block (modified)
+
+### Test health
+- Tests passing: 14/14 (8 existing + 6 new)
+- New tests added: 6
+- Tests removed: 0
+
+### Patterns documented
+- **Settings pattern**: bisxp_settings table → lib/settings.ts → /api/settings (public) → page.tsx with fallbacks
+- **Admin content tab**: Fetches on tab activation, groups by section, per-field save with toast feedback
+
+### Gaps identified
+- **page.tsx still 1800+ lines** — needs section component extraction
+- **No cache layer** — settings fetched on every page load via client-side fetch
+
+### Degradation signals
+- [x] File size creep — page.tsx still over 500 lines, admin/page.tsx grew by ~150 lines
+- [ ] Test count decreased? — No, grew from 8 to 14
+- [ ] New duplicate code introduced? — No
+- [ ] CSS hardcoded hex values? — No
+- [ ] Console.log left in production code? — No
+- [ ] Missing loading states? — Content tab has loading state
+- [ ] Mobile not tested? — Content editor has mobile CSS
+
+### Suggestions for next session
+- **Priority 1**: Split page.tsx into section components
+- **Priority 2**: Add settings cache (revalidate tag or ISR)
+
+---
+
 _This file is updated by Claude Code at each session end._
 _Each observation block captures the health of the codebase at that point in time._
 _Use degradation signals to catch quality erosion before it compounds._

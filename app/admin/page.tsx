@@ -3,9 +3,11 @@
 import { useState, useEffect, useMemo } from 'react'
 import { useRouter } from 'next/navigation'
 import { createAuthClient } from '@/lib/supabase'
+import ContentEditor from '@/app/components/admin/ContentEditor'
 
 // ─── TYPES ───────────────────────────────────────────────────────────────────
 
+type AdminTab = 'enquiries' | 'content'
 type EnquiryStatus = 'new' | 'contacted' | 'qualified' | 'converted' | 'closed'
 
 interface Enquiry {
@@ -57,6 +59,7 @@ export default function AdminPage() {
   const [userEmail, setUserEmail] = useState('')
   const [updatingId, setUpdatingId] = useState<string | null>(null)
   const [expandedId, setExpandedId] = useState<string | null>(null)
+  const [activeTab, setActiveTab] = useState<AdminTab>('enquiries')
 
   // Auth check + fetch
   useEffect(() => {
@@ -369,6 +372,28 @@ export default function AdminPage() {
           font-size: 14px;
           color: var(--muted);
         }
+        .admin-tabs {
+          display: flex;
+          gap: 0;
+          margin-bottom: 32px;
+          border-bottom: 1px solid var(--border);
+        }
+        .admin-tab {
+          font-family: 'Inter', system-ui, sans-serif;
+          font-size: 12px;
+          font-weight: 500;
+          letter-spacing: 2px;
+          text-transform: uppercase;
+          color: var(--muted);
+          background: transparent;
+          border: none;
+          padding: 12px 24px;
+          cursor: pointer;
+          border-bottom: 2px solid transparent;
+          transition: all 0.2s;
+        }
+        .admin-tab:hover { color: var(--cream); }
+        .admin-tab.active { color: var(--amber); border-bottom-color: var(--amber); }
         @media (max-width: 768px) {
           .admin-header { padding: 16px 20px; }
           .admin-body { padding: 24px 20px; }
@@ -387,6 +412,13 @@ export default function AdminPage() {
         </header>
 
         <div className="admin-body">
+          {/* Tabs */}
+          <div className="admin-tabs">
+            <button className={`admin-tab${activeTab === 'enquiries' ? ' active' : ''}`} onClick={() => setActiveTab('enquiries')}>📋 Enquiries</button>
+            <button className={`admin-tab${activeTab === 'content' ? ' active' : ''}`} onClick={() => setActiveTab('content')}>✏️ Content</button>
+          </div>
+
+          {activeTab === 'enquiries' && (<>
           {/* Title */}
           <div className="admin-title-row">
             <h1 className="admin-title">Enquiries</h1>
@@ -485,6 +517,10 @@ export default function AdminPage() {
               </table>
             </div>
           )}
+          </>)}
+
+          {activeTab === 'content' && <ContentEditor />}
+
         </div>
       </div>
     </>
