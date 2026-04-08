@@ -295,13 +295,23 @@ export default function ContentEditor() {
                       <div className="ce-add-form-title">Editing — {(item[sec.nameField] || item.tag || '') as string}</div>
                       {sec.addFields.map(field => (
                         <div key={field} className="ce-field">
-                          <label className="ce-label">{field.replace(/_/g, ' ')}</label>
+                          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 5 }}>
+                            <label className="ce-label" style={{ marginBottom: 0 }}>{field.replace(/_/g, ' ')}</label>
+                            {editItemValues[field] && (
+                              <button style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: 10, color: '#aaa', letterSpacing: '1px', textTransform: 'uppercase' as const, fontFamily: 'Inter, sans-serif', padding: '2px 4px' }}
+                                onClick={() => setEditItemValues(prev => ({ ...prev, [field]: '' }))}>Clear</button>
+                            )}
+                          </div>
                           {['bio', 'body', 'what_we_built', 'problem_quote', 'description', 'ai_layer', 'scale_architecture', 'note', 'subtitle'].includes(field)
                             ? <textarea className="ce-textarea"
-                                style={{ minHeight: ['bio', 'body', 'what_we_built'].includes(field) ? 140 : 80 }}
+                                style={{ minHeight: ['bio', 'body', 'what_we_built'].includes(field) ? 140 : 80, opacity: editItemValues[field] ? 1 : 0.4 }}
                                 value={editItemValues[field] || ''}
+                                placeholder={editItemValues[field] ? '' : '(hidden — field is empty)'}
                                 onChange={e => setEditItemValues(prev => ({ ...prev, [field]: e.target.value }))} />
-                            : <input className="ce-input" value={editItemValues[field] || ''}
+                            : <input className="ce-input"
+                                style={{ opacity: editItemValues[field] ? 1 : 0.4 }}
+                                value={editItemValues[field] || ''}
+                                placeholder={editItemValues[field] ? '' : '(hidden — field is empty)'}
                                 onChange={e => setEditItemValues(prev => ({ ...prev, [field]: e.target.value }))} />
                           }
                         </div>
