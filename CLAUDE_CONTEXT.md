@@ -1,6 +1,6 @@
 # BISXP.COM — Session Brain
 
-**Last Updated:** Session 4 — 2026-04-07
+**Last Updated:** Session 5 (platform redesign) — 2026-04-08
 
 ---
 
@@ -98,6 +98,11 @@ lib/
   settings.ts                   ✅ getSettings() — server-side settings fetch
   cms.ts                        ✅ getCaseStudies, getResearchCards, getTeamMembers, getServices
   admin-auth.ts                 ✅ getAuthUser() — shared admin auth helper
+app/
+  sitemap.ts                    ✅ /sitemap.xml — homepage + /method
+  robots.ts                     ✅ /robots.txt — allow all, disallow /admin /api
+  api/og/route.tsx              ✅ /api/og — Edge OG image with BISXP branding
+  method/layout.tsx             ✅ Method page SEO metadata + OG image
 vitest.config.ts                ✅ Vitest configuration
 tests/
   unit/
@@ -113,6 +118,11 @@ proxy.ts                        ✅ Middleware — protects /admin
 .env.example                    ✅ Committed placeholder values
 supabase/
   migrations/001_initial_schema.sql  ✅ Full DB schema
+  migrations/002_bisxp_settings.sql ✅ Settings table + seed
+  migrations/003_bisxp_cms.sql      ✅ 4 CMS tables + seed
+  migrations/004_form_messages.sql  ✅ Form success messages
+  migrations/005_platform_redesign.sql  ✅ Platform section settings
+  migrations/005b_platform_settings_update.sql ✅ Copy updates
 .claude/
   CLAUDE.md                     ✅ Standing instructions
 CLAUDE_CONTEXT.md               ✅ This file

@@ -16,6 +16,9 @@ const VISIBILITY_TOGGLES = [
   { key: 'section_services_visible', label: 'Services' },
   { key: 'section_process_visible', label: 'Our Process' },
   { key: 'section_team_visible', label: 'The Team' },
+  { key: 'section_personas_visible', label: 'Who Builds on BISXP' },
+  { key: 'section_methodology_visible', label: 'BISXP Methodology' },
+  { key: 'section_platform_visible', label: 'Platform Components' },
 ]
 
 const SETTINGS_SECTIONS = [
@@ -24,6 +27,9 @@ const SETTINGS_SECTIONS = [
   { id: 'process', label: 'Our Process' },
   { id: 'contact', label: 'Contact' },
   { id: 'method', label: 'Method Page Form' },
+  { id: 'platform', label: 'Platform Section' },
+  { id: 'personas', label: 'Who Builds on BISXP' },
+  { id: 'methodology', label: 'BISXP Methodology' },
 ]
 
 const CMS_SECTIONS = [
