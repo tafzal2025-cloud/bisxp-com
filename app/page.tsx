@@ -113,14 +113,14 @@ export default function HomePage() {
   const tharif = teamMembers.find(t => t.initials === 'TA' || t.name === 'Tharif Afzal')
 
   const PLATFORM_TILES = [
-    { icon: '◈', title: 'Multi-sided Listings', body: 'Any entity type with owner portals, media upload, and tiered feature access.' },
-    { icon: '◎', title: 'Enquiry & CRM Pipeline', body: 'From first contact to closed booking. Status tracking, notes, and owner notifications.' },
-    { icon: '⬡', title: 'Subscription Tiers', body: 'Basic, Professional, Premium. Feature gating and upgrade prompts built in from day one.' },
-    { icon: '△', title: 'AI Matching & Content', body: 'Claude AI for listing matching, content generation, photo scoring, and workflow automation.' },
-    { icon: '○', title: 'Social Feed & Community', body: 'Posts, likes, comments, event announcements, and influencer integration.' },
-    { icon: '□', title: 'Owner Portals', body: 'Every listing owner gets a full management dashboard \u2014 without building one per client.' },
-    { icon: '◇', title: 'Analytics & Scoring', body: 'Listing quality scores, enquiry conversion tracking, session analytics, and admin dashboards.' },
-    { icon: '\u221E', title: 'Multi-market Architecture', body: 'India \u20B9 or Global $. INR or USD. GST or Sales Tax. The platform handles both.' },
+    { icon: '01', title: 'Multi-sided Listings', body: 'Any entity type with owner portals, media upload, and tiered feature access.' },
+    { icon: '02', title: 'Enquiry & CRM Pipeline', body: 'From first contact to closed booking. Status tracking, notes, and owner notifications.' },
+    { icon: '03', title: 'Subscription Tiers', body: 'Basic, Professional, Premium. Feature gating and upgrade prompts built in from day one.' },
+    { icon: '04', title: 'AI Matching & Content', body: 'Claude AI for listing matching, content generation, photo scoring, and workflow automation.' },
+    { icon: '05', title: 'Social Feed & Community', body: 'Posts, likes, comments, event announcements, and influencer integration.' },
+    { icon: '06', title: 'Owner Portals', body: 'Every listing owner gets a full management dashboard \u2014 without building one per client.' },
+    { icon: '07', title: 'Analytics & Scoring', body: 'Listing quality scores, enquiry conversion tracking, session analytics, and admin dashboards.' },
+    { icon: '08', title: 'Multi-market Architecture', body: 'India \u20B9 or Global $. INR or USD. GST or Sales Tax. The platform handles both.' },
   ]
 
   return (
@@ -155,7 +155,7 @@ export default function HomePage() {
         .btn-secondary:hover { background:rgba(212,168,67,0.08) }
 
         /* ── SECTION COMMON ── */
-        .section { padding:100px 40px }
+        .section { padding:72px 40px }
         .section-eyebrow { font-family:'Inter',system-ui,sans-serif;font-size:10px;font-weight:500;letter-spacing:5px;text-transform:uppercase;color:var(--amber);margin-bottom:16px;display:block }
         .section-heading { font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:300;color:var(--cream);margin-bottom:48px;line-height:1.1 }
         .section-intro { font-family:'Inter',system-ui,sans-serif;font-size:15px;font-weight:300;color:var(--muted);max-width:600px;line-height:1.75;margin-bottom:48px;margin-top:-24px }
@@ -171,7 +171,7 @@ export default function HomePage() {
         .stat-sub { font-family:'Inter',system-ui,sans-serif;font-size:12px;color:var(--muted);display:block }
 
         /* ── PARTNER STORIES ── */
-        .stories-section { background:var(--charcoal);padding:100px 40px }
+        .stories-section { background:var(--charcoal);padding:72px 40px }
         .stories-grid { display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:rgba(255,255,255,0.06) }
         .story-card { background:var(--obsidian);padding:48px 36px;display:flex;flex-direction:column;gap:16px }
         .story-eyebrow { font-family:'Inter',system-ui,sans-serif;font-size:10px;font-weight:500;letter-spacing:4px;text-transform:uppercase;color:var(--amber) }
@@ -182,15 +182,15 @@ export default function HomePage() {
         .story-badge { font-family:'Inter',system-ui,sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--amber);opacity:.7 }
 
         /* ── PLATFORM TILES ── */
-        .platform-section { background:var(--obsidian);padding:100px 40px }
-        .platform-grid { display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,0.08);margin-top:48px;border:1px solid rgba(255,255,255,0.08) }
-        .platform-tile { background:var(--charcoal);padding:40px 32px;min-height:180px }
-        .platform-tile-icon { font-size:22px;color:var(--amber);margin-bottom:16px;display:block;line-height:1 }
-        .platform-tile-title { font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:300;color:var(--cream);margin-bottom:10px;line-height:1.2 }
-        .platform-tile-body { font-family:'Inter',system-ui,sans-serif;font-size:13px;color:var(--muted);line-height:1.7 }
+        .platform-section { background:var(--obsidian);padding:72px 40px }
+        .platform-grid { display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(255,255,255,0.08);margin-top:48px }
+        .platform-tile { background:var(--charcoal);padding:32px 28px }
+        .platform-tile-icon { font-family:'DM Sans',system-ui,sans-serif;font-size:11px;font-weight:600;letter-spacing:3px;color:var(--amber);margin-bottom:14px;display:block }
+        .platform-tile-title { font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:300;color:var(--cream);margin-bottom:10px;line-height:1.2 }
+        .platform-tile-body { font-family:'Inter',system-ui,sans-serif;font-size:13px;color:var(--muted);line-height:1.65 }
 
         /* ── PERSONAS ── */
-        .personas-section { background:var(--charcoal);padding:100px 40px }
+        .personas-section { background:var(--charcoal);padding:72px 40px }
         .persona-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,0.06);margin-top:48px }
         .persona-card { background:var(--obsidian);padding:48px 32px }
         .persona-number { font-family:'DM Sans',system-ui,sans-serif;font-size:11px;color:var(--amber);letter-spacing:3px;margin-bottom:20px;display:block }
@@ -199,7 +199,7 @@ export default function HomePage() {
         .persona-cta { font-family:'Inter',system-ui,sans-serif;font-size:11px;color:var(--amber);letter-spacing:2px;text-decoration:none;text-transform:uppercase }
 
         /* ── METHODOLOGY ── */
-        .methodology-section { background:var(--obsidian);padding:100px 40px;border-top:1px solid var(--border) }
+        .methodology-section { background:var(--obsidian);padding:72px 40px }
         .methodology-grid { display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,0.08);margin-top:48px;border:1px solid rgba(255,255,255,0.08) }
         .methodology-card { background:var(--charcoal);padding:48px 40px }
         .methodology-number { font-family:'DM Sans',system-ui,sans-serif;font-size:11px;color:var(--amber);letter-spacing:3px;margin-bottom:16px;display:block;font-weight:500 }
@@ -211,7 +211,7 @@ export default function HomePage() {
         .methodology-actions { display:flex;gap:16px;flex-wrap:wrap;margin-top:28px }
 
         /* ── FOUNDER ── */
-        .founder-section { background:var(--charcoal);padding:100px 40px }
+        .founder-section { background:var(--charcoal);padding:72px 40px }
         .founder-grid { display:grid;grid-template-columns:200px 1fr;gap:48px;max-width:900px;margin:0 auto;align-items:start }
         .founder-photo { width:200px;height:200px;background:var(--steel);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden }
         .founder-initials { font-family:'Cormorant Garamond',serif;font-size:56px;font-weight:300;color:var(--amber);opacity:.15;position:absolute }
@@ -224,7 +224,7 @@ export default function HomePage() {
         .founder-credential { font-family:'Inter',system-ui,sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--amber);opacity:.6;margin-top:20px;padding-top:16px;border-top:1px solid var(--border);display:block }
 
         /* ── THREE-PATH CTA ── */
-        .cta-section { background:var(--obsidian);padding:100px 40px;border-top:1px solid var(--border) }
+        .cta-section { background:var(--obsidian);padding:72px 40px }
         .cta-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,0.06);margin-bottom:64px }
         .cta-card { background:var(--charcoal);padding:40px 32px }
         .cta-card-number { font-family:'DM Sans',system-ui,sans-serif;font-size:11px;color:var(--amber);letter-spacing:3px;margin-bottom:16px;display:block }
@@ -253,7 +253,7 @@ export default function HomePage() {
         .form-success p { font-family:'Inter',system-ui,sans-serif;font-size:15px;font-weight:300;color:var(--muted);line-height:1.7 }
 
         /* ── FOOTER ── */
-        .footer { background:var(--obsidian);border-top:1px solid var(--border);padding:60px 40px 0 }
+        .footer { background:var(--charcoal);border-top:1px solid var(--border);padding:48px 40px 0 }
         .footer-grid { display:grid;grid-template-columns:1fr 1fr 1fr;gap:40px;max-width:1200px;margin:0 auto 48px }
         .footer-logo { font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:400;letter-spacing:4px;color:var(--cream);display:block;margin-bottom:12px }
         .footer-logo span { color:var(--amber) }
@@ -280,7 +280,7 @@ export default function HomePage() {
           .stats-grid { grid-template-columns:repeat(2,1fr) }
           .stat-item:nth-child(2)::after { display:none }
           .stories-grid { grid-template-columns:1fr }
-          .platform-grid { grid-template-columns:1fr;border:none }
+          .platform-grid { grid-template-columns:repeat(2,1fr) }
           .persona-grid { grid-template-columns:1fr }
           .methodology-grid { grid-template-columns:1fr }
           .founder-grid { grid-template-columns:1fr;gap:32px }
@@ -289,8 +289,7 @@ export default function HomePage() {
           .contact-grid { grid-template-columns:1fr;gap:48px }
           .footer-grid { grid-template-columns:1fr;gap:32px }
           .footer-contact { align-items:flex-start }
-          .section { padding:72px 24px }
-          .stories-section,.platform-section,.personas-section,.methodology-section,.founder-section,.cta-section { padding:72px 24px }
+          .section,.stories-section,.platform-section,.personas-section,.methodology-section,.founder-section,.cta-section { padding:48px 24px }
           .footer { padding:48px 24px 0 }
           .stats-bar { padding:40px 24px }
           .section-heading { font-size:36px }
@@ -299,6 +298,7 @@ export default function HomePage() {
           .hero-headline { font-size:40px }
           .stat-item::after { display:none }
           .wa-fab { bottom:20px;right:20px }
+          .platform-grid { grid-template-columns:1fr }
         }
       `}</style>
 
