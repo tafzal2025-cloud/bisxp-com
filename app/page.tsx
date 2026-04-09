@@ -161,6 +161,7 @@ export default function HomePage() {
         .section-heading { font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:300;color:var(--cream);margin-bottom:48px;line-height:1.1 }
         .section-intro { font-family:'Inter',system-ui,sans-serif;font-size:15px;font-weight:300;color:var(--muted);max-width:600px;line-height:1.75;margin-bottom:48px;margin-top:-24px }
         .container { max-width:1200px;margin:0 auto;padding:0 40px }
+        .stories-section .container,.platform-section .container,.personas-section .container,.methodology-section .container { padding-bottom:0 }
 
         /* ── STATS BAR ── */
         .stats-bar { background:var(--charcoal);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:48px 40px }
