@@ -156,12 +156,11 @@ export default function HomePage() {
 
         /* ── SECTION COMMON ── */
         section { margin:0 }
-        .section { padding:72px 40px }
+        .section { padding:80px 0 }
         .section-eyebrow { font-family:'Inter',system-ui,sans-serif;font-size:10px;font-weight:500;letter-spacing:5px;text-transform:uppercase;color:var(--amber);margin-bottom:16px;display:block }
         .section-heading { font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:300;color:var(--cream);margin-bottom:48px;line-height:1.1 }
         .section-intro { font-family:'Inter',system-ui,sans-serif;font-size:15px;font-weight:300;color:var(--muted);max-width:600px;line-height:1.75;margin-bottom:48px;margin-top:-24px }
-        .container { max-width:1200px;margin:0 auto;padding:0 40px }
-        .stories-section .container,.platform-section .container,.personas-section .container,.methodology-section .container { padding-bottom:0 }
+        .container { max-width:1400px;margin:0 auto;padding:0 48px }
 
         /* ── STATS BAR ── */
         .stats-bar { background:var(--charcoal);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:48px 40px }
@@ -173,9 +172,9 @@ export default function HomePage() {
         .stat-sub { font-family:'Inter',system-ui,sans-serif;font-size:12px;color:var(--muted);display:block }
 
         /* ── PARTNER STORIES ── */
-        .stories-section { background:var(--charcoal);padding:72px 0 0 0 }
-        .stories-grid { display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,0.08) }
-        .story-card { background:var(--obsidian);padding:48px 36px;display:flex;flex-direction:column;gap:16px }
+        .stories-section { background:var(--charcoal);padding:80px 0 }
+        .stories-grid { display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:48px }
+        .story-card { border:1px solid rgba(255,255,255,0.08);padding:48px 40px;display:flex;flex-direction:column;gap:16px }
         .story-eyebrow { font-family:'Inter',system-ui,sans-serif;font-size:10px;font-weight:500;letter-spacing:4px;text-transform:uppercase;color:var(--amber) }
         .story-title { font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:300;color:var(--cream);line-height:1 }
         .story-quote { font-family:'Inter',system-ui,sans-serif;font-size:14px;font-weight:300;color:var(--muted);line-height:1.7;font-style:italic;border-left:2px solid var(--amber);padding-left:16px }
@@ -184,26 +183,26 @@ export default function HomePage() {
         .story-badge { font-family:'Inter',system-ui,sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--amber);opacity:.7 }
 
         /* ── PLATFORM TILES ── */
-        .platform-section { background:var(--obsidian);padding:72px 0 0 0 }
-        .platform-grid { display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(255,255,255,0.08);margin-top:48px }
-        .platform-tile { background:var(--charcoal);padding:32px 28px }
+        .platform-section { background:var(--obsidian);padding:80px 0 }
+        .platform-grid { display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:48px }
+        .platform-tile { border:1px solid rgba(255,255,255,0.08);padding:32px 28px }
         .platform-tile-icon { font-family:'DM Sans',system-ui,sans-serif;font-size:11px;font-weight:600;letter-spacing:3px;color:var(--amber);margin-bottom:14px;display:block }
         .platform-tile-title { font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:300;color:var(--cream);margin-bottom:10px;line-height:1.2 }
         .platform-tile-body { font-family:'Inter',system-ui,sans-serif;font-size:13px;color:var(--muted);line-height:1.65 }
 
         /* ── PERSONAS ── */
-        .personas-section { background:var(--charcoal);padding:72px 0 0 0 }
-        .persona-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,0.06);margin-top:48px }
-        .persona-card { background:var(--obsidian);padding:48px 32px }
+        .personas-section { background:var(--charcoal);padding:80px 0 }
+        .persona-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:48px }
+        .persona-card { border:1px solid rgba(255,255,255,0.08);padding:48px 32px }
         .persona-number { font-family:'DM Sans',system-ui,sans-serif;font-size:11px;color:var(--amber);letter-spacing:3px;margin-bottom:20px;display:block }
         .persona-headline { font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:300;color:var(--cream);margin-bottom:16px;line-height:1.2 }
         .persona-body { font-family:'Inter',system-ui,sans-serif;font-size:14px;color:var(--muted);line-height:1.7;margin-bottom:28px }
         .persona-cta { font-family:'Inter',system-ui,sans-serif;font-size:11px;color:var(--amber);letter-spacing:2px;text-decoration:none;text-transform:uppercase }
 
         /* ── METHODOLOGY ── */
-        .methodology-section { background:var(--obsidian);padding:72px 0 0 0 }
-        .methodology-grid { display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,0.08);margin-top:48px;border:1px solid rgba(255,255,255,0.08) }
-        .methodology-card { background:var(--charcoal);padding:48px 40px }
+        .methodology-section { background:var(--obsidian);padding:80px 0 }
+        .methodology-grid { display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:48px }
+        .methodology-card { border:1px solid rgba(255,255,255,0.08);padding:48px 40px }
         .methodology-number { font-family:'DM Sans',system-ui,sans-serif;font-size:11px;color:var(--amber);letter-spacing:3px;margin-bottom:16px;display:block;font-weight:500 }
         .methodology-title { font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;color:var(--cream);margin-bottom:14px }
         .methodology-body { font-family:'Inter',system-ui,sans-serif;font-size:14px;color:var(--muted);line-height:1.75;margin-bottom:28px }
@@ -213,7 +212,7 @@ export default function HomePage() {
         .methodology-actions { display:flex;gap:16px;flex-wrap:wrap;margin-top:28px }
 
         /* ── FOUNDER ── */
-        .founder-section { background:var(--charcoal);padding:72px 40px }
+        .founder-section { background:var(--charcoal);padding:80px 0 }
         .founder-grid { display:grid;grid-template-columns:200px 1fr;gap:48px;max-width:900px;margin:0 auto;align-items:start }
         .founder-photo { width:200px;height:200px;background:var(--steel);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden }
         .founder-initials { font-family:'Cormorant Garamond',serif;font-size:56px;font-weight:300;color:var(--amber);opacity:.15;position:absolute }
@@ -226,7 +225,7 @@ export default function HomePage() {
         .founder-credential { font-family:'Inter',system-ui,sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--amber);opacity:.6;margin-top:20px;padding-top:16px;border-top:1px solid var(--border);display:block }
 
         /* ── THREE-PATH CTA ── */
-        .cta-section { background:var(--obsidian);padding:72px 40px }
+        .cta-section { background:var(--obsidian);padding:80px 0 }
         .cta-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,0.06);margin-bottom:64px }
         .cta-card { background:var(--charcoal);padding:40px 32px }
         .cta-card-number { font-family:'DM Sans',system-ui,sans-serif;font-size:11px;color:var(--amber);letter-spacing:3px;margin-bottom:16px;display:block }
@@ -291,8 +290,7 @@ export default function HomePage() {
           .contact-grid { grid-template-columns:1fr;gap:48px }
           .footer-grid { grid-template-columns:1fr;gap:32px }
           .footer-contact { align-items:flex-start }
-          .section,.founder-section,.cta-section { padding:48px 24px }
-          .stories-section,.platform-section,.personas-section,.methodology-section { padding:48px 0 0 0 }
+          .section,.stories-section,.platform-section,.personas-section,.methodology-section,.founder-section,.cta-section { padding:48px 0 }
           .container { padding:0 24px }
           .footer { padding:48px 24px 0 }
           .stats-bar { padding:40px 24px }
@@ -378,17 +376,17 @@ export default function HomePage() {
           <span className="section-eyebrow">Built on BISXP</span>
           <h2 className="section-heading">Three industries. Three countries.</h2>
           <p className="section-intro">Every platform below runs on the BISXP stack. Different vertical, different geography, same foundation.</p>
-        </div>
-        <div className="stories-grid">
-          {caseStudies.map(cs => (
-            <div className="story-card" key={cs.id}>
-              <span className="story-eyebrow">{cs.eyebrow}</span>
-              <h3 className="story-title">{cs.title}</h3>
-              {cs.problem_quote && <p className="story-quote">{cs.problem_quote}</p>}
-              {cs.what_we_built && <p className="story-built">{cs.what_we_built}</p>}
-              {cs.status_badge && <span className="story-badge">{cs.status_badge}</span>}
-            </div>
-          ))}
+          <div className="stories-grid">
+            {caseStudies.map(cs => (
+              <div className="story-card" key={cs.id}>
+                <span className="story-eyebrow">{cs.eyebrow}</span>
+                <h3 className="story-title">{cs.title}</h3>
+                {cs.problem_quote && <p className="story-quote">{cs.problem_quote}</p>}
+                {cs.what_we_built && <p className="story-built">{cs.what_we_built}</p>}
+                {cs.status_badge && <span className="story-badge">{cs.status_badge}</span>}
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -398,15 +396,15 @@ export default function HomePage() {
           <span className="section-eyebrow">The Platform</span>
           <h2 className="section-heading">{s.platform_section_heading || 'Everything a marketplace needs. Built once.'}</h2>
           <p className="section-intro">{s.platform_intro || 'The BISXP platform is a full-stack foundation for marketplace businesses. Every component is production-tested across live deployments.'}</p>
-        </div>
-        <div className="platform-grid">
-          {PLATFORM_TILES.map((t, i) => (
-            <div className="platform-tile" key={i}>
-              <span className="platform-tile-icon">{t.icon}</span>
-              <h3 className="platform-tile-title">{t.title}</h3>
-              <p className="platform-tile-body">{t.body}</p>
-            </div>
-          ))}
+          <div className="platform-grid">
+            {PLATFORM_TILES.map((t, i) => (
+              <div className="platform-tile" key={i}>
+                <span className="platform-tile-icon">{t.icon}</span>
+                <h3 className="platform-tile-title">{t.title}</h3>
+                <p className="platform-tile-body">{t.body}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -415,25 +413,25 @@ export default function HomePage() {
         <div className="container">
           <span className="section-eyebrow">Who It{"'"}s For</span>
           <h2 className="section-heading">{s.personas_section_heading || 'Three paths. One platform.'}</h2>
-        </div>
-        <div className="persona-grid">
-          <div className="persona-card">
-            <span className="persona-number">01</span>
-            <h3 className="persona-headline">You have the vertical. We have the stack.</h3>
-            <p className="persona-body">You understand your market better than any agency ever will. What you don{"'"}t have is 12 months to build marketplace infrastructure. BISXP gives you a production-grade foundation so you can launch in weeks and focus on customers, not code.</p>
-            <a href="#contact" className="persona-cta">Start a Project &rarr;</a>
-          </div>
-          <div className="persona-card">
-            <span className="persona-number">02</span>
-            <h3 className="persona-headline">Build faster. Deliver better.</h3>
-            <p className="persona-body">Your clients need marketplace products. Scope, estimate, and deliver with confidence on a stack you know works. BISXP Build Partners get access to the full platform architecture and a partner listing that signals quality to enterprise buyers.</p>
-            <a href="#partner" className="persona-cta">Become a Build Partner &rarr;</a>
-          </div>
-          <div className="persona-card">
-            <span className="persona-number">03</span>
-            <h3 className="persona-headline">Your vertical needs a marketplace.</h3>
-            <p className="persona-body">You{"'"}ve identified the opportunity. You need a partner who has already solved the infrastructure problem &mdash; owner portals, multi-tenant architecture, subscription billing, AI integration &mdash; so your team can focus on your vertical.</p>
-            <a href="#contact" className="persona-cta">Start a Project &rarr;</a>
+          <div className="persona-grid">
+            <div className="persona-card">
+              <span className="persona-number">01</span>
+              <h3 className="persona-headline">You have the vertical. We have the stack.</h3>
+              <p className="persona-body">You understand your market better than any agency ever will. What you don{"'"}t have is 12 months to build marketplace infrastructure. BISXP gives you a production-grade foundation so you can launch in weeks and focus on customers, not code.</p>
+              <a href="#contact" className="persona-cta">Start a Project &rarr;</a>
+            </div>
+            <div className="persona-card">
+              <span className="persona-number">02</span>
+              <h3 className="persona-headline">Build faster. Deliver better.</h3>
+              <p className="persona-body">Your clients need marketplace products. Scope, estimate, and deliver with confidence on a stack you know works. BISXP Build Partners get access to the full platform architecture and a partner listing that signals quality to enterprise buyers.</p>
+              <a href="#partner" className="persona-cta">Become a Build Partner &rarr;</a>
+            </div>
+            <div className="persona-card">
+              <span className="persona-number">03</span>
+              <h3 className="persona-headline">Your vertical needs a marketplace.</h3>
+              <p className="persona-body">You{"'"}ve identified the opportunity. You need a partner who has already solved the infrastructure problem &mdash; owner portals, multi-tenant architecture, subscription billing, AI integration &mdash; so your team can focus on your vertical.</p>
+              <a href="#contact" className="persona-cta">Start a Project &rarr;</a>
+            </div>
           </div>
         </div>
       </section>
@@ -444,24 +442,22 @@ export default function HomePage() {
           <span className="section-eyebrow">BISXP Methodology</span>
           <h2 className="section-heading">{s.methodology_section_heading || 'The system behind the platform.'}</h2>
           <p className="section-intro">{s.methodology_intro || 'A structured approach to building AI-native products \u2014 from architecture decisions on day one through to GTM and scaling. Delivered by certified training partners.'}</p>
-        </div>
-        <div className="methodology-grid">
-          <div className="methodology-card">
-            <span className="methodology-number">TRACK 01</span>
-            <h3 className="methodology-title">{s.methodology_track1_title || 'Marketplace Building'}</h3>
-            <p className="methodology-body">{s.methodology_track1_body || 'Learn to architect, build, and launch a two-sided marketplace. Capstone: a live marketplace deployed to production.'}</p>
-            <span className="methodology-capstone-label">Capstone</span>
-            <span className="methodology-capstone">Live marketplace deployed to production</span>
+          <div className="methodology-grid">
+            <div className="methodology-card">
+              <span className="methodology-number">TRACK 01</span>
+              <h3 className="methodology-title">{s.methodology_track1_title || 'Marketplace Building'}</h3>
+              <p className="methodology-body">{s.methodology_track1_body || 'Learn to architect, build, and launch a two-sided marketplace. Capstone: a live marketplace deployed to production.'}</p>
+              <span className="methodology-capstone-label">Capstone</span>
+              <span className="methodology-capstone">Live marketplace deployed to production</span>
+            </div>
+            <div className="methodology-card">
+              <span className="methodology-number">TRACK 02</span>
+              <h3 className="methodology-title">{s.methodology_track2_title || 'AI Data Engineering'}</h3>
+              <p className="methodology-body">{s.methodology_track2_body || 'The AI-driven data and analytics ecosystem has expanded far beyond pipelines. This track covers the full spectrum \u2014 semantic search and vector databases, RAG architectures, embedding models, real-time streaming for AI features, data quality for model training, feature stores, and the infrastructure that makes AI products work at scale in production.'}</p>
+              <span className="methodology-capstone-label">Capstone</span>
+              <span className="methodology-capstone">Production AI data pipeline</span>
+            </div>
           </div>
-          <div className="methodology-card">
-            <span className="methodology-number">TRACK 02</span>
-            <h3 className="methodology-title">{s.methodology_track2_title || 'AI Data Engineering'}</h3>
-            <p className="methodology-body">{s.methodology_track2_body || 'The AI-driven data and analytics ecosystem has expanded far beyond pipelines. This track covers the full spectrum \u2014 semantic search and vector databases, RAG architectures, embedding models, real-time streaming for AI features, data quality for model training, feature stores, and the infrastructure that makes AI products work at scale in production.'}</p>
-            <span className="methodology-capstone-label">Capstone</span>
-            <span className="methodology-capstone">Production AI data pipeline</span>
-          </div>
-        </div>
-        <div className="container">
           <p className="methodology-note">BISXP drives all training leads and revenue. Certified partners deliver engagements and are paid per cohort.</p>
           <div className="methodology-actions">
             <a href="#partner" className="btn-secondary">Become a Training Partner &rarr;</a>
