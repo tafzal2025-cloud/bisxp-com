@@ -374,17 +374,17 @@ export default function HomePage() {
           <span className="section-eyebrow">Built on BISXP</span>
           <h2 className="section-heading">Three industries. Three countries.</h2>
           <p className="section-intro">Every platform below runs on the BISXP stack. Different vertical, different geography, same foundation.</p>
-          <div className="stories-grid">
-            {caseStudies.map(cs => (
-              <div className="story-card" key={cs.id}>
-                <span className="story-eyebrow">{cs.eyebrow}</span>
-                <h3 className="story-title">{cs.title}</h3>
-                {cs.problem_quote && <p className="story-quote">{cs.problem_quote}</p>}
-                {cs.what_we_built && <p className="story-built">{cs.what_we_built}</p>}
-                {cs.status_badge && <span className="story-badge">{cs.status_badge}</span>}
-              </div>
-            ))}
-          </div>
+        </div>
+        <div className="stories-grid">
+          {caseStudies.map(cs => (
+            <div className="story-card" key={cs.id}>
+              <span className="story-eyebrow">{cs.eyebrow}</span>
+              <h3 className="story-title">{cs.title}</h3>
+              {cs.problem_quote && <p className="story-quote">{cs.problem_quote}</p>}
+              {cs.what_we_built && <p className="story-built">{cs.what_we_built}</p>}
+              {cs.status_badge && <span className="story-badge">{cs.status_badge}</span>}
+            </div>
+          ))}
         </div>
       </section>
 
@@ -394,15 +394,15 @@ export default function HomePage() {
           <span className="section-eyebrow">The Platform</span>
           <h2 className="section-heading">{s.platform_section_heading || 'Everything a marketplace needs. Built once.'}</h2>
           <p className="section-intro">{s.platform_intro || 'The BISXP platform is a full-stack foundation for marketplace businesses. Every component is production-tested across live deployments.'}</p>
-          <div className="platform-grid">
-            {PLATFORM_TILES.map((t, i) => (
-              <div className="platform-tile" key={i}>
-                <span className="platform-tile-icon">{t.icon}</span>
-                <h3 className="platform-tile-title">{t.title}</h3>
-                <p className="platform-tile-body">{t.body}</p>
-              </div>
-            ))}
-          </div>
+        </div>
+        <div className="platform-grid">
+          {PLATFORM_TILES.map((t, i) => (
+            <div className="platform-tile" key={i}>
+              <span className="platform-tile-icon">{t.icon}</span>
+              <h3 className="platform-tile-title">{t.title}</h3>
+              <p className="platform-tile-body">{t.body}</p>
+            </div>
+          ))}
         </div>
       </section>
 
@@ -411,25 +411,25 @@ export default function HomePage() {
         <div className="container">
           <span className="section-eyebrow">Who It{"'"}s For</span>
           <h2 className="section-heading">{s.personas_section_heading || 'Three paths. One platform.'}</h2>
-          <div className="persona-grid">
-            <div className="persona-card">
-              <span className="persona-number">01</span>
-              <h3 className="persona-headline">You have the vertical. We have the stack.</h3>
-              <p className="persona-body">You understand your market better than any agency ever will. What you don{"'"}t have is 12 months to build marketplace infrastructure. BISXP gives you a production-grade foundation so you can launch in weeks and focus on customers, not code.</p>
-              <a href="#contact" className="persona-cta">Start a Project &rarr;</a>
-            </div>
-            <div className="persona-card">
-              <span className="persona-number">02</span>
-              <h3 className="persona-headline">Build faster. Deliver better.</h3>
-              <p className="persona-body">Your clients need marketplace products. Scope, estimate, and deliver with confidence on a stack you know works. BISXP Build Partners get access to the full platform architecture and a partner listing that signals quality to enterprise buyers.</p>
-              <a href="#partner" className="persona-cta">Become a Build Partner &rarr;</a>
-            </div>
-            <div className="persona-card">
-              <span className="persona-number">03</span>
-              <h3 className="persona-headline">Your vertical needs a marketplace.</h3>
-              <p className="persona-body">You{"'"}ve identified the opportunity. You need a partner who has already solved the infrastructure problem &mdash; owner portals, multi-tenant architecture, subscription billing, AI integration &mdash; so your team can focus on your vertical.</p>
-              <a href="#contact" className="persona-cta">Start a Project &rarr;</a>
-            </div>
+        </div>
+        <div className="persona-grid">
+          <div className="persona-card">
+            <span className="persona-number">01</span>
+            <h3 className="persona-headline">You have the vertical. We have the stack.</h3>
+            <p className="persona-body">You understand your market better than any agency ever will. What you don{"'"}t have is 12 months to build marketplace infrastructure. BISXP gives you a production-grade foundation so you can launch in weeks and focus on customers, not code.</p>
+            <a href="#contact" className="persona-cta">Start a Project &rarr;</a>
+          </div>
+          <div className="persona-card">
+            <span className="persona-number">02</span>
+            <h3 className="persona-headline">Build faster. Deliver better.</h3>
+            <p className="persona-body">Your clients need marketplace products. Scope, estimate, and deliver with confidence on a stack you know works. BISXP Build Partners get access to the full platform architecture and a partner listing that signals quality to enterprise buyers.</p>
+            <a href="#partner" className="persona-cta">Become a Build Partner &rarr;</a>
+          </div>
+          <div className="persona-card">
+            <span className="persona-number">03</span>
+            <h3 className="persona-headline">Your vertical needs a marketplace.</h3>
+            <p className="persona-body">You{"'"}ve identified the opportunity. You need a partner who has already solved the infrastructure problem &mdash; owner portals, multi-tenant architecture, subscription billing, AI integration &mdash; so your team can focus on your vertical.</p>
+            <a href="#contact" className="persona-cta">Start a Project &rarr;</a>
           </div>
         </div>
       </section>
@@ -440,22 +440,24 @@ export default function HomePage() {
           <span className="section-eyebrow">BISXP Methodology</span>
           <h2 className="section-heading">{s.methodology_section_heading || 'The system behind the platform.'}</h2>
           <p className="section-intro">{s.methodology_intro || 'A structured approach to building AI-native products \u2014 from architecture decisions on day one through to GTM and scaling. Delivered by certified training partners.'}</p>
-          <div className="methodology-grid">
-            <div className="methodology-card">
-              <span className="methodology-number">TRACK 01</span>
-              <h3 className="methodology-title">{s.methodology_track1_title || 'Marketplace Building'}</h3>
-              <p className="methodology-body">{s.methodology_track1_body || 'Learn to architect, build, and launch a two-sided marketplace. Capstone: a live marketplace deployed to production.'}</p>
-              <span className="methodology-capstone-label">Capstone</span>
-              <span className="methodology-capstone">Live marketplace deployed to production</span>
-            </div>
-            <div className="methodology-card">
-              <span className="methodology-number">TRACK 02</span>
-              <h3 className="methodology-title">{s.methodology_track2_title || 'AI Data Engineering'}</h3>
-              <p className="methodology-body">{s.methodology_track2_body || 'The AI-driven data and analytics ecosystem has expanded far beyond pipelines. This track covers the full spectrum \u2014 semantic search and vector databases, RAG architectures, embedding models, real-time streaming for AI features, data quality for model training, feature stores, and the infrastructure that makes AI products work at scale in production.'}</p>
-              <span className="methodology-capstone-label">Capstone</span>
-              <span className="methodology-capstone">Production AI data pipeline</span>
-            </div>
+        </div>
+        <div className="methodology-grid">
+          <div className="methodology-card">
+            <span className="methodology-number">TRACK 01</span>
+            <h3 className="methodology-title">{s.methodology_track1_title || 'Marketplace Building'}</h3>
+            <p className="methodology-body">{s.methodology_track1_body || 'Learn to architect, build, and launch a two-sided marketplace. Capstone: a live marketplace deployed to production.'}</p>
+            <span className="methodology-capstone-label">Capstone</span>
+            <span className="methodology-capstone">Live marketplace deployed to production</span>
           </div>
+          <div className="methodology-card">
+            <span className="methodology-number">TRACK 02</span>
+            <h3 className="methodology-title">{s.methodology_track2_title || 'AI Data Engineering'}</h3>
+            <p className="methodology-body">{s.methodology_track2_body || 'The AI-driven data and analytics ecosystem has expanded far beyond pipelines. This track covers the full spectrum \u2014 semantic search and vector databases, RAG architectures, embedding models, real-time streaming for AI features, data quality for model training, feature stores, and the infrastructure that makes AI products work at scale in production.'}</p>
+            <span className="methodology-capstone-label">Capstone</span>
+            <span className="methodology-capstone">Production AI data pipeline</span>
+          </div>
+        </div>
+        <div className="container">
           <p className="methodology-note">BISXP drives all training leads and revenue. Certified partners deliver engagements and are paid per cohort.</p>
           <div className="methodology-actions">
             <a href="#partner" className="btn-secondary">Become a Training Partner &rarr;</a>
