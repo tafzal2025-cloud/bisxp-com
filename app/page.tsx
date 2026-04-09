@@ -183,11 +183,11 @@ export default function HomePage() {
 
         /* ── PLATFORM TILES ── */
         .platform-section { background:var(--obsidian);padding:100px 40px }
-        .platform-grid { display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,0.06);margin-top:48px }
-        .platform-tile { background:var(--charcoal);padding:40px 32px }
-        .platform-tile-icon { font-size:20px;color:var(--amber);margin-bottom:16px;display:block }
-        .platform-tile-title { font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;color:var(--cream);margin-bottom:10px }
-        .platform-tile-body { font-family:'Inter',system-ui,sans-serif;font-size:14px;color:var(--muted);line-height:1.7 }
+        .platform-grid { display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,0.08);margin-top:48px;border:1px solid rgba(255,255,255,0.08) }
+        .platform-tile { background:var(--charcoal);padding:40px 32px;min-height:180px }
+        .platform-tile-icon { font-size:22px;color:var(--amber);margin-bottom:16px;display:block;line-height:1 }
+        .platform-tile-title { font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:300;color:var(--cream);margin-bottom:10px;line-height:1.2 }
+        .platform-tile-body { font-family:'Inter',system-ui,sans-serif;font-size:13px;color:var(--muted);line-height:1.7 }
 
         /* ── PERSONAS ── */
         .personas-section { background:var(--charcoal);padding:100px 40px }
@@ -200,15 +200,15 @@ export default function HomePage() {
 
         /* ── METHODOLOGY ── */
         .methodology-section { background:var(--obsidian);padding:100px 40px;border-top:1px solid var(--border) }
-        .methodology-grid { display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,0.06);margin-top:48px }
-        .methodology-card { background:var(--charcoal);padding:48px 36px }
-        .methodology-number { font-family:'DM Sans',system-ui,sans-serif;font-size:11px;color:var(--amber);letter-spacing:3px;margin-bottom:16px;display:block }
-        .methodology-title { font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;color:var(--cream);margin-bottom:12px }
-        .methodology-body { font-family:'Inter',system-ui,sans-serif;font-size:14px;color:var(--muted);line-height:1.7;margin-bottom:24px }
-        .methodology-capstone-label { font-family:'Inter',system-ui,sans-serif;font-size:9px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--amber);margin-bottom:4px;display:block }
-        .methodology-capstone { font-family:'Inter',system-ui,sans-serif;font-size:13px;color:var(--cream) }
-        .methodology-note { font-family:'Inter',system-ui,sans-serif;font-size:12px;color:var(--muted);margin-top:32px;line-height:1.6;max-width:700px }
-        .methodology-actions { display:flex;gap:16px;flex-wrap:wrap;margin-top:32px }
+        .methodology-grid { display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,0.08);margin-top:48px;border:1px solid rgba(255,255,255,0.08) }
+        .methodology-card { background:var(--charcoal);padding:48px 40px }
+        .methodology-number { font-family:'DM Sans',system-ui,sans-serif;font-size:11px;color:var(--amber);letter-spacing:3px;margin-bottom:16px;display:block;font-weight:500 }
+        .methodology-title { font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;color:var(--cream);margin-bottom:14px }
+        .methodology-body { font-family:'Inter',system-ui,sans-serif;font-size:14px;color:var(--muted);line-height:1.75;margin-bottom:28px }
+        .methodology-capstone-label { font-family:'Inter',system-ui,sans-serif;font-size:9px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--amber);margin-bottom:6px;display:block }
+        .methodology-capstone { font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:300;color:var(--cream);display:block }
+        .methodology-note { font-family:'Inter',system-ui,sans-serif;font-size:13px;color:var(--muted);margin-top:36px;line-height:1.7;max-width:680px;opacity:0.8 }
+        .methodology-actions { display:flex;gap:16px;flex-wrap:wrap;margin-top:28px }
 
         /* ── FOUNDER ── */
         .founder-section { background:var(--charcoal);padding:100px 40px }
@@ -280,7 +280,7 @@ export default function HomePage() {
           .stats-grid { grid-template-columns:repeat(2,1fr) }
           .stat-item:nth-child(2)::after { display:none }
           .stories-grid { grid-template-columns:1fr }
-          .platform-grid { grid-template-columns:1fr }
+          .platform-grid { grid-template-columns:1fr;border:none }
           .persona-grid { grid-template-columns:1fr }
           .methodology-grid { grid-template-columns:1fr }
           .founder-grid { grid-template-columns:1fr;gap:32px }
@@ -375,7 +375,7 @@ export default function HomePage() {
           <h2 className="section-heading">Three industries. Three countries.</h2>
           <p className="section-intro">Every platform below runs on the BISXP stack. Different vertical, different geography, same foundation.</p>
           <div className="stories-grid">
-            {caseStudies.map((cs, index) => (
+            {caseStudies.filter(cs => cs.is_visible !== false).map((cs, index) => (
               <div className="story-card" key={cs.id}
                 style={index === 2 ? { gridColumn: '1 / -1', maxWidth: '640px', margin: '0 auto', width: '100%' } : {}}>
                 <span className="story-eyebrow">{cs.eyebrow}</span>
