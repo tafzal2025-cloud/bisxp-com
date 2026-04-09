@@ -172,7 +172,7 @@ export default function HomePage() {
 
         /* ── PARTNER STORIES ── */
         .stories-section { background:var(--charcoal);padding:72px 40px }
-        .stories-grid { display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:rgba(255,255,255,0.06) }
+        .stories-grid { display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,0.08) }
         .story-card { background:var(--obsidian);padding:48px 36px;display:flex;flex-direction:column;gap:16px }
         .story-eyebrow { font-family:'Inter',system-ui,sans-serif;font-size:10px;font-weight:500;letter-spacing:4px;text-transform:uppercase;color:var(--amber) }
         .story-title { font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:300;color:var(--cream);line-height:1 }
@@ -375,9 +375,8 @@ export default function HomePage() {
           <h2 className="section-heading">Three industries. Three countries.</h2>
           <p className="section-intro">Every platform below runs on the BISXP stack. Different vertical, different geography, same foundation.</p>
           <div className="stories-grid">
-            {caseStudies.filter(cs => cs.is_visible !== false).map((cs, index) => (
-              <div className="story-card" key={cs.id}
-                style={index === 2 ? { gridColumn: '1 / -1', maxWidth: '640px', margin: '0 auto', width: '100%' } : {}}>
+            {caseStudies.map(cs => (
+              <div className="story-card" key={cs.id}>
                 <span className="story-eyebrow">{cs.eyebrow}</span>
                 <h3 className="story-title">{cs.title}</h3>
                 {cs.problem_quote && <p className="story-quote">{cs.problem_quote}</p>}
