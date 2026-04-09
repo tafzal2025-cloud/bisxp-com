@@ -155,11 +155,12 @@ export default function HomePage() {
         .btn-secondary:hover { background:rgba(212,168,67,0.08) }
 
         /* ── SECTION COMMON ── */
+        section { margin:0 }
         .section { padding:72px 40px }
         .section-eyebrow { font-family:'Inter',system-ui,sans-serif;font-size:10px;font-weight:500;letter-spacing:5px;text-transform:uppercase;color:var(--amber);margin-bottom:16px;display:block }
         .section-heading { font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:300;color:var(--cream);margin-bottom:48px;line-height:1.1 }
         .section-intro { font-family:'Inter',system-ui,sans-serif;font-size:15px;font-weight:300;color:var(--muted);max-width:600px;line-height:1.75;margin-bottom:48px;margin-top:-24px }
-        .container { max-width:1200px;margin:0 auto }
+        .container { max-width:1200px;margin:0 auto;padding:0 40px }
 
         /* ── STATS BAR ── */
         .stats-bar { background:var(--charcoal);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:48px 40px }
@@ -171,7 +172,7 @@ export default function HomePage() {
         .stat-sub { font-family:'Inter',system-ui,sans-serif;font-size:12px;color:var(--muted);display:block }
 
         /* ── PARTNER STORIES ── */
-        .stories-section { background:var(--charcoal);padding:72px 40px }
+        .stories-section { background:var(--charcoal);padding:72px 0 0 0 }
         .stories-grid { display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,0.08) }
         .story-card { background:var(--obsidian);padding:48px 36px;display:flex;flex-direction:column;gap:16px }
         .story-eyebrow { font-family:'Inter',system-ui,sans-serif;font-size:10px;font-weight:500;letter-spacing:4px;text-transform:uppercase;color:var(--amber) }
@@ -182,7 +183,7 @@ export default function HomePage() {
         .story-badge { font-family:'Inter',system-ui,sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--amber);opacity:.7 }
 
         /* ── PLATFORM TILES ── */
-        .platform-section { background:var(--obsidian);padding:72px 40px }
+        .platform-section { background:var(--obsidian);padding:72px 0 0 0 }
         .platform-grid { display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(255,255,255,0.08);margin-top:48px }
         .platform-tile { background:var(--charcoal);padding:32px 28px }
         .platform-tile-icon { font-family:'DM Sans',system-ui,sans-serif;font-size:11px;font-weight:600;letter-spacing:3px;color:var(--amber);margin-bottom:14px;display:block }
@@ -190,7 +191,7 @@ export default function HomePage() {
         .platform-tile-body { font-family:'Inter',system-ui,sans-serif;font-size:13px;color:var(--muted);line-height:1.65 }
 
         /* ── PERSONAS ── */
-        .personas-section { background:var(--charcoal);padding:72px 40px }
+        .personas-section { background:var(--charcoal);padding:72px 0 0 0 }
         .persona-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,0.06);margin-top:48px }
         .persona-card { background:var(--obsidian);padding:48px 32px }
         .persona-number { font-family:'DM Sans',system-ui,sans-serif;font-size:11px;color:var(--amber);letter-spacing:3px;margin-bottom:20px;display:block }
@@ -199,7 +200,7 @@ export default function HomePage() {
         .persona-cta { font-family:'Inter',system-ui,sans-serif;font-size:11px;color:var(--amber);letter-spacing:2px;text-decoration:none;text-transform:uppercase }
 
         /* ── METHODOLOGY ── */
-        .methodology-section { background:var(--obsidian);padding:72px 40px }
+        .methodology-section { background:var(--obsidian);padding:72px 0 0 0 }
         .methodology-grid { display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,0.08);margin-top:48px;border:1px solid rgba(255,255,255,0.08) }
         .methodology-card { background:var(--charcoal);padding:48px 40px }
         .methodology-number { font-family:'DM Sans',system-ui,sans-serif;font-size:11px;color:var(--amber);letter-spacing:3px;margin-bottom:16px;display:block;font-weight:500 }
@@ -289,7 +290,9 @@ export default function HomePage() {
           .contact-grid { grid-template-columns:1fr;gap:48px }
           .footer-grid { grid-template-columns:1fr;gap:32px }
           .footer-contact { align-items:flex-start }
-          .section,.stories-section,.platform-section,.personas-section,.methodology-section,.founder-section,.cta-section { padding:48px 24px }
+          .section,.founder-section,.cta-section { padding:48px 24px }
+          .stories-section,.platform-section,.personas-section,.methodology-section { padding:48px 0 0 0 }
+          .container { padding:0 24px }
           .footer { padding:48px 24px 0 }
           .stats-bar { padding:40px 24px }
           .section-heading { font-size:36px }
@@ -527,8 +530,8 @@ export default function HomePage() {
           {/* CONTACT FORM */}
           <div className="contact-grid">
             <div className="contact-left">
-              <h2>{s.contact_heading || 'Start a conversation.'}</h2>
-              <p>{s.contact_subheading || 'Tell us which path fits you. We\u2019ll respond within 24 hours.'}</p>
+              <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 32, fontWeight: 300, color: 'var(--cream)', marginBottom: 16 }}>Send us a message.</h2>
+              <p>Tell us which path fits you. We{"'"}ll respond within 24 hours.</p>
               <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="whatsapp-link">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
                 Or message us directly on WhatsApp
