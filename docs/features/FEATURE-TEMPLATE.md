@@ -17,12 +17,25 @@ _Status: Draft | Approved | In Progress | Complete_
 
 ---
 
+## Skills required
+- methodology/.claude/skills/[name]/SKILL.md — [DRAFT|AUTHORITATIVE] — [purpose]
+NOTE: List only skills this session will use. Read them before writing code.
+If a skill is DRAFT, treat its code as a spec not a reference.
+
+---
+
 ## Out of Scope
 
 <!-- Explicitly list what this feature does NOT include to prevent scope creep -->
 
 - [ ] Item 1
 - [ ] Item 2
+
+---
+
+## Phase (SDLC)
+[Define | Plan | Build | Verify | Review | Ship]
+Primary phase this session serves.
 
 ---
 
@@ -151,6 +164,16 @@ If this feature has no DB writes: write "No DB writes — N/A"
 
 ---
 
+## Anti-rationalization
+Common excuses to skip steps in this session — do not accept them:
+- "Tests can come after" → Tests accompany implementation. Always.
+- "It's a small change, tsc isn't needed" → tsc catches bugs the eye misses. Always run it.
+- "The skill is DRAFT but looks right" → DRAFT = unproven. Use as spec not reference.
+- "select('*') is fine, RLS handles it" → RLS can be misconfigured. Use explicit columns.
+Add session-specific excuses here based on what is being built.
+
+---
+
 ## Claude Code Instructions
 
 _Paste this block into Claude Code to begin implementation._
@@ -164,3 +187,9 @@ IMPORTANT: For every STEP that creates an API route, immediately after:
 Run npm test — must pass before continuing to the next step."
 Tests are written alongside code, not as a final batch step.
 ```
+
+---
+
+## Verify
+Run methodology/VERIFY_CHECKLIST.md before raising PR.
+All items must pass.

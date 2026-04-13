@@ -1,5 +1,21 @@
 # BISXP.COM — Standing Instructions
 
+## Cold Start Reading Order
+Before any session, read in this order:
+1. This file (.claude/CLAUDE.md)
+2. methodology/BISXP_METHODOLOGY.md
+3. methodology/TECHNICAL_DECISIONS.md
+4. methodology/TESTING_STANDARDS.md
+5. CLAUDE_CONTEXT.md
+6. SESSION_OBSERVATIONS.md (last 3 entries)
+7. TECHNICAL_DEBT.md
+8. FEATURE-[session].md (the approved spec)
+9. Skills from ## Skills required in FEATURE.md
+
+Full protocol: methodology/SESSION_START.md
+
+---
+
 ## Project
 BISXP consultancy website. bisxp.com.
 Repo: tafzal2025-cloud/bisxp-com
@@ -19,6 +35,17 @@ Local: C:\Users\taher\bisxp-com
 1. Read CLAUDE_CONTEXT.md (project brain)
 2. Check git log for last session's work
 3. Read relevant files before editing
+
+## Skills available
+Skills are in .claude/skills/. Load only when relevant to current task.
+- api-routes/    — API route patterns, thin routes, auth
+- supabase/      — Supabase client patterns, migrations, RLS
+- file-upload/   — Photo proxy + video presigned URL pattern (AUTHORITATIVE)
+- video-embed/   — YouTube/Vimeo URL embed with tier gating (AUTHORITATIVE)
+- security/      — Auth, authorization, input validation, headers (AUTHORITATIVE)
+- search-and-filter/ — Search, filter, sort patterns (AUTHORITATIVE)
+- owner-portal/  — Owner portal tab patterns (AUTHORITATIVE)
+- mobile-first/  — Mobile-first CSS and layout (AUTHORITATIVE)
 
 ## Session End
 1. Update CLAUDE_CONTEXT.md with what was done, what's pending
