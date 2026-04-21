@@ -192,4 +192,60 @@ public/
 - proxy.ts is the middleware file (NOT middleware.ts) — this is the BISXP/TABRO convention.
 - Admin users created via Supabase Dashboard only — no public signup.
 - Enquiry email uses Resend. If email fails, enquiry is still saved to DB (graceful degradation).
+
+## What Was Built (Sessions 5-9 — merged to master 2026-04-20)
+
+### Positioning
+- Repositioned as "The Platform for AI-Native Marketplaces"
+- Tagline: "We don't just advise. We build."
+- Target: CTOs and founders evaluating technical partners
+
+### Homepage (app/page.tsx — last commit b6a133d on develop)
+- Hero with positioning statement
+- Stats bar
+- 4 partner cards (2×2 grid): TABRO.IN, TheUnitedSports,
+  CareGrid, MediGrid
+- 8 platform tiles (2-column layout, 40px 36px padding)
+- 3 persona cards (Founders / CTOs / Operators)
+- Methodology section (2 tracks)
+- Founder section (Tharif Afzal only)
+- 3-path CTA
+
+### /method page (app/method/page.tsx — commit 85cdc9c)
+- Full methodology content rebuilt for C-suite readers
+- 7 artifacts explained with outcome-focused proof points
+- 6 pain points BISXP solves
+- Apply / engage form
+- "17+ development sessions" copy replaced with
+  "months of continuous development" (no internal jargon)
+
+### SEO Infrastructure
+- app/sitemap.ts — dynamic sitemap
+- app/robots.ts — robots file
+- /api/og — dynamic OG image
+- JSON-LD schema
+- Metadata updated for bisxp.com and /method
+
+### Database
+- Supabase: ghcxevhmhtuvjzmptvfw
+- Migrations 001-006 complete
+
+### Branch Status
+- develop → bisxp.com (deployed, matches master)
+- master → bisxp.com (production, live)
+- Last master commit: 85cdc9c
+
+### Pending
+- Google Search Console reindex for bisxp.com and bisxp.com/method
+  Go to GSC → URL Inspection → submit both URLs
+- CareGrid card update to "Live Beta" with link when ready
+- Consider adding BISXP India / Ifra team block when entity registered
+- Decide on licensing model (A/B/C) for "building on BISXP"
+
+### Key Decisions Made
+- Partner cards show 4 marketplaces in 2×2 grid (not tech stack tags)
+- Tech stack removed from portfolio cards — replaced with
+  outcome differentiators per marketplace
+- Method page proof points speak to outcomes (reliability,
+  speed, governance) not implementation details
 - AI proxy: /api/ai proxies Claude requests for demo suite. Requires ANTHROPIC_API_KEY env var in Vercel.
